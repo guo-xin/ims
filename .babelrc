@@ -8,13 +8,12 @@
     }],
     "stage-2"
   ],
-  "plugins": ["transform-vue-jsx", "transform-runtime",
-    ["transform-imports",
+  "plugins": ["transform-runtime",
+    ["component", [
       {
-        "vuetify": {
-          "transform": "vuetify/es5/components/${member}",
-          "preventFullImport": true
-        }
+        "libraryName": "qfpay-element-ui",
+        "styleLibraryName": "theme-chalk"
       }
     ]]
+  ]
 }

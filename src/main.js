@@ -4,27 +4,19 @@ import 'babel-polyfill'
 import Vue from 'vue'
 import App from './App'
 import axios from 'axios'
+import store from './store'
 import config from 'src/config'
 import router from './router'
-import {
-  Vuetify,
-  VApp,
-  VForm,
-  VSelect,
-  VDataTable,
-  VDatePicker,
-  VTextField
-} from 'vuetify';
+import { Select, Option, Button, DatePicker, Form, FormItem } from 'qfpay-element-ui';
 import Store from 'assets/js/store'
 import VueI18n from 'vue-i18n'
-import 'vuetify/src/stylus/app.styl' // Ensure you are using stylus-loader stylus
 import 'assets/scss/common.scss'
-import 'material-design-icons-iconfont/dist/material-design-icons.css' // icon-font-size
+import locale from 'qfpay-element-ui/lib/locale';
 
 let langAdaptor = function(lang) {
   if(~lang.indexOf('en')) return 'en'
   // if(lang.toLowerCase() === 'zh-tw' || lang.toLowerCase() === 'zh-hk') return 'zh-TW'
-  if(lang.toLowerCase() === 'zh-cn' || lang.toLowerCase() === 'zh') return 'zh-cn'
+  if(lang.toLowerCase() === 'zh-cn' || lang.toLowerCase() === 'zh') return 'zh-CN'
   // if(~lang.indexOf('ja')) return 'ja'
   return 'en';
 }
@@ -33,27 +25,22 @@ let switchlang = Store.get("lang") || langAdaptor(navigator.language || navigato
 
 Vue.use(VueI18n)
 
+Vue.use(Button)
+Vue.use(Select)
+Vue.use(Option)
+Vue.use(DatePicker)
+Vue.use(Form)
+Vue.use(FormItem)
+
 // Create VueI18n instance with options
 const i18n = new VueI18n({
   locale: switchlang, // set locale
   messages: {
     'en': require(`./lang/en.js`)['default'], // set locale messages
-    'zh-cn': require(`./lang/zh-CN.js`)['default']
+    'zh-CN': require(`./lang/zh-CN.js`)['default']
   }
 })
-Vue.use(Vuetify, {
-  components: {
-    VApp,
-    VForm,
-    VSelect,
-    VDataTable,
-    VDatePicker,
-    VTextField
-  },
-  lang: {
-    t: (key, ...params) => i18n.t(key, params)
-  }
-})
+locale.i18n((key, value) => i18n.t(key, value)) // 为了实现element插件的多语言切换
 
 Vue.config.productionTip = false
 
@@ -85,6 +72,7 @@ axios.interceptors.response.use((res) => {
 new Vue({
   el: '#app',
   router,
+  store,
   i18n,
   components: { App },
   template: '<App/>'
