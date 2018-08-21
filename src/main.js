@@ -7,7 +7,7 @@ import axios from 'axios'
 import store from './store'
 import config from 'src/config'
 import router from './router'
-import { Select, Option, Button, DatePicker, Form, FormItem } from 'qfpay-element-ui';
+import { Breadcrumb, BreadcrumbItem, Input, Select, Option, Button, DatePicker, Form, FormItem, Table, TableColumn, Pagination } from 'qfpay-element-ui';
 import Store from 'assets/js/store'
 import VueI18n from 'vue-i18n'
 import 'assets/scss/common.scss'
@@ -25,12 +25,18 @@ let switchlang = Store.get("lang") || langAdaptor(navigator.language || navigato
 
 Vue.use(VueI18n)
 
+Vue.use(Breadcrumb)
+Vue.use(BreadcrumbItem)
 Vue.use(Button)
-Vue.use(Select)
-Vue.use(Option)
 Vue.use(DatePicker)
 Vue.use(Form)
 Vue.use(FormItem)
+Vue.use(Input)
+Vue.use(Select)
+Vue.use(Option)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Pagination)
 
 // Create VueI18n instance with options
 const i18n = new VueI18n({
