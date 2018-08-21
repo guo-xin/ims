@@ -68,6 +68,10 @@ axios.interceptors.response.use((res) => {
   console.log(err)
 })
 
+/* 定义为全局方法 */
+// Vue.prototype.$message = Message
+// Vue.prototype.$confirm = MessageBox.confirm
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
