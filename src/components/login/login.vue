@@ -1,68 +1,214 @@
 <template>
-  <div class="hello">
-    <el-form :model="form" ref="form">
-      <el-form-item prop="dateRangeValue">
-        <el-date-picker
-          v-model="form.dateRangeValue"
-          type="datetimerange"
-          :editable="false"
-          :placeholder="$t('index.type')"
-          size="small"
-          :clearable="false">
-        </el-date-picker>
-      </el-form-item>
-      <span class="guoxin">{{$t('index.name')}}</span>
-      <el-select v-model="lang" :placeholder="$t('index.name')" @change="selectChange">
-        <el-option
-          v-for="item in items"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-    </el-form>
+  <div class="login">
+      <div class="login-wrap">
+        <img class="logo" src="../../assets/common_img/logo.png"/>
+        <div class="cap">
+          {{$t('login.cap1')}} <br/>
+          {{$t('login.cap2')}}
+        </div>
+        <div class="desc">
+          {{$t('login.desc')}}
+        </div>
+        <el-form ref="form-login"  :model="form" label-width="0px" class="form-login" :rules="rules">
+          <el-form-item label="Phone Number or E-mail" prop="username">
+            <el-input v-model="form.username"></el-input>
+          </el-form-item>
+
+          <el-form-item :label="$t('login.passph')" prop="password">
+            <el-input v-model="form.password"  type="password"></el-input>
+          </el-form-item>
+
+          <el-form-item label="" prop="checkbox">
+            <el-checkbox v-model="form.checkbox">{{$t('login.checkbox')}}</el-checkbox>
+            <span style="margin-left:20px">{{$t('login.checkbox')}}</span>
+          </el-form-item>
+
+          <el-form-item>
+            <div class="panel-header-btn submit-btn" @click="submitHandler">
+              <span class="el-icon-loading" v-if="loading"></span>
+              <span v-else>{{$t('login.btn')}}</span>
+            </div>
+          </el-form-item>
+        </el-form>
+
+      </div>
   </div>
 </template>
-
 <script>
-  import Store from 'assets/js/store';
+  import ElFormItem from "../../../node_modules/qfpay-element-ui/packages/form/src/form-item.vue";
+  import ElButton from "../../../node_modules/qfpay-element-ui/packages/button/src/button.vue";
+  import axios from 'axios';
+  import config from 'config';
+  import { getCookie } from '../../common/js/util';
   export default {
-    data() {
+    components: {
+      ElButton,
+      ElFormItem},
+    data () {
       return {
         form: {
-          dateRangeValue: [new Date(), new Date()]
+          username: '',
+          password: '',
+          checkbox: false
         },
-        lang: Store.get("lang") || 'en',
-        items: [
-          {label: 'English', value: 'en'},
-          {label: '简体中文', value: 'zh-CN'}
-        ]
+        loading: false,
+        rules: {
+          username: [
+            { required: true, message: this.$t('login.msg.m1') }
+          ],
+          password: [
+            { required: true, message: this.$t('login.msg.m2') }
+          ]
+        }
       }
     },
     computed: {
 
     },
 
-    watch: {
-
-    },
-    created() {
-
-    },
-
     methods: {
-      selectChange(val) {
-        this.$i18n.locale = val
-        Store.set("lang", val);
+      submitHandler() {
+        this.$refs['form-login'].validate((valid) => {
+          if(!this.loading && valid) {
+            let params;
+            params = {
+              username: this.form.username,
+              password: this.form.password,
+              format: 'cors'
+            };
+            this.loading = true;
+            axios.post(`${config.host}/org/user/login`, params).then((res) => {
+              this.loading = false;
+              let data = res.data;
+              if(data.respcd === config.code.OK) {
+                // 当前域名下设置cookie
+                let bicon = new Image();
+                let sid = getCookie('sessionid') || '';
+                if(sid) {
+                  bicon.style.display = 'none';
+                  bicon.src = `${config.ohost}/mchnt/set_cookie?sessionid=${sid}`;
+                }
+
+                // 进行是否是首次登录的判断，返回need_change_pwd字段，1为需要重置，0为不需要重置
+                /*
+                let needChangePwd = data.data.need_change_pwd;
+                if(needChangePwd) {
+                  setTimeout(function() {
+                    this.$router.push('/firstlogin');
+                  }, 0)
+                } else {
+                  setTimeout(function() {
+                    this.$router.push('/main/index');
+                  }, 0)
+                }
+                * */
+                this.$router.push('/main/main');
+              } else {
+                this.$message.error(data.resperr);
+              }
+            }).catch(() => {
+              this.loading = false;
+              this.$message.error(this.$t('login.msg.m3'));
+            });
+          }
+        });
       }
     }
   }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-.guoxin {
-  color: $baseColor;
-  font-size: $xlSize;
-}
+<style lang="scss">
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../../assets/common_img/login-bg.png) 100% 100% no-repeat transparent;
+    background-size: cover;
+    position: relative;
+  }
+  .login {
+    width:100%;
+    height:100%;
+    .login-wrap {
+      width:519px;
+      color:#ffffff;
+      position: absolute;
+      top:20%;
+      left:23.4375%;
+      .logo {
+        display:inline-block;
+        width:192px;
+        height:36px;
+        margin-bottom:40px;
+      }
+      .cap {
+        width:519px;font-size:32px;line-height: 1;padding-bottom: 14px;font-weight: 600;
+      }
+      .desc {
+        width:355px;
+        height:74px;
+        font-size:16px;
+        color:rgba(255,255,255,1);
+        line-height:1.3;
+        font-weight: 100;
+      }
+      .form-login {
+        width:415px;color:#ffffff;
+        .el-form-item {    margin-bottom: 24px;}
+        .el-form-item__label {
+          color: #ffffff;
+          font-size:12px;opacity:0.6;
+          line-height:16px;
+        }
+        .el-form-item__label:before {
+          content: '';
+        }
+        .el-form-item__content {
+          line-height: 32px !important;
+          .el-input {
+            border-bottom: 1px solid #ffffff;
+            .el-input__inner {
+              border:none !important;
+              padding: 0 !important;
+              color: #ffffff !important;
+              font-size:22px;
+              line-height:1;
+              height: 24px !important;
+            }
+          }
+        }
+        .el-checkbox__inner {
+          background-color:transparent;
+          width: 18px;
+          height: 18px;
+          -webkit-transition:none;
+          transition: none;
+          border: 1px solid #5DD9FF;
+        }
+        .el-checkbox__input.is-checked .el-checkbox__inner {
+          border: 1px solid #5DD9FF;
+        }
+        .el-checkbox__inner::after {
+          border:none;
+        }
+        .el-checkbox__input.is-checked .el-checkbox__inner::after {
+          border: 2px solid #5DD9FF;
+          border-left: 0;
+          border-top: 0;
+          width: 5px;
+          height: 9px;
+          left: 4px;
+          top: 1px;
+        }
+        .el-checkbox {color:#ffffff;}
+        .el-checkbox__input.is-checked+.el-checkbox__label {
+          color:#ffffff;
+        }
+        .submit-btn {
+          width:179px;height:40px;background-color:#FFD641;color:#3578FF;font-size:20px;border-radius:4px;display:flex;
+          justify-content: center;align-items: center;cursor:pointer;
+        }
+        .el-form-item__error {color:red;}
+      }
+    }
+  }
 </style>

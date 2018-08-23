@@ -7,7 +7,7 @@ import axios from 'axios'
 import store from './store'
 import config from 'src/config'
 import router from './router'
-import { Breadcrumb, BreadcrumbItem, Input, Select, Option, Button, DatePicker, Form, FormItem, Table, TableColumn, Pagination } from 'qfpay-element-ui';
+import { Upload, Select, Option, TableColumn, Table, Button, Pagination, Dropdown, DropdownItem, DropdownMenu, Loading, DatePicker, Input, Message, Form, FormItem, Radio, RadioGroup, RadioButton, Dialog, Col, MessageBox, Row, CheckboxGroup, Checkbox, Rate, Tooltip } from 'qfpay-element-ui';
 import Store from 'assets/js/store'
 import VueI18n from 'vue-i18n'
 import 'assets/scss/common.scss'
@@ -24,19 +24,32 @@ let langAdaptor = function(lang) {
 let switchlang = Store.get("lang") || langAdaptor(navigator.language || navigator.browserLanguage || 'en');
 
 Vue.use(VueI18n)
-
-Vue.use(Breadcrumb)
-Vue.use(BreadcrumbItem)
-Vue.use(Button)
-Vue.use(DatePicker)
-Vue.use(Form)
-Vue.use(FormItem)
-Vue.use(Input)
+Vue.use(Upload)
 Vue.use(Select)
-Vue.use(Option)
 Vue.use(Table)
+Vue.use(Option)
 Vue.use(TableColumn)
+Vue.use(Button)
 Vue.use(Pagination)
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
+Vue.use(Loading)
+Vue.use(DatePicker)
+Vue.use(Input)
+Vue.use(Form)
+Vue.use(TableColumn)
+Vue.use(FormItem)
+Vue.use(Radio)
+Vue.use(RadioGroup)
+Vue.use(Dialog)
+Vue.use(Col)
+Vue.use(Row)
+Vue.use(RadioButton)
+Vue.use(CheckboxGroup)
+Vue.use(Checkbox)
+Vue.use(Rate)
+Vue.use(Tooltip)
 
 // Create VueI18n instance with options
 const i18n = new VueI18n({
@@ -73,11 +86,9 @@ axios.interceptors.response.use((res) => {
   // Do something with response error
   console.log(err)
 })
-
-/* 定义为全局方法 */
-// Vue.prototype.$message = Message
-// Vue.prototype.$confirm = MessageBox.confirm
-
+Vue.prototype.$message = Message
+Vue.prototype.$confirm = MessageBox.confirm
+Vue.prototype.$prompt = MessageBox.prompt
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

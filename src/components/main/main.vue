@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-
+zozo
   </div>
 </template>
 

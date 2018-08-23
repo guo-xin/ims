@@ -2,12 +2,18 @@
 html {
   background: #f7f7f7;
 }
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Regular.ttf');
+}
 body, html {
   height: 100%;
-  // font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+   font-family: Roboto,Segoe UI,sans-serif;
   -webkit-font-smoothing: antialiased;
   -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
+  -webkit-text-size-adjust: none;
+  font-feature-settings: "pnum";
+  font-variant-numeric: proportional-nums;
 }
 
 input::-webkit-outer-spin-button,
@@ -22,6 +28,14 @@ input[type="number"]{
 
 // 去掉自动填充颜色
 input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
+.el-form-item__label {
+  float:none !important;
+  font-size:14px !important;
+  color:rgba(113,114,131,1);
+}
+.el-input__inner {
+  background-color: transparent !important;
+}
 
 
 
