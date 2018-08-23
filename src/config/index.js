@@ -19,7 +19,7 @@ if (dev) {
   o2host = 'https://o2.qa.qfpay.net';
 }
 
-module.exports = {
+export default {
   host,
   ohost,
   o2host,

@@ -11,16 +11,18 @@
         </div>
         <el-form ref="form-login"  :model="form" label-width="0px" class="form-login" :rules="rules">
           <el-form-item label="Phone Number or E-mail" prop="username">
-            <el-input v-model="form.username"></el-input>
+            <el-input v-model="form.username" :clearable="true" @focus="addNameBorder" @blur="removeNameBorder" :class="isNameBorder?'hasBorderBottom':''"></el-input>
           </el-form-item>
 
           <el-form-item :label="$t('login.passph')" prop="password">
-            <el-input v-model="form.password"  type="password"></el-input>
+            <el-input v-model="form.password"  type="password" :clearable="true" @focus="addPassBorder" @blur="removePassBorder" :class="isPassBorder?'hasBorderBottom':''"></el-input>
           </el-form-item>
 
           <el-form-item label="" prop="checkbox">
             <el-checkbox v-model="form.checkbox">{{$t('login.checkbox')}}</el-checkbox>
-            <span style="margin-left:20px">{{$t('login.checkbox')}}</span>
+            <span style="float:right" class="link-wrap">
+              <router-link :to="{ name: 'forgetPassword'}" class="forget">{{$t('login.checkbox')}}</router-link>
+            </span>
           </el-form-item>
 
           <el-form-item>
@@ -38,8 +40,20 @@
   import ElFormItem from "../../../node_modules/qfpay-element-ui/packages/form/src/form-item.vue";
   import ElButton from "../../../node_modules/qfpay-element-ui/packages/button/src/button.vue";
   import axios from 'axios';
+  import qs from 'qs';
   import config from 'config';
-  import { getCookie } from '../../common/js/util';
+
+  const getCookie = (sName) => {
+    var aCookie = document.cookie.split(';')
+
+    for (let sCookie of aCookie) {
+      var aCrumb = sCookie.split('=')
+      if (sName == aCrumb[0].replace(/(^\s*)|(\s*$)/g, '')) {
+        return (aCrumb[1])
+      }
+    }
+    return null
+  }
   export default {
     components: {
       ElButton,
@@ -51,6 +65,8 @@
           password: '',
           checkbox: false
         },
+        isNameBorder: false,
+        isPassBorder: false,
         loading: false,
         rules: {
           username: [
@@ -67,6 +83,18 @@
     },
 
     methods: {
+      addNameBorder() {
+        this.isNameBorder = true;
+      },
+      removeNameBorder() {
+        this.isNameBorder = false;
+      },
+      addPassBorder() {
+        this.isPassBorder = true;
+      },
+      removePassBorder() {
+        this.isPassBorder = false;
+      },
       submitHandler() {
         this.$refs['form-login'].validate((valid) => {
           if(!this.loading && valid) {
@@ -77,7 +105,12 @@
               format: 'cors'
             };
             this.loading = true;
-            axios.post(`${config.host}/org/user/login`, params).then((res) => {
+            console.log(config)
+            axios.post(`${config.host}/org/user/login`, qs.stringify(params), {
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }
+            }).then((res) => {
               this.loading = false;
               let data = res.data;
               if(data.respcd === config.code.OK) {
@@ -121,13 +154,13 @@
     margin: 0;
     width: 100%;
     height: 100%;
-    background: url(../../assets/common_img/login-bg.png) 100% 100% no-repeat transparent;
-    background-size: cover;
-    position: relative;
   }
   .login {
     width:100%;
     height:100%;
+    background: url(../../assets/common_img/login-bg.png) 100% 100% no-repeat transparent;
+    background-size: cover;
+    position: relative;
     .login-wrap {
       width:519px;
       color:#ffffff;
@@ -153,6 +186,10 @@
       }
       .form-login {
         width:415px;color:#ffffff;
+        .link-wrap > a {
+          text-decoration: none;
+          color:#ffffff;
+        }
         .el-form-item {    margin-bottom: 24px;}
         .el-form-item__label {
           color: #ffffff;
@@ -174,6 +211,9 @@
               line-height:1;
               height: 24px !important;
             }
+          }
+          .hasBorderBottom {
+            border-bottom: 1px solid rgba(93,217,255,1) !important;
           }
         }
         .el-checkbox__inner {
