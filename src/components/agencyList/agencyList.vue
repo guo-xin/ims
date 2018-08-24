@@ -1,11 +1,8 @@
 <template>
   <div class="agencyList">
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>代理商管理</el-breadcrumb-item>
-      <el-breadcrumb-item>代理商列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <header class="page-header"><h2 class="page-title">代理商列表</h2></header>
 
-    <el-form ref="searchform" :model="formData" label-width="100px">
+    <el-form class="search-form" ref="searchform" :model="formData">
       <el-form-item label="代理商名称">
         <el-input v-model="formData.name"></el-input>
       </el-form-item>
@@ -24,25 +21,19 @@
           <el-option label="状态二" value="beijing"></el-option>
         </el-select>
       </el-form-item>
-      <footer>
-        <el-button size="large" type="success" @click="filterAgencies()">查找</el-button>
-        <el-button size="large" type="success" @click="createAgency()">创建</el-button>
-      </footer>
+      <el-button size="large" type="primary" @click="filterAgencies()">查找</el-button>
+      <el-button size="large" type="primary" @click="createAgency()">创建</el-button>
     </el-form>
 
-    <el-table :data="tableData" stripe border>
-      <el-table-column prop="ctime" label="代理商名称"></el-table-column>
-      <el-table-column prop="title" label="代理商ID"></el-table-column>
-      <el-table-column prop="type_str" label="等级"></el-table-column>
-      <el-table-column prop="obtain_num" label="上级代理商名称" :formatter="formatGe"></el-table-column>
-      <el-table-column label="注册时间">
-        <template slot-scope="scope">
-          <p>{{ formatDate(scope.row.start_time, scope.row.expire_time) }}</p>
-        </template>
-      </el-table-column>
+    <el-table :data="agencies" stripe>
+      <el-table-column prop="name" label="代理商名称"></el-table-column>
+      <el-table-column prop="id" label="代理商ID"></el-table-column>
+      <el-table-column prop="level" label="等级"></el-table-column>
+      <el-table-column prop="uplevel" label="上级代理商名称"></el-table-column>
+      <el-table-column prop="register_time" label="注册时间"></el-table-column>
       <el-table-column label="状态" align="center">
         <template slot-scope="scope">
-          <el-button @click="goDetail(scope.row.id)" type="text">查看详情</el-button>
+          <el-button @click="goDetail(scope.row.status)" type="text">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -68,7 +59,21 @@
           agree: '',
           status: ''
         },
-        agencies: []
+        agencies: [{
+          name: '代理商1',
+          id: '',
+          level: '',
+          uplevel: '',
+          register_time: '',
+          status: ''
+        }, {
+          name: '代理商2',
+          id: '',
+          level: '',
+          uplevel: '',
+          register_time: '',
+          status: ''
+        }]
       }
     },
     created() {
@@ -77,14 +82,14 @@
     methods: {
       filterAgencies(val) {
 
+      },
+      goDetail() {
+
       }
     }
   }
 </script>
 
 <style scoped lang="scss">
-.guoxin {
-  color: $baseColor;
-  font-size: $xlSize;
-}
+
 </style>

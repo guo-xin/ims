@@ -1,6 +1,6 @@
 @import "base";
-html {
-  background: #f7f7f7;
+body {
+  background-color: #F2F4F5;
 }
 @font-face {
   font-family: 'Roboto';
@@ -37,6 +37,51 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
   background-color: transparent !important;
 }
 
+.page-header {
+  .page-title {
+    color: $titleColor;
+    font-size: 24px;
+  }
+}
 
-
-
+%shadow {
+  box-shadow: 2px 6px 8px rgba(142, 169, 190, 0.1);
+}
+.search-form {
+  padding: 15px 30px 10px;
+  border-radius: 8px;
+  @extend %shadow;
+  background-color: #fff;
+  margin-bottom: 10px;
+  .el-form-item {
+    display: inline-block;
+    margin-right: 30px;
+  }
+  .el-form-item__label{
+    padding-left: 15px;
+  }
+}
+.el-table {
+  &::before {
+    height: 0 !important;
+  }
+  thead {
+    color: $titleColor;
+    th {
+      padding: 28px 0;
+      background-color: #F5FAFF;
+    }
+  }
+}
+.el-table .cell {
+  padding: 0 20px;
+}
+.el-table th.is-leaf, .el-table td {
+  border: none;
+}
+.el-pagination {
+  @extend %shadow;
+  padding: 25px 30px !important;
+  background-color: #fff;
+  text-align: right;
+}
