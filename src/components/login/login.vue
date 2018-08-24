@@ -151,6 +151,7 @@
 </script>
 <style lang="scss">
   body {
+    background-color: #f7f7f7;
     margin: 0;
     width: 100%;
     height: 100%;
