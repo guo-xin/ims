@@ -5,6 +5,8 @@ import main from 'components/main/main'
 import agencyList from 'components/agencyList/agencyList'
 import agencyCreate from 'components/agencyCreate/agencyCreate'
 import forgetPassword from 'components/forgetPassword'
+import userList from 'components/authority/userList'
+// import roleList from 'components/authority/roleList'
 
 Vue.use(Router)
 
@@ -39,6 +41,11 @@ export default new Router({
       path: '/agencyCreate',
       name: 'agencyCreate',
       component: agencyCreate
+    },
+    {
+      path: '/userList',
+      name: 'userList',
+      component: userList
     },
   ]
 })

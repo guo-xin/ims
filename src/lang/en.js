@@ -4,9 +4,21 @@ import enLocale from 'qfpay-element-ui/lib/locale/lang/en'
 
 const en = {
   ...enLocale,
-  index: {
-    name: 'guoxin',
-    type: 'time'
+  common: {
+    title: 'Overseas agency service business platform',
+  },
+  authority: {
+    crumbs: {
+      T1: 'Business management',
+      T2: 'Role management'
+    },
+    panel: {
+      userName: 'User name',
+      roleName: 'Role name',
+    },
+    table: {
+
+    }
   },
   login: {
     nameph: 'Enter your phone number or E-mail',

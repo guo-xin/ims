@@ -1,17 +1,12 @@
 /* 改变主题色变量 */
 $--color-primary: #2974FF;
 
-/* 改变 icon 字体路径变量，必需 */
-$--font-path: '~qfpay-element-ui/lib/theme-chalk/fonts';
-
-@import "~qfpay-element-ui/packages/theme-chalk/src/index";
-
 /*base color*/
 $baseColor: #2974FF;
 
 /*font size*/
-$baseSize: 14px;
 $smSize: 12px;
+$baseSize: 14px;
 $lgSize: 16px;
 $xlSize: 18px;
 
