@@ -14,6 +14,7 @@ body, html {
   -webkit-text-size-adjust: none;
   font-feature-settings: "pnum";
   font-variant-numeric: proportional-nums;
+  margin:0;
 }
 
 input::-webkit-outer-spin-button,
@@ -28,6 +29,10 @@ input[type="number"]{
 
 // 去掉自动填充颜色
 input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
+.el-header {
+  height: 80px !important;
+  padding: 0 30px !important;
+}
 .el-form-item__label {
   float:none !important;
   font-size:14px !important;

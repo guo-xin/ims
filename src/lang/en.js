@@ -21,6 +21,13 @@ const en = {
       m2: 'Please enter the password.',
       m3: 'Failed to log in.'
     }
+  },
+  main: {
+    desc: 'MOBILE PAYMENT MANAGEMENT SYSTEM',
+    roles: [
+      ''
+    ],
+    logout: 'Logout'
   }
 }
 export default en;
