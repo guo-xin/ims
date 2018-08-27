@@ -36,16 +36,27 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
 .el-form-item__label {
   float:none !important;
   font-size:14px !important;
-  color:rgba(113,114,131,1);
+  color: rgba(113,114,131,1);
+  line-height: 30px;
+  padding-left: 15px;
 }
 .el-input__inner {
   background-color: transparent !important;
 }
 
 .page-header {
+  &.style2 {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    margin: 0 -30px;
+    padding-left: 30px;
+    border-bottom: 1px solid #2974FF;
+  }
   .page-title {
     color: $titleColor;
     font-size: 24px;
+    margin: 0;
   }
 }
 
@@ -61,9 +72,6 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
   .el-form-item {
     display: inline-block;
     margin-right: 30px;
-  }
-  .el-form-item__label{
-    padding-left: 15px;
   }
 }
 .el-table {
@@ -83,6 +91,43 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
 }
 .el-table th.is-leaf, .el-table td {
   border: none;
+}
+.el-steps {
+  margin: 35px 0;
+}
+.el-step__head.is-process {
+  color: #fff;
+  border-color: #717283;
+  .is-text {
+    border-color: $--color-primary;
+    background-color: $--color-primary;
+  }
+}
+.el-step__title.is-process {
+  color: $titleColor;
+}
+.el-step__head.is-finish {
+  color: #fff;
+  border-color: #717283;
+  .is-text {
+    border-color: $--color-primary;
+    background-color: $--color-primary;
+  }
+}
+.el-step__title.is-finish {
+  font-weight: bold;
+  color: $titleColor;
+}
+.el-step__main {
+  position: absolute;
+  white-space: nowrap;
+  background-color: #fff;
+  left: 24px;
+  top: -5px;
+  padding: 0 18px 0 10px;
+}
+.el-step__line {
+  margin-right: 10px !important;
 }
 .el-pagination {
   @extend %shadow;
