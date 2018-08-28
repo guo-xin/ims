@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="layout" v-loading.fullscreen="loading" :element-loading-text="$t('common.loading')">
     <el-container>
       <el-header>
         <svg width="150px" height="28px" viewBox="0 0 150 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -97,10 +97,13 @@
 </template>
 
 <script>
+  import axios from 'axios';
+  import config from '../../config';
   export default {
     data() {
       return {
         role: '1',
+        loading: false,
         roles: [{
           value: '1',
           label: 'Super Administrator'
@@ -115,12 +118,11 @@
 
     },
 
-    watch: {
-
+    created() {
+      this.$store.dispatch('getUserPermission');
     },
 
     methods: {
-      logoutHandler() {},
       menuExpend(key, keyPath) {
         console.log(key, keyPath);
       },
@@ -129,7 +131,27 @@
       },
       getAuth() {
 
+      },
+      logoutHandler() {
+        this.loading = true;
+        axios.post(`${config.host}/org/user/logout?format=cors`)
+          .then((res) => {
+            let data = res.data;
+            this.loading = false;
+            if (data.respcd === config.code.OK) {
+              // 登出时删除本域cookie
+              (new Image()).src = `${config.ohost}/mchnt/set_cookie?sessionid=`;
+              this.$router.push(`/login`);
+
+            } else {
+              this.$message.error(data.respmsg);
+            }
+          }).catch(() => {
+          this.loading = false;
+          this.$message.error(this.$t('common.netError'));
+        });
       }
+
     }
   }
 </script>
@@ -164,7 +186,7 @@
             border: none;
             font-size:$lgSize;
             color:rgba(113,114,131,1);
-            .el-input__suffix {right:18px;}
+            .el-input__suffix {right:14px;}
             .el-input__inner {
               border:none;
             }

@@ -196,6 +196,7 @@
           color: #ffffff;
           font-size:12px;opacity:0.6;
           line-height:16px;
+          padding-left:0;
         }
         .el-form-item__label:before {
           content: '';

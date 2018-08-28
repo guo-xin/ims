@@ -14,7 +14,7 @@ if (test) {
 }
 // 本地配置
 if (dev) {
-  host = 'api';
+  host = 'http://172.100.113.124:8198';
   ohost = 'https://o.qa.qfpay.net';
   o2host = 'https://o2.qa.qfpay.net';
 }
