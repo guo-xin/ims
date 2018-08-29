@@ -62,9 +62,7 @@
 
           <el-form-item prop="role" :label="$t('authority.panel.roleName')">
             <el-select v-model="formUser.role" :placeholder="$t('common.choose')">
-              <el-option :label="$t('common.all')" value=""></el-option>
-              <el-option :label="$t('authority.panel.open')" value=1></el-option>
-              <el-option :label="$t('authority.panel.close')" value=9></el-option>
+              <el-option v-for="item in roleList" :label="item.name" :value="item.code" :key="item.code"></el-option>
             </el-select>
           </el-form-item>
         </div>
@@ -122,6 +120,7 @@
           state: ''
         },
         userList: {},
+        roleList: [],
         formUser: {
           user: '',
           role: '',
@@ -165,6 +164,7 @@
     },
     created() {
       this.getData();
+      this.getRole();
     },
     methods: {
       // 保存
@@ -205,7 +205,7 @@
                   message: '修改成功'
                 });
                 // 重新登录
-
+                this.handleSizeChange();
               } else {
                 this.$message.error(data.resperr);
               }
@@ -308,6 +308,38 @@
       handleSizeChange(size = 10) {
         this.pageSize = size;
         this.currentChange();
+      },
+
+      getRole() {
+        axios.get(`${config.host}/org/perm/roles`).then((res) => {
+          let data = res.data;
+          if(data.respcd === config.code.OK) {
+            this.roleList = data.data;
+          } else {
+            this.$message.error(data.resperr);
+          }
+        }).catch(() => {
+          this.$message.error(this.$t('common.netError'));
+        });
+      },
+      logout() {
+        this.loading = true;
+        axios.post(`${config.host}/org/user/logout?format=cors`)
+          .then((res) => {
+            let data = res.data;
+            this.loading = false;
+            if (data.respcd === config.code.OK) {
+              // 登出时删除本域cookie
+              (new Image()).src = `${config.ohost}/mchnt/set_cookie?sessionid=`;
+              this.$router.push(`/login`);
+
+            } else {
+              this.$message.error(data.respmsg);
+            }
+          }).catch(() => {
+          this.loading = false;
+          this.$message.error(this.$t('common.netError'));
+        });
       }
     }
   }

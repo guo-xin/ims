@@ -12,6 +12,7 @@ const en = {
     save: 'Save',
     edit: 'Edit',
     close: 'Close',
+    loading: 'Loading...',
     netError: 'Net error'
   },
   authority: {

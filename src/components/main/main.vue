@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="layout" v-loading.fullscreen="loading" :element-loading-text="$t('common.loading')">
     <el-container>
       <el-header>
         <svg width="150px" height="28px" viewBox="0 0 150 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -50,41 +50,27 @@
         </div>
       </el-header>
       <el-container class="main-frame">
-        <el-aside width="266px">
-          <el-menu class="el-menu-vertical-demo" @open="menuExpend" @close="menuClose"
+        <el-aside width="251px">
+          <el-menu class=""
                    :collapse="isCollapse"
                    background-color="#F2F4F5"
                    text-color="#1D1D24"
-                   :unique-opened="true">
-            <el-submenu index="1">
+                   :unique-opened="true"
+                   v-for="(menu, i) in menuData"
+                   v-bind:key="menu.code"
+          >
+            <el-submenu v-if="menu.group.length" :index="String(i+1)">
               <template slot="title">
-                <i class="el-icon-location"></i>
-                <span slot="title">导航一</span>
+                <span :class="menuSet[menu.code].icon+' nav-icon'"></span>
+                <span slot="title">{{menu.descr}}</span>
               </template>
-              <el-menu-item-group>
-                <span slot="title">分组一</span>
-                <el-menu-item index="1-1">选项1</el-menu-item>
-                <el-menu-item index="1-2">选项2</el-menu-item>
-              </el-menu-item-group>
-              <el-menu-item-group title="分组2">
-                <el-menu-item index="1-3">选项3</el-menu-item>
-              </el-menu-item-group>
-              <el-submenu index="1-4">
-                <span slot="title">选项4</span>
-                <el-menu-item index="1-4-1">选项1</el-menu-item>
-              </el-submenu>
+              <el-menu-item v-for="(submenu, idx) in menu.group" v-bind:key="submenu.code" :index="i+'-'+idx">
+                <router-link :to="router('main/' + submenu.code)">{{submenu.descr}}</router-link>
+              </el-menu-item>
             </el-submenu>
-            <el-menu-item index="2">
-              <i class="el-icon-menu"></i>
-              <span slot="title">导航二</span>
-            </el-menu-item>
-            <el-menu-item index="3">
-              <i class="el-icon-document"></i>
-              <span slot="title">导航三</span>
-            </el-menu-item>
-            <el-menu-item index="4">
-              <i class="el-icon-setting"></i>
-              <span slot="title">导航四</span>
+            <el-menu-item v-else-if="menu.group.length" :index="String(i+1)">
+              <span :class="menuSet[menu.code].icon+' nav-icon'"></span>
+              <span slot="title">{{menu.descr}}</span>
             </el-menu-item>
           </el-menu>
         </el-aside>
@@ -97,10 +83,14 @@
 </template>
 
 <script>
+  import axios from 'axios';
+  import config from '../../config';
+
   export default {
     data() {
       return {
         role: '1',
+        loading: false,
         roles: [{
           value: '1',
           label: 'Super Administrator'
@@ -108,28 +98,71 @@
           value: '2',
           label: 'Guest'
         }],
-        isCollapse: false
+        isCollapse: false,
+        menuSet: {
+          mchnt_manage: { // 商户管理
+            icon: 'mcht-icon',
+            route: ['bussinessManage', 'storeManage']
+          },
+          trade_manage: { // 交易管理
+            icon: 'trade-icon',
+            route: []
+          },
+          perm_manage: { // 权限管理
+            icon: 'auth-icon',
+            route: []
+          },
+          settlement_manage: { // 结算管理
+            icon: 'liquidation-icon',
+            route: []
+          },
+          agent_manage: { // 代理商管理
+            icon: 'agent-icon',
+            route: []
+          }
+        }
       }
     },
     computed: {
-
+      menuData() {
+        return this.$store.state.menuData;
+      },
     },
 
-    watch: {
-
+    created() {
+      this.$store.dispatch('getUserPermission');
     },
 
     methods: {
-      logoutHandler() {},
+      router(router) {
+        return `/${router}`;
+      },
       menuExpend(key, keyPath) {
         console.log(key, keyPath);
       },
       menuClose(key, keyPath) {
         console.log(key, keyPath);
       },
-      getAuth() {
+      logoutHandler() {
+        this.loading = true;
+        axios.post(`${config.host}/org/user/logout?format=cors`)
+          .then((res) => {
+            let data = res.data;
+            this.loading = false;
+            if (data.respcd === config.code.OK) {
+              // 登出时删除本域cookie
+              (new Image()).src = `${config.ohost}/mchnt/set_cookie?sessionid=`;
+              this.$router.push(`/login`);
 
+            } else {
+              this.$message.error(data.respmsg);
+            }
+          }).catch(() => {
+          this.loading = false;
+          this.$message.error(this.$t('common.netError'));
+        });
       }
+
     }
   }
 </script>
@@ -164,7 +197,7 @@
             border: none;
             font-size:$lgSize;
             color:rgba(113,114,131,1);
-            .el-input__suffix {right:18px;}
+            .el-input__suffix {right:14px;}
             .el-input__inner {
               border:none;
             }
@@ -191,6 +224,87 @@
     }
     .main-frame {
       min-height: 660px;
+      .el-aside {
+        padding-top:20px;
+      }
+      .el-menu {
+        padding-left:15px;
+        border:none;
+        .el-menu-item > a {
+          text-decoration: none;
+          font-size:$lgSize;
+          color:rgba(29,29,36,1);
+        }
+        .el-menu--inline .el-menu-item > a {
+          color:$submenu-font-color;
+        }
+        .el-submenu__title:hover {
+          background:transparent !important;
+          border-radius:2px;
+        }
+        .el-submenu .el-menu-item:hover {
+          background:$submenu-bg-color-hover !important;
+          border-radius:2px;
+        }
+        .el-submenu .el-submenu__title:hover {
+          .mcht-icon {
+            background:url(../../assets/common_img/mcht_light.png) 0 0 no-repeat transparent;
+            background-size: contain;
+          }
+          .trade-icon {
+            background:url(../../assets/common_img/trade_light.png) 0 0 no-repeat transparent;
+            background-size: contain;
+          }
+          .liquidation-icon {
+            background:url(../../assets/common_img/liquidation_light.png) 0 0 no-repeat transparent;
+            background-size: contain;
+          }
+          .agent-icon {
+            background:url(../../assets/common_img/agent_light.png) 0 0 no-repeat transparent;
+            background-size: contain;
+          }
+          .auth-icon {
+            background:url(../../assets/common_img/auth_light.png) 0 0 no-repeat transparent;
+            background-size: contain;
+          }
+        }
+        .el-submenu .el-menu-item.is-active {
+          background-color:rgba(41,116,255,0.13) !important;
+          border-radius:2px;
+        }
+        .el-submenu .el-menu-item.is-active > a {
+          color:$submenu-font-color-selected !important;
+        }
+        .el-submenu .el-submenu__title > span{
+          font-size: $lgSize;
+        }
+        .el-submenu .el-submenu__title .nav-icon {
+          width:24px;
+          height:24px;
+          margin-right:5px;
+          display: inline-block;
+        }
+        .mcht-icon {
+          background:url(../../assets/common_img/mcht.png) 0 0 no-repeat transparent;
+          background-size: contain;
+        }
+        .trade-icon {
+          background:url(../../assets/common_img/trade.png) 0 0 no-repeat transparent;
+          background-size: contain;
+        }
+        .liquidation-icon {
+          background:url(../../assets/common_img/liquidation.png) 0 0 no-repeat transparent;
+          background-size: contain;
+        }
+        .agent-icon {
+          background:url(../../assets/common_img/agent.png) 0 0 no-repeat transparent;
+          background-size: contain;
+        }
+        .auth-icon {
+          background:url(../../assets/common_img/auth.png) 0 0 no-repeat transparent;
+          background-size: contain;
+        }
+      }
     }
   }
 </style>
