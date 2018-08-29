@@ -5,6 +5,7 @@ import main from 'components/main/main'
 import agencyList from 'components/agency/agencyList'
 import agencyCreate from 'components/agency/agencyCreate'
 import forgetPassword from 'components/forgetPassword'
+import bussiness from 'components/merchant/bussinessList'
 
 Vue.use(Router)
 
@@ -26,19 +27,31 @@ export default new Router({
         component: forgetPassword
     },
     {
-      path: '/main/main',
-      name: 'main',
-      component: main
-    },
-    {
-      path: '/agencyList',
-      name: 'agencyList',
-      component: agencyList
-    },
-    {
-      path: '/agencyCreate',
-      name: 'agencyCreate',
-      component: agencyCreate
-    },
-  ]
+      path: '/main',
+      component: main,
+      children: [
+        {
+          path: 'shop_manage_index',
+          name: 'shop_manage_index',
+          component: bussiness
+        },
+        {
+          path: 'storeManage',
+          name: 'storeManage',
+          component: bussiness
+        },
+        {
+          path: 'agencyList',
+          name: 'agencyList',
+          component: agencyList
+        },
+        {
+          path: 'agencyCreate',
+          name: 'agencyCreate',
+          component: agencyCreate
+        }
+      ]
+    }
+  ],
+  linkActiveClass: 'active'
 })

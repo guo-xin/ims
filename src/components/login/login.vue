@@ -249,7 +249,7 @@
           width:179px;height:40px;background-color:#FFD641;color:#3578FF;font-size:20px;border-radius:4px;display:flex;
           justify-content: center;align-items: center;cursor:pointer;
         }
-        .el-form-item__error {color:red;}
+        .el-form-item__error {color:#C8001B;}
       }
     }
   }
