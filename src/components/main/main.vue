@@ -158,8 +158,10 @@
             if (data.respcd === config.code.OK) {
               // 登出时删除本域cookie
               (new Image()).src = `${config.ohost}/mchnt/set_cookie?sessionid=`;
+              if(localStorage.getItem('navIndex')) {
+                localStorage.removeItem('navIndex')
+              }
               this.$router.push(`/login`);
-
             } else {
               this.$message.error(data.respmsg);
             }
