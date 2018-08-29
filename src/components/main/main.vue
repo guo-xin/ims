@@ -232,6 +232,7 @@
       min-height: 660px;
       .el-aside {
         padding-top:20px;
+        overflow-x: hidden ;
       }
       .el-menu {
         padding-left:15px;
