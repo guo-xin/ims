@@ -28,24 +28,27 @@ export default new Router({
         component: forgetPassword
     },
     {
-      path: '/main/main',
+      path: '/main',
       name: 'main',
-      component: main
-    },
-    {
-      path: '/agencyList',
-      name: 'agencyList',
-      component: agencyList
-    },
-    {
-      path: '/agencyCreate',
-      name: 'agencyCreate',
-      component: agencyCreate
-    },
-    {
-      path: '/userList',
-      name: 'userList',
-      component: userList
-    },
+      redirect: '/main/userList',
+      component: main,
+      children: [
+        {
+          path: 'agencyList',
+          name: 'agencyList',
+          component: agencyList
+        },
+        {
+          path: 'agencyCreate',
+          name: 'agencyCreate',
+          component: agencyCreate
+        },
+        {
+          path: 'userList',
+          name: 'userList',
+          component: userList
+        },
+      ]
+    }
   ]
 })

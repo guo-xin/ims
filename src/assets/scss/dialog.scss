@@ -1,0 +1,23 @@
+
+.el-dialog {
+  width: 650px;
+  .dialog-row {
+    display: flex;
+  }
+  .el-select {
+    width: 100%;
+  }
+  .el-form-item {
+    width: 50%;
+    padding: 0 $midGap;
+    box-sizing: border-box;
+  }
+  .dialog-footer {
+    .text-button {
+      font-size: $lgSize;
+      padding-left: $midGap;
+      padding-right: $midGap;
+      margin: 0;
+    }
+  }
+}

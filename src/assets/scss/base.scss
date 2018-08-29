@@ -1,6 +1,9 @@
 /* 改变主题色变量 */
 $--color-primary: #2974FF;
 
+///* 改变 icon 字体路径变量，必需 */
+//$--font-path: '~qfpay-element-ui/lib/theme-chalk/fonts';
+//@import "~qfpay-element-ui/packages/theme-chalk/src/index";
 /*base color*/
 $baseColor: #2974FF;
 
@@ -9,6 +12,8 @@ $smSize: 12px;
 $baseSize: 14px;
 $lgSize: 16px;
 $xlSize: 18px;
+$bigSize: 20px;
+$xgSize: 24px;
 
 /*font weight*/
 $baseW: 400;
@@ -16,3 +21,8 @@ $boldW: 700;
 
 /*font color*/
 $titleColor: #1D1D24;
+
+/*间距*/
+$smGap: 10px;
+$midGap: 20px;
+$baseGap: 30px;
