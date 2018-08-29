@@ -263,6 +263,10 @@
             background:url(../../assets/common_img/agent_light.png) 0 0 no-repeat transparent;
             background-size: contain;
           }
+          .auth-icon {
+            background:url(../../assets/common_img/auth_light.png) 0 0 no-repeat transparent;
+            background-size: contain;
+          }
         }
         .el-submenu .el-menu-item.is-active {
           background-color:rgba(41,116,255,0.13) !important;
@@ -294,6 +298,10 @@
         }
         .agent-icon {
           background:url(../../assets/common_img/agent.png) 0 0 no-repeat transparent;
+          background-size: contain;
+        }
+        .auth-icon {
+          background:url(../../assets/common_img/auth.png) 0 0 no-repeat transparent;
           background-size: contain;
         }
       }
