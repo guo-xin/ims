@@ -24,7 +24,6 @@ const store = new Vuex.Store({
       })
         .then((res) => {
           let data = res.data
-          console.log('permission data:', data.data);
           if (data.respcd === config.code.OK) {
             commit({
               type: 'getPermissionData',
