@@ -12,7 +12,7 @@
     ["component", [
       {
         "libraryName": "qfpay-element-ui",
-        "styleLibraryName": "theme-chalk"
+        "styleLibraryName": "~theme"
       }
     ]]
   ]
