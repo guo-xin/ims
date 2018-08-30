@@ -1,4 +1,3 @@
-@import "base";
 @import 'button';
 @import 'dialog';
 
@@ -144,8 +143,8 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
   color: #fff;
   border-color: #717283;
   .is-text {
-    border-color: $--color-primary;
-    background-color: $--color-primary;
+    border-color: $baseColor;
+    background-color: $baseColor;
   }
 }
 .el-step__title.is-process {
@@ -155,8 +154,8 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
   color: #fff;
   border-color: #717283;
   .is-text {
-    border-color: $--color-primary;
-    background-color: $--color-primary;
+    border-color: $baseColor;
+    background-color: $baseColor;
   }
 }
 .el-step__title.is-finish {
