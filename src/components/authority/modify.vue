@@ -7,7 +7,7 @@
     </header>
 
     <el-form :model="formData" :rules="formrules" ref="form" :disabled="isUpdate && !isEdit">
-      <el-form-item label="角色名称" prop="name">
+      <el-form-item ref="roleName" label="角色名称" prop="name">
         <el-input v-model="formData.name"></el-input>
       </el-form-item>
       <el-form-item v-if="isUpdate" label="角色状态">
@@ -155,6 +155,7 @@
         })
       },
       reset() {
+        this.$refs.roleName.resetField()
         this.formData.perms.map((item) => {
           item.checkAll = false
           item.checkedOptions = []
