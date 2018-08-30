@@ -4,6 +4,10 @@ import enLocale from 'qfpay-element-ui/lib/locale/lang/en'
 
 const en = {
   ...enLocale,
+  common: {
+    loading: 'Loading...',
+    netError: 'Net error',
+  },
   index: {
     name: 'guoxin',
     type: 'time'

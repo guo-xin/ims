@@ -4,10 +4,11 @@ import login from 'components/login/login'
 import main from 'components/main/main'
 import agencyList from 'components/agency/list'
 import agencyCreate from 'components/agency/create'
-import tradeList from 'components/trade/list'
+// import tradeList from 'components/trade/list'
 import roleList from 'components/role/list'
-import roleCreate from 'components/role/create'
+import roleModify from 'components/role/modify'
 import forgetPassword from 'components/forgetPassword'
+import bussiness from 'components/merchant/bussinessList'
 
 Vue.use(Router)
 
@@ -29,34 +30,46 @@ export default new Router({
         component: forgetPassword
     },
     {
-      path: '/main/main',
-      name: 'main',
-      component: main
-    },
-    {
-      path: '/agencyList',
-      name: 'agencyList',
-      component: agencyList
-    },
-    {
-      path: '/agencyCreate',
-      name: 'agencyCreate',
-      component: agencyCreate
-    },
-    {
-      path: '/tradeList',
-      name: 'tradeList',
-      component: tradeList
-    },
-    {
-      path: '/roleCreate',
-      name: 'roleCreate',
-      component: roleCreate
-    },
-    {
-      path: '/roleList',
-      name: 'roleList',
-      component: roleList
+      path: '/main',
+      component: main,
+      children: [
+        {
+          path: 'shop_manage_index',
+          name: 'shop_manage_index',
+          component: bussiness
+        },
+        {
+          path: 'storeManage',
+          name: 'storeManage',
+          component: bussiness
+        },
+        {
+          path: 'agent_manage_index',
+          name: 'agencyList',
+          component: agencyList
+        },
+        {
+          path: 'agencyCreate',
+          name: 'agencyCreate',
+          component: agencyCreate
+        },
+        {
+          path: 'perm_role_index',
+          name: 'roleList',
+          component: roleList
+        },
+        {
+          path: 'perm_role_create',
+          name: 'roleCreate',
+          component: roleModify
+        },
+        {
+          path: 'perm_role_edit/:code',
+          name: 'roleEdit',
+          component: roleModify
+        }
+      ]
     }
-  ]
+  ],
+  linkActiveClass: 'active'
 })

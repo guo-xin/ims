@@ -43,6 +43,17 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
 .el-input__inner {
   background-color: transparent !important;
 }
+.el-button {
+  min-width: 170px;
+}
+.el-button--default {
+  border-color: $--color-primary;
+  color: $--color-primary;
+}
+.el-button--text {
+  color: $--color-primary;
+  min-width: auto;
+}
 
 .page-header {
   height: 80px;
@@ -59,6 +70,18 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
     color: $titleColor;
     font-size: 24px;
     margin: 0;
+  }
+  .el-button--text {
+    font-size: 16px;
+    font-weight: bold;
+    i, span {
+      vertical-align: middle;
+    }
+  }
+  .el-icon-close {
+    font-weight: bold;
+    font-size: 22px;
+    margin-right: 5px;
   }
 }
 
@@ -136,4 +159,8 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
   padding: 25px 30px !important;
   background-color: #fff;
   text-align: right;
+}
+
+.roleList .el-table__row {
+  cursor: pointer;
 }
