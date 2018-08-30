@@ -24,10 +24,10 @@
       </div>
     </el-form>
     <footer>
-      <el-button v-if="isUpdate" @click="cancel">关闭</el-button>
-      <el-button v-else @click="reset">重置</el-button>
-      <el-button v-if="isUpdate" type="primary" @click="update">{{isEdit ? '保存' : '修改'}}</el-button>
-      <el-button v-else type="primary" @click="modify">提交</el-button>
+      <el-button v-if="isUpdate" size="large" @click="cancel">关闭</el-button>
+      <el-button v-else size="large" @click="reset">重置</el-button>
+      <el-button v-if="isUpdate" type="primary" size="large" @click="update">{{isEdit ? '保存' : '修改'}}</el-button>
+      <el-button v-else type="primary" size="large" @click="modify">提交</el-button>
     </footer>
   </div>
 </template>
