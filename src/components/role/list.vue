@@ -27,6 +27,7 @@
     </el-table>
 
     <el-pagination
+      v-show="roles.length > 0"
       layout="total, sizes, prev, pager, next, jumper"
       :page-size="pageSize"
       @size-change="handleSizeChange"
@@ -86,8 +87,6 @@
         this.$router.push({name: 'roleCreate'})
       },
       editRole (row) {
-        // todo
-        console.log(row)
         localStorage.setItem('roleInfo', JSON.stringify(row))
         this.$router.push({
           name: 'roleEdit',

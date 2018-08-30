@@ -79,16 +79,22 @@
       getAllPerms() {
         this.$http(`${config.host}/org/perm/perms`)
         .then((res) => {
-          let data = res.data.data
-          data.map((item, index) => {
-            item.checkAll = false
-            item.isIndeterminate = false
-            item.checkedOptions = []
-          })
-          this.formData.perms = data
-          if (this.isUpdate) {
-            this.getPerm()
+          let data = res.data
+          let perms = data.data
+          if (data.respcd === '0000') {
+            perms.map((item, index) => {
+              item.checkAll = false
+              item.isIndeterminate = false
+              item.checkedOptions = []
+            })
+            this.formData.perms = perms
+            if (this.isUpdate) {
+              this.getPerm()
+            }
+          } else {
+            this.$message.error(data.resperr)
           }
+
         })
       },
       handleCheckAllChange(val, index) {
@@ -104,8 +110,6 @@
         perm.isIndeterminate = checkedCount > 0 && checkedCount < perm.codes.length
       },
       update() {
-        console.log('update')
-        console.log(this.isEdit)
         if (!this.isEdit) {
           this.isEdit = true
         } else {
@@ -114,7 +118,6 @@
       },
       modify() {
         this.$refs['form'].validate((valid) => {
-          console.log(valid)
           if (!valid) {
             return false
           }
@@ -137,7 +140,6 @@
           data: qs.stringify(params)
         })
         .then((res) => {
-          console.log(res)
           let data = res.data
           if (data.respcd === '0000') {
             if (this.isUpdate) {
