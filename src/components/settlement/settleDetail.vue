@@ -1,5 +1,5 @@
 <template>
-  <div class="userList">
+  <div class="settleDetail">
     <header class="page-header">
       <div class="header-left">
         <h2 class="page-title">{{ $t('authority.crumbs.T1') }}</h2>
@@ -16,6 +16,7 @@
       <el-form-item :label="$t('authority.panel.roleName')">
         <el-input v-model="form.role"></el-input>
       </el-form-item>
+
       <el-form-item :label="$t('authority.panel.state')">
         <el-select v-model="form.state" :placeholder="$t('common.choose')" @change="stateChange">
           <el-option :label="$t('common.all')" value=""></el-option>

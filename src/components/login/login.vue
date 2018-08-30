@@ -122,20 +122,7 @@
                   bicon.src = `${config.ohost}/mchnt/set_cookie?sessionid=${sid}`;
                 }
 
-                // 进行是否是首次登录的判断，返回need_change_pwd字段，1为需要重置，0为不需要重置
-                /*
-                let needChangePwd = data.data.need_change_pwd;
-                if(needChangePwd) {
-                  setTimeout(function() {
-                    this.$router.push('/firstlogin');
-                  }, 0)
-                } else {
-                  setTimeout(function() {
-                    this.$router.push('/main/index');
-                  }, 0)
-                }
-                * */
-                this.$router.push('/main');
+                this.$router.push('/main/main');
               } else {
                 this.$message.error(data.resperr);
               }

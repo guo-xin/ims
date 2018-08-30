@@ -7,7 +7,6 @@ import userList from 'components/authority/userList'
 import agencyCreate from 'components/agency/agencyCreate'
 import forgetPassword from 'components/forgetPassword'
 import bussiness from 'components/merchant/bussinessList'
-import mchnt from 'components/merchant/merchantList'
 
 Vue.use(Router)
 
@@ -38,9 +37,9 @@ export default new Router({
           component: bussiness
         },
         {
-          path: 'mchnt_manage_index',
-          name: 'mchnt_manage_index',
-          component: mchnt
+          path: 'storeManage',
+          name: 'storeManage',
+          component: bussiness
         },
         {
           path: 'agencyList',
@@ -53,7 +52,7 @@ export default new Router({
           component: agencyCreate
         },
         {
-          path: 'userList',
+          path: 'perm_user_index',
           name: 'userList',
           component: userList
         }
