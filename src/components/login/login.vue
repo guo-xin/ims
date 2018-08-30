@@ -121,6 +121,7 @@
                   bicon.style.display = 'none';
                   bicon.src = `${config.ohost}/mchnt/set_cookie?sessionid=${sid}`;
                 }
+
                 this.$router.push('/main/perm_user_index');
               } else {
                 this.$message.error(data.resperr);
