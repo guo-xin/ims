@@ -43,7 +43,13 @@ const zh = {
     dialog: {
       title1: '新增用户',
       title2: '用户详情',
-      pwd: '密码'
+      pwd: '密码',
+      tp1: '请输入用户名称',
+      tp2: '请输入角色名称',
+      tp3: '请输入账户',
+      tp4: '最多输入30个字符',
+      tp5: '请输入密码',
+      tp6: '请选择状态'
     }
   },
   settleMent: {
@@ -91,6 +97,27 @@ const zh = {
       countRules: '计算公式',
       isSettle: '是/否结算'
     }
+  },
+  login: {
+    nameph: 'Enter your phone number or E-mail',
+    passph: 'Password',
+    desc: 'We handle billions of dollars every year for forward-thinking businesses in the world',
+    cap1: 'MOBILE PAYMENT',
+    cap2: ' MANAGEMENT SYSTEM',
+    checkbox: 'Remember the password',
+    btn: 'Login',
+    msg: {
+      m1: 'Please enter the account.',
+      m2: 'Please enter the password.',
+      m3: 'Failed to log in.'
+    }
+  },
+  main: {
+    desc: 'MOBILE PAYMENT MANAGEMENT SYSTEM',
+    roles: [
+      ''
+    ],
+    logout: 'Logout'
   }
 }
 export default zh;

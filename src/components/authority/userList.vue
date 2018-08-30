@@ -135,20 +135,20 @@
         },
         userRules: {
           user: [
-            { required: true, message: '请输入用户名称' }
+            { required: true, message: this.$t('authority.dialog.tp1') }
           ],
           role: [
-            { required: true, message: '请输入角色名称' }
+            { required: true, message: this.$t('authority.dialog.tp2') }
           ],
           account: [
-            { required: true, message: '请输入账户' },
-            { max: 30, message: '最多输入30个字符' }
+            { required: true, message: this.$t('authority.dialog.tp3') },
+            { max: 30, message: this.$t('authority.dialog.tp4') }
           ],
           pwd: [
-            { required: true, message: '请输入密码' }
+            { required: true, message: this.$t('authority.dialog.tp5') }
           ],
           state: [
-            { required: true, message: '请选择状态' }
+            { required: true, message: this.$t('authority.dialog.tp6') }
           ],
         }
       }

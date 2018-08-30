@@ -5,12 +5,15 @@ import main from 'components/main/main'
 import agencyList from 'components/agency/list'
 import agencyCreate from 'components/agency/create'
 // import tradeList from 'components/trade/list'
-import roleList from 'components/authority/list'
+import roleList from 'components/authority/roleList'
 import roleModify from 'components/authority/modify'
 import userList from 'components/authority/userList'
 import forgetPassword from 'components/forgetPassword'
 import bussiness from 'components/merchant/bussinessList'
 import mchnt from 'components/merchant/merchantList'
+import settleDetail from 'components/settlement/settleDetail'
+import settleManage from 'components/settlement/settleManage'
+import settleTotal from 'components/settlement/settleTotal'
 
 Vue.use(Router)
 
@@ -74,6 +77,21 @@ export default new Router({
           path: 'perm_user_index',
           name: 'userList',
           component: userList
+        },
+        {
+          path: 'clearing_detail_index',
+          name: 'settleDetail',
+          component: settleDetail
+        },
+        {
+          path: 'clearing_manage_index',
+          name: 'settleManage',
+          component: settleManage
+        },
+        {
+          path: 'clearing_total_index',
+          name: 'settleTotal',
+          component: settleTotal
         }
       ]
     }
