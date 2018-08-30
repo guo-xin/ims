@@ -38,6 +38,14 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
   height: 80px !important;
   padding: 0 30px !important;
 }
+.el-form-item {
+  width: 240px;
+  display: inline-block;
+  margin-right: 30px;
+}
+.el-select {
+  width: 100%;
+}
 .el-form-item.is-required .el-form-item__label:before {
   content: '';
 }
@@ -73,9 +81,6 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
     font-size: 24px;
     margin: 0;
   }
-  .el-button {
-    min-width: 170px;
-  }
   .el-button--text {
     font-size: 16px;
     font-weight: bold;
@@ -101,14 +106,6 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
   @extend %shadow;
   background-color: #fff;
   margin-bottom: 10px;
-  .el-form-item {
-    width: 240px;
-    display: inline-block;
-    margin-right: 30px;
-  }
-  .el-select {
-    width: 100%;
-  }
   .buttons {
     position: absolute;
     width: 200px;

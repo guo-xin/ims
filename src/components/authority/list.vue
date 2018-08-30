@@ -16,8 +16,8 @@
         </el-select>
       </el-form-item>
       <div class="buttons">
-        <el-button size="large" type="primary" @click="fetchData()">查找</el-button>
-        <el-button size="large" @click="reset()">重置</el-button>
+        <el-button type="primary" @click="fetchData()">查找</el-button>
+        <el-button @click="reset()">重置</el-button>
       </div>
     </el-form>
 
