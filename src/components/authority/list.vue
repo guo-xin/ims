@@ -10,13 +10,15 @@
         <el-input v-model="formData.role_name"></el-input>
       </el-form-item>
       <el-form-item label="状态">
-        <el-select v-model="formData.status" placeholder="请选择级别">
+        <el-select v-model="formData.status">
           <el-option label="启用" value="1"></el-option>
           <el-option label="关闭" value="9"></el-option>
         </el-select>
       </el-form-item>
-      <el-button size="large" type="primary" @click="fetchData()">查找</el-button>
-      <el-button size="large" @click="reset()">重置</el-button>
+      <div class="buttons">
+        <el-button size="large" type="primary" @click="fetchData()">查找</el-button>
+        <el-button size="large" @click="reset()">重置</el-button>
+      </div>
     </el-form>
 
     <el-table :data="roles" stripe @row-click="editRole">
