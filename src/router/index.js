@@ -2,11 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import login from 'components/login/login'
 import main from 'components/main/main'
-import agencyList from 'components/agency/agencyList'
+import agencyList from 'components/agency/list'
+import agencyCreate from 'components/agency/create'
+// import tradeList from 'components/trade/list'
+import roleList from 'components/authority/list'
+import roleModify from 'components/authority/modify'
 import userList from 'components/authority/userList'
-import agencyCreate from 'components/agency/agencyCreate'
 import forgetPassword from 'components/forgetPassword'
 import bussiness from 'components/merchant/bussinessList'
+import mchnt from 'components/merchant/merchantList'
 
 Vue.use(Router)
 
@@ -37,12 +41,12 @@ export default new Router({
           component: bussiness
         },
         {
-          path: 'storeManage',
-          name: 'storeManage',
-          component: bussiness
+          path: 'mchnt_manage_index',
+          name: 'mchnt_manage_index',
+          component: mchnt
         },
         {
-          path: 'agencyList',
+          path: 'agent_manage_index',
           name: 'agencyList',
           component: agencyList
         },
@@ -50,6 +54,21 @@ export default new Router({
           path: 'agencyCreate',
           name: 'agencyCreate',
           component: agencyCreate
+        },
+        {
+          path: 'perm_role_index',
+          name: 'roleList',
+          component: roleList
+        },
+        {
+          path: 'perm_role_create',
+          name: 'roleCreate',
+          component: roleModify
+        },
+        {
+          path: 'perm_role_edit/:code',
+          name: 'roleEdit',
+          component: roleModify
         },
         {
           path: 'perm_user_index',

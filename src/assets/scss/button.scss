@@ -1,4 +1,11 @@
-
+.el-button--default {
+  border-color: $baseColor;
+  color: $baseColor;
+}
+.el-button--text {
+  color: $baseColor;
+  min-width: auto;
+}
 .primary-button {
   width: 170px;
   font-size: $bigSize;

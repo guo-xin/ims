@@ -143,7 +143,7 @@
     font-size: 20px;
     color: $titleColor;
     &:after{
-      content: ' ';
+      content: '';
       position: absolute;
       left: 0;
       bottom: 0;
