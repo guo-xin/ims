@@ -122,7 +122,7 @@
                   bicon.src = `${config.ohost}/mchnt/set_cookie?sessionid=${sid}`;
                 }
 
-                this.$router.push('/main/main');
+                this.$router.push('/main');
               } else {
                 this.$message.error(data.resperr);
               }
