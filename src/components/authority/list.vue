@@ -21,7 +21,7 @@
       </div>
     </el-form>
 
-    <el-table :data="roles" stripe @row-click="editRole">
+    <el-table :data="roles" v-loading="isLoading" stripe @row-click="editRole">
       <el-table-column prop="role_name" label="角色名称" width="180"></el-table-column>
       <el-table-column prop="ctime" label="创建时间" width="180"></el-table-column>
       <el-table-column prop="perms" :formatter="formatPerms" label="权限"></el-table-column>
@@ -45,6 +45,7 @@
   export default {
     data() {
       return {
+        isLoading: false,
         formData: {
           role_name: '',
           status: ''
@@ -71,6 +72,7 @@
         return cellValue === 1 ? '启用' : '关闭'
       },
       fetchData() {
+        this.isLoading = true
         this.$http(`${config.host}/org/perm/role/list`, {
           params: {
             name: this.formData.role_name,
@@ -80,6 +82,7 @@
           }
         })
         .then((res) => {
+          this.isLoading = false
           let data = res.data
           this.roles = data.data.list
           this.total = data.data.total
