@@ -32,7 +32,7 @@ input[type="number"]{
 }
 
 // 去掉自动填充颜色
-input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
+input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
 .el-header {
   height: 80px !important;
   padding: 0 30px !important;
@@ -51,7 +51,7 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
 .el-form-item.is-required .el-form-item__label:after {
   content: '*';
   color: #717283;
-  margin-right: 4px;
+  margin-left: 4px;
 }
 .el-form-item__label {
   float:none !important;
