@@ -1,4 +1,7 @@
 @import "base";
+@import 'button';
+@import 'dialog';
+
 body {
   background-color: #F2F4F5;
 }
@@ -33,9 +36,17 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
   height: 80px !important;
   padding: 0 30px !important;
 }
+.el-form-item.is-required .el-form-item__label:before {
+  content: '';
+}
+.el-form-item.is-required .el-form-item__label:after {
+  content: '*';
+  color: #717283;
+  margin-right: 4px;
+}
 .el-form-item__label {
   float:none !important;
-  font-size:14px !important;
+  font-size: 14px !important;
   color: rgba(113,114,131,1);
   line-height: 30px;
   padding-left: 15px;
@@ -43,24 +54,13 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
 .el-input__inner {
   background-color: transparent !important;
 }
-.el-button {
-  min-width: 170px;
-}
-.el-button--default {
-  border-color: $--color-primary;
-  color: $--color-primary;
-}
-.el-button--text {
-  color: $--color-primary;
-  min-width: auto;
-}
 
 .page-header {
-  height: 80px;
-  padding: 0 30px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  padding-left: $baseGap;
+  height: 75px;
   &.style2 {
     margin: 0 -30px;
     padding-left: 30px;
@@ -163,4 +163,7 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
 
 .roleList .el-table__row {
   cursor: pointer;
+}
+.table_placeholder {
+  height: 50px;
 }

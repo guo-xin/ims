@@ -7,8 +7,10 @@ import agencyCreate from 'components/agency/create'
 // import tradeList from 'components/trade/list'
 import roleList from 'components/role/list'
 import roleModify from 'components/role/modify'
+import userList from 'components/authority/userList'
 import forgetPassword from 'components/forgetPassword'
 import bussiness from 'components/merchant/bussinessList'
+import mchnt from 'components/merchant/merchantList'
 
 Vue.use(Router)
 
@@ -39,9 +41,9 @@ export default new Router({
           component: bussiness
         },
         {
-          path: 'storeManage',
-          name: 'storeManage',
-          component: bussiness
+          path: 'mchnt_manage_index',
+          name: 'mchnt_manage_index',
+          component: mchnt
         },
         {
           path: 'agent_manage_index',
@@ -67,6 +69,11 @@ export default new Router({
           path: 'perm_role_edit/:code',
           name: 'roleEdit',
           component: roleModify
+        },
+        {
+          path: 'userList',
+          name: 'userList',
+          component: userList
         }
       ]
     }

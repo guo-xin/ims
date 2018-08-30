@@ -135,7 +135,7 @@
                   }, 0)
                 }
                 * */
-                this.$router.push('/main/main');
+                this.$router.push('/main');
               } else {
                 this.$message.error(data.resperr);
               }

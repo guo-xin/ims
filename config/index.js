@@ -11,6 +11,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
+        // target: 'https://sh.qfpay.com',
         target: 'http://172.100.113.124:8198',
         changeOrigin: true,
         pathRewrite: {
@@ -48,7 +49,6 @@ module.exports = {
     // set this to false - it *may* help
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
     cacheBusting: true,
-
     cssSourceMap: true
   },
 

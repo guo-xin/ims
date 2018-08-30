@@ -1,0 +1,15 @@
+.el-button {
+  min-width: 170px;
+}
+.el-button--default {
+  border-color: $--color-primary;
+  color: $--color-primary;
+}
+.el-button--text {
+  color: $--color-primary;
+  min-width: auto;
+}
+.primary-button {
+  width: 170px;
+  font-size: $bigSize;
+}

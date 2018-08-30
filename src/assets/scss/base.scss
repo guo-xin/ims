@@ -10,10 +10,12 @@ $--color-primary: #2974FF;
 $baseColor: #2974FF;
 
 /*font size*/
-$baseSize: 14px;
 $smSize: 12px;
+$baseSize: 14px;
 $lgSize: 16px;
 $xlSize: 18px;
+$bigSize: 20px;
+$xgSize: 24px;
 
 /*font weight*/
 $baseW: 400;
@@ -28,3 +30,7 @@ $submenu-font-color: #717283;
 $submenu-bg-color-hover: #EEF0F2;
 $submenu-font-color-selected: #1D1D24;
 
+/*间距*/
+$smGap: 10px;
+$midGap: 20px;
+$baseGap: 30px;

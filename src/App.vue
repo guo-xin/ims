@@ -4,6 +4,8 @@
 
 <script>
   export default {
-
+    created() {
+      document.title = this.$t('common.title');
+    }
   }
 </script>

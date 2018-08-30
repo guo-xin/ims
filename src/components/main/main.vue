@@ -58,13 +58,16 @@
                    :unique-opened="true"
                    v-for="(menu, i) in menuData"
                    v-bind:key="menu.code"
+                   @select="subMenuSelectedHandler"
+                   :default-openeds="subMenuIdxs"
+                   :default-active="activeIndex"
           >
             <el-submenu v-if="menu.group.length" :index="String(i+1)">
               <template slot="title">
                 <span :class="menuSet[menu.code].icon+' nav-icon'"></span>
                 <span slot="title">{{menu.descr}}</span>
               </template>
-              <el-menu-item v-for="(submenu, idx) in menu.group" v-bind:key="submenu.code" :index="i+'-'+idx">
+              <el-menu-item v-for="(submenu, idx) in menu.group" v-bind:key="submenu.code" :index="(1+i)+'-'+idx">
                 <router-link :to="router('main/' + submenu.code)">{{submenu.descr}}</router-link>
               </el-menu-item>
             </el-submenu>
@@ -99,6 +102,8 @@
           label: 'Guest'
         }],
         isCollapse: false,
+        activeIndex: '-',
+        subMenuIdxs: [],
         menuSet: {
           mchnt_manage: { // 商户管理
             icon: 'mcht-icon',
@@ -131,17 +136,18 @@
 
     created() {
       this.$store.dispatch('getUserPermission');
+      if(localStorage.getItem('navIndex')) {
+        this.subMenuIdxs = JSON.parse(localStorage.getItem('navIndex')).splice(0, 1);
+        this.activeIndex = JSON.parse(localStorage.getItem('navIndex'))[1]
+      }
     },
 
     methods: {
+      subMenuSelectedHandler(index, indexPath) {
+        localStorage.setItem('navIndex', JSON.stringify(indexPath))
+      },
       router(router) {
         return `/${router}`;
-      },
-      menuExpend(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      menuClose(key, keyPath) {
-        console.log(key, keyPath);
       },
       logoutHandler() {
         this.loading = true;
@@ -152,8 +158,10 @@
             if (data.respcd === config.code.OK) {
               // 登出时删除本域cookie
               (new Image()).src = `${config.ohost}/mchnt/set_cookie?sessionid=`;
+              if(localStorage.getItem('navIndex')) {
+                localStorage.removeItem('navIndex')
+              }
               this.$router.push(`/login`);
-
             } else {
               this.$message.error(data.respmsg);
             }
@@ -226,14 +234,22 @@
       min-height: 660px;
       .el-aside {
         padding-top:20px;
+        overflow-x: hidden ;
       }
       .el-menu {
         padding-left:15px;
         border:none;
+        .el-menu-item {position:relative;}
         .el-menu-item > a {
           text-decoration: none;
           font-size:$lgSize;
-          color:rgba(29,29,36,1);
+          color:$submenu-font-color;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          left: 0;
+          top: 0;
+          padding-left: 68px;
         }
         .el-menu--inline .el-menu-item > a {
           color:$submenu-font-color;
