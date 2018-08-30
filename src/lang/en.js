@@ -13,6 +13,8 @@ const en = {
     save: 'Save',
     edit: 'Edit',
     close: 'Close',
+    search: 'Search',
+    reset: 'Reset',
     loading: 'Loading...',
     netError: 'Net error',
     opSucc: '操作成功',

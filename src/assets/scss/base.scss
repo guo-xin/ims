@@ -2,12 +2,13 @@
 $--color-primary: #2974FF;
 
 /* 改变 icon 字体路径变量，必需 */
-//$--font-path: '~qfpay-element-ui/lib/theme-chalk/fonts';
+$--font-path: '~qfpay-element-ui/lib/theme-chalk/fonts';
 
-//@import "~qfpay-element-ui/packages/theme-chalk/src/index";
+@import "~qfpay-element-ui/packages/theme-chalk/src/index";
 
 /*base color*/
 $baseColor: #2974FF;
+$redColor: #FF3366;
 
 /*font size*/
 $smSize: 12px;

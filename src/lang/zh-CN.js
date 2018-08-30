@@ -12,6 +12,8 @@ const zh = {
     save: '保 存',
     edit: '修 改',
     close: '关 闭',
+    search: '查找',
+    reset: '重置',
     loading: '拼命加载中',
     netError: '请求失败',
     opSucc: '操作成功',

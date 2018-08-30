@@ -10,19 +10,23 @@
     </header>
 
     <el-form class="search-form" ref="form" :model="form">
-      <el-form-item :label="$t('authority.panel.userName')">
+      <el-form-item :label="$t('authority.panel.userName')" prop="user">
         <el-input v-model="form.user"></el-input>
       </el-form-item>
-      <el-form-item :label="$t('authority.panel.roleName')">
+      <el-form-item :label="$t('authority.panel.roleName')" prop="role">
         <el-input v-model="form.role"></el-input>
       </el-form-item>
-      <el-form-item :label="$t('authority.panel.state')">
-        <el-select v-model="form.state" :placeholder="$t('common.choose')" @change="stateChange">
+      <el-form-item :label="$t('authority.panel.state')" prop="state">
+        <el-select v-model="form.state" :placeholder="$t('common.choose')">
           <el-option :label="$t('common.all')" value=""></el-option>
           <el-option :label="$t('authority.panel.open')" value=1></el-option>
           <el-option :label="$t('authority.panel.close')" value=9></el-option>
         </el-select>
       </el-form-item>
+      <div class="buttons">
+        <el-button type="primary" @click="search()">{{ $t('common.search') }}</el-button>
+        <el-button @click="reset()">{{ $t('common.reset') }}</el-button>
+      </div>
     </el-form>
 
     <el-table :data="userList.list" stripe @row-click="detail" v-loading="loading">
@@ -33,8 +37,8 @@
       <el-table-column prop="login_time" :label="$t('authority.table.lTime')"></el-table-column>
       <el-table-column :label="$t('authority.panel.state')" align="center">
         <template slot-scope="scope">
-          <span v-if="scope.row.state === 1">{{ $t('authority.panel.open') }}</span>
-          <span v-else>{{ $t('authority.panel.close') }}</span>
+          <span v-if="scope.row.state === 1" class="state-primary">{{ $t('authority.panel.open') }}</span>
+          <span v-else class="state-danger">{{ $t('authority.panel.close') }}</span>
         </template>
       </el-table-column>
     </el-table>
@@ -218,8 +222,14 @@
         });
       },
 
-      stateChange() {
+      // 查找
+      search() {
         this.handleSizeChange();
+      },
+
+      // 重置
+      reset() {
+        this.$refs['form'].resetFields();
       },
 
       detail(row) {
@@ -342,5 +352,10 @@
 </script>
 
 <style scoped lang="scss">
-
+  .state-primary {
+    color: $baseColor;
+  }
+  .state-danger {
+    color: $redColor;
+  }
 </style>
