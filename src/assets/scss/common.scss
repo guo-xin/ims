@@ -4,6 +4,8 @@
 
 body {
   background-color: #F2F4F5;
+  min-width: 1024px;
+  overflow-x: hidden;
 }
 @font-face {
   font-family: 'Roboto';
@@ -62,11 +64,8 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
   padding-left: $baseGap;
   height: 75px;
   &.style2 {
-    height: 80px;
-    display: flex;
-    align-items: center;
     margin: 0 -30px;
-    padding-left: 30px;
+    padding: 0 30px;
     border-bottom: 1px solid #2974FF;
   }
   .page-title {
@@ -74,20 +73,53 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
     font-size: 24px;
     margin: 0;
   }
+  .el-button {
+    min-width: 170px;
+  }
+  .el-button--text {
+    font-size: 16px;
+    font-weight: bold;
+    i, span {
+      vertical-align: middle;
+    }
+  }
+  .el-icon-close {
+    font-weight: bold;
+    font-size: 22px;
+    margin-right: 5px;
+  }
 }
 
 %shadow {
   box-shadow: 2px 6px 8px rgba(142, 169, 190, 0.1);
 }
 .search-form {
-  padding: 15px 30px 10px;
+  position: relative;
+  padding: 15px 230px 10px 30px;
+  box-sizing: border-box;
   border-radius: 8px;
   @extend %shadow;
   background-color: #fff;
   margin-bottom: 10px;
   .el-form-item {
+    width: 240px;
     display: inline-block;
     margin-right: 30px;
+  }
+  .el-select {
+    width: 100%;
+  }
+  .buttons {
+    position: absolute;
+    width: 200px;
+    padding-right: 30px;
+    text-align: right;
+    bottom: 32px;
+    right: 0;
+    display: flex;
+    button {
+      flex: 1;
+    }
   }
 }
 .el-table {
@@ -152,7 +184,9 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
   text-align: right;
 }
 
-// 无分页时样式
+.roleList .el-table__row {
+  cursor: pointer;
+}
 .table_placeholder {
   height: 50px;
 }
