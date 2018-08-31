@@ -33,8 +33,8 @@
       <el-table-column prop="nickname" :label="$t('authority.panel.userName')"></el-table-column>
       <el-table-column prop="role_name" :label="$t('authority.table.role')"></el-table-column>
       <el-table-column prop="username" :label="$t('authority.table.account')"></el-table-column>
-      <el-table-column prop="join_time" :label="$t('authority.table.rTime')"></el-table-column>
-      <el-table-column prop="login_time" :label="$t('authority.table.lTime')"></el-table-column>
+      <el-table-column prop="join_time" :label="$t('authority.table.rTime')" min-width="100"></el-table-column>
+      <el-table-column prop="login_time" :label="$t('authority.table.lTime')" min-width="100"></el-table-column>
       <el-table-column :label="$t('authority.panel.state')" align="center">
         <template slot-scope="scope">
           <span v-if="scope.row.state === 1" class="state-primary">{{ $t('authority.panel.open') }}</span>
@@ -92,7 +92,7 @@
       </el-form>
       <div class="divider"></div>
       <div slot="footer" class="dialog-footer">
-        <el-button type="text" class="text-button">{{ $t('common.close') }}</el-button>
+        <el-button type="text" class="text-button" @click="handleClose">{{ $t('common.close') }}</el-button>
         <span class="el-icon-loading text-button" v-if="iconLoading"></span>
         <el-button type="text" v-else class="text-button" @click="save">{{ $t('common.save') }}</el-button>
         </div>

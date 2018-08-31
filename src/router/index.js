@@ -64,7 +64,7 @@ export default new Router({
           component: agencyCreate
         },
         {
-          path: 'perm_role_index',
+          path: 'perm_role_list',
           name: 'roleList',
           component: roleList
         },
@@ -79,17 +79,17 @@ export default new Router({
           component: roleModify
         },
         {
-          path: 'perm_user_index',
+          path: 'perm_user_list',
           name: 'userList',
           component: userList
         },
         {
-          path: 'clearing_detail_index',
+          path: 'clearing_detail_list',
           name: 'settleDetail',
           component: settleDetail
         },
         {
-          path: 'clearing_manage_index',
+          path: 'clearing_template_list',
           name: 'settleManage',
           component: settleManage
         },

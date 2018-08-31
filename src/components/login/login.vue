@@ -105,7 +105,6 @@
               format: 'cors'
             };
             this.loading = true;
-            console.log(config)
             axios.post(`${config.host}/org/user/login`, qs.stringify(params), {
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
