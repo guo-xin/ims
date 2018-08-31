@@ -107,6 +107,7 @@ const en = {
     cap2: ' MANAGEMENT SYSTEM',
     checkbox: 'Remember the password',
     btn: 'Login',
+    forgetPass: 'Forget the password',
     msg: {
       m1: 'Please enter the account.',
       m2: 'Please enter the password.',

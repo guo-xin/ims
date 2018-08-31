@@ -20,9 +20,9 @@
 
           <el-form-item label="" prop="checkbox">
             <el-checkbox v-model="form.checkbox">{{$t('login.checkbox')}}</el-checkbox>
-            <span style="float:right" class="link-wrap">
-              <router-link :to="{ name: 'forgetPassword'}" class="forget">{{$t('login.checkbox')}}</router-link>
-            </span>
+            <!--<span style="float:right" class="link-wrap">-->
+              <!--<router-link :to="{ name: 'forgetPassword'}" class="forget">{{$t('login.forgetPass')}}</router-link>-->
+            <!--</span>-->
           </el-form-item>
 
           <el-form-item>
