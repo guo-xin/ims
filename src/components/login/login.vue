@@ -11,11 +11,11 @@
         </div>
         <el-form ref="form-login"  :model="form" label-width="0px" class="form-login" :rules="rules">
           <el-form-item label="Phone Number or E-mail" prop="username">
-            <el-input v-model="form.username" :clearable="true" @focus="addNameBorder" @blur="removeNameBorder" :class="isNameBorder?'hasBorderBottom':''"></el-input>
+            <el-input v-model.trim="form.username" :clearable="true" @focus="addNameBorder" @blur="removeNameBorder" :class="isNameBorder?'hasBorderBottom':''"></el-input>
           </el-form-item>
 
           <el-form-item :label="$t('login.passph')" prop="password">
-            <el-input v-model="form.password"  type="password" :clearable="true" @focus="addPassBorder" @blur="removePassBorder" :class="isPassBorder?'hasBorderBottom':''"></el-input>
+            <el-input v-model.trim="form.password"  type="password" :clearable="true" @focus="addPassBorder" @blur="removePassBorder" :class="isPassBorder?'hasBorderBottom':''"></el-input>
           </el-form-item>
 
           <el-form-item label="" prop="checkbox">

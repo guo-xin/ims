@@ -55,19 +55,18 @@
                    :collapse="isCollapse"
                    background-color="#F2F4F5"
                    text-color="#1D1D24"
-                   :unique-opened="true"
-                   v-for="(menu, i) in menuData"
-                   v-bind:key="menu.code"
+                   :unique-opened="false"
                    @select="subMenuSelectedHandler"
                    :default-openeds="subMenuIdxs"
                    :default-active="activeIndex"
           >
-            <el-submenu v-if="menu.group.length" :index="String(i+1)">
+            <el-submenu v-if="menu.group.length" :index="String(i+1)" v-for="(menu, i) in menuData"
+                        v-bind:key="menu.code">
               <template slot="title">
                 <span :class="menuSet[menu.code].icon+' nav-icon'"></span>
                 <span slot="title">{{menu.descr}}</span>
               </template>
-              <el-menu-item v-for="(submenu, idx) in menu.group" v-bind:key="submenu.code" :index="(1+i)+'-'+idx">
+              <el-menu-item v-for="(submenu, idx) in menu.group" v-bind:key="submenu.code" :index="(1+i)+'-'+(idx+1)">
                 <router-link :to="router('main/' + submenu.code)">{{submenu.descr}}</router-link>
               </el-menu-item>
             </el-submenu>
@@ -144,6 +143,7 @@
 
     methods: {
       subMenuSelectedHandler(index, indexPath) {
+        console.log(index)
         localStorage.setItem('navIndex', JSON.stringify(indexPath))
       },
       router(router) {
@@ -284,6 +284,7 @@
             background-size: contain;
           }
         }
+
         .el-submenu .el-menu-item.is-active {
           background-color:rgba(41,116,255,0.13) !important;
           border-radius:2px;

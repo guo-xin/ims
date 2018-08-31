@@ -39,14 +39,19 @@ export default new Router({
       component: main,
       children: [
         {
-          path: 'shop_manage_index',
-          name: 'shop_manage_index',
+          path: 'shop_manage_list',
+          name: 'shop_manage_list',
           component: bussiness
         },
         {
-          path: 'mchnt_manage_index',
-          name: 'mchnt_manage_index',
+          path: 'mchnt_manage_list',
+          name: 'mchnt_manage_list',
           component: mchnt
+        },
+        {
+          path: 'mchnt_audit_list',
+          name: 'mchnt_audit_list',
+          component: bussiness
         },
         {
           path: 'agent_manage_index',
