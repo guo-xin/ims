@@ -14,6 +14,7 @@ import mchnt from 'components/merchant/merchantList'
 import settleDetail from 'components/settlement/settleDetail'
 import settleManage from 'components/settlement/settleManage'
 import settleTotal from 'components/settlement/settleTotal'
+import home from 'components/home/home'
 
 Vue.use(Router)
 
@@ -35,7 +36,13 @@ export default new Router({
     {
       path: '/main',
       component: main,
+      redirect: '/main/home',
       children: [
+        {
+          path: 'home',
+          name: 'home',
+          component: home
+        },
         {
           path: 'shop_manage_list',
           name: 'shop_manage_list',
