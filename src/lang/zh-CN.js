@@ -99,25 +99,26 @@ const zh = {
     }
   },
   login: {
-    nameph: 'Enter your phone number or E-mail',
-    passph: 'Password',
-    desc: 'We handle billions of dollars every year for forward-thinking businesses in the world',
-    cap1: 'MOBILE PAYMENT',
-    cap2: ' MANAGEMENT SYSTEM',
-    checkbox: 'Remember the password',
-    btn: 'Login',
+    nameph: '请输入电话或E-mail',
+    passph: '密码',
+    desc: '文案待定',
+    cap1: '移动支付',
+    cap2: ' 管理系统',
+    checkbox: '记住密码',
+    btn: '登录',
+    forgetPass: '忘记密码？',
     msg: {
-      m1: 'Please enter the account.',
-      m2: 'Please enter the password.',
-      m3: 'Failed to log in.'
+      m1: '请输入账号',
+      m2: '请输入密码.',
+      m3: '登录失败.'
     }
   },
   main: {
-    desc: 'MOBILE PAYMENT MANAGEMENT SYSTEM',
+    desc: '移动支付管理系统',
     roles: [
       ''
     ],
-    logout: 'Logout'
+    logout: '注销'
   }
 }
 export default zh;
