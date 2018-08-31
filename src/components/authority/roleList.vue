@@ -119,3 +119,10 @@
     }
   }
 </script>
+<style lang="scss">
+  .roleList {
+    .el-table__row {
+      cursor: pointer;
+    }
+  }
+</style>
