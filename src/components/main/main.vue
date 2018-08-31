@@ -55,7 +55,7 @@
                    :collapse="isCollapse"
                    background-color="#F2F4F5"
                    text-color="#1D1D24"
-                   :unique-opened="false"
+                   :unique-opened="true"
                    @select="subMenuSelectedHandler"
                    :default-openeds="subMenuIdxs"
                    :default-active="activeIndex"
@@ -231,10 +231,12 @@
       }
     }
     .main-frame {
-      min-height: 660px;
+      /*min-height: 600px;*/
       .el-aside {
         padding-top:20px;
-        overflow-x: hidden ;
+        overflow-x: hidden;
+        overflow-y: auto;
+        max-height: 650px;
       }
       .el-menu {
         padding-left:15px;
