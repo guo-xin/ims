@@ -134,9 +134,10 @@
           params.role_code = this.roleCode
           params.status = this.formData.status
         }
+        let url = this.isUpdate ? 'org/perm/role/info' : 'org/perm/role'
         this.$http({
           method: 'post',
-          url: `${config.host}/org/perm/role`,
+          url: `${config.host}/${url}`,
           data: qs.stringify(params)
         })
         .then((res) => {

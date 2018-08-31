@@ -12,7 +12,7 @@ if (test) {
 }
 // 本地配置
 if (dev) {
-  host = 'https://oasbp.qa.qfpay.net';
+  host = 'api';
   ohost = 'https://o.qa.qfpay.net';
 }
 

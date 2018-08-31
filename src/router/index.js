@@ -64,7 +64,7 @@ export default new Router({
           component: agencyCreate
         },
         {
-          path: 'perm_role_index',
+          path: 'perm_role_list',
           name: 'roleList',
           component: roleList
         },
