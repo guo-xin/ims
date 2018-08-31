@@ -7,7 +7,7 @@ import axios from 'axios'
 import store from './store'
 import config from 'src/config'
 import router from './router'
-import { Container, Header, Aside, Main, Upload, Select, Option, TableColumn, Table, Button, Pagination, Dropdown, DropdownItem, DropdownMenu, Loading, DatePicker, Input, Message, Form, FormItem, Radio, RadioGroup, RadioButton, Dialog, Col, Row, CheckboxGroup, Checkbox, Rate, Tooltip, Menu, Submenu, MenuItem, MenuItemGroup, Steps, Step } from 'qfpay-element-ui';
+import { Container, Header, Aside, Main, Upload, Select, Option, TableColumn, Table, Button, Pagination, Dropdown, DropdownItem, DropdownMenu, Loading, DatePicker, Input, Message, MessageBox, Form, FormItem, Radio, RadioGroup, RadioButton, Dialog, Col, Row, CheckboxGroup, Checkbox, Rate, Tooltip, Menu, Submenu, MenuItem, MenuItemGroup, Steps, Step } from 'qfpay-element-ui';
 import Store from 'assets/js/store'
 import VueI18n from 'vue-i18n'
 import 'assets/scss/common.scss'
@@ -99,6 +99,7 @@ axios.interceptors.response.use((res) => {
   console.log(err)
 })
 Vue.prototype.$message = Message
+Vue.prototype.$confirm = MessageBox.confirm
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

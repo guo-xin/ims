@@ -11,7 +11,7 @@
 
     <el-form class="search-form" ref="form" :model="form">
       <el-form-item :label="$t('authority.panel.userName')" prop="user">
-        <el-input v-model="form.user"></el-input>
+        <el-input v-model="form.user" disabled></el-input>
       </el-form-item>
       <el-form-item :label="$t('authority.panel.roleName')" prop="role">
         <el-input v-model="form.role"></el-input>
@@ -29,7 +29,7 @@
       </div>
     </el-form>
 
-    <el-table :data="userList.list" stripe @row-click="detail" v-loading="loading">
+    <el-table :data="userList.list" stripe @row-click="detail" v-loading="loading" class="table-hover">
       <el-table-column prop="nickname" :label="$t('authority.panel.userName')"></el-table-column>
       <el-table-column prop="role_name" :label="$t('authority.table.role')"></el-table-column>
       <el-table-column prop="username" :label="$t('authority.table.account')"></el-table-column>
@@ -37,8 +37,8 @@
       <el-table-column prop="login_time" :label="$t('authority.table.lTime')" min-width="100"></el-table-column>
       <el-table-column :label="$t('authority.panel.state')" align="center">
         <template slot-scope="scope">
-          <span v-if="scope.row.state === 1" class="state-primary">{{ $t('authority.panel.open') }}</span>
-          <span v-else class="state-danger">{{ $t('authority.panel.close') }}</span>
+          <span v-if="scope.row.state === 1">{{ $t('authority.panel.open') }}</span>
+          <span v-else>{{ $t('authority.panel.close') }}</span>
         </template>
       </el-table-column>
     </el-table>
@@ -352,15 +352,5 @@
 </script>
 
 <style lang="scss">
-  .userList {
-    .state-primary {
-      color: $baseColor;
-    }
-    .state-danger {
-      color: $redColor;
-    }
-    .el-table__row {
-      cursor: pointer;
-    }
-  }
+
 </style>

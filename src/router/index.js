@@ -21,12 +21,10 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'login',
       component: login
     },
     {
       path: '/login',
-      name: 'login',
       component: login
     },
     {
@@ -94,7 +92,7 @@ export default new Router({
           component: settleManage
         },
         {
-          path: 'clearing_total_index',
+          path: 'clearing_total_list',
           name: 'settleTotal',
           component: settleTotal
         }

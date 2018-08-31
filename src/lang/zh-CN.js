@@ -58,6 +58,10 @@ const zh = {
       T2: '清分汇总',
       T3: '清分管理',
     },
+    btn: {
+      add: '新增',
+      set: '配置'
+    },
     panel: {
       orderNo: '订单号',
       tradeTime: '交易时间',
@@ -86,6 +90,8 @@ const zh = {
       settlePercent: '清分比例',
       settleAmount: '清分金额',
       order: '序列',
+      version: '版本号',
+      wayName: '渠道名称',
       tradeNum: '交易笔数',
       payGoods: '支付产品',
       lastTime: '最后更新时间',

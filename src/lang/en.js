@@ -59,6 +59,10 @@ const en = {
       T2: '清分汇总',
       T3: '清分管理',
     },
+    btn: {
+      add: '新增',
+      set: '配置'
+    },
     panel: {
       orderNo: '订单号',
       tradeTime: 'Date of transaction',
@@ -87,6 +91,8 @@ const en = {
       settlePercent: 'Proportion of clearing',
       settleAmount: 'Amount of clearing',
       order: '序列',
+      version: '版本号',
+      wayName: '渠道名称',
       tradeNum: 'Number of pens',
       payGoods: 'Payment of products',
       lastTime: 'Update time',
