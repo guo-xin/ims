@@ -13,7 +13,7 @@
       <el-form-item v-if="isUpdate" label="角色状态">
         <el-select v-model="formData.status">
           <el-option label="启用" value="1"></el-option>
-          <el-option label="关闭" value="9"></el-option>
+          <el-option label="停用" value="0"></el-option>
         </el-select>
       </el-form-item>
       <div class="permsGroupItem" v-for="(perm, index) in formData.perms" :key="index">
