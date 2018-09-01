@@ -1,6 +1,9 @@
 <template>
   <div class="agencyList">
-    <header class="page-header"><h2 class="page-title">交易明细列表</h2></header>
+    <header class="page-header">
+      <h2 class="page-title">交易明细</h2>
+      <el-button size="large" type="primary" @click="exportExcel()">导出</el-button>
+    </header>
 
     <el-form class="search-form" ref="searchform" :model="formData">
       <el-form-item label="交易时间">
@@ -11,20 +14,23 @@
       </el-form-item>
       <el-form-item label="交易类型">
         <el-select v-model="formData.agree" placeholder="请选择级别">
-          <el-option label="级别一" value="shanghai"></el-option>
-          <el-option label="级别二" value="beijing"></el-option>
+          <el-option label="全部" value=""></el-option>
+          <el-option label="支付" value=""></el-option>
+          <el-option label="退款" value=""></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="支付通道">
         <el-select v-model="formData.agree" placeholder="请选择级别">
-          <el-option label="级别一" value="shanghai"></el-option>
-          <el-option label="级别二" value="beijing"></el-option>
+          <el-option label="全部" value=""></el-option>
+          <el-option label="微信支付" value=""></el-option>
+          <el-option label="支付宝" value=""></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="交易状态">
         <el-select v-model="formData.agree" placeholder="请选择级别">
-          <el-option label="级别一" value="shanghai"></el-option>
-          <el-option label="级别二" value="beijing"></el-option>
+          <el-option label="全部" value=""></el-option>
+          <el-option label="成功" value=""></el-option>
+          <el-option label="失败" value=""></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="商户名称">
@@ -36,11 +42,13 @@
       <el-form-item label="二级代理">
         <el-input v-model="formData.name"></el-input>
       </el-form-item>
-      <el-button size="large" type="primary" @click="filterAgencies()">查询</el-button>
-      <el-button size="large" type="primary" @click="createAgency()">导出</el-button>
+      <div class="buttons">
+        <el-button type="primary" @click="fetchData()">查找</el-button>
+        <el-button @click="reset()">重置</el-button>
+      </div>
     </el-form>
 
-    <el-table :data="agencies" stripe>
+    <el-table :data="trades" stripe>
       <el-table-column prop="name" label="交易时间"></el-table-column>
       <el-table-column prop="id" label="流水号"></el-table-column>
       <el-table-column prop="level" label="商户简称"></el-table-column>
@@ -73,15 +81,15 @@
           agree: '',
           status: ''
         },
-        agencies: [{
-          name: '代理商1',
+        trades: [{
+          name: '交易1',
           id: '',
           level: '',
           uplevel: '',
           register_time: '',
           status: ''
         }, {
-          name: '代理商2',
+          name: '交易2',
           id: '',
           level: '',
           uplevel: '',
@@ -94,7 +102,7 @@
 
     },
     methods: {
-      filterAgencies(val) {
+      search() {
 
       },
       goDetail() {
