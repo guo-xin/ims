@@ -192,6 +192,7 @@
           .el-input {
             border-bottom: 1px solid #ffffff;
             .el-input__inner {
+              background-color: transparent !important;
               border:none !important;
               padding: 0 !important;
               color: #ffffff !important;
