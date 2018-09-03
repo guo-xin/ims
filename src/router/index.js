@@ -14,6 +14,8 @@ import mchnt from 'components/merchant/merchantList'
 import settleDetail from 'components/settlement/settleDetail'
 import settleManage from 'components/settlement/settleManage'
 import settleTotal from 'components/settlement/settleTotal'
+import settleSet from 'components/settlement/settleSet'
+import settleCreate from 'components/settlement/settleCreate'
 import home from 'components/home/home'
 
 Vue.use(Router)
@@ -97,6 +99,16 @@ export default new Router({
           path: 'clearing_template_list',
           name: 'settleManage',
           component: settleManage
+        },
+        {
+          path: 'settleCreate',
+          name: 'settleCreate',
+          component: settleCreate
+        },
+        {
+          path: 'settleSet',
+          name: 'settleSet',
+          component: settleSet
         },
         {
           path: 'clearing_total_list',

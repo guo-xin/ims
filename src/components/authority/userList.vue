@@ -11,7 +11,7 @@
 
     <el-form class="search-form" ref="form" :model="form">
       <el-form-item :label="$t('authority.panel.userName')" prop="user">
-        <el-input v-model="form.user" disabled></el-input>
+        <el-input v-model="form.user"></el-input>
       </el-form-item>
       <el-form-item :label="$t('authority.panel.roleName')" prop="role">
         <el-input v-model="form.role"></el-input>
@@ -32,18 +32,16 @@
     <el-table :data="userList.list" stripe @row-click="detail" v-loading="loading" class="table-hover">
       <el-table-column prop="nickname" :label="$t('authority.panel.userName')"></el-table-column>
       <el-table-column prop="role_name" :label="$t('authority.table.role')"></el-table-column>
-      <el-table-column prop="username" :label="$t('authority.table.account')"></el-table-column>
+      <el-table-column prop="username" :label="$t('authority.table.account')" min-width="80"></el-table-column>
       <el-table-column prop="join_time" :label="$t('authority.table.rTime')" min-width="100"></el-table-column>
-      <el-table-column prop="login_time" :label="$t('authority.table.lTime')" min-width="100"></el-table-column>
       <el-table-column :label="$t('authority.panel.state')" align="center">
         <template slot-scope="scope">
-          <span v-if="scope.row.state === 1">{{ $t('authority.panel.open') }}</span>
-          <span v-else>{{ $t('authority.panel.close') }}</span>
+          <span>{{ scope.row.state === 1 ? $t('authority.panel.open') : $t('authority.panel.close') }}</span>
         </template>
       </el-table-column>
     </el-table>
 
-    <div class="pagination_wrapper" v-if="userList.total >= 10">
+    <div class="pagination_wrapper" v-if="userList.total >= 1">
       <el-pagination
         ref="page"
         layout="total, sizes, prev, pager, next, jumper"
@@ -153,19 +151,7 @@
         }
       }
     },
-    computed: {
-      basicParams() {
-        let form = this.form;
-        return {
-          nickname: form.user,
-          role_name: form.role,
-          state: form.state,
-          offset: this.currentPage,
-          pageSize: this.pageSize,
-          format: 'cors'
-        };
-      }
-    },
+
     created() {
       this.getData();
       this.getRole();
@@ -282,8 +268,16 @@
       getData() {
         if(!this.loading) {
           this.loading = true;
+          let form = this.form;
           axios.get(`${config.host}/org/perm/user/list`, {
-            params: this.basicParams
+            params: {
+              nickname: form.user,
+              role_name: form.role,
+              state: form.state,
+              offset: this.currentPage,
+              pageSize: this.pageSize,
+              format: 'cors'
+            }
           }).then((res) => {
             this.loading = false;
             let data = res.data;
@@ -317,7 +311,7 @@
       },
 
       getRole() {
-        axios.get(`${config.host}/org/perm/roles`).then((res) => {
+        axios.get(`${config.host}/org/perm/roles?format=cors`).then((res) => {
           let data = res.data;
           if(data.respcd === config.code.OK) {
             this.roleList = data.data;
