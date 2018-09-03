@@ -4,7 +4,7 @@
       <div class="header-left">
         <h2 class="page-title">{{ $t('authority.crumbs.T1') }}</h2>
       </div>
-      <div class="header-right">
+      <div class="header-right" v-if="basicAuth.includes('perm_user_create')">
         <el-button size="large" type="primary" class="primary-button" @click="create()">{{  $t('common.create') }}</el-button>
       </div>
     </header>
@@ -152,6 +152,12 @@
       }
     },
 
+    computed: {
+      basicAuth() {
+        let state = this.$store.state || {};
+        return state.permissionData || [];
+      }
+    },
     created() {
       this.getData();
       this.getRole();
@@ -222,17 +228,19 @@
       },
 
       detail(row) {
-        this.isCreat = false;
-        this.showConfirm = true;
-        this.userId = row.userid;
-        Object.assign(this.formUser, {
-          user: row.nickname,
-          role: row.role_code,
-          account: row.username,
-          pwd: '******',
-          state: row.state + '',
-          time: row.login_time
-        })
+        if(this.basicAuth.includes('perm_user_edit')) {
+          this.isCreat = false;
+          this.showConfirm = true;
+          this.userId = row.userid;
+          Object.assign(this.formUser, {
+            user: row.nickname,
+            role: row.role_code,
+            account: row.username,
+            pwd: '******',
+            state: row.state + '',
+            time: row.login_time
+          })
+        }
       },
       // 输入框聚焦改变时清空
       passChange(val) {

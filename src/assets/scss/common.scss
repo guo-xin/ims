@@ -43,7 +43,7 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
   margin-right: 26px;
 }
 // 时间输入框
-.el-date-editor--daterange {
+.el-form-item__content .el-date-editor--daterange {
   width: 100%;
   .el-range__close-icon {
     width: 0;
@@ -51,11 +51,14 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
 }
 // 输入框去掉绿色边框
 .el-form-item.is-success .el-input__inner,
-.el-form-item.is-success .el-input__inner:focus,
-.el-form-item.is-success .el-textarea__inner,
-.el-form-item.is-success .el-textarea__inner:focus {
+.el-form-item.is-success .el-textarea__inner {
   border-color: #c0c4cc;
 }
+.el-form-item.is-success .el-input__inner:focus,
+.el-form-item.is-success .el-textarea__inner:focus {
+  border-color: $baseColor;
+}
+
 // 下拉框
 .el-select {
   width: 100%;

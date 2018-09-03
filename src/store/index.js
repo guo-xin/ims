@@ -8,8 +8,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    permissionData: {},
-    menuData: {}
+    permissionData: [],
+    menuData: []
   },
   mutations: {
     getPermissionData (state, payload) {
