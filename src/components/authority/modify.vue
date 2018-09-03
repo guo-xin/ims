@@ -16,7 +16,7 @@
           <el-option label="停用" value="0"></el-option>
         </el-select>
       </el-form-item>
-      <div class="permsGroupItem" v-for="(perm, index) in formData.perms" :key="index">
+      <div class="el-checkbox-groups-item" v-for="(perm, index) in formData.perms" :key="index">
         <el-checkbox :indeterminate="perm.isIndeterminate" v-model="perm.checkAll" @change="handleCheckAllChange($event, index)">{{perm.descr}}</el-checkbox>
         <el-checkbox-group v-model="perm.checkedOptions" @change="handleCheckedCitiesChange($event, index)">
           <el-checkbox v-for="item in perm.group" :label="item.code" :key="item.code">{{item.descr}}</el-checkbox>
@@ -178,7 +178,7 @@
     padding: 0 30px 30px;
     background-color: #fff;
   }
-  .permsGroupItem {
+  .el-checkbox-groups-item {
     margin-bottom: 30px;
   }
   .el-form-item {
@@ -187,5 +187,8 @@
   }
   .el-checkbox {
     margin: 20px 30px 0 0;
+  }
+  .el-main footer {
+    padding-top: 30px;
   }
 </style>

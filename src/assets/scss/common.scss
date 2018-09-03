@@ -64,7 +64,26 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
   padding-left: $smGap;
 }
 .el-input__inner {
-  background-color: transparent !important;
+  background-color: transparent;
+}
+.el-checkbox-groups-item > .el-checkbox {
+  color: $titleColor;
+  .el-checkbox__label {
+    font-size: 16px;
+  }
+}
+.el-checkbox__input.is-checked + .el-checkbox__label {
+  color: inherit;
+}
+.el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  background-color: #CCCCD5;
+  border-color: #CCCCD5;
+}
+.el-input.is-disabled .el-input__inner {
+  color: #606266;
+}
+.el-checkbox__input.is-disabled + span.el-checkbox__label {
+  color: inherit;
 }
 
 .page-header {
