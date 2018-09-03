@@ -104,6 +104,12 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
 .el-checkbox__input.is-disabled + span.el-checkbox__label {
   color: inherit;
 }
+.el-checkbox__input.is-disabled.is-checked .el-checkbox__inner::after {
+  border-color: #606266;
+}
+.el-checkbox__input.is-disabled.is-indeterminate .el-checkbox__inner::before {
+  background-color: #606266;
+}
 
 .page-header {
   display: flex;
