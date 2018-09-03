@@ -111,7 +111,7 @@ export default new Router({
           component: settleSet
         },
         {
-          path: 'clearing_total_list',
+          path: 'clearing_summary_list',
           name: 'settleTotal',
           component: settleTotal
         }

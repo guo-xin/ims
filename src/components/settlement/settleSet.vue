@@ -112,14 +112,11 @@
       },
 
       currentChange(current) {
-        if (!current && this.currentPage !== 1) {
-          this.currentPage = 1;
-          return;
-        }
         if (current) {
           this.currentPage = current;
+        }else {
+          this.currentPage = 1;
         }
-
         this.getData();
       },
 
