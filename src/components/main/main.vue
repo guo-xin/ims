@@ -135,7 +135,7 @@
     },
 
     created() {
-      // this.$store.dispatch('getUserPermission');
+      this.$store.dispatch('getUserPermission');
       if(localStorage.getItem('navIndex')) {
         this.subMenuIdxs = JSON.parse(localStorage.getItem('navIndex')).splice(0, 1);
         this.activeIndex = JSON.parse(localStorage.getItem('navIndex'))[1]

@@ -25,10 +25,10 @@
         <el-input v-model="baseform.short_name"></el-input>
       </el-form-item>
       <el-form-item prop="auth_province" label="代理区域" style="width:446px">
-        <el-select v-model="baseform.auth_province" @change="selectProvince">
+        <el-select ref="province" v-model="baseform.auth_province" @change="selectProvince">
           <el-option v-for="province in areas" :label="province.areaname" :value="province.areaid" :key="province.areaid"></el-option>
         </el-select>
-        <el-select v-model="baseform.auth_city">
+        <el-select ref="city" v-model="baseform.auth_city">
           <el-option v-for="city in citys" :label="city.cityname" :value="city.cityid" :key="city.cityid"></el-option>
         </el-select>
       </el-form-item>
@@ -48,13 +48,15 @@
       <el-form-item prop="mobile" label="法人电话">
         <el-input v-model="baseform.mobile "></el-input>
       </el-form-item>
-      <el-form-item label="所属业务员">
-        <el-select v-model="baseform.slsm_userid">
+      <el-form-item prop="slsm_userid" label="所属业务员">
+        <el-select v-model="baseform.slsm_userid" :disabled="baseform.levelcode > 1">
           <el-option v-for="sale in sales" :label="sale.name" :value="sale.userid" :key="sale.userid"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item prop="username" label="登录账号">
-        <el-input v-model="baseform.username"></el-input>
+      <el-form-item class="username" prop="username" label="登录账号" :error="isRegisteredErrorMessage">
+        <el-input @blur="verifyRegister" @focus="clearRegisterError" v-model="baseform.username"></el-input>
+        <i v-show="isRegisterLoading" class="el-icon-loading"></i>
+        <i v-show="!isRegisterLoading && !isRegistered" title="可以使用" class="el-icon-circle-check" style="color:#67c10d"></i>
       </el-form-item>
       <el-form-item prop="password" label="登录密码">
         <el-input v-model="baseform.password"></el-input>
@@ -83,7 +85,7 @@
 
     <el-form v-show="active === 2" class="payfee-form" ref="payfee" :rules="payfeeFormRules" :model="payfee">
       <h3>支付通道信息</h3>
-      <h4>微信</h4>
+      <h4>微信支付</h4>
       <el-form-item prop="wechat_fee_public">
         <el-input type="number" v-model="payfee.wechat_fee_public">
           <template slot="prepend">公众号</template>
@@ -151,7 +153,7 @@
     data() {
       return {
         isLoading: false,
-        active: 2, // 当前步骤
+        active: 0, // 当前步骤
         baseform: {
           name: '',
           levelcode: '',
@@ -182,6 +184,9 @@
         areas: [], // 所有省份和城市
         citys: [], // 当前省的所有城市
         sales: [], // 业务员 列表
+        isRegisterLoading: false,
+        isRegistered: true, // 已注册
+        isRegisteredErrorMessage: '', // 已注册报错文案
         baseFormRules: {
           'name': [
             {required: true, message: '请输入代理商名称'}
@@ -306,24 +311,30 @@
           this.baseFormRules.levelcode = [
             {required: true, message: '请输入代理商级别'}
           ]
+          this.baseFormRules.slsm_userid = [
+            {required: true, message: '请选择业务员'}
+          ]
           this.baseFormRules.parent_uid = []
         } else {
           this.baseFormRules.levelcode = []
+          this.baseFormRules.slsm_userid = []
           this.baseFormRules.parent_uid = [
-            {required: true, message: '请输入代理商级别'}
+            {required: true, message: '请输入所属代理'}
           ]
+          this.baseform.slsm_userid = ''
         }
         this.baseform.parent_uid = ''
       },
       selectProvince(value) {
         console.log('selectProvince')
         this.areas.map((area, index) => {
-          console.log(area.areaid)
+          console.log(area)
           if (area.areaid === value) {
             this.citys = area.cities
           }
         })
         this.baseform.auth_city = ''
+        console.log('this.citys')
         console.log(this.citys)
       },
       fetchAgencyLevel() {
@@ -361,7 +372,38 @@
           }
         })
       },
+      clearRegisterError() {
+        this.isRegistered = true
+        this.isRegisteredErrorMessage = ''
+      },
+      verifyRegister(event) {
+        console.log(event.target.value)
+        let username = event.target.value
+        if (!username) {
+          return false
+        }
+        this.isRegisterLoading = true
+        this.$http(`gapi/org/v1/api/agent/check?username=${username}`)
+        .then((res) => {
+          this.isRegisterLoading = false
+          let data = res.data
+          if (data.respcd === '0000') {
+            this.isRegistered = false
+            this.isRegisteredErrorMessage = ''
+          } else if (data.respcd === '2102') {
+            console.log(2102)
+            this.isRegistered = true
+            this.isRegisteredErrorMessage = '登录账号已注册'
+          }
+          console.log(this.isRegistered)
+          console.log(this.isRegisteredErrorMessage)
+        })
+      },
       create() {
+        // 接口传参需要 label，省市
+        console.log(this.$refs.province.selected)
+        this.baseform.auth_province = this.$refs.province.selected.label
+        this.baseform.auth_city = this.$refs.city.selected.label
         this.$http({
           method: 'post',
           url: 'gapi/org/v1/api/agent/create',
@@ -377,6 +419,8 @@
             this.$message.success('创建成功')
             this.$router.push({name: 'agencyList'})
           } else {
+            this.baseform.auth_province = this.$refs.province.selected.value
+            this.baseform.auth_city = this.$refs.city.selected.value
             this.$message.error(data.resperr)
           }
         })
@@ -412,15 +456,13 @@
   }
 }
 .el-form-item {
+  width: 300px;
   display: inline-block;
   vertical-align: top;
   margin-right: 80px;
 }
 .el-select {
   width: 200px;
-}
-.el-input {
-  width: 300px;
 }
 .el-steps {
   padding-right: 60px;
@@ -431,5 +473,18 @@ hr {
 }
 footer {
   padding-bottom: 30px;
+}
+.username {
+  position: relative;
+  i {
+    font-size: 18px;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    margin-top: -9px;
+  }
+  .el-icon-circle-check {
+    cursor: help;
+  }
 }
 </style>

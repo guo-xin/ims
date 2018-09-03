@@ -51,7 +51,7 @@ export default new Router({
           component: agencyList
         },
         {
-          path: 'agencyCreate',
+          path: 'agent_create',
           name: 'agencyCreate',
           component: agencyCreate
         },
