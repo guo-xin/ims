@@ -187,16 +187,19 @@
             }
             axios.post(`${config.host}/${url}`, qs.stringify(params)).then((res) => {
               this.iconLoading = false;
-              this.showConfirm = false;
               let data = res.data;
-              if (data.respcd === config.code.OK) {
+              if(data.respcd === config.code.OK) {
+                this.showConfirm = false;
                 this.$message({
                   type: 'success',
                   message: this.$t('common.opSucc')
                 });
                 // 重新登录
                 this.handleSizeChange();
-              } else {
+              } else if(data.respcd === config.code.USERERR) {
+                this.$message.error(data.resperr);
+              }else {
+                this.showConfirm = false;
                 this.$message.error(data.resperr);
               }
             }).catch(() => {
@@ -274,7 +277,7 @@
               nickname: form.user,
               role_name: form.role,
               state: form.state,
-              offset: this.currentPage,
+              offset: this.currentPage - 1,
               pageSize: this.pageSize,
               format: 'cors'
             }

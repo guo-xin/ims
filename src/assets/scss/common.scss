@@ -42,11 +42,27 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
   display: inline-block;
   margin-right: 26px;
 }
-.date-form-item {
-  width: 480px;
+// 时间输入框
+.el-date-editor--daterange {
+  width: 100%;
+  .el-range__close-icon {
+    width: 0;
+  }
 }
+// 输入框去掉绿色边框
+.el-form-item.is-success .el-input__inner,
+.el-form-item.is-success .el-input__inner:focus,
+.el-form-item.is-success .el-textarea__inner,
+.el-form-item.is-success .el-textarea__inner:focus {
+  border-color: #c0c4cc;
+}
+// 下拉框
 .el-select {
   width: 100%;
+}
+// 搜索框
+.el-autocomplete {
+  display: block;
 }
 .el-form-item.is-required .el-form-item__label:before {
   content: '';

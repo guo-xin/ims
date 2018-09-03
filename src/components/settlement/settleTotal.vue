@@ -145,7 +145,7 @@
               nickname: form.user,
               role_name: form.date,
               state: form.state,
-              offset: this.currentPage,
+              offset: this.currentPage - 1,
               pageSize: this.pageSize,
               format: 'cors'
             }
