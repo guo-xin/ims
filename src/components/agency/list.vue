@@ -25,7 +25,7 @@
         </el-select>
       </el-form-item>
       <div class="buttons">
-        <el-button type="primary" @click="fetchData()">查找</el-button>
+        <el-button type="primary" @click="search()">查找</el-button>
         <el-button @click="reset()">重置</el-button>
       </div>
     </el-form>
@@ -78,9 +78,14 @@
       formatStatus(row, column, cellValue) {
         return cellValue === 0 ? '启用' : '停用'
       },
+      search() {
+        this.currentPage = 1
+        this.pageSize = 10
+        this.fetchData()
+      },
       fetchData() {
         this.isLoading = true
-        this.$http(`gapi/org/v1/api/agent/list`, {
+        this.$http(`${config.host}/org/v1/api/agent/list`, {
           params: {
             name: this.formData.name,
             qd_uid: this.formData.qd_uid,
@@ -93,13 +98,11 @@
         .then((res) => {
           this.isLoading = false
           let data = res.data
-          console.log(res)
           this.agencies = data.data.qd_infos
           this.total = data.data.qd_cnt
         })
       },
       reset() {
-        console.log('reset')
         this.formData = {
           name: '',
           qd_uid: '',

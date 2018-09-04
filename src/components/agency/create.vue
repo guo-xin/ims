@@ -85,57 +85,65 @@
 
     <el-form v-show="active === 2" class="payfee-form" ref="payfee" :rules="payfeeFormRules" :model="payfee">
       <h3>支付通道信息</h3>
-      <h4>微信支付</h4>
-      <el-form-item prop="wechat_fee_public">
-        <el-input type="number" v-model="payfee.wechat_fee_public">
-          <template slot="prepend">公众号</template>
-          <template slot="append">%</template>
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="wechat_fee_sweep">
-        <el-input type="number" v-model="payfee.wechat_fee_sweep">
-          <template slot="prepend">扫码</template>
-          <template slot="append">%</template>
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="wechat_fee_H5">
-        <el-input type="number" v-model="payfee.wechat_fee_H5">
-          <template slot="prepend">H5</template>
-          <template slot="append">%</template>
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="wechat_fee_sdk">
-        <el-input type="number" v-model="payfee.wechat_fee_sdk">
-          <template slot="prepend">SDK</template>
-          <template slot="append">%</template>
-        </el-input>
-      </el-form-item>
-      <hr>
-      <h4>支付宝</h4>
-      <el-form-item prop="alipay_service">
-        <el-input type="number" v-model="payfee.alipay_service">
-          <template slot="prepend">服务窗</template>
-          <template slot="append">%</template>
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="alipay_sweep">
-        <el-input type="number" v-model="payfee.alipay_sweep">
-          <template slot="prepend">扫码</template>
-          <template slot="append">%</template>
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="alipay_fee_H5">
-        <el-input type="number" v-model="payfee.alipay_fee_H5">
-          <template slot="prepend">H5</template>
-          <template slot="append">%</template>
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="alipay_sdk">
-        <el-input type="number" v-model="payfee.alipay_sdk">
-          <template slot="prepend">SDK</template>
-          <template slot="append">%</template>
-        </el-input>
-      </el-form-item>
+      <header><h4>支付方式</h4><h4>支付产品</h4></header>
+      <div class="body">
+        <div class="icon"><img src="./imgs/wechat.png"/><strong>微信支付</strong></div>
+        <div class="payfee-container">
+          <el-form-item prop="wechat_fee_public">
+            <el-input type="number" v-model="payfee.wechat_fee_public">
+              <template slot="prepend">公众号</template>
+              <template slot="append">%</template>
+            </el-input>
+          </el-form-item>
+          <el-form-item prop="wechat_fee_sweep">
+            <el-input type="number" v-model="payfee.wechat_fee_sweep">
+              <template slot="prepend">扫码</template>
+              <template slot="append">%</template>
+            </el-input>
+          </el-form-item>
+          <el-form-item prop="wechat_fee_H5">
+            <el-input type="number" v-model="payfee.wechat_fee_H5">
+              <template slot="prepend">H5</template>
+              <template slot="append">%</template>
+            </el-input>
+          </el-form-item>
+          <el-form-item prop="wechat_fee_sdk">
+            <el-input type="number" v-model="payfee.wechat_fee_sdk">
+              <template slot="prepend">SDK</template>
+              <template slot="append">%</template>
+            </el-input>
+          </el-form-item>
+        </div>
+      </div>
+      <div class="body">
+        <div class="icon"><img src="./imgs/alipay.png"/><strong>支付宝</strong></div>
+        <div class="payfee-container">
+          <el-form-item prop="alipay_service">
+            <el-input type="number" v-model="payfee.alipay_service">
+              <template slot="prepend">服务窗</template>
+              <template slot="append">%</template>
+            </el-input>
+          </el-form-item>
+          <el-form-item prop="alipay_sweep">
+            <el-input type="number" v-model="payfee.alipay_sweep">
+              <template slot="prepend">扫码</template>
+              <template slot="append">%</template>
+            </el-input>
+          </el-form-item>
+          <el-form-item prop="alipay_fee_H5">
+            <el-input type="number" v-model="payfee.alipay_fee_H5">
+              <template slot="prepend">H5</template>
+              <template slot="append">%</template>
+            </el-input>
+          </el-form-item>
+          <el-form-item prop="alipay_sdk">
+            <el-input type="number" v-model="payfee.alipay_sdk">
+              <template slot="prepend">SDK</template>
+              <template slot="append">%</template>
+            </el-input>
+          </el-form-item>
+        </div>
+      </div>
     </el-form>
     <footer>
       <el-button type="primary" @click="next">
@@ -148,7 +156,7 @@
 
 <script>
   import qs from 'qs'
-  // import config from 'config'
+  import config from 'config'
   export default {
     data() {
       return {
@@ -271,6 +279,18 @@
       this.fetchAgencyLevel()
       this.fetchSalesman()
       this.fetchCity()
+      let base = localStorage.getItem('base')
+      let bankinfo = localStorage.getItem('bankinfo')
+      let payfee = localStorage.getItem('payfee')
+      if (base) {
+        this.baseform = JSON.parse(base)
+      }
+      if (bankinfo) {
+        this.bankinfo = JSON.parse(bankinfo)
+      }
+      if (payfee) {
+        this.payfee = JSON.parse(payfee)
+      }
     },
     methods: {
       next() {
@@ -278,20 +298,22 @@
           this.$refs['baseform'].validate((valid) => {
             if (valid) {
               this.active += 1
+              localStorage.setItem('base', JSON.stringify(this.baseform))
             }
           })
         } else if (this.active === 1) {
           this.$refs['bankinfoform'].validate((valid) => {
             if (valid) {
               this.active += 1
+              localStorage.setItem('bankinfo', JSON.stringify(this.bankinfo))
             }
           })
         } else {
           this.$refs['payfee'].validate((valid) => {
             if (valid) {
               // this.active += 1
+              localStorage.setItem('payfee', JSON.stringify(this.payfee))
               this.create()
-              console.log(JSON.stringify(this.payfee))
             }
           })
         }
@@ -300,9 +322,7 @@
         if (this.active-- <= 0) this.active = 0
       },
       selectLevel(value) {
-        console.log('selectLevel')
         this.levels.map((level, index) => {
-          console.log(level.code)
           if (level.code === value) {
             this.allAgencys = level.parentinfo
           }
@@ -325,20 +345,20 @@
         }
         this.baseform.parent_uid = ''
       },
-      selectProvince(value) {
-        console.log('selectProvince')
+      selectProvince(value, cityId) {
         this.areas.map((area, index) => {
-          console.log(area)
           if (area.areaid === value) {
             this.citys = area.cities
           }
         })
-        this.baseform.auth_city = ''
-        console.log('this.citys')
-        console.log(this.citys)
+        if (cityId) {
+          this.baseform.auth_city = cityId
+        } else {
+          this.baseform.auth_city = ''
+        }
       },
       fetchAgencyLevel() {
-        this.$http(`gapi/org/v1/api/tools/level`)
+        this.$http(`${config.host}/org/v1/api/tools/level`)
         .then((res) => {
           let data = res.data
           if (data.respcd === '0000') {
@@ -349,7 +369,7 @@
         })
       },
       fetchSalesman() {
-        this.$http(`gapi/org/v1/api/tools/slsm`)
+        this.$http(`${config.host}/org/v1/api/tools/slsm`)
         .then((res) => {
           let data = res.data
           if (data.respcd === '0000') {
@@ -361,12 +381,16 @@
       },
       fetchCity() {
         this.isLoading = true
-        this.$http(`gapi/org/v1/api/tools/areacities`)
+        this.$http(`${config.host}/org/v1/api/tools/areacities`)
         .then((res) => {
           this.isLoading = false
           let data = res.data
           if (data.respcd === '0000') {
             this.areas = data.data.records
+            let base = JSON.parse(localStorage.getItem('base'))
+            if (base.auth_city) {
+              this.selectProvince(base.auth_province, base.auth_city)
+            }
           } else {
             this.$message.error(data.resperr)
           }
@@ -377,13 +401,12 @@
         this.isRegisteredErrorMessage = ''
       },
       verifyRegister(event) {
-        console.log(event.target.value)
         let username = event.target.value
         if (!username) {
           return false
         }
         this.isRegisterLoading = true
-        this.$http(`gapi/org/v1/api/agent/check?username=${username}`)
+        this.$http(`${config.host}/org/v1/api/agent/check?username=${username}`)
         .then((res) => {
           this.isRegisterLoading = false
           let data = res.data
@@ -391,24 +414,21 @@
             this.isRegistered = false
             this.isRegisteredErrorMessage = ''
           } else if (data.respcd === '2102') {
-            console.log(2102)
             this.isRegistered = true
             this.isRegisteredErrorMessage = '登录账号已注册'
           }
-          console.log(this.isRegistered)
-          console.log(this.isRegisteredErrorMessage)
         })
       },
       create() {
         // 接口传参需要 label，省市
-        console.log(this.$refs.province.selected)
-        this.baseform.auth_province = this.$refs.province.selected.label
-        this.baseform.auth_city = this.$refs.city.selected.label
+        let paramsBase = this.baseform
+        paramsBase.auth_province = this.$refs.province.selected.label
+        paramsBase.auth_city = this.$refs.city.selected.label
         this.$http({
           method: 'post',
-          url: 'gapi/org/v1/api/agent/create',
+          url: `${config.host}/org/v1/api/agent/create`,
           data: qs.stringify({
-            base: JSON.stringify(this.baseform),
+            base: JSON.stringify(paramsBase),
             bankinfo: JSON.stringify(this.bankinfo),
             payfee: JSON.stringify(this.payfee)
           })
@@ -417,6 +437,9 @@
           let data = res.data
           if (data.respcd === '0000') {
             this.$message.success('创建成功')
+            localStorage.removeItem('base')
+            localStorage.removeItem('bankinfo')
+            localStorage.removeItem('payfee')
             this.$router.push({name: 'agencyList'})
           } else {
             this.baseform.auth_province = this.$refs.province.selected.value
@@ -460,6 +483,57 @@
   display: inline-block;
   vertical-align: top;
   margin-right: 80px;
+}
+.payfee-form {
+  background-color: transparent;
+  padding: 0;
+  h3 {
+    margin-left: 20px;
+  }
+  header {
+    height: 77px;
+    line-height: 77px;
+    background-color: #F5FAFF;
+    border-bottom: 1px solid #2974FF;
+    display: flex;
+    h4 {
+      align-items: center;
+      margin: 0;
+      width: 250px;
+      padding-left: 30px;
+    }
+  }
+  .body {
+    display: flex;
+    border-bottom: 1px solid #dcdfe6;
+    > div:first-child {
+      width: 250px;
+      padding-left: 30px;
+    }
+    > div:last-child {
+      width: 300px;
+    }
+    .icon {
+      line-height: 20px;
+      height: 20px;
+      font-size: 14px;
+      align-self: center;
+      strong {
+        font-weight: normal;
+        color: #1D1D24;
+      }
+      img, strong {
+        vertical-align: middle;
+      }
+      img {
+        width: 26px;
+        margin-right: 10px;
+      }
+    }
+    .payfee-container {
+      padding-top: 22px;
+    }
+  }
 }
 .el-select {
   width: 200px;

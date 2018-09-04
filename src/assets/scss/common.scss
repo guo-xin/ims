@@ -63,6 +63,22 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
 .el-input__inner {
   background-color: transparent !important;
 }
+.el-input-group__prepend {
+  background-color: transparent;
+  border: none;
+  padding-left: 0;
+  text-align: right;
+  color: #1D1D24;
+}
+.el-input-group--append .el-input__inner {
+  text-align: right;
+}
+.payfee-form .el-input-group__prepend {
+  min-width: 60px;
+}
+.payfee-form .el-form-item__error {
+  left: 80px;
+}
 
 .page-header {
   display: flex;

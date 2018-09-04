@@ -46,7 +46,7 @@ export default new Router({
           component: mchnt
         },
         {
-          path: 'agent_manage_index',
+          path: 'agent_manage_list',
           name: 'agencyList',
           component: agencyList
         },
