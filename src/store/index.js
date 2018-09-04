@@ -33,7 +33,7 @@ const store = new Vuex.Store({
           }
         })
         .catch(() => {
-          this.$message.error('获取分页店铺列表失败')
+          this.$message.error('获取权限数据失败')
         })
     },
   }
