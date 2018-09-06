@@ -5,8 +5,8 @@
         <h2 class="page-title">{{ $t('settleMent.crumbs.T3') }}</h2>
       </div>
       <div class="header-right">
-        <el-button size="large" type="primary" @click="create">{{  $t('settleMent.btn.add') }}</el-button>
-        <el-button size="large" type="primary" @click="setting">{{  $t('settleMent.btn.set') }}</el-button>
+        <el-button size="large" type="primary" class="primary-button" @click="create()">{{  $t('settleMent.btn.add') }}</el-button>
+        <el-button size="large" type="primary" class="primary-button" @click="setting()">{{  $t('settleMent.btn.set') }}</el-button>
       </div>
     </header>
 
@@ -14,15 +14,8 @@
       <el-form-item :label="$t('settleMent.panel.modeName')" prop="user">
         <el-input v-model="form.user"></el-input>
       </el-form-item>
-      <el-form-item :label="$t('settleMent.panel.createTime')" prop="date" class="date-form-item">
-        <el-date-picker
-          v-model="form.date"
-          type="daterange"
-          :editable="false"
-          :placeholder="$t('common.range')"
-          size="large"
-          :clearable="false">
-        </el-date-picker>
+      <el-form-item :label="$t('settleMent.panel.createTime')" prop="role">
+        <el-input v-model="form.role"></el-input>
       </el-form-item>
       <el-form-item :label="$t('settleMent.panel.payPass')" prop="state">
         <el-select v-model="form.state" :placeholder="$t('common.choose')">
@@ -37,7 +30,7 @@
       </div>
     </el-form>
 
-    <el-table :data="manageList.list" stripe v-loading="loading">
+    <el-table :data="userList.list" stripe v-loading="loading">
       <el-table-column prop="nickname" :label="$t('settleMent.table.order')"></el-table-column>
       <el-table-column prop="role_name" :label="$t('settleMent.panel.modeName')"></el-table-column>
       <el-table-column prop="username" :label="$t('settleMent.panel.payPass')"></el-table-column>
@@ -52,13 +45,13 @@
       </el-table-column>
     </el-table>
 
-    <div class="pagination_wrapper" v-if="manageList.total >= 1">
+    <div class="pagination_wrapper" v-if="userList.total >= 1">
       <el-pagination
         ref="page"
         layout="total, sizes, prev, pager, next, jumper"
         :page-size="pageSize"
         @size-change="handleSizeChange"
-        :total="manageList.total"
+        :total="userList.total"
         @current-change="currentChange"
         :current-page="currentPage">
       </el-pagination>
@@ -82,13 +75,25 @@
         iconLoading: false,
         form: {
           user: '',
-          date: [new Date(), new Date()],
+          role: '',
           state: ''
         },
-        manageList: {}
+        userList: {}
       }
     },
-
+    computed: {
+      basicParams() {
+        let form = this.form;
+        return {
+          nickname: form.user,
+          role_name: form.role,
+          state: form.state,
+          offset: this.currentPage,
+          pageSize: this.pageSize,
+          format: 'cors'
+        };
+      }
+    },
     created() {
       this.getData();
     },
@@ -113,33 +118,20 @@
 
       // 创建
       create() {
-        this.$router.push({ name: 'settleCreate' });
-      },
-
-      // 配置
-      setting() {
-        this.$router.push({ name: 'settleSet' });
+        this.$router.push();
       },
 
       // 获取数据
       getData() {
         if(!this.loading) {
           this.loading = true;
-          let form = this.form;
           axios.get(`${config.host}/org/perm/user/list`, {
-            params: {
-              nickname: form.user,
-              role_name: form.date,
-              state: form.state,
-              offset: this.currentPage - 1,
-              pageSize: this.pageSize,
-              format: 'cors'
-            }
+            params: this.basicParams
           }).then((res) => {
             this.loading = false;
             let data = res.data;
             if(data.respcd === config.code.OK) {
-              this.manageList = data.data;
+              this.userList = data.data;
             } else {
               this.$message.error(data.resperr);
             }
@@ -151,11 +143,14 @@
       },
 
       currentChange(current) {
+        if (!current && this.currentPage !== 1) {
+          this.currentPage = 1;
+          return;
+        }
         if (current) {
           this.currentPage = current;
-        }else {
-          this.currentPage = 1;
         }
+
         this.getData();
       },
 

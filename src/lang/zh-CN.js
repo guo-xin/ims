@@ -21,6 +21,7 @@ const zh = {
     operate: '操作',
     delete: '删除',
     look: '查看',
+    range: '选择时间范围',
   },
   authority: {
     crumbs: {
@@ -43,24 +44,34 @@ const zh = {
     dialog: {
       title1: '新增用户',
       title2: '用户详情',
-      pwd: '密码'
+      pwd: '密码',
+      tp1: '请输入用户名称',
+      tp2: '请输入角色名称',
+      tp3: '请输入账户',
+      tp4: '最多输入30个字符',
+      tp5: '请输入密码',
+      tp6: '请选择状态'
     }
   },
   settleMent: {
     crumbs: {
       T1: '清分明细',
       T2: '清分汇总',
-      T3: '清分管理',
+      T3: '清分模板管理',
+      T4: '清分配置管理',
+    },
+    btn: {
+      add: '新增',
+      set: '配置'
     },
     panel: {
       orderNo: '订单号',
       tradeTime: '交易时间',
       settleType: '结算方类型',
       settleName: '结算方',
-      payWay: '支付渠道',
       payType: '支付类型',
       settleDetail: '结算科目',
-      settleWay: '结算渠道',
+      settlePass: '结算通道',
       modeName: '模板名称',
       createTime: '创建时间',
       agentName: '代理商名称',
@@ -80,6 +91,7 @@ const zh = {
       settlePercent: '清分比例',
       settleAmount: '清分金额',
       order: '序列',
+      passName: '通道名称',
       tradeNum: '交易笔数',
       payGoods: '支付产品',
       lastTime: '最后更新时间',
@@ -91,6 +103,28 @@ const zh = {
       countRules: '计算公式',
       isSettle: '是/否结算'
     }
+  },
+  login: {
+    nameph: '请输入电话或E-mail',
+    passph: '密码',
+    desc: '文案待定',
+    cap1: '移动支付',
+    cap2: ' 管理系统',
+    checkbox: '记住密码',
+    btn: '登录',
+    forgetPass: '忘记密码？',
+    msg: {
+      m1: '请输入账号',
+      m2: '请输入密码.',
+      m3: '登录失败.'
+    }
+  },
+  main: {
+    desc: '移动支付管理系统',
+    roles: [
+      ''
+    ],
+    logout: '注销'
   }
 }
 export default zh;

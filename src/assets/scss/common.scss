@@ -32,7 +32,7 @@ input[type="number"]{
 }
 
 // 去掉自动填充颜色
-input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
+input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
 .el-header {
   height: 80px !important;
   padding: 0 30px !important;
@@ -42,8 +42,30 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
   display: inline-block;
   margin-right: 26px;
 }
+// 时间输入框
+.el-form-item__content .el-date-editor--daterange {
+  width: 100%;
+  .el-range__close-icon {
+    width: 0;
+  }
+}
+// 输入框去掉绿色边框
+.el-form-item.is-success .el-input__inner,
+.el-form-item.is-success .el-textarea__inner {
+  border-color: #c0c4cc;
+}
+.el-form-item.is-success .el-input__inner:focus,
+.el-form-item.is-success .el-textarea__inner:focus {
+  border-color: $baseColor;
+}
+
+// 下拉框
 .el-select {
   width: 100%;
+}
+// 搜索框
+.el-autocomplete {
+  display: block;
 }
 .el-form-item.is-required .el-form-item__label:before {
   content: '';
@@ -51,17 +73,42 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
 .el-form-item.is-required .el-form-item__label:after {
   content: '*';
   color: #717283;
-  margin-right: 4px;
+  margin-left: 4px;
 }
 .el-form-item__label {
   float:none !important;
   font-size: 14px !important;
   color: rgba(113,114,131,1);
   line-height: 30px;
-  padding-left: 15px;
+  padding-left: $smGap;
 }
 .el-input__inner {
-  background-color: transparent !important;
+  background-color: transparent;
+}
+.el-checkbox-groups-item > .el-checkbox {
+  color: $titleColor;
+  .el-checkbox__label {
+    font-size: 16px;
+  }
+}
+.el-checkbox__input.is-checked + .el-checkbox__label {
+  color: inherit;
+}
+.el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  background-color: #CCCCD5;
+  border-color: #CCCCD5;
+}
+.el-input.is-disabled .el-input__inner {
+  color: #606266;
+}
+.el-checkbox__input.is-disabled + span.el-checkbox__label {
+  color: inherit;
+}
+.el-checkbox__input.is-disabled.is-checked .el-checkbox__inner::after {
+  border-color: #606266;
+}
+.el-checkbox__input.is-disabled.is-indeterminate .el-checkbox__inner::before {
+  background-color: #606266;
 }
 .el-input-group__prepend {
   background-color: transparent;
@@ -196,9 +243,10 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
   text-align: right;
 }
 
-.roleList .el-table__row {
+.table-hover .el-table__row {
   cursor: pointer;
 }
+
 .table_placeholder {
   height: 50px;
 }

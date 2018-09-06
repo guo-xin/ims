@@ -8,8 +8,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    permissionData: {},
-    menuData: {}
+    permissionData: [],
+    menuData: []
   },
   mutations: {
     getPermissionData (state, payload) {
@@ -25,6 +25,7 @@ const store = new Vuex.Store({
         .then((res) => {
           let data = res.data
           if (data.respcd === config.code.OK) {
+            data.data.menu_struct.unshift({code: 'home', descr: '首页', group: []});
             commit({
               type: 'getPermissionData',
               data: data.data
@@ -32,7 +33,7 @@ const store = new Vuex.Store({
           }
         })
         .catch(() => {
-          this.$message.error('获取分页店铺列表失败')
+          this.$message.error('获取权限数据失败')
         })
     },
   }

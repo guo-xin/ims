@@ -4,7 +4,7 @@
       <div class="header-left">
         <h2 class="page-title">{{ $t('authority.crumbs.T1') }}</h2>
       </div>
-      <div class="header-right">
+      <div class="header-right" v-if="basicAuth.includes('perm_user_create')">
         <el-button size="large" type="primary" class="primary-button" @click="create()">{{  $t('common.create') }}</el-button>
       </div>
     </header>
@@ -29,21 +29,19 @@
       </div>
     </el-form>
 
-    <el-table :data="userList.list" stripe @row-click="detail" v-loading="loading">
+    <el-table :data="userList.list" stripe @row-click="detail" v-loading="loading" class="table-hover">
       <el-table-column prop="nickname" :label="$t('authority.panel.userName')"></el-table-column>
       <el-table-column prop="role_name" :label="$t('authority.table.role')"></el-table-column>
-      <el-table-column prop="username" :label="$t('authority.table.account')"></el-table-column>
-      <el-table-column prop="join_time" :label="$t('authority.table.rTime')"></el-table-column>
-      <el-table-column prop="login_time" :label="$t('authority.table.lTime')"></el-table-column>
+      <el-table-column prop="username" :label="$t('authority.table.account')" min-width="80"></el-table-column>
+      <el-table-column prop="join_time" :label="$t('authority.table.rTime')" min-width="100"></el-table-column>
       <el-table-column :label="$t('authority.panel.state')" align="center">
         <template slot-scope="scope">
-          <span v-if="scope.row.state === 1" class="state-primary">{{ $t('authority.panel.open') }}</span>
-          <span v-else class="state-danger">{{ $t('authority.panel.close') }}</span>
+          <span>{{ scope.row.state === 1 ? $t('authority.panel.open') : $t('authority.panel.close') }}</span>
         </template>
       </el-table-column>
     </el-table>
 
-    <div class="pagination_wrapper" v-if="userList.total >= 10">
+    <div class="pagination_wrapper" v-if="userList.total >= 1">
       <el-pagination
         ref="page"
         layout="total, sizes, prev, pager, next, jumper"
@@ -92,7 +90,7 @@
       </el-form>
       <div class="divider"></div>
       <div slot="footer" class="dialog-footer">
-        <el-button type="text" class="text-button">{{ $t('common.close') }}</el-button>
+        <el-button type="text" class="text-button" @click="showConfirm = false">{{ $t('common.close') }}</el-button>
         <span class="el-icon-loading text-button" v-if="iconLoading"></span>
         <el-button type="text" v-else class="text-button" @click="save">{{ $t('common.save') }}</el-button>
         </div>
@@ -135,35 +133,29 @@
         },
         userRules: {
           user: [
-            { required: true, message: '请输入用户名称' }
+            { required: true, message: this.$t('authority.dialog.tp1') }
           ],
           role: [
-            { required: true, message: '请输入角色名称' }
+            { required: true, message: this.$t('authority.dialog.tp2') }
           ],
           account: [
-            { required: true, message: '请输入账户' },
-            { max: 30, message: '最多输入30个字符' }
+            { required: true, message: this.$t('authority.dialog.tp3') },
+            { max: 30, message: this.$t('authority.dialog.tp4') }
           ],
           pwd: [
-            { required: true, message: '请输入密码' }
+            { required: true, message: this.$t('authority.dialog.tp5') }
           ],
           state: [
-            { required: true, message: '请选择状态' }
+            { required: true, message: this.$t('authority.dialog.tp6') }
           ],
         }
       }
     },
+
     computed: {
-      basicParams() {
-        let form = this.form;
-        return {
-          nickname: form.user,
-          role_name: form.role,
-          state: form.state,
-          offset: this.currentPage,
-          pageSize: this.pageSize,
-          format: 'cors'
-        };
+      basicAuth() {
+        let state = this.$store.state || {};
+        return state.permissionData || [];
       }
     },
     created() {
@@ -201,16 +193,19 @@
             }
             axios.post(`${config.host}/${url}`, qs.stringify(params)).then((res) => {
               this.iconLoading = false;
-              this.showConfirm = false;
               let data = res.data;
-              if (data.respcd === config.code.OK) {
+              if(data.respcd === config.code.OK) {
+                this.showConfirm = false;
                 this.$message({
                   type: 'success',
                   message: this.$t('common.opSucc')
                 });
                 // 重新登录
                 this.handleSizeChange();
-              } else {
+              } else if(data.respcd === config.code.USERERR) {
+                this.$message.error(data.resperr);
+              }else {
+                this.showConfirm = false;
                 this.$message.error(data.resperr);
               }
             }).catch(() => {
@@ -233,17 +228,19 @@
       },
 
       detail(row) {
-        this.isCreat = false;
-        this.showConfirm = true;
-        this.userId = row.userid;
-        Object.assign(this.formUser, {
-          user: row.nickname,
-          role: row.role_code,
-          account: row.username,
-          pwd: '******',
-          state: row.state + '',
-          time: row.login_time
-        })
+        if(this.basicAuth.includes('perm_user_edit')) {
+          this.isCreat = false;
+          this.showConfirm = true;
+          this.userId = row.userid;
+          Object.assign(this.formUser, {
+            user: row.nickname,
+            role: row.role_code,
+            account: row.username,
+            pwd: '******',
+            state: row.state + '',
+            time: row.login_time
+          })
+        }
       },
       // 输入框聚焦改变时清空
       passChange(val) {
@@ -282,8 +279,16 @@
       getData() {
         if(!this.loading) {
           this.loading = true;
+          let form = this.form;
           axios.get(`${config.host}/org/perm/user/list`, {
-            params: this.basicParams
+            params: {
+              nickname: form.user,
+              role_name: form.role,
+              state: form.state,
+              offset: this.currentPage - 1,
+              pageSize: this.pageSize,
+              format: 'cors'
+            }
           }).then((res) => {
             this.loading = false;
             let data = res.data;
@@ -300,14 +305,11 @@
       },
 
       currentChange(current) {
-        if (!current && this.currentPage !== 1) {
-          this.currentPage = 1;
-          return;
-        }
         if (current) {
           this.currentPage = current;
+        }else {
+          this.currentPage = 1;
         }
-
         this.getData();
       },
 
@@ -317,7 +319,7 @@
       },
 
       getRole() {
-        axios.get(`${config.host}/org/perm/roles`).then((res) => {
+        axios.get(`${config.host}/org/perm/roles?format=cors`).then((res) => {
           let data = res.data;
           if(data.respcd === config.code.OK) {
             this.roleList = data.data;
@@ -351,11 +353,6 @@
   }
 </script>
 
-<style scoped lang="scss">
-  .state-primary {
-    color: $baseColor;
-  }
-  .state-danger {
-    color: $redColor;
-  }
+<style lang="scss">
+
 </style>

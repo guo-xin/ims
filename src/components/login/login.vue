@@ -9,20 +9,20 @@
         <div class="desc">
           {{$t('login.desc')}}
         </div>
-        <el-form ref="form-login"  :model="form" label-width="0px" class="form-login" :rules="rules">
+        <el-form ref="form-login"  :model="form" label-width="0px" class="form-login" :rules="rules" :autocomplete="false">
           <el-form-item label="Phone Number or E-mail" prop="username">
-            <el-input v-model="form.username" :clearable="true" @focus="addNameBorder" @blur="removeNameBorder" :class="isNameBorder?'hasBorderBottom':''"></el-input>
+            <el-input type="text" v-model.trim="form.username" :clearable="true" @focus="addNameBorder" @blur="removeNameBorder"></el-input>
           </el-form-item>
 
           <el-form-item :label="$t('login.passph')" prop="password">
-            <el-input v-model="form.password"  type="password" :clearable="true" @focus="addPassBorder" @blur="removePassBorder" :class="isPassBorder?'hasBorderBottom':''"></el-input>
+            <el-input v-model.trim="form.password"  type="password" :clearable="true" @focus="addPassBorder" @blur="removePassBorder"></el-input>
           </el-form-item>
 
-          <el-form-item label="" prop="checkbox">
-            <el-checkbox v-model="form.checkbox">{{$t('login.checkbox')}}</el-checkbox>
-            <span style="float:right" class="link-wrap">
-              <router-link :to="{ name: 'forgetPassword'}" class="forget">{{$t('login.checkbox')}}</router-link>
-            </span>
+          <el-form-item label="" prop="checked">
+            <el-checkbox v-model="form.checked" @change="changeCheckboxHandler">{{$t('login.checkbox')}}</el-checkbox>
+            <!--<span style="float:right" class="link-wrap">-->
+              <!--<router-link :to="{ name: 'forgetPassword'}" class="forget">{{$t('login.forgetPass')}}</router-link>-->
+            <!--</span>-->
           </el-form-item>
 
           <el-form-item>
@@ -63,7 +63,7 @@
         form: {
           username: '',
           password: '',
-          checkbox: false
+          checked: false
         },
         isNameBorder: false,
         isPassBorder: false,
@@ -81,8 +81,24 @@
     computed: {
 
     },
-
+    created() {
+      if(localStorage.getItem('userInfo')) {
+        try{
+          let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+          this.form.username = userInfo.nickname
+          this.form.password = userInfo.password
+          this.form.checked = userInfo.checked
+        }catch (e) {
+          console.log(e)
+        }
+      }
+    },
     methods: {
+      changeCheckboxHandler(e) {
+        if(!e && localStorage.getItem('userInfo')) {
+          localStorage.removeItem('userInfo')
+        }
+      },
       addNameBorder() {
         this.isNameBorder = true;
       },
@@ -105,7 +121,6 @@
               format: 'cors'
             };
             this.loading = true;
-            console.log(config)
             axios.post(`${config.host}/org/user/login`, qs.stringify(params), {
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -121,8 +136,18 @@
                   bicon.style.display = 'none';
                   bicon.src = `${config.ohost}/mchnt/set_cookie?sessionid=${sid}`;
                 }
-
-                this.$router.push('/main/main');
+                if(this.form.checked) { // 勾选了记住密码
+                  let userInfo = {
+                    nickname: data.data.nickname,
+                    userid: data.data.userid,
+                    role: data.data.role,
+                    role_name: data.data.role_name,
+                    checked: this.form.checked
+                  }
+                  localStorage.setItem('userInfo', JSON.stringify(userInfo))
+                }
+                this.$refs['form-login'].resetFields();
+                this.$router.push('/main');
               } else {
                 this.$message.error(data.resperr);
               }
@@ -178,32 +203,44 @@
           text-decoration: none;
           color:#ffffff;
         }
-        .el-form-item {    margin-bottom: 24px;}
+        .el-form-item {    margin-bottom: 24px;width: 100%;}
         .el-form-item__label {
           color: #ffffff;
           font-size:12px;opacity:0.6;
           line-height:16px;
           padding-left:0;
         }
-        .el-form-item__label:before {
+        .el-form-item__label:before,.el-form-item__label:after {
           content: '';
         }
         .el-form-item__content {
           line-height: 32px !important;
+          margin-top:10px;
           .el-input {
-            border-bottom: 1px solid #ffffff;
+            background-color: #ffffff;
+            border-radius: 4px;
             .el-input__inner {
+              background-color: transparent !important;
               border:none !important;
-              padding: 0 !important;
-              color: #ffffff !important;
+              padding: 0 0 0 10px !important;
               font-size:22px;
               line-height:1;
-              height: 24px !important;
+              height: 36px !important;
+              color:#000000;
             }
           }
+
           .hasBorderBottom {
             border-bottom: 1px solid rgba(93,217,255,1) !important;
           }
+        }
+        .el-textarea__inner { background-color:transparent !important;border: none;color:#ffffff !important;padding-left:0;}
+        .el-textarea.el-input--suffix {
+           border-bottom: 1px solid #ffffff;
+        }
+        .el-form-item.is-error .el-textarea__inner, .el-form-item.is-error .el-textarea__inner:focus {
+          border:transparent !important;
+          border-bottom: 1px solid white;
         }
         .el-checkbox__inner {
           background-color:transparent;
@@ -233,7 +270,7 @@
           color:#ffffff;
         }
         .submit-btn {
-          width:179px;height:40px;background-color:#FFD641;color:#3578FF;font-size:20px;border-radius:4px;display:flex;
+          width:184px;height:40px;background-color:#FFD641;color:#3578FF;font-size:20px;border-radius:4px;display:flex;
           justify-content: center;align-items: center;cursor:pointer;
         }
         .el-form-item__error {color:#C8001B;}

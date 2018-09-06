@@ -53,27 +53,28 @@
         <el-aside width="251px">
           <el-menu class=""
                    :collapse="isCollapse"
-                   background-color="#F2F4F5"
+                   background-color="transparent"
                    text-color="#1D1D24"
                    :unique-opened="true"
-                   v-for="(menu, i) in menuData"
-                   v-bind:key="menu.code"
                    @select="subMenuSelectedHandler"
                    :default-openeds="subMenuIdxs"
                    :default-active="activeIndex"
           >
-            <el-submenu v-if="menu.group.length" :index="String(i+1)">
+            <el-submenu v-if="menu.group.length" :index="String(i+1)" v-for="(menu, i) in menuData"
+                        v-bind:key="menu.code">
               <template slot="title">
                 <span :class="menuSet[menu.code].icon+' nav-icon'"></span>
                 <span slot="title">{{menu.descr}}</span>
               </template>
-              <el-menu-item v-for="(submenu, idx) in menu.group" v-bind:key="submenu.code" :index="(1+i)+'-'+idx">
+              <el-menu-item v-for="(submenu, idx) in menu.group" v-bind:key="submenu.code" :index="(1+i)+'-'+(idx+1)">
                 <router-link :to="router('main/' + submenu.code)">{{submenu.descr}}</router-link>
               </el-menu-item>
             </el-submenu>
-            <el-menu-item v-else-if="menu.group.length" :index="String(i+1)">
+            <el-menu-item v-else-if="menu.code==='home'" :index="String(i+1)" class="no-submenu">
               <span :class="menuSet[menu.code].icon+' nav-icon'"></span>
-              <span slot="title">{{menu.descr}}</span>
+              <router-link :to="router('main/' + menu.code)">
+                {{menu.descr}}
+              </router-link>
             </el-menu-item>
           </el-menu>
         </el-aside>
@@ -102,9 +103,12 @@
           label: 'Guest'
         }],
         isCollapse: false,
-        activeIndex: '-',
+        activeIndex: '1',
         subMenuIdxs: [],
         menuSet: {
+          home: {
+            icon: 'home-icon'
+          }, // 首页
           mchnt_manage: { // 商户管理
             icon: 'mcht-icon',
             route: ['bussinessManage', 'storeManage']
@@ -138,12 +142,13 @@
       this.$store.dispatch('getUserPermission');
       if(localStorage.getItem('navIndex')) {
         this.subMenuIdxs = JSON.parse(localStorage.getItem('navIndex')).splice(0, 1);
-        this.activeIndex = JSON.parse(localStorage.getItem('navIndex'))[1]
+        this.activeIndex = JSON.parse(localStorage.getItem('navIndex')).length === 2 ? JSON.parse(localStorage.getItem('navIndex'))[1] : JSON.parse(localStorage.getItem('navIndex'))[0]
       }
     },
 
     methods: {
       subMenuSelectedHandler(index, indexPath) {
+        console.log(index)
         localStorage.setItem('navIndex', JSON.stringify(indexPath))
       },
       router(router) {
@@ -231,10 +236,12 @@
       }
     }
     .main-frame {
-      min-height: 660px;
+      /*min-height: 600px;*/
       .el-aside {
         padding-top:20px;
-        overflow-x: hidden ;
+        overflow-x: hidden;
+        overflow-y: auto;
+        max-height: 650px;
       }
       .el-menu {
         padding-left:15px;
@@ -254,13 +261,30 @@
         .el-menu--inline .el-menu-item > a {
           color:$submenu-font-color;
         }
-        .el-submenu__title:hover {
+        .el-menu-item.no-submenu > a{
+          padding: 1px 0 0 51px;
+          font-size: 16px;
+          color: rgb(29, 29, 36);
+        }
+        .el-submenu__title:hover,.el-menu-item {
           background:transparent !important;
           border-radius:2px;
         }
-        .el-submenu .el-menu-item:hover {
+        .el-menu-item.is-active {
+          background:$menu-item-active-bg !important;
+          border-radius:2px;
+          .home-icon {
+            background:url(../../assets/common_img/home_light.png) 0 0 no-repeat transparent;
+            background-size: contain;
+          }
+        }
+        .el-menu-item:hover {
           background:$submenu-bg-color-hover !important;
           border-radius:2px;
+          .home-icon {
+            background:url(../../assets/common_img/home_light.png) 0 0 no-repeat transparent;
+            background-size: contain;
+          }
         }
         .el-submenu .el-submenu__title:hover {
           .mcht-icon {
@@ -284,21 +308,26 @@
             background-size: contain;
           }
         }
+
         .el-submenu .el-menu-item.is-active {
-          background-color:rgba(41,116,255,0.13) !important;
+          background-color:$menu-item-active-bg !important;
           border-radius:2px;
         }
         .el-submenu .el-menu-item.is-active > a {
           color:$submenu-font-color-selected !important;
         }
-        .el-submenu .el-submenu__title > span{
+        .el-submenu .el-submenu__title > span, .el-menu-item > span{
           font-size: $lgSize;
         }
-        .el-submenu .el-submenu__title .nav-icon {
+        .el-submenu .nav-icon, .el-menu-item .nav-icon {
           width:24px;
           height:24px;
           margin-right:5px;
           display: inline-block;
+        }
+        .home-icon {
+          background:url(../../assets/common_img/home.png) 0 0 no-repeat transparent;
+          background-size: contain;
         }
         .mcht-icon {
           background:url(../../assets/common_img/mcht.png) 0 0 no-repeat transparent;

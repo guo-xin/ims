@@ -11,8 +11,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        // target: 'https://sh.qfpay.com',
-        target: 'http://172.100.108.144:6200',
+        target: 'https://oasbp.qa.qfpay.net',
+        // target: 'http://172.100.113.124:8198',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/'
@@ -55,7 +55,6 @@ module.exports = {
   build: {
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),
-
     env: {
       NODE_ENV: "'" + process.argv[2] + "'"
     },

@@ -11,12 +11,13 @@
       </el-form-item>
       <el-form-item label="状态">
         <el-select v-model="formData.status">
+          <el-option label="全部" value=""></el-option>
           <el-option label="启用" value="1"></el-option>
-          <el-option label="关闭" value="9"></el-option>
+          <el-option label="停用" value="0"></el-option>
         </el-select>
       </el-form-item>
       <div class="buttons">
-        <el-button type="primary" @click="fetchData()">查找</el-button>
+        <el-button type="primary" @click="search()">查找</el-button>
         <el-button @click="reset()">重置</el-button>
       </div>
     </el-form>
@@ -69,7 +70,12 @@
         return perms.join(' \\ ')
       },
       formatStatus(row, column, cellValue) {
-        return cellValue === 1 ? '启用' : '关闭'
+        return cellValue === 1 ? '启用' : '停用'
+      },
+      search() {
+        this.pageSize = 10
+        this.currentPage = 1
+        this.fetchData()
       },
       fetchData() {
         this.isLoading = true
@@ -119,3 +125,10 @@
     }
   }
 </script>
+<style lang="scss">
+  .roleList {
+    .el-table__row {
+      cursor: pointer;
+    }
+  }
+</style>

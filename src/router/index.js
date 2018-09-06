@@ -5,12 +5,18 @@ import main from 'components/main/main'
 import agencyList from 'components/agency/list'
 import agencyCreate from 'components/agency/create'
 // import tradeList from 'components/trade/list'
-import roleList from 'components/authority/list'
+import roleList from 'components/authority/roleList'
 import roleModify from 'components/authority/modify'
 import userList from 'components/authority/userList'
 import forgetPassword from 'components/forgetPassword'
 import bussiness from 'components/merchant/bussinessList'
 import mchnt from 'components/merchant/merchantList'
+import settleDetail from 'components/settlement/settleDetail'
+import settleManage from 'components/settlement/settleManage'
+import settleTotal from 'components/settlement/settleTotal'
+import settleSet from 'components/settlement/settleSet'
+import settleCreate from 'components/settlement/settleCreate'
+import home from 'components/home/home'
 
 Vue.use(Router)
 
@@ -18,12 +24,10 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'login',
       component: login
     },
     {
       path: '/login',
-      name: 'login',
       component: login
     },
     {
@@ -34,16 +38,27 @@ export default new Router({
     {
       path: '/main',
       component: main,
+      redirect: '/main/home',
       children: [
         {
-          path: 'shop_manage_index',
-          name: 'shop_manage_index',
+          path: 'home',
+          name: 'home',
+          component: home
+        },
+        {
+          path: 'shop_manage_list',
+          name: 'shop_manage_list',
           component: bussiness
         },
         {
-          path: 'mchnt_manage_index',
-          name: 'mchnt_manage_index',
+          path: 'mchnt_manage_list',
+          name: 'mchnt_manage_list',
           component: mchnt
+        },
+        {
+          path: 'mchnt_audit_list',
+          name: 'mchnt_audit_list',
+          component: bussiness
         },
         {
           path: 'agent_manage_list',
@@ -56,7 +71,7 @@ export default new Router({
           component: agencyCreate
         },
         {
-          path: 'perm_role_index',
+          path: 'perm_role_list',
           name: 'roleList',
           component: roleList
         },
@@ -71,9 +86,34 @@ export default new Router({
           component: roleModify
         },
         {
-          path: 'perm_user_index',
+          path: 'perm_user_list',
           name: 'userList',
           component: userList
+        },
+        {
+          path: 'clearing_detail_list',
+          name: 'settleDetail',
+          component: settleDetail
+        },
+        {
+          path: 'clearing_template_list',
+          name: 'settleManage',
+          component: settleManage
+        },
+        {
+          path: 'settleCreate',
+          name: 'settleCreate',
+          component: settleCreate
+        },
+        {
+          path: 'settleSet',
+          name: 'settleSet',
+          component: settleSet
+        },
+        {
+          path: 'clearing_summary_list',
+          name: 'settleTotal',
+          component: settleTotal
         }
       ]
     }

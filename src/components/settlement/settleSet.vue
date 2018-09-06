@@ -1,28 +1,14 @@
 <template>
-  <div class="settleManage">
+  <div class="settleSet">
     <header class="page-header">
       <div class="header-left">
-        <h2 class="page-title">{{ $t('settleMent.crumbs.T3') }}</h2>
-      </div>
-      <div class="header-right">
-        <el-button size="large" type="primary" @click="create">{{  $t('settleMent.btn.add') }}</el-button>
-        <el-button size="large" type="primary" @click="setting">{{  $t('settleMent.btn.set') }}</el-button>
+        <h2 class="page-title">{{ $t('settleMent.crumbs.T4') }}</h2>
       </div>
     </header>
 
     <el-form class="search-form" ref="form" :model="form">
-      <el-form-item :label="$t('settleMent.panel.modeName')" prop="user">
+      <el-form-item :label="$t('settleMent.panel.agentName')" prop="user">
         <el-input v-model="form.user"></el-input>
-      </el-form-item>
-      <el-form-item :label="$t('settleMent.panel.createTime')" prop="date" class="date-form-item">
-        <el-date-picker
-          v-model="form.date"
-          type="daterange"
-          :editable="false"
-          :placeholder="$t('common.range')"
-          size="large"
-          :clearable="false">
-        </el-date-picker>
       </el-form-item>
       <el-form-item :label="$t('settleMent.panel.payPass')" prop="state">
         <el-select v-model="form.state" :placeholder="$t('common.choose')">
@@ -37,28 +23,23 @@
       </div>
     </el-form>
 
-    <el-table :data="manageList.list" stripe v-loading="loading">
+    <el-table :data="setList.list" stripe v-loading="loading">
       <el-table-column prop="nickname" :label="$t('settleMent.table.order')"></el-table-column>
-      <el-table-column prop="role_name" :label="$t('settleMent.panel.modeName')"></el-table-column>
-      <el-table-column prop="username" :label="$t('settleMent.panel.payPass')"></el-table-column>
-      <el-table-column prop="join_time" :label="$t('settleMent.table.payGoods')"></el-table-column>
-      <el-table-column prop="login_time" :label="$t('settleMent.table.lastTime')" min-width="100"></el-table-column>
-      <el-table-column prop="login_time" :label="$t('settleMent.table.isMode')"></el-table-column>
-      <el-table-column :label="$t('common.operate')" align="center">
-        <template slot-scope="scope">
-          <el-button type="text" @click="dele()">{{ $t('common.delete') }}</el-button>
-          <el-button type="text" @click="detail()">{{ $t('common.look') }}</el-button>
-        </template>
-      </el-table-column>
+      <el-table-column prop="role_name" :label="$t('settleMent.panel.agentName')"></el-table-column>
+      <el-table-column prop="username" :label="$t('settleMent.table.province')"></el-table-column>
+      <el-table-column prop="join_time" :label="$t('settleMent.table.city')"></el-table-column>
+      <el-table-column prop="login_time" :label="$t('settleMent.table.address')" min-width="120"></el-table-column>
+      <el-table-column prop="login_time" :label="$t('settleMent.table.phone')"></el-table-column>
     </el-table>
 
-    <div class="pagination_wrapper" v-if="manageList.total >= 1">
+    <div class="pagination_wrapper" v-if="setList.total >= 1">
+      <el-button size="large" type="primary" @click="create" class="el-button-primary">{{  $t('common.export') }}</el-button>
       <el-pagination
         ref="page"
         layout="total, sizes, prev, pager, next, jumper"
         :page-size="pageSize"
         @size-change="handleSizeChange"
-        :total="manageList.total"
+        :total="setList.total"
         @current-change="currentChange"
         :current-page="currentPage">
       </el-pagination>
@@ -82,10 +63,9 @@
         iconLoading: false,
         form: {
           user: '',
-          date: [new Date(), new Date()],
           state: ''
         },
-        manageList: {}
+        setList: {}
       }
     },
 
@@ -103,24 +83,6 @@
         this.$refs['form'].resetFields();
       },
 
-      detail() {
-
-      },
-
-      dele() {
-
-      },
-
-      // 创建
-      create() {
-        this.$router.push({ name: 'settleCreate' });
-      },
-
-      // 配置
-      setting() {
-        this.$router.push({ name: 'settleSet' });
-      },
-
       // 获取数据
       getData() {
         if(!this.loading) {
@@ -129,7 +91,6 @@
           axios.get(`${config.host}/org/perm/user/list`, {
             params: {
               nickname: form.user,
-              role_name: form.date,
               state: form.state,
               offset: this.currentPage - 1,
               pageSize: this.pageSize,
@@ -139,7 +100,7 @@
             this.loading = false;
             let data = res.data;
             if(data.respcd === config.code.OK) {
-              this.manageList = data.data;
+              this.setList = data.data;
             } else {
               this.$message.error(data.resperr);
             }
