@@ -21,6 +21,7 @@ const zh = {
     operate: '操作',
     delete: '删除',
     look: '查看',
+    range: '选择时间范围',
   },
   authority: {
     crumbs: {
@@ -56,7 +57,8 @@ const zh = {
     crumbs: {
       T1: '清分明细',
       T2: '清分汇总',
-      T3: '清分管理',
+      T3: '清分模板管理',
+      T4: '清分配置管理',
     },
     btn: {
       add: '新增',
@@ -67,10 +69,9 @@ const zh = {
       tradeTime: '交易时间',
       settleType: '结算方类型',
       settleName: '结算方',
-      payWay: '支付渠道',
       payType: '支付类型',
       settleDetail: '结算科目',
-      settleWay: '结算渠道',
+      settlePass: '结算通道',
       modeName: '模板名称',
       createTime: '创建时间',
       agentName: '代理商名称',
@@ -90,8 +91,7 @@ const zh = {
       settlePercent: '清分比例',
       settleAmount: '清分金额',
       order: '序列',
-      version: '版本号',
-      wayName: '渠道名称',
+      passName: '通道名称',
       tradeNum: '交易笔数',
       payGoods: '支付产品',
       lastTime: '最后更新时间',

@@ -17,7 +17,7 @@
         </el-select>
       </el-form-item>
       <div class="buttons">
-        <el-button type="primary" @click="fetchData()">查找</el-button>
+        <el-button type="primary" @click="search()">查找</el-button>
         <el-button @click="reset()">重置</el-button>
       </div>
     </el-form>
@@ -71,6 +71,11 @@
       },
       formatStatus(row, column, cellValue) {
         return cellValue === 1 ? '启用' : '停用'
+      },
+      search() {
+        this.pageSize = 10
+        this.currentPage = 1
+        this.fetchData()
       },
       fetchData() {
         this.isLoading = true

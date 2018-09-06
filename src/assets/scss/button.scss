@@ -1,7 +1,7 @@
 .el-button--large {
   min-width: 170px;
   font-size: $bigSize;
-  padding: $smGap $midGap;
+  padding: 9px $midGap;
 }
 .el-button--default {
   border-color: $baseColor;
@@ -9,4 +9,13 @@
 }
 .el-button--text {
   color: $baseColor;
+}
+
+.pagination_wrapper {
+  position: relative;
+  .el-button-primary {
+    position: absolute;
+    top: 18px;
+    left: $midGap;
+  }
 }

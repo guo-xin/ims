@@ -22,6 +22,7 @@ const en = {
     operate: 'operation',
     delete: '删除',
     look: '查看',
+    range: 'select date range',
   },
   authority: {
     crumbs: {
@@ -57,7 +58,8 @@ const en = {
     crumbs: {
       T1: '清分明细',
       T2: '清分汇总',
-      T3: '清分管理',
+      T3: '清分模板管理',
+      T4: '清分配置管理',
     },
     btn: {
       add: '新增',
@@ -68,10 +70,9 @@ const en = {
       tradeTime: 'Date of transaction',
       settleType: '结算方类型',
       settleName: 'Settlement party',
-      payWay: 'Payment channel',
       payType: '支付类型',
       settleDetail: 'Settlement subject',
-      settleWay: '结算渠道',
+      settlePass: '结算通道',
       modeName: 'Template name',
       createTime: '创建时间',
       agentName: '代理商名称',
@@ -91,8 +92,7 @@ const en = {
       settlePercent: 'Proportion of clearing',
       settleAmount: 'Amount of clearing',
       order: '序列',
-      version: '版本号',
-      wayName: '渠道名称',
+      passName: '通道名称',
       tradeNum: 'Number of pens',
       payGoods: 'Payment of products',
       lastTime: 'Update time',
