@@ -61,12 +61,12 @@ export default new Router({
           component: bussiness
         },
         {
-          path: 'agent_manage_index',
+          path: 'agent_manage_list',
           name: 'agencyList',
           component: agencyList
         },
         {
-          path: 'agencyCreate',
+          path: 'agent_create',
           name: 'agencyCreate',
           component: agencyCreate
         },
