@@ -14,6 +14,7 @@ const en = {
     edit: 'Edit',
     close: 'Close',
     search: 'Search',
+    add: '增加',
     reset: 'Reset',
     loading: 'Loading...',
     netError: 'Net error',
@@ -60,6 +61,9 @@ const en = {
       T2: '清分汇总',
       T3: '清分模板管理',
       T4: '清分配置管理',
+      T5: '新增清分模板',
+      T6: '编辑清分模板',
+      T7: '清分模板详情',
     },
     btn: {
       add: '新增',
@@ -79,9 +83,17 @@ const en = {
       payPass: 'Payment channel',
       effectTime: 'Effective date',
       passCost: 'Channel cost',
+      staticAmount: '固定金额',
+      percent: '百分比',
+      day: '日结',
+      week: '周结',
+      month: '月结',
       singleAmount: 'Single sum of money',
       settleCircle: 'Settlement cycle',
-      floorType: 'Ladder type'
+      floorType: 'Ladder type',
+      floorCount: '分阶梯计算',
+      yes: 'Yes',
+      no: 'No'
     },
     table: {
       sNum: 'Flow number',
@@ -102,7 +114,20 @@ const en = {
       address: '地址',
       phone: '电话',
       countRules: 'Calculation formula',
-      isSettle: 'Yes / no settlement'
+      isSettle: 'Yes / no settlement',
+      agent: '机构',
+      firstAgent: '一级代理',
+      secondAgent: '二级代理',
+      income: '收入',
+      expend: '支出',
+      merchantRate: '商户费率',
+      headCost: '总部成本',
+      firstCost: '一级代理成本',
+      secondCost: '二级代理成本',
+      startVal: '起始值',
+      endVal: '终止值',
+      firstRate: '一级代理费率',
+      secondRate: '二级代理费率'
     }
   },
   login: {

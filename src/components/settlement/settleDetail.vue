@@ -78,7 +78,6 @@
     </el-table>
 
     <div class="pagination_wrapper" v-if="manageList.total >= 1">
-      <el-button size="large" type="primary" @click="create" class="el-button-primary">{{  $t('common.export') }}</el-button>
       <el-pagination
         ref="page"
         layout="total, sizes, prev, pager, next, jumper"
@@ -87,6 +86,7 @@
         :total="manageList.total"
         @current-change="currentChange"
         :current-page="currentPage">
+        <el-button size="large" type="primary" @click="down" class="el-button-primary">{{  $t('common.export') }}</el-button>
       </el-pagination>
     </div>
     <div class="table_placeholder" v-else></div>
@@ -130,17 +130,8 @@
         this.$refs['form'].resetFields();
       },
 
-      detail() {
+      down() {
 
-      },
-
-      dele() {
-
-      },
-
-      // 创建
-      create() {
-        this.$router.push({ name: 'settleCreate' });
       },
 
       // 配置

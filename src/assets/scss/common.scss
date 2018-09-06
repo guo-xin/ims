@@ -43,7 +43,8 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
   margin-right: 26px;
 }
 // 时间输入框
-.el-form-item__content .el-date-editor--daterange {
+.el-form-item__content .el-date-editor--daterange,
+.el-form-item__content .el-date-editor--date {
   width: 100%;
   .el-range__close-icon {
     width: 0;
@@ -62,6 +63,11 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
 // 下拉框
 .el-select {
   width: 100%;
+}
+// label居左
+.form-inline-label .el-form-item__label {
+  line-height: 40px;
+  float: left !important;
 }
 // 搜索框
 .el-autocomplete {

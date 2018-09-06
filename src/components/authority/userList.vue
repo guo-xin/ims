@@ -5,7 +5,7 @@
         <h2 class="page-title">{{ $t('authority.crumbs.T1') }}</h2>
       </div>
       <div class="header-right" v-if="basicAuth.includes('perm_user_create')">
-        <el-button size="large" type="primary" class="primary-button" @click="create()">{{  $t('common.create') }}</el-button>
+        <el-button size="large" type="primary" @click="create()">{{  $t('common.create') }}</el-button>
       </div>
     </header>
 
@@ -154,8 +154,7 @@
 
     computed: {
       basicAuth() {
-        let state = this.$store.state || {};
-        return state.permissionData || [];
+        return this.$store.state.permissionData || [];
       }
     },
     created() {
