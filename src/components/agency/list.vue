@@ -37,11 +37,12 @@
       <el-table-column prop="qd_uid" label="代理商ID"></el-table-column>
       <el-table-column prop="level" :formatter="formatLevel" label="等级"></el-table-column>
       <el-table-column prop="parent_name" label="上级代理商名称"></el-table-column>
-      <el-table-column prop="join_dtm" label="注册时间"></el-table-column>
+      <el-table-column width="170" prop="join_dtm" label="注册时间"></el-table-column>
       <el-table-column prop="status" :formatter="formatStatus" label="状态" align="center"></el-table-column>
     </el-table>
 
     <el-pagination
+      v-show="agencies.length > 0"
       layout="total, sizes, prev, pager, next, jumper"
       :page-size="pageSize"
       @size-change="handleSizeChange"
