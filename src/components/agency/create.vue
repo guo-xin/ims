@@ -1,6 +1,9 @@
 <template>
   <div class="agencyCreate">
-    <header class="page-header style2"><h2 class="page-title">添加渠道</h2></header>
+    <header class="page-header style2">
+      <h2 class="page-title">添加渠道</h2>
+      <el-button type="text" @click="cancel"><i class="el-icon-close"></i><span>关闭</span></el-button>
+    </header>
     <el-steps :active="active" finish-status="finish">
       <el-step title="基本信息"></el-step>
       <el-step title="结算信息"></el-step>
@@ -127,10 +130,10 @@
             {required: true, message: '请输入代理商名称'}
           ],
           'levelcode': [
-            {required: true, message: '请输入代理商级别'}
+            {required: true, message: '请选择代理商级别'}
           ],
           'auth_province': [
-            {required: true, message: '请输入代理区域'}
+            {required: true, message: '请选择代理区域'}
           ],
           'short_name': [
             {required: true, message: '请输入代理商简称'}
@@ -218,7 +221,7 @@
         })
         if (value === 1) {
           this.baseFormRules.levelcode = [
-            {required: true, message: '请输入代理商级别'}
+            {required: true, message: '请选择代理商级别'}
           ]
           this.baseFormRules.slsm_userid = [
             {required: true, message: '请选择业务员'}
@@ -228,7 +231,7 @@
           this.baseFormRules.levelcode = []
           this.baseFormRules.slsm_userid = []
           this.baseFormRules.parent_uid = [
-            {required: true, message: '请输入所属代理'}
+            {required: true, message: '请选择所属代理'}
           ]
           this.baseform.slsm_userid = ''
         }
@@ -324,14 +327,19 @@
         .then((res) => {
           let data = res.data
           if (data.respcd === '0000') {
-            this.$message.success('创建成功')
+            this.$refs['baseform'].resetFields()
+            this.$refs['bankinfoform'].resetFields()
             localStorage.removeItem('base')
             localStorage.removeItem('bankinfo')
+            this.$message.success('创建成功')
             this.$router.push({name: 'agencyList'})
           } else {
             this.$message.error(data.resperr)
           }
         })
+      },
+      cancel() {
+        this.$router.push({name: 'agencyList'})
       }
     }
   }
