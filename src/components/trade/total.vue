@@ -4,7 +4,14 @@
 
     <el-form class="search-form" ref="searchform" :model="formData">
       <el-form-item label="交易日期">
-        <el-input v-model="formData.name"></el-input>
+        <el-date-picker
+          v-model="formData.date"
+          type="daterange"
+          :editable="false"
+          :placeholder="$t('common.range')"
+          size="large"
+          :clearable="false">
+        </el-date-picker>
       </el-form-item>
       <el-form-item label="商户名称">
         <el-input v-model="formData.id"></el-input>
@@ -107,6 +114,7 @@
     data() {
       return {
         formData: {
+          date: '',
           name: '',
           id: '',
           agree: '',
