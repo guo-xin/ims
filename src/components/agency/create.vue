@@ -310,9 +310,9 @@
       },
       create() {
         // 接口传参需要 label，省市
-        let paramsBase = this.baseform
-        paramsBase.auth_province = this.$refs.province.selected.label
-        paramsBase.auth_city = this.$refs.city.selected.label
+        let paramsBase = JSON.parse(JSON.stringify(this.baseform))
+        paramsBase.auth_province = this.$refs.province.selected.label || ''
+        paramsBase.auth_city = this.$refs.city.selected.label || ''
         this.$http({
           method: 'post',
           url: `${config.host}/org/v1/api/agent/create`,
@@ -329,8 +329,6 @@
             localStorage.removeItem('bankinfo')
             this.$router.push({name: 'agencyList'})
           } else {
-            this.baseform.auth_province = this.$refs.province.selected.value
-            this.baseform.auth_city = this.$refs.city.selected.value
             this.$message.error(data.resperr)
           }
         })
