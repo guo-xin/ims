@@ -14,12 +14,14 @@
       </el-form-item>
       <el-form-item label="代理商级别">
         <el-select v-model="formData.level" placeholder="请选择级别">
+          <el-option label="全部" value=""></el-option>
           <el-option label="一级" value="1"></el-option>
           <el-option label="二级" value="2"></el-option>
           </el-select>
       </el-form-item>
       <el-form-item label="状态">
         <el-select v-model="formData.status" placeholder="请选择状态">
+          <el-option label="全部" value=""></el-option>
           <el-option label="启用" value="0"></el-option>
           <el-option label="停用" value="1"></el-option>
         </el-select>
