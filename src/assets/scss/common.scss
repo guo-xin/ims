@@ -37,6 +37,11 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
   height: 80px !important;
   padding: 0 30px !important;
 }
+
+//
+form.el-form {
+  font-size: 0;
+}
 .el-form-item {
   width: 240px;
   display: inline-block;
@@ -61,7 +66,7 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
 }
 
 .el-form-item.is-required .el-form-item__label:before {
-  content: '';
+  content: none;
 }
 .el-form-item.is-required .el-form-item__label:after {
   content: '*';

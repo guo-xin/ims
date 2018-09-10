@@ -572,6 +572,9 @@
       height: 40px;
       box-sizing: content-box;
       line-height: 40px;
+      .el-form-item {
+        width: 100%;
+      }
     }
   }
 </style>
