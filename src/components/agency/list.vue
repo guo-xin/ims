@@ -88,7 +88,7 @@
       },
       fetchData() {
         this.isLoading = true
-        this.$http(`${config.host}/org/v1/api/agent/list`, {
+        this.$http(`${config.host}/org/agent/list`, {
           params: {
             name: this.formData.name,
             qd_uid: this.formData.qd_uid,
