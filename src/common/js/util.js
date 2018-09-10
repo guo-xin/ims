@@ -17,12 +17,11 @@ const setformateDate = (date) => {
 
 // 日期格式化
 const formatDate = (parDate, formatStr) => {
-
   if(parDate && parDate.constructor === String) {
     parDate = parDate.replace(/-/g, "/");
   }
 
-  let date = new Date(parDate)
+  let date = new Date(parDate);
   /*
    函数：填充0字符
    参数：value-需要填充的字符串, length-总长度
@@ -156,7 +155,7 @@ const clearCookie = (name, dom) => {
   document.cookie = name + "=''" + ";Domain=." + domain + ";path=/;expires=" + exp.toGMTString();
 }
 
-export default {
+export {
   formatDate,
   isEmptyObject,
   deepClone,

@@ -13,12 +13,11 @@
       <el-form-item :label="$t('settleMent.panel.payPass')" prop="state">
         <el-select v-model="form.state" :placeholder="$t('common.choose')">
           <el-option :label="$t('common.all')" value=""></el-option>
-          <el-option :label="$t('authority.panel.open')" value=1></el-option>
-          <el-option :label="$t('authority.panel.close')" value=9></el-option>
+          <el-option v-for="(item, index) in passList" :label="item.chnlname" :value="item.chnlid" :key="index"></el-option>
         </el-select>
       </el-form-item>
       <div class="buttons">
-        <el-button type="primary" @click="search()">{{ $t('common.search') }}</el-button>
+        <el-button type="primary" :loading="loading" @click="search()">{{ $t('common.search') }}</el-button>
         <el-button @click="reset()">{{ $t('common.reset') }}</el-button>
       </div>
     </el-form>
@@ -33,7 +32,6 @@
     </el-table>
 
     <div class="pagination_wrapper" v-if="setList.total >= 1">
-      <el-button size="large" type="primary" @click="create" class="el-button-primary">{{  $t('common.export') }}</el-button>
       <el-pagination
         ref="page"
         layout="total, sizes, prev, pager, next, jumper"
@@ -60,6 +58,7 @@
         loading: false,
         currentPage: 1,
         pageSize: 10,
+        passList: [],
         iconLoading: false,
         form: {
           user: '',
@@ -71,6 +70,7 @@
 
     created() {
       this.getData();
+      this.getList();
     },
     methods: {
       // 查找
@@ -109,6 +109,20 @@
             this.$message.error(this.$t('common.netError'));
           });
         }
+      },
+
+      // 获取通道列表
+      getList () {
+        axios.get(`${config.host}/org/clearing/temp/chnls`).then((res) => {
+          let data = res.data;
+          if (data.respcd === config.code.OK) {
+            this.passList = data.data;
+          } else {
+            this.$message.error(data.resperr);
+          }
+        }).catch(() => {
+          this.$message.error(this.$t('common.netError'));
+        });
       },
 
       currentChange(current) {

@@ -60,7 +60,7 @@
         </el-select>
       </el-form-item>
       <div class="buttons">
-        <el-button type="primary" @click="search()">{{ $t('common.search') }}</el-button>
+        <el-button type="primary" :loading="loading" @click="search()">{{ $t('common.search') }}</el-button>
         <el-button @click="reset()">{{ $t('common.reset') }}</el-button>
       </div>
     </el-form>
@@ -78,6 +78,7 @@
     </el-table>
 
     <div class="pagination_wrapper" v-if="manageList.total >= 1">
+      <el-button size="large" type="primary" @click="down" class="el-button-primary">{{  $t('common.export') }}</el-button>
       <el-pagination
         ref="page"
         layout="total, sizes, prev, pager, next, jumper"
@@ -86,7 +87,6 @@
         :total="manageList.total"
         @current-change="currentChange"
         :current-page="currentPage">
-        <el-button size="large" type="primary" @click="down" class="el-button-primary">{{  $t('common.export') }}</el-button>
       </el-pagination>
     </div>
     <div class="table_placeholder" v-else></div>
@@ -130,6 +130,7 @@
         this.$refs['form'].resetFields();
       },
 
+      // 导出
       down() {
 
       },

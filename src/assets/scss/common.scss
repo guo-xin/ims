@@ -60,6 +60,15 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
   border-color: $baseColor;
 }
 
+.el-form-item.is-required .el-form-item__label:before {
+  content: '';
+}
+.el-form-item.is-required .el-form-item__label:after {
+  content: '*';
+  color: #717283;
+  margin-left: 4px;
+}
+
 // 下拉框
 .el-select {
   width: 100%;
@@ -73,14 +82,7 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
 .el-autocomplete {
   display: block;
 }
-.el-form-item.is-required .el-form-item__label:before {
-  content: '';
-}
-.el-form-item.is-required .el-form-item__label:after {
-  content: '*';
-  color: #717283;
-  margin-left: 4px;
-}
+
 .el-form-item__label {
   float:none !important;
   font-size: 14px !important;
@@ -97,7 +99,9 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
     font-size: 16px;
   }
 }
-.el-checkbox__input.is-checked + .el-checkbox__label {
+// 单选，多选选中字体颜色
+.el-checkbox__input.is-checked + .el-checkbox__label,
+.el-radio.is-checked .el-radio__label {
   color: inherit;
 }
 .el-checkbox__input.is-indeterminate .el-checkbox__inner {

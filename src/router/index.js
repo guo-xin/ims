@@ -15,7 +15,7 @@ import settleDetail from 'components/settlement/settleDetail'
 import settleMode from 'components/settlement/settleMode'
 import settleTotal from 'components/settlement/settleTotal'
 import settleSet from 'components/settlement/settleSet'
-import settleCreate from 'components/settlement/settleCreate'
+import modCreate from 'components/settlement/modCreate'
 import modDetail from 'components/settlement/modDetail'
 import home from 'components/home/home'
 
@@ -102,9 +102,9 @@ export default new Router({
           component: settleMode
         },
         {
-          path: 'settleCreate',
-          name: 'settleCreate',
-          component: settleCreate
+          path: 'modCreate',
+          name: 'modCreate',
+          component: modCreate
         },
         {
           path: 'modDetail',

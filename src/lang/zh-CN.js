@@ -23,6 +23,9 @@ const zh = {
     delete: '删除',
     look: '查看',
     range: '选择时间范围',
+    confirm: '确定',
+    cancel: '取消',
+    tip: '提示'
   },
   authority: {
     crumbs: {
@@ -84,6 +87,7 @@ const zh = {
       passCost: '通道成本',
       staticAmount: '固定金额',
       percent: '百分比',
+      noEffect: '不启用',
       day: '日结',
       week: '周结',
       month: '月结',
@@ -105,7 +109,6 @@ const zh = {
       order: '序列',
       passName: '通道名称',
       tradeNum: '交易笔数',
-      payGoods: '支付产品',
       lastTime: '最后更新时间',
       isMode: '是否默认模板',
       province: '省',
@@ -127,6 +130,23 @@ const zh = {
       endVal: '终止值',
       firstRate: '一级代理费率',
       secondRate: '二级代理费率'
+    },
+    msg: {
+      t1: '请输入模板名称',
+      t2: '最多输入20个字符',
+      t3: '请输入单笔金额',
+      t4: '请输入正数',
+      t5: '小数点后最多两位',
+      t6: '请选择单笔金额条件',
+      t7: '请选择支付通道',
+      t8: '请选择结算周期',
+      t9: '请选择通道成本',
+      t10: '请输入通道成本',
+      t11: '是否确认删除该清分模板?',
+      t12: '请输入起始值',
+      t13: '请输入终止值',
+      t14: '请输入一级代理费率',
+      t15: '请输入二级代理费率',
     }
   },
   login: {
