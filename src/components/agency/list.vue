@@ -14,12 +14,14 @@
       </el-form-item>
       <el-form-item label="代理商级别">
         <el-select v-model="formData.level" placeholder="请选择级别">
+          <el-option label="全部" value=""></el-option>
           <el-option label="一级" value="1"></el-option>
           <el-option label="二级" value="2"></el-option>
           </el-select>
       </el-form-item>
       <el-form-item label="状态">
         <el-select v-model="formData.status" placeholder="请选择状态">
+          <el-option label="全部" value=""></el-option>
           <el-option label="启用" value="0"></el-option>
           <el-option label="停用" value="1"></el-option>
         </el-select>
@@ -35,11 +37,12 @@
       <el-table-column prop="qd_uid" label="代理商ID"></el-table-column>
       <el-table-column prop="level" :formatter="formatLevel" label="等级"></el-table-column>
       <el-table-column prop="parent_name" label="上级代理商名称"></el-table-column>
-      <el-table-column prop="join_dtm" label="注册时间"></el-table-column>
+      <el-table-column width="170" prop="join_dtm" label="注册时间"></el-table-column>
       <el-table-column prop="status" :formatter="formatStatus" label="状态" align="center"></el-table-column>
     </el-table>
 
     <el-pagination
+      v-show="agencies.length > 0"
       layout="total, sizes, prev, pager, next, jumper"
       :page-size="pageSize"
       @size-change="handleSizeChange"

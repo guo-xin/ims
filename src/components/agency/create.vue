@@ -1,10 +1,12 @@
 <template>
   <div class="agencyCreate">
-    <header class="page-header style2"><h2 class="page-title">添加渠道</h2></header>
+    <header class="page-header style2">
+      <h2 class="page-title">添加渠道</h2>
+      <el-button type="text" @click="cancel"><i class="el-icon-close"></i><span>关闭</span></el-button>
+    </header>
     <el-steps :active="active" finish-status="finish">
       <el-step title="基本信息"></el-step>
-      <el-step title="步骤 2"></el-step>
-      <el-step title="步骤 3"></el-step>
+      <el-step title="结算信息"></el-step>
     </el-steps>
 
     <el-form v-show="active === 0" v-loading="isLoading" ref="baseform" :rules="baseFormRules" :model="baseform">
@@ -83,71 +85,9 @@
       </el-form-item>
     </el-form>
 
-    <el-form v-show="active === 2" class="payfee-form" ref="payfee" :rules="payfeeFormRules" :model="payfee">
-      <h3>支付通道信息</h3>
-      <header><h4>支付方式</h4><h4>支付产品</h4></header>
-      <div class="body">
-        <div class="icon"><img src="./imgs/wechat.png"/><strong>微信支付</strong></div>
-        <div class="payfee-container">
-          <el-form-item prop="wechat_fee_public">
-            <el-input type="number" v-model="payfee.wechat_fee_public">
-              <template slot="prepend">公众号</template>
-              <template slot="append">%</template>
-            </el-input>
-          </el-form-item>
-          <el-form-item prop="wechat_fee_sweep">
-            <el-input type="number" v-model="payfee.wechat_fee_sweep">
-              <template slot="prepend">扫码</template>
-              <template slot="append">%</template>
-            </el-input>
-          </el-form-item>
-          <el-form-item prop="wechat_fee_H5">
-            <el-input type="number" v-model="payfee.wechat_fee_H5">
-              <template slot="prepend">H5</template>
-              <template slot="append">%</template>
-            </el-input>
-          </el-form-item>
-          <el-form-item prop="wechat_fee_sdk">
-            <el-input type="number" v-model="payfee.wechat_fee_sdk">
-              <template slot="prepend">SDK</template>
-              <template slot="append">%</template>
-            </el-input>
-          </el-form-item>
-        </div>
-      </div>
-      <div class="body">
-        <div class="icon"><img src="./imgs/alipay.png"/><strong>支付宝</strong></div>
-        <div class="payfee-container">
-          <el-form-item prop="alipay_service">
-            <el-input type="number" v-model="payfee.alipay_service">
-              <template slot="prepend">服务窗</template>
-              <template slot="append">%</template>
-            </el-input>
-          </el-form-item>
-          <el-form-item prop="alipay_sweep">
-            <el-input type="number" v-model="payfee.alipay_sweep">
-              <template slot="prepend">扫码</template>
-              <template slot="append">%</template>
-            </el-input>
-          </el-form-item>
-          <el-form-item prop="alipay_fee_H5">
-            <el-input type="number" v-model="payfee.alipay_fee_H5">
-              <template slot="prepend">H5</template>
-              <template slot="append">%</template>
-            </el-input>
-          </el-form-item>
-          <el-form-item prop="alipay_sdk">
-            <el-input type="number" v-model="payfee.alipay_sdk">
-              <template slot="prepend">SDK</template>
-              <template slot="append">%</template>
-            </el-input>
-          </el-form-item>
-        </div>
-      </div>
-    </el-form>
     <footer>
       <el-button type="primary" @click="next">
-        {{active === 2 ? '完成' : '下一步'}}
+        {{active === 1 ? '完成' : '下一步'}}
       </el-button>
       <el-button v-show="active !== 0" @click="pre">上一步</el-button>
     </footer>
@@ -177,16 +117,6 @@
           bankname: '', // 支行名称
           bankcode: '' // 网点联行号
         },
-        payfee: {
-          wechat_fee_H5: '', // 微信（H5）费率
-          wechat_fee_public: '', // 微信（公众号）费率
-          wechat_fee_sweep: '', // 微信（扫码）费率
-          wechat_fee_sdk: '', // 微信（sdk）费率
-          alipay_fee_H5: '', // 支付宝（H5）费率
-          alipay_sweep: '', // 支付宝（扫码）费率
-          alipay_sdk: '', // 支付宝（sdk）费率
-          alipay_service: '' // 支付宝（服务窗）费率
-        },
         levels: [], // 代理商级别
         allAgencys: [], // 所属代理
         areas: [], // 所有省份和城市
@@ -200,10 +130,10 @@
             {required: true, message: '请输入代理商名称'}
           ],
           'levelcode': [
-            {required: true, message: '请输入代理商级别'}
+            {required: true, message: '请选择代理商级别'}
           ],
           'auth_province': [
-            {required: true, message: '请输入代理区域'}
+            {required: true, message: '请选择代理区域'}
           ],
           'short_name': [
             {required: true, message: '请输入代理商简称'}
@@ -246,32 +176,6 @@
           'bankcode': [
             {required: true, message: '请输入联行号'}
           ]
-        },
-        payfeeFormRules: {
-          'wechat_fee_public': [
-            {required: true, message: '请输入正确数值'}
-          ],
-          'wechat_fee_sweep': [
-            {required: true, message: '请输入正确数值'}
-          ],
-          'wechat_fee_H5': [
-            {required: true, message: '请输入正确数值'}
-          ],
-          'wechat_fee_sdk': [
-            {required: true, message: '请输入正确数值'}
-          ],
-          'alipay_service': [
-            {required: true, message: '请输入正确数值'}
-          ],
-          'alipay_sweep': [
-            {required: true, message: '请输入正确数值'}
-          ],
-          'alipay_fee_H5': [
-            {required: true, message: '请输入正确数值'}
-          ],
-          'alipay_sdk': [
-            {required: true, message: '请输入正确数值'}
-          ]
         }
       }
     },
@@ -281,15 +185,11 @@
       this.fetchCity()
       let base = localStorage.getItem('base')
       let bankinfo = localStorage.getItem('bankinfo')
-      let payfee = localStorage.getItem('payfee')
       if (base) {
         this.baseform = JSON.parse(base)
       }
       if (bankinfo) {
         this.bankinfo = JSON.parse(bankinfo)
-      }
-      if (payfee) {
-        this.payfee = JSON.parse(payfee)
       }
     },
     methods: {
@@ -304,15 +204,7 @@
         } else if (this.active === 1) {
           this.$refs['bankinfoform'].validate((valid) => {
             if (valid) {
-              this.active += 1
               localStorage.setItem('bankinfo', JSON.stringify(this.bankinfo))
-            }
-          })
-        } else {
-          this.$refs['payfee'].validate((valid) => {
-            if (valid) {
-              // this.active += 1
-              localStorage.setItem('payfee', JSON.stringify(this.payfee))
               this.create()
             }
           })
@@ -329,7 +221,7 @@
         })
         if (value === 1) {
           this.baseFormRules.levelcode = [
-            {required: true, message: '请输入代理商级别'}
+            {required: true, message: '请选择代理商级别'}
           ]
           this.baseFormRules.slsm_userid = [
             {required: true, message: '请选择业务员'}
@@ -339,7 +231,7 @@
           this.baseFormRules.levelcode = []
           this.baseFormRules.slsm_userid = []
           this.baseFormRules.parent_uid = [
-            {required: true, message: '请输入所属代理'}
+            {required: true, message: '请选择所属代理'}
           ]
           this.baseform.slsm_userid = ''
         }
@@ -421,32 +313,33 @@
       },
       create() {
         // 接口传参需要 label，省市
-        let paramsBase = this.baseform
-        paramsBase.auth_province = this.$refs.province.selected.label
-        paramsBase.auth_city = this.$refs.city.selected.label
+        let paramsBase = JSON.parse(JSON.stringify(this.baseform))
+        paramsBase.auth_province = this.$refs.province.selected.label || ''
+        paramsBase.auth_city = this.$refs.city.selected.label || ''
         this.$http({
           method: 'post',
           url: `${config.host}/org/v1/api/agent/create`,
           data: qs.stringify({
             base: JSON.stringify(paramsBase),
-            bankinfo: JSON.stringify(this.bankinfo),
-            payfee: JSON.stringify(this.payfee)
+            bankinfo: JSON.stringify(this.bankinfo)
           })
         })
         .then((res) => {
           let data = res.data
           if (data.respcd === '0000') {
-            this.$message.success('创建成功')
+            this.$refs['baseform'].resetFields()
+            this.$refs['bankinfoform'].resetFields()
             localStorage.removeItem('base')
             localStorage.removeItem('bankinfo')
-            localStorage.removeItem('payfee')
+            this.$message.success('创建成功')
             this.$router.push({name: 'agencyList'})
           } else {
-            this.baseform.auth_province = this.$refs.province.selected.value
-            this.baseform.auth_city = this.$refs.city.selected.value
             this.$message.error(data.resperr)
           }
         })
+      },
+      cancel() {
+        this.$router.push({name: 'agencyList'})
       }
     }
   }
@@ -484,62 +377,11 @@
   vertical-align: top;
   margin-right: 80px;
 }
-.payfee-form {
-  background-color: transparent;
-  padding: 0;
-  h3 {
-    margin-left: 20px;
-  }
-  header {
-    height: 77px;
-    line-height: 77px;
-    background-color: #F5FAFF;
-    border-bottom: 1px solid #2974FF;
-    display: flex;
-    h4 {
-      align-items: center;
-      margin: 0;
-      width: 250px;
-      padding-left: 30px;
-    }
-  }
-  .body {
-    display: flex;
-    border-bottom: 1px solid #dcdfe6;
-    > div:first-child {
-      width: 250px;
-      padding-left: 30px;
-    }
-    > div:last-child {
-      width: 300px;
-    }
-    .icon {
-      line-height: 20px;
-      height: 20px;
-      font-size: 14px;
-      align-self: center;
-      strong {
-        font-weight: normal;
-        color: #1D1D24;
-      }
-      img, strong {
-        vertical-align: middle;
-      }
-      img {
-        width: 26px;
-        margin-right: 10px;
-      }
-    }
-    .payfee-container {
-      padding-top: 22px;
-    }
-  }
-}
 .el-select {
   width: 200px;
 }
 .el-steps {
-  padding-right: 60px;
+  padding-right: 75px;
 }
 hr {
   border: none;
