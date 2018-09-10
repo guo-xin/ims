@@ -23,18 +23,6 @@
           :clearable="false">
         </el-date-picker>
       </el-form-item>
-      <el-form-item :label="$t('settleMent.panel.singleAmount')" prop="enable_value" class="form-right-140">
-        <el-input v-model="form.enable_value"></el-input>
-      </el-form-item>
-      <el-form-item prop="enable_condition">
-        <el-radio-group v-model="form.enable_condition">
-          <el-radio :label="'gt'">&gt;</el-radio>
-          <el-radio :label="'ge'">&gt;=</el-radio>
-          <el-radio :label="'lt'">&lt;</el-radio>
-          <el-radio :label="'le'">&lt;=</el-radio>
-        </el-radio-group>
-      </el-form-item>
-
       <el-form-item :label="$t('settleMent.panel.payPass')" prop="chnlcode">
         <el-select v-model="form.chnlcode" :placeholder="$t('common.choose')">
           <el-option v-for="(item, index) in passList" :label="item.chnlname" :value="item.chnlid" :key="index"></el-option>
@@ -48,6 +36,20 @@
           <el-option :label="$t('settleMent.panel.month')" value=3></el-option>
         </el-select>
       </el-form-item>
+
+      <el-form-item :label="$t('settleMent.panel.singleAmount')" prop="enable_value" class="form-right-140">
+        <el-input v-model="form.enable_value"></el-input>
+      </el-form-item>
+      <el-form-item prop="enable_condition">
+        <el-radio-group v-model="form.enable_condition">
+          <el-radio :label="'gt'">&gt;</el-radio>
+          <el-radio :label="'ge'">&gt;=</el-radio>
+          <el-radio :label="'lt'">&lt;</el-radio>
+          <el-radio :label="'le'">&lt;=</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
+      <br />
       <el-form-item :label="$t('settleMent.panel.passCost')" prop="chnlcost_type" class="form-right-140" style="margin-right: 10px">
         <el-select v-model="form.chnlcost_type" :placeholder="$t('common.choose')">
           <el-option :label="$t('settleMent.panel.percent')" value=1></el-option>
@@ -78,8 +80,8 @@
         </el-radio-group>
       </el-form-item>
 
-      <el-table :data="ruleList" v-if="form.type === '2' || form.type === '3'">
-        <el-table-column align="center" :label="$t('settleMent.table.order')" width="80">
+      <el-table :data="ruleList" v-if="form.type === '2' || form.type === '3'" class="table-width">
+        <el-table-column align="center" :label="$t('settleMent.table.order')" width="80" class-name="margin-40">
           <template slot-scope="scope">
             {{ scope.$index + 1 }}
           </template>
@@ -119,7 +121,7 @@
             </el-form-item>
           </template>
         </el-table-column>
-        <el-table-column align="center" :label="$t('common.operate')" min-width="120">
+        <el-table-column align="center" :label="$t('common.operate')" min-width="120" class-name="margin-40">
           <template slot-scope="scope">
             <el-button type="text" @click="add()" v-if="ruleList.length < 3 && scope.$index >= ruleList.length - 1 ">{{ $t('common.add') }}</el-button>
             <el-button type="text" @click="dele()" v-if="ruleList.length > 1">{{ $t('common.delete') }}</el-button>
@@ -507,8 +509,10 @@
           let data = res.data;
           if (data.respcd === config.code.OK) {
             this.passList = data.data;
-            let detailData = JSON.parse(localStorage.getItem('detailData'));
-            this.form.chnlcode = detailData.chnlid + '';
+            if(!this.isCreat) {
+              let detailData = JSON.parse(localStorage.getItem('detailData'));
+              this.form.chnlcode = detailData.chnlid + '';
+            }
           } else {
             this.$message.error(data.resperr);
           }
@@ -541,9 +545,23 @@
     .form-right-140 {
       width: 140px;
     }
-    table .el-form-item {
-      width: 120px;
+    .table-width {
+      .cell {
+        padding: 0 10px;
+      }
+      .margin-40 .cell {
+        margin-bottom: 30px;
+      }
+      .el-form-item {
+        width: 100%;
+        margin-right: 10px;
+        margin-bottom: 30px;
+      }
+      .el-form-item__error {
+        text-align: left;
+      }
     }
+
     .bottom-border {
       td {
         border-bottom: 1px solid #ebeef5;

@@ -132,7 +132,11 @@
 
       // 导出
       down() {
-
+        let params = 'http://baidu.com';
+        let a = document.createElement('a');
+        a.setAttribute('download', true);
+        a.setAttribute('href', params);
+        a.click();
       },
 
       // 配置
