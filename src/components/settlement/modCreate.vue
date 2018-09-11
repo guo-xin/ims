@@ -79,6 +79,12 @@
           <el-radio :label="0">{{ $t('settleMent.panel.no') }}</el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item :label="$t('settleMent.table.modeState')" prop="status" class="form-inline-label">
+        <el-radio-group v-model="form.status">
+          <el-radio :label="1">{{ $t('settleMent.table.open') }}</el-radio>
+          <el-radio :label="0">{{ $t('settleMent.table.close') }}</el-radio>
+        </el-radio-group>
+      </el-form-item>
 
       <el-table :data="ruleList" v-if="form.type === '2' || form.type === '3'" class="table-width">
         <el-table-column align="center" :label="$t('settleMent.table.order')" width="80" class-name="margin-40">
@@ -209,6 +215,7 @@
           type: '1',
           use_ladder: 1,
           is_default: 1,
+          status: 1,
           income0: 1,
           expend0: 1,
           income1: 1,
@@ -357,6 +364,7 @@
             type: detailData.type + '',
             use_ladder: detailData.use_ladder,
             is_default: detailData.is_default,
+            status: detailData.status,
             income0: detailData.settlement_conf[0].in,
             expend0: detailData.settlement_conf[0].out,
             income1: detailData.settlement_conf[1].in,
@@ -380,6 +388,7 @@
             two2: (detailData.ladder_conf[2] || {}).two
           }
         )
+        this.ruleList = detailData.ladder_conf;
       }
       this.getList();
     },
@@ -403,6 +412,7 @@
               type: form.type,
               use_ladder: form.use_ladder,
               is_default: form.is_default,
+              status: form.status,
               settlement_conf: JSON.stringify(
                 [
                   {in: form.income0, out: form.expend0},

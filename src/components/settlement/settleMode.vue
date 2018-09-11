@@ -37,24 +37,29 @@
     </el-form>
 
     <el-table :data="manageList.list" stripe v-loading="loading">
-      <el-table-column :label="$t('settleMent.table.order')">
+      <el-table-column :label="$t('settleMent.table.order')" width="80px">
         <template slot-scope="scope">
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
       <el-table-column prop="name" :label="$t('settleMent.panel.modeName')"></el-table-column>
-      <el-table-column prop="chnlname" :label="$t('settleMent.panel.payPass')"></el-table-column>
+      <el-table-column prop="chnlname" :label="$t('settleMent.panel.payPass')" min-width="120"></el-table-column>
       <!--<el-table-column prop="join_time" :label="$t('settleMent.table.payGoods')"></el-table-column>-->
-      <el-table-column prop="update_time" :label="$t('settleMent.table.lastTime')" min-width="100"></el-table-column>
+      <el-table-column prop="update_time" :label="$t('settleMent.table.lastTime')" min-width="120"></el-table-column>
       <el-table-column prop="login_time" :label="$t('settleMent.table.isMode')">
         <template slot-scope="scope">
           {{ scope.row.is_default ? $t('settleMent.panel.yes') : $t('settleMent.panel.no') }}
         </template>
-        is_default
       </el-table-column>
+
+      <el-table-column :label="$t('settleMent.table.state')">
+        <template slot-scope="scope">
+          <span>{{ scope.row.status === 1 ? $t('settleMent.table.open') : $t('settleMent.table.close') }}</span>
+        </template>
+      </el-table-column>
+
       <el-table-column :label="$t('common.operate')" align="center">
         <template slot-scope="scope">
-          <el-button type="text" @click="dele(scope.row.temp_id)">{{ $t('common.delete') }}</el-button>
           <el-button type="text" @click="detail(scope.row.temp_id)" v-if="basicAuth.includes('clearing_template_detail')">{{ $t('common.look') }}</el-button>
         </template>
       </el-table-column>
@@ -124,35 +129,6 @@
           query: {
           id: id
         } });
-      },
-
-      // 删除
-      dele(id) {
-        this.$confirm(this.$t('settleMent.msg.t11'), this.$t('common.tip'), {
-          confirmButtonText: this.$t('common.confirm'),
-          cancelButtonText: this.$t('common.cancel')
-        }).then(() => {
-          axios.post(`${config.ohost}/mchnt/card/v1/actv_close`, {
-            id: id,
-            format: 'cors'
-          }).then((res) => {
-            let data = res.data;
-            if (data.respcd === config.code.OK) {
-              this.$message({
-                type: 'success',
-                message: this.$t('common.opSucc')
-              });
-
-              this.getData();
-            } else {
-              this.$message.error(data.respmsg);
-            }
-          }).catch(() => {
-            this.$message.error(this.$t('common.opFailed'));
-          });
-        }).catch(() => {
-          console.log("取消");
-        });
       },
 
       // 创建

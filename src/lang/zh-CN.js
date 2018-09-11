@@ -129,7 +129,17 @@ const zh = {
       startVal: '起始值',
       endVal: '终止值',
       firstRate: '一级代理费率',
-      secondRate: '二级代理费率'
+      secondRate: '二级代理费率',
+      modeState: '模板状态',
+      state: '状态',
+      open: '启用',
+      close: '停用'
+    },
+    dialog: {
+      title: '清分规则模板修改',
+      company: '所属分公司',
+      date: '配置日期',
+      mode: '清分模板'
     },
     msg: {
       t1: '请输入模板名称',

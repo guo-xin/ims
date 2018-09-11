@@ -102,17 +102,17 @@ export default new Router({
           component: settleMode
         },
         {
-          path: 'modCreate',
+          path: 'clearing_template_list/modCreate',
           name: 'modCreate',
           component: modCreate
         },
         {
-          path: 'modDetail',
+          path: 'clearing_template_list/modDetail',
           name: 'modDetail',
           component: modDetail
         },
         {
-          path: 'settleSet',
+          path: 'clearing_template_list/settleSet',
           name: 'settleSet',
           component: settleSet
         },

@@ -18,4 +18,11 @@
     padding: 0 $midGap;
     box-sizing: border-box;
   }
+  .dialog-footer {
+    margin-right: 26px;
+    padding: 0 $midGap;
+    .el-button + .el-button {
+      margin-left: $midGap;
+    }
+  }
 }

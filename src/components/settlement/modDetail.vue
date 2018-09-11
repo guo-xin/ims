@@ -11,46 +11,53 @@
     <div class="panel-body">
       <div class="detail-row">
         <div class="detail-left">
-          <span class="detail-title">{{ $t('settleMent.panel.modeName') }}</span>
+          <span class="detail-title">{{ $t('settleMent.panel.modeName') }}:</span>
           <span class="detail-content">{{ detailData.name }}</span>
         </div>
 
         <div class="detail-right">
-          <span class="detail-title">{{ $t('settleMent.panel.payPass') }}</span>
+          <span class="detail-title">{{ $t('settleMent.panel.payPass') }}:</span>
           <span class="detail-content">{{ detailData.chnlname }}</span>
         </div>
       </div>
 
       <div class="detail-row">
         <div class="detail-left">
-          <span class="detail-title">{{ $t('settleMent.panel.effectTime') }}</span>
+          <span class="detail-title">{{ $t('settleMent.panel.effectTime') }}:</span>
           <span class="detail-content">{{ detailData.effect_time }}</span>
         </div>
         <div class="detail-right">
-          <span class="detail-title">{{ $t('settleMent.panel.singleAmount') }}</span>
+          <span class="detail-title">{{ $t('settleMent.panel.singleAmount') }}:</span>
           <span class="detail-content">{{ enableList[detailData.enable_condition] }}<label style="padding-left: 20px">{{ detailData.enable_value }}</label></span>
         </div>
       </div>
       <div class="detail-row">
         <div class="detail-left">
-          <span class="detail-title">{{ $t('settleMent.panel.passCost') }}</span>
+          <span class="detail-title">{{ $t('settleMent.panel.passCost') }}:</span>
           <span class="detail-content" v-if="detailData.type !== 1">{{ detailData.chnlcost_type === 1 ? $t('settleMent.panel.percent') : $t('settleMent.panel.staticAmount') }}</span>
           <span class="detail-content" v-else>{{ detailData.chnlcost_type === 1 ? detailData.chnlcost + '%' : detailData.chnlcost }}</span>
         </div>
 
         <div class="detail-right">
-          <span class="detail-title">{{ $t('settleMent.panel.settleCircle') }}</span>
+          <span class="detail-title">{{ $t('settleMent.panel.settleCircle') }}:</span>
           <span class="detail-content">{{ cycleList[detailData.settlement_cycle] }}</span>
         </div>
       </div>
       <div class="detail-row">
         <div class="detail-left">
-          <span class="detail-title">{{ $t('settleMent.panel.floorType') }}</span>
+          <span class="detail-title">{{ $t('settleMent.panel.floorType') }}:</span>
           <span class="detail-content">{{ typeList[detailData.type] }}</span>
         </div>
         <div class="detail-right" v-if="detailData.type !== 1">
-          <span class="detail-title">{{ $t('settleMent.table.isMode') }}</span>
+          <span class="detail-title">{{ $t('settleMent.table.isMode') }}:</span>
           <span class="detail-content">{{ detailData.is_default ? $t('settleMent.panel.yes') : $t('settleMent.panel.no') }}</span>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <div class="detail-left">
+          <span class="detail-title">{{ $t('settleMent.table.modeState') }}:</span>
+          <span class="detail-content">{{ detailData.status ? $t('settleMent.table.open') : $t('settleMent.table.close') }}</span>
         </div>
       </div>
 
