@@ -208,6 +208,22 @@ form.el-form {
     }
   }
 }
+.tradeTotal {
+  .el-table thead.is-group th {
+    background-color: #F5FAFF;
+  }
+  thead th {
+    padding: 12px;
+  }
+  .el-table_1_column_6, .el-table_1_column_10 {
+    border: none;
+    padding-bottom: 0;
+    .cell {
+      padding-bottom: 12px;
+      border-bottom: 2px solid #CCCCD5;
+    }
+  }
+}
 .el-table .cell {
   padding: 0 20px;
 }
