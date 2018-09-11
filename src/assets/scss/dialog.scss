@@ -19,11 +19,10 @@
     box-sizing: border-box;
   }
   .dialog-footer {
-    .text-button {
-      font-size: $lgSize;
-      padding-left: $midGap;
-      padding-right: $midGap;
-      margin: 0;
+    margin-right: 26px;
+    padding: 0 $midGap;
+    .el-button + .el-button {
+      margin-left: $midGap;
     }
   }
 }

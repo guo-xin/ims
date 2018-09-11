@@ -49,7 +49,7 @@
         </el-select>
       </el-form-item>
       <div class="buttons">
-        <el-button type="primary" @click="search()">{{ $t('common.search') }}</el-button>
+        <el-button type="primary" :loading="loading" @click="search()">{{ $t('common.search') }}</el-button>
         <el-button @click="reset()">{{ $t('common.reset') }}</el-button>
       </div>
     </el-form>

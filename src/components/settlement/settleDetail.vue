@@ -60,7 +60,7 @@
         </el-select>
       </el-form-item>
       <div class="buttons">
-        <el-button type="primary" @click="search()">{{ $t('common.search') }}</el-button>
+        <el-button type="primary" :loading="loading" @click="search()">{{ $t('common.search') }}</el-button>
         <el-button @click="reset()">{{ $t('common.reset') }}</el-button>
       </div>
     </el-form>
@@ -78,7 +78,7 @@
     </el-table>
 
     <div class="pagination_wrapper" v-if="manageList.total >= 1">
-      <el-button size="large" type="primary" @click="create" class="el-button-primary">{{  $t('common.export') }}</el-button>
+      <el-button size="large" type="primary" @click="down" class="el-button-primary">{{  $t('common.export') }}</el-button>
       <el-pagination
         ref="page"
         layout="total, sizes, prev, pager, next, jumper"
@@ -130,17 +130,13 @@
         this.$refs['form'].resetFields();
       },
 
-      detail() {
-
-      },
-
-      dele() {
-
-      },
-
-      // 创建
-      create() {
-        this.$router.push({ name: 'settleCreate' });
+      // 导出
+      down() {
+        let params = 'http://baidu.com';
+        let a = document.createElement('a');
+        a.setAttribute('download', true);
+        a.setAttribute('href', params);
+        a.click();
       },
 
       // 配置

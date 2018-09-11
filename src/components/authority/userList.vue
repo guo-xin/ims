@@ -5,7 +5,7 @@
         <h2 class="page-title">{{ $t('authority.crumbs.T1') }}</h2>
       </div>
       <div class="header-right" v-if="basicAuth.includes('perm_user_create')">
-        <el-button size="large" type="primary" class="primary-button" @click="create()">{{  $t('common.create') }}</el-button>
+        <el-button size="large" type="primary" @click="create()">{{  $t('common.create') }}</el-button>
       </div>
     </header>
 
@@ -24,7 +24,7 @@
         </el-select>
       </el-form-item>
       <div class="buttons">
-        <el-button type="primary" @click="search()">{{ $t('common.search') }}</el-button>
+        <el-button type="primary" :loading="loading" @click="search()">{{ $t('common.search') }}</el-button>
         <el-button @click="reset()">{{ $t('common.reset') }}</el-button>
       </div>
     </el-form>
@@ -91,8 +91,7 @@
       <div class="divider"></div>
       <div slot="footer" class="dialog-footer">
         <el-button type="text" class="text-button" @click="showConfirm = false">{{ $t('common.close') }}</el-button>
-        <span class="el-icon-loading text-button" v-if="iconLoading"></span>
-        <el-button type="text" v-else class="text-button" @click="save">{{ $t('common.save') }}</el-button>
+        <el-button type="text" :loading="iconLoading" class="text-button" @click="save">{{ $t('common.save') }}</el-button>
         </div>
     </el-dialog>
 
@@ -154,8 +153,7 @@
 
     computed: {
       basicAuth() {
-        let state = this.$store.state || {};
-        return state.permissionData || [];
+        return this.$store.state.permissionData || [];
       }
     },
     created() {

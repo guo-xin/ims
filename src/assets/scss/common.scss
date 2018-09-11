@@ -37,13 +37,19 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
   height: 80px !important;
   padding: 0 30px !important;
 }
+
+//
+form.el-form {
+  font-size: 0;
+}
 .el-form-item {
   width: 240px;
   display: inline-block;
   margin-right: 26px;
 }
 // 时间输入框
-.el-form-item__content .el-date-editor--daterange {
+.el-form-item__content .el-date-editor--daterange,
+.el-form-item__content .el-date-editor--date {
   width: 100%;
   .el-range__close-icon {
     width: 0;
@@ -59,22 +65,29 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
   border-color: $baseColor;
 }
 
-// 下拉框
-.el-select {
-  width: 100%;
-}
-// 搜索框
-.el-autocomplete {
-  display: block;
-}
 .el-form-item.is-required .el-form-item__label:before {
-  content: '';
+  content: none;
 }
 .el-form-item.is-required .el-form-item__label:after {
   content: '*';
   color: #717283;
   margin-left: 4px;
 }
+
+// 下拉框
+.el-select {
+  width: 100%;
+}
+// label居左
+.form-inline-label .el-form-item__label {
+  line-height: 40px;
+  float: left !important;
+}
+// 搜索框
+.el-autocomplete {
+  display: block;
+}
+
 .el-form-item__label {
   float:none !important;
   font-size: 14px !important;
@@ -91,7 +104,9 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
     font-size: 16px;
   }
 }
-.el-checkbox__input.is-checked + .el-checkbox__label {
+// 单选，多选选中字体颜色
+.el-checkbox__input.is-checked + .el-checkbox__label,
+.el-radio.is-checked .el-radio__label {
   color: inherit;
 }
 .el-checkbox__input.is-indeterminate .el-checkbox__inner {
@@ -109,6 +124,22 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
 }
 .el-checkbox__input.is-disabled.is-indeterminate .el-checkbox__inner::before {
   background-color: #606266;
+}
+.el-input-group__prepend {
+  background-color: transparent;
+  border: none;
+  padding-left: 0;
+  text-align: right;
+  color: #1D1D24;
+}
+.el-input-group--append .el-input__inner {
+  text-align: right;
+}
+.payfee-form .el-input-group__prepend {
+  min-width: 60px;
+}
+.payfee-form .el-form-item__error {
+  left: 80px;
 }
 
 .page-header {

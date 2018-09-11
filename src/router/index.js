@@ -13,10 +13,11 @@ import forgetPassword from 'components/forgetPassword'
 import bussiness from 'components/merchant/bussinessList'
 import mchnt from 'components/merchant/merchantList'
 import settleDetail from 'components/settlement/settleDetail'
-import settleManage from 'components/settlement/settleManage'
+import settleMode from 'components/settlement/settleMode'
 import settleTotal from 'components/settlement/settleTotal'
 import settleSet from 'components/settlement/settleSet'
-import settleCreate from 'components/settlement/settleCreate'
+import modCreate from 'components/settlement/modCreate'
+import modDetail from 'components/settlement/modDetail'
 import home from 'components/home/home'
 
 Vue.use(Router)
@@ -62,12 +63,12 @@ export default new Router({
           component: bussiness
         },
         {
-          path: 'agent_manage_index',
+          path: 'agent_manage_list',
           name: 'agencyList',
           component: agencyList
         },
         {
-          path: 'agencyCreate',
+          path: 'agent_create',
           name: 'agencyCreate',
           component: agencyCreate
         },
@@ -108,16 +109,21 @@ export default new Router({
         },
         {
           path: 'clearing_template_list',
-          name: 'settleManage',
-          component: settleManage
+          name: 'settleMode',
+          component: settleMode
         },
         {
-          path: 'settleCreate',
-          name: 'settleCreate',
-          component: settleCreate
+          path: 'clearing_template_list/modCreate',
+          name: 'modCreate',
+          component: modCreate
         },
         {
-          path: 'settleSet',
+          path: 'clearing_template_list/modDetail',
+          name: 'modDetail',
+          component: modDetail
+        },
+        {
+          path: 'clearing_template_list/settleSet',
           name: 'settleSet',
           component: settleSet
         },
