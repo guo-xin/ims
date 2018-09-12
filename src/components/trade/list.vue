@@ -47,7 +47,7 @@
           :debounce="600"
           :fetch-suggestions="getMchntName"
           :trigger-on-focus="false"
-          placeholder="请输入内容"
+          :popper-class="noMatch ? 'nomatch' : ''"
           @select="mchntNameHandleSelect"
           @blur="mchntNameHandleBlur"
         ></el-autocomplete>
@@ -58,7 +58,7 @@
           :fetch-suggestions="getPrimaryAgent"
           :debounce="800"
           :trigger-on-focus="false"
-          placeholder="请输入内容"
+          :popper-class="noMatch ? 'nomatch' : ''"
           @select="primaryAgentHandleSelect"
           @blur="primaryAgentHandleBlur"
         ></el-autocomplete>
@@ -68,7 +68,7 @@
           v-model="formData.secondary_agent"
           :fetch-suggestions="getSecondaryAgent"
           :trigger-on-focus="false"
-          placeholder="请输入内容"
+          :popper-class="noMatch ? 'nomatch' : ''"
           @select="secondaryAgentHandleSelect"
           @blur="secondaryAgentHandleBlur"
         ></el-autocomplete>
@@ -83,7 +83,6 @@
       <el-table-column prop="sysdtm" label="交易时间" width="170"></el-table-column>
       <el-table-column prop="syssn" label="流水号"></el-table-column>
       <el-table-column prop="shopname" label="商户简称"></el-table-column>
-      <el-table-column prop="name" label="门店名称"></el-table-column>
       <el-table-column prop="busicd_info" label="支付通道"></el-table-column>
       <el-table-column prop="txamt" :formatter="formatYuan" label="交易金额"></el-table-column>
       <el-table-column prop="settlefee" :formatter="formatYuan" label="手续费"></el-table-column>
@@ -122,6 +121,7 @@
           mchnt_name: '',
           mchnt_id: ''
         },
+        noMatch: false,
         acrossMonthTip: '',
         isLoading: false,
         trades: [],
@@ -211,8 +211,10 @@
           let data = res.data
           if (data.respcd === '0000') {
             if (data.data.length > 0) {
+              this.noMatch = false
               cb(data.data)
             } else {
+              this.noMatch = true
               cb(tip)
             }
           }
@@ -232,8 +234,10 @@
           let data = res.data
           if (data.respcd === '0000') {
             if (data.data.length > 0) {
+              this.noMatch = false
               cb(data.data)
             } else {
+              this.noMatch = true
               cb(tip)
             }
           }
@@ -252,8 +256,10 @@
         .then((res) => {
           let data = res.data
           if (data.data.length > 0) {
+            this.noMatch = false
             cb(data.data)
           } else {
+            this.noMatch = true
             cb(tip)
           }
         })
@@ -273,24 +279,39 @@
         window.location.href = `${config.host}/org/trade/list/download?${qs.stringify(params)}`
       },
       mchntNameHandleSelect(item) {
-        this.formData.mchnt_name = item.value
-        this.formData.mchnt_id = item.uid
+        if (item.uid) {
+          this.formData.mchnt_name = item.value
+          this.formData.mchnt_id = item.uid
+        } else {
+          this.formData.mchnt_name = ''
+          this.formData.mchnt_id = ''
+        }
       },
       mchntNameHandleBlur() {
         this.formData.mchnt_name = ''
         this.formData.mchnt_id = ''
       },
       primaryAgentHandleSelect(item) {
-        this.formData.primary_agent = item.value
-        this.formData.primary_agentid = item.id
+        if (item.id) {
+          this.formData.primary_agent = item.value
+          this.formData.primary_agentid = item.id
+        } else {
+          this.formData.primary_agent = ''
+          this.formData.primary_agentid = ''
+        }
       },
       primaryAgentHandleBlur() {
         this.formData.primary_agent = ''
         this.formData.primary_agentid = ''
       },
       secondaryAgentHandleSelect(item) {
-        this.formData.secondary_agent = item.value
-        this.formData.secondary_agentid = item.id
+        if (item.id) {
+          this.formData.secondary_agent = item.value
+          this.formData.secondary_agentid = item.id
+        } else {
+          this.formData.secondary_agent = ''
+          this.formData.secondary_agentid = ''
+        }
       },
       secondaryAgentHandleBlur() {
         this.formData.secondary_agent = ''
