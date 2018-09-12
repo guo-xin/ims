@@ -20,7 +20,8 @@
           :editable="false"
           :placeholder="$t('common.range')"
           size="large"
-          :clearable="false">
+          :clearable="false"
+          :picker-options="dateRange">
         </el-date-picker>
       </el-form-item>
       <el-form-item :label="$t('settleMent.panel.payPass')" prop="chnlcode">
@@ -191,21 +192,86 @@
       let numCheck = (rule, val, cb) => {
         if((val + '').indexOf("-") > -1) {
           cb(new Error(this.$t('settleMent.msg.t4')));
-        } else if (!(/^\d+(\.\d{1,2})?$/.test(val))) {
+        } else if(!/^\d+(\.\d{1,2})?$/.test(val)) {
           cb(new Error(this.$t('settleMent.msg.t5')));
         } else {
           cb();
         }
       };
 
+      let numStart0 = (rule, val, cb) => {
+        if(this.form.type === '2' && !/^[1-9]\d*$/.test(val)) {
+          cb(new Error(this.$t('settleMent.msg.t16')));
+        } else if(this.form.end0 && +val > +this.form.end0) {
+          cb(new Error(this.$t('settleMent.msg.t17')));
+        } else {
+          cb();
+        }
+      };
+      let numEnd0 = (rule, val, cb) => {
+        if(this.form.type === '2' && !/^[1-9]\d*?$/.test(val)) {
+          cb(new Error(this.$t('settleMent.msg.t16')));
+        } else if(this.form.start0) {
+          this.$refs['form'].validateField('start0');
+        }else {
+          cb();
+        }
+      };
+      let numStart1 = (rule, val, cb) => {
+        if(this.form.type === '2' && !/^[1-9]\d*$/.test(val)) {
+          cb(new Error(this.$t('settleMent.msg.t16')));
+        } else if(this.form.end1 && +val > +this.form.end1) {
+          cb(new Error(this.$t('settleMent.msg.t17')));
+        } else {
+          cb();
+        }
+      };
+
+      let numEnd1 = (rule, val, cb) => {
+        if(this.form.type === '2' && !/^[1-9]\d*?$/.test(val)) {
+          cb(new Error(this.$t('settleMent.msg.t16')));
+        } else if(this.form.start1) {
+          this.$refs['form'].validateField('start1');
+        }else {
+          cb();
+        }
+      };
+
+      let numStart2 = (rule, val, cb) => {
+        if(this.form.type === '2' && !/^[1-9]\d*$/.test(val)) {
+          cb(new Error(this.$t('settleMent.msg.t16')));
+        } else if(this.form.end2 && +val > +this.form.end2) {
+          cb(new Error(this.$t('settleMent.msg.t17')));
+        } else {
+          cb();
+        }
+      };
+      let numEnd2 = (rule, val, cb) => {
+        if(this.form.type === '2' && !/^[1-9]\d*?$/.test(val)) {
+          cb(new Error(this.$t('settleMent.msg.t16')));
+        } else if(this.form.start2) {
+          this.$refs['form'].validateField('start2');
+        }else {
+          cb();
+        }
+      };
+
+      let date = new Date();
+      date = date.valueOf() + 24 * 3600 * 1000;
+
       return {
         loading: false,
         iconLoading: false,
+        dateRange: {
+          disabledDate: (time) => {
+            return time.getTime() < (Date.now());
+          }
+        },
         isCreat: false,
         passList: [],
         form: {
           name: '',
-          effect_time: new Date(),
+          effect_time: new Date(date),
           enable_value: null,
           enable_condition: '',
           chnlcode: '',
@@ -284,11 +350,13 @@
           ],
           start0: [
             { required: true, message: this.$t('settleMent.msg.t12') },
-            { validator: numCheck }
+            { validator: numCheck },
+            { validator: numStart0 }
           ],
           end0: [
             { required: true, message: this.$t('settleMent.msg.t13') },
-            { validator: numCheck }
+            { validator: numCheck },
+            { validator: numEnd0 }
           ],
           chnlcost0: [
             { required: true, message: this.$t('settleMent.msg.t10') },
@@ -304,11 +372,13 @@
           ],
           start1: [
             { required: true, message: this.$t('settleMent.msg.t12') },
-            { validator: numCheck }
+            { validator: numCheck },
+            { validator: numStart1 }
           ],
           end1: [
             { required: true, message: this.$t('settleMent.msg.t13') },
-            { validator: numCheck }
+            { validator: numCheck },
+            { validator: numEnd1 }
           ],
           chnlcost1: [
             { required: true, message: this.$t('settleMent.msg.t10') },
@@ -324,11 +394,13 @@
           ],
           start2: [
             { required: true, message: this.$t('settleMent.msg.t12') },
-            { validator: numCheck }
+            { validator: numCheck },
+            { validator: numStart2 }
           ],
           end2: [
             { required: true, message: this.$t('settleMent.msg.t13') },
-            { validator: numCheck }
+            { validator: numCheck },
+            { validator: numEnd2 }
           ],
           chnlcost2: [
             { required: true, message: this.$t('settleMent.msg.t10') },

@@ -96,7 +96,7 @@
         passList: [],
         form: {
           name: '',
-          date: [new Date(), new Date()],
+          date: [],
           chnlid: ''
         },
         manageList: {}
@@ -151,18 +151,22 @@
           let form = this.form;
           let date = form.date;
           let [start, end] = [date[0], date[1]];
-          start.setHours(0);
-          start.setMinutes(0);
-          start.setSeconds(0);
+          if(start) {
+            start.setHours(0);
+            start.setMinutes(0);
+            start.setSeconds(0);
+          }
+          if(end) {
+            end.setHours(23);
+            end.setMinutes(59);
+            end.setSeconds(59);
+          }
 
-          end.setHours(23);
-          end.setMinutes(59);
-          end.setSeconds(59);
           axios.get(`${config.host}/org/clearing/temp/list`, {
             params: {
               name: form.name,
-              start_time: formatDate(start, 'yyyy-MM-dd HH:mm:ss'),
-              end_time: formatDate(end, 'yyyy-MM-dd HH:mm:ss'),
+              start_time: start ? formatDate(start, 'yyyy-MM-dd HH:mm:ss') : '',
+              end_time: end ? formatDate(end, 'yyyy-MM-dd HH:mm:ss') : '',
               chnlid: form.chnlid,
               offset: this.currentPage - 1,
               pageSize: this.pageSize,

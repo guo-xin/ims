@@ -48,24 +48,23 @@
     </div>
     <div class="table_placeholder" v-else></div>
 
-    <el-dialog :title=" $t('settleMent.dialog.title') " :visible.sync="showConfirm" top="20%"
-               :show-close="false" @close="showConfirm = false">
-      <el-form :model="modForm" ref="modForm">
-        <el-table :data="modForm">
-          <el-table-column align="center" :label="$t('settleMent.panel.agentName')">
+    <el-dialog :title="tableList.name || $t('common.tip')" :visible.sync="showConfirm" top="20%"
+               :show-close="false" @close="tableList = {}">
+        <el-table :data="tableList.list" class="bottom-border">
+          <el-table-column prop="chnlname" align="center" :label="$t('settleMent.table.passName')"></el-table-column>
+          <el-table-column align="center" :label="$t('settleMent.dialog.mode')" min-width="140px">
             <template slot-scope="scope">
-              {{ scope.$index + 1 }}
+              <el-form :model="tableList" ref="tableList">
+                <el-form-item>
+                  <el-select v-model="tableList['list'][scope.$index]['temp_id']" :placeholder="$t('common.choose')">
+                    <el-option v-for="(item, index) in optionList[scope.row.chnlid]" :label="item.name" :value="item.temp_id" :key="index"></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-form>
             </template>
           </el-table-column>
-          <el-form-item :label="$t('settleMent.panel.payPass')" prop="chnl_id">
-            <el-select v-model="form.chnl_id" :placeholder="$t('common.choose')">
-              <el-option :label="$t('common.all')" value=""></el-option>
-              <el-option v-for="(item, index) in passList" :label="item.chnlname" :value="item.chnlid" :key="index"></el-option>
-            </el-select>
-          </el-form-item>
+          <el-table-column prop="ctime" align="center" :label="$t('settleMent.dialog.date')" min-width="120px"></el-table-column>
         </el-table>
-
-      </el-form>
       <div class="divider"></div>
       <div slot="footer" class="dialog-footer">
         <el-button type="text" class="text-button" @click="showConfirm = false">{{ $t('common.close') }}</el-button>
@@ -78,7 +77,7 @@
 <script>
   import axios from 'axios';
   import config from 'config';
-  // import qs from 'qs';
+  import qs from 'qs';
 
   export default {
     data() {
@@ -89,13 +88,13 @@
         passList: [],
         showConfirm: false,
         iconLoading: false,
+        optionList: {},
+        qd_uid: null,
         form: {
           user: '',
           chnl_id: ''
         },
-        modForm: {
-
-        },
+        tableList: {},
         setList: {}
       }
     },
@@ -106,13 +105,101 @@
     },
     methods: {
       // 配置编辑
-      setEdit() {
-        this.$message.warning('等接口和设计图');
+      setEdit(row) {
+        if(!this.loading) {
+          this.qd_uid = row.qd_uid;
+          this.loading = true;
+
+          Promise.all([this.getOptionList(), this.getModeDetail()]).then((data) => {
+            this.loading = false;
+            this.optionList = data[0];
+            this.tableList = data[1];
+            this.showConfirm = true;
+          }).catch(() => {
+            this.loading = false;
+          })
+        }
+      },
+
+      // 获取模板列表
+      getOptionList() {
+        return new Promise((resolve, reject) => {
+          axios.get(`${config.host}/org/clearing/config/chnlmaps?format=cors`).then((res) => {
+            let data = res.data;
+            if(data.respcd === config.code.OK) {
+              resolve(data.data || {});
+            } else {
+              reject(new Error());
+              this.$message.error(data.resperr);
+            }
+          }).catch(() => {
+            reject(new Error());
+            this.$message.error(this.$t('common.netError'));
+          });
+        })
+
+      },
+
+      // 获取配置信息
+      getModeDetail() {
+        return new Promise((resolve, reject) => {
+          axios.get(`${config.host}/org/clearing/config/info?qd_uid=${this.qd_uid}`).then((res) => {
+            let data = res.data;
+            if(data.respcd === config.code.OK) {
+              resolve(data.data || {});
+            } else {
+              reject(new Error());
+              this.$message.error(data.resperr);
+            }
+          }).catch(() => {
+            reject(new Error());
+            this.$message.error(this.$t('common.netError'));
+          });
+        })
+      },
+
+      // 格式化数据
+      formatData() {
+        let list = this.tableList.list || [];
+        let lists = [];
+        list.map((val, index) => {
+          lists.push({
+            temp_id: val.temp_id,
+            chnlid: val.chnlid
+          })
+        })
+        return lists;
       },
 
       // 保存
       save() {
-        this.$message.warning('等接口和设计图');
+        if(!this.iconLoading) {
+          let params = JSON.stringify(this.formatData());
+
+          axios.post(`${config.host}/org/clearing/config`, qs.stringify({
+            qd_uid: this.qd_uid,
+            temp_conf: params,
+            format: 'cors'
+          })).then((res) => {
+            this.iconLoading = false;
+            let data = res.data;
+            if(data.respcd === config.code.OK) {
+              this.showConfirm = false;
+              this.$message({
+                type: 'success',
+                message: this.$t('common.opSucc')
+              });
+              this.handleSizeChange();
+            }else {
+              this.showConfirm = false;
+              this.$message.error(data.resperr);
+            }
+          }).catch(() => {
+            this.iconLoading = false;
+            this.showConfirm = false;
+            this.$message.error(this.$t('common.netError'));
+          })
+        }
       },
 
       // 查找
@@ -185,5 +272,16 @@
 </script>
 
 <style lang="scss">
-
+  .settleSet {
+    .bottom-border {
+      td {
+        border-bottom: 1px solid #ebeef5;
+      }
+      .el-form-item {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
 </style>
