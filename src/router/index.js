@@ -4,7 +4,8 @@ import login from 'components/login/login'
 import main from 'components/main/main'
 import agencyList from 'components/agency/list'
 import agencyCreate from 'components/agency/create'
-// import tradeList from 'components/trade/list'
+import tradeList from 'components/trade/list'
+import tradeTotal from 'components/trade/total'
 import roleList from 'components/authority/roleList'
 import roleModify from 'components/authority/modify'
 import userList from 'components/authority/userList'
@@ -70,6 +71,16 @@ export default new Router({
           path: 'agent_create',
           name: 'agencyCreate',
           component: agencyCreate
+        },
+        {
+          path: 'trade_detail_list',
+          name: 'tradeList',
+          component: tradeList
+        },
+        {
+          path: 'trade_summary_list',
+          name: 'tradeTotal',
+          component: tradeTotal
         },
         {
           path: 'perm_role_list',
