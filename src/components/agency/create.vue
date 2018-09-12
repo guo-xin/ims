@@ -250,7 +250,7 @@
         }
       },
       fetchAgencyLevel() {
-        this.$http(`${config.host}/org/v1/api/tools/level`)
+        this.$http(`${config.host}/org/tools/level`)
         .then((res) => {
           let data = res.data
           if (data.respcd === '0000') {
@@ -261,7 +261,7 @@
         })
       },
       fetchSalesman() {
-        this.$http(`${config.host}/org/v1/api/tools/slsm`)
+        this.$http(`${config.host}/org/tools/slsm`)
         .then((res) => {
           let data = res.data
           if (data.respcd === '0000') {
@@ -273,7 +273,7 @@
       },
       fetchCity() {
         this.isLoading = true
-        this.$http(`${config.host}/org/v1/api/tools/areacities`)
+        this.$http(`${config.host}/org/tools/areacities`)
         .then((res) => {
           this.isLoading = false
           let data = res.data
@@ -298,7 +298,7 @@
           return false
         }
         this.isRegisterLoading = true
-        this.$http(`${config.host}/org/v1/api/agent/check?username=${username}`)
+        this.$http(`${config.host}/org/agent/check?username=${username}`)
         .then((res) => {
           this.isRegisterLoading = false
           let data = res.data
@@ -318,7 +318,7 @@
         paramsBase.auth_city = this.$refs.city.selected.label || ''
         this.$http({
           method: 'post',
-          url: `${config.host}/org/v1/api/agent/create`,
+          url: `${config.host}/org/agent/create`,
           data: qs.stringify({
             base: JSON.stringify(paramsBase),
             bankinfo: JSON.stringify(this.bankinfo)
