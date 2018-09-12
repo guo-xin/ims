@@ -21,6 +21,13 @@
         </el-date-picker>
       </el-form-item>
 
+      <el-form-item :label="$t('settleMent.panel.settleType')" prop="state">
+        <el-select v-model="form.state" :placeholder="$t('common.choose')">
+          <el-option :label="$t('common.all')" value=""></el-option>
+          <el-option :label="$t('authority.panel.open')" value=1></el-option>
+          <el-option :label="$t('authority.panel.close')" value=9></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item :label="$t('settleMent.panel.settleName')" prop="role">
         <el-autocomplete
           v-model="form.role"
@@ -30,21 +37,7 @@
         ></el-autocomplete>
       </el-form-item>
 
-      <el-form-item :label="$t('settleMent.panel.settleType')" prop="state">
-        <el-select v-model="form.state" :placeholder="$t('common.choose')">
-          <el-option :label="$t('common.all')" value=""></el-option>
-          <el-option :label="$t('authority.panel.open')" value=1></el-option>
-          <el-option :label="$t('authority.panel.close')" value=9></el-option>
-        </el-select>
-      </el-form-item>
       <el-form-item :label="$t('settleMent.panel.payPass')" prop="state">
-        <el-select v-model="form.state" :placeholder="$t('common.choose')">
-          <el-option :label="$t('common.all')" value=""></el-option>
-          <el-option :label="$t('authority.panel.open')" value=1></el-option>
-          <el-option :label="$t('authority.panel.close')" value=9></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item :label="$t('settleMent.panel.payType')" prop="state">
         <el-select v-model="form.state" :placeholder="$t('common.choose')">
           <el-option :label="$t('common.all')" value=""></el-option>
           <el-option :label="$t('authority.panel.open')" value=1></el-option>

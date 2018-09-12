@@ -57,7 +57,7 @@
           <el-option :label="$t('settleMent.panel.staticAmount')" value=2></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item prop="chnlcost" class="form-right-140" v-if="form.type === '1' || !form.type">
+      <el-form-item prop="chnlcost" ref="chnlcost" class="form-right-140" v-if="form.type === '1' || !form.type">
         <el-input v-model="form.chnlcost"></el-input>
       </el-form-item>
 
@@ -211,9 +211,10 @@
       let numEnd0 = (rule, val, cb) => {
         if(this.form.type === '2' && !/^[1-9]\d*?$/.test(val)) {
           cb(new Error(this.$t('settleMent.msg.t16')));
-        } else if(this.form.start0) {
-          this.$refs['form'].validateField('start0');
-        }else {
+        } else {
+          if(this.form.start0) {
+            this.$refs['form'].validateField('start0');
+          }
           cb();
         }
       };
@@ -230,9 +231,10 @@
       let numEnd1 = (rule, val, cb) => {
         if(this.form.type === '2' && !/^[1-9]\d*?$/.test(val)) {
           cb(new Error(this.$t('settleMent.msg.t16')));
-        } else if(this.form.start1) {
-          this.$refs['form'].validateField('start1');
-        }else {
+        } else {
+          if(this.form.start1) {
+            this.$refs['form'].validateField('start1');
+          }
           cb();
         }
       };
@@ -249,9 +251,10 @@
       let numEnd2 = (rule, val, cb) => {
         if(this.form.type === '2' && !/^[1-9]\d*?$/.test(val)) {
           cb(new Error(this.$t('settleMent.msg.t16')));
-        } else if(this.form.start2) {
-          this.$refs['form'].validateField('start2');
-        }else {
+        } else {
+          if(this.form.start2) {
+            this.$refs['form'].validateField('start2');
+          }
           cb();
         }
       };
@@ -471,10 +474,15 @@
           if (valid && !this.iconLoading) {
             this.iconLoading = true;
             let form = this.form;
+            let time = new Date(form.effect_time);
+            time.setHours(0);
+            time.setMinutes(0);
+            time.setSeconds(0);
+
             let [params, url] = [];
             params = {
               name: form.name,
-              effect_time: formatDate(form.effect_time, 'yyyy-MM-dd HH:mm:ss'),
+              effect_time: formatDate(time, 'yyyy-MM-dd HH:mm:ss'),
               enable_value: form.enable_value,
               enable_condition: form.enable_condition,
               chnlid: form.chnlcode,
@@ -544,8 +552,10 @@
 
       // 阶梯类型改变
       typeChange(val) {
+        // 清空通道成本并移除校验
+        this.$refs['chnlcost'] && this.$refs['chnlcost'].resetField();
+
         Object.assign(this.form, {
-          chnlcost: null,
           use_ladder: 1,
           start0: null,
           end0: null,
@@ -563,6 +573,7 @@
           one2: null,
           two2: null
         })
+
         this.ruleList = [{}];
       },
 

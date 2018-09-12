@@ -21,7 +21,8 @@
           :editable="false"
           :placeholder="$t('common.range')"
           size="large"
-          :clearable="false">
+          :clearable="false"
+          :range-separator="separator">
         </el-date-picker>
       </el-form-item>
       <el-form-item :label="$t('settleMent.panel.payPass')" prop="chnlid">
@@ -93,6 +94,7 @@
         currentPage: 1,
         pageSize: 10,
         iconLoading: false,
+        separator: '',
         passList: [],
         form: {
           name: '',
@@ -105,6 +107,14 @@
     computed: {
       basicAuth() {
         return this.$store.state.permissionData || [];
+      }
+    },
+
+    watch: {
+      'form.date': function (val, oldval) {
+        if(val) {
+          this.separator = '-';
+        }
       }
     },
 
