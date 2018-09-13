@@ -55,6 +55,17 @@ form.el-form {
     width: 0;
   }
 }
+// 单时间输入框
+.el-date-range-picker.single-panel {
+  width: 322px;
+  .el-picker-panel__body {
+    min-width: auto;
+  }
+  .el-date-range-picker__content {
+    float: none;
+    width: auto;
+  }
+}
 // 输入框去掉绿色边框
 .el-form-item.is-success .el-input__inner,
 .el-form-item.is-success .el-textarea__inner {
@@ -175,6 +186,28 @@ form.el-form {
 %shadow {
   box-shadow: 2px 6px 8px rgba(142, 169, 190, 0.1);
 }
+.total-content {
+  padding: 15px $baseGap;
+  box-sizing: border-box;
+  border-radius: 8px;
+  margin-bottom: $smGap;
+  background-color: #fff;
+  @extend %shadow;
+  .part-content {
+    margin-right: 80px;
+    display: inline-block;
+    p {
+      color: $submenu-font-color;
+      font-size: $baseSize;
+    }
+    h1 {
+      color: $titleColor;
+      font-size: $xxSize;
+      margin-bottom: 15px;
+      margin-top: 0;
+    }
+  }
+}
 .search-form {
   position: relative;
   padding: 15px 230px 10px 30px;
@@ -182,7 +215,7 @@ form.el-form {
   border-radius: 8px;
   @extend %shadow;
   background-color: #fff;
-  margin-bottom: 10px;
+  margin-bottom: $smGap;
   .buttons {
     position: absolute;
     width: 200px;

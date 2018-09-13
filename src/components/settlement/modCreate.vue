@@ -38,28 +38,31 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item :label="$t('settleMent.panel.singleAmount')" prop="enable_value" class="form-right-140">
-        <el-input v-model="form.enable_value"></el-input>
-      </el-form-item>
-      <el-form-item prop="enable_condition">
-        <el-radio-group v-model="form.enable_condition">
-          <el-radio :label="'gt'">&gt;</el-radio>
-          <el-radio :label="'ge'">&gt;=</el-radio>
-          <el-radio :label="'lt'">&lt;</el-radio>
-          <el-radio :label="'le'">&lt;=</el-radio>
-        </el-radio-group>
-      </el-form-item>
+      <div class="row-inline">
+        <el-form-item :label="$t('settleMent.panel.singleAmount')" prop="enable_value" class="form-right-140">
+          <el-input v-model="form.enable_value"></el-input>
+        </el-form-item>
+        <el-form-item prop="enable_condition">
+          <el-radio-group v-model="form.enable_condition">
+            <el-radio :label="'gt'">&gt;</el-radio>
+            <el-radio :label="'ge'">&gt;=</el-radio>
+            <el-radio :label="'lt'">&lt;</el-radio>
+            <el-radio :label="'le'">&lt;=</el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </div>
 
-      <br />
-      <el-form-item :label="$t('settleMent.panel.passCost')" prop="chnlcost_type" class="form-right-140" style="margin-right: 10px">
-        <el-select v-model="form.chnlcost_type" :placeholder="$t('common.choose')">
-          <el-option :label="$t('settleMent.panel.percent')" value=1></el-option>
-          <el-option :label="$t('settleMent.panel.staticAmount')" value=2></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item prop="chnlcost" ref="chnlcost" class="form-right-140" v-if="form.type === '1' || !form.type">
-        <el-input v-model="form.chnlcost"></el-input>
-      </el-form-item>
+      <div class="row-inline">
+        <el-form-item :label="$t('settleMent.panel.passCost')" prop="chnlcost_type" class="form-right-140" style="margin-right: 10px">
+          <el-select v-model="form.chnlcost_type" :placeholder="$t('common.choose')">
+            <el-option :label="$t('settleMent.panel.percent')" value=1></el-option>
+            <el-option :label="$t('settleMent.panel.staticAmount')" value=2></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item prop="chnlcost" ref="chnlcost" class="form-right-140" v-if="form.type === '1' || !form.type">
+          <el-input v-model="form.chnlcost"></el-input>
+        </el-form-item>
+      </div>
 
       <el-form-item :label="$t('settleMent.panel.floorType')" prop="type" class="form-right-140">
         <el-select v-model="form.type" :placeholder="$t('common.choose')" @change="typeChange">
@@ -430,7 +433,7 @@
         let detailData = JSON.parse(localStorage.getItem('detailData'));
         Object.assign(this.form, {
             name: detailData.name,
-            effect_time: detailData.effect_time,
+            effect_time: new Date(detailData.effect_time),
             enable_value: detailData.enable_value,
             enable_condition: detailData.enable_condition,
             settlement_cycle: detailData.settlement_cycle + '',
@@ -493,6 +496,7 @@
               use_ladder: form.use_ladder,
               is_default: form.is_default,
               status: form.status,
+              format: 'cors',
               settlement_conf: JSON.stringify(
                 [
                   {in: form.income0, out: form.expend0},
@@ -597,7 +601,7 @@
       // 获取通道列表
       getList () {
         this.loading = true;
-        axios.get(`${config.host}/org/clearing/temp/chnls`).then((res) => {
+        axios.get(`${config.host}/org/clearing/temp/chnls?format=cors`).then((res) => {
           this.loading = false;
           let data = res.data;
           if (data.respcd === config.code.OK) {
@@ -627,11 +631,9 @@
     .page-header {
       margin-bottom: $midGap;
     }
-    .settleCreate {
-      padding: 0 $baseGap $baseGap;
-      background-color: #fff;
+    .row-inline {
+      display: inline-block;
     }
-
     footer {
       padding-top: $baseGap;
     }

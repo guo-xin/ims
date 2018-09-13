@@ -54,6 +54,17 @@
       </div>
     </el-form>
 
+    <div class="total-content">
+      <div class="part-content">
+        <p>{{ $t('settleMent.table.tradeNum') }}</p>
+        <h1></h1>
+      </div>
+      <div class="part-content">
+        <p class="">{{ $t('settleMent.table.settleAmount') }}</p>
+        <h1></h1>
+      </div>
+    </div>
+
     <el-table :data="totalList.list" stripe v-loading="loading">
       <el-table-column :label="$t('settleMent.table.order')" width="80px">
         <template slot-scope="scope">
@@ -131,10 +142,6 @@
         a.click();
       },
 
-      // 配置
-      setting() {
-        this.$router.push({ name: 'settleSet' });
-      },
       // 获取数据
       getData() {
         if(!this.loading) {

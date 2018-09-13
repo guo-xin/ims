@@ -242,7 +242,7 @@
 
       // 获取通道列表
       getList () {
-        axios.get(`${config.host}/org/clearing/temp/chnls`).then((res) => {
+        axios.get(`${config.host}/org/clearing/temp/chnls?format=cors`).then((res) => {
           let data = res.data;
           if (data.respcd === config.code.OK) {
             this.passList = data.data;

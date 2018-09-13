@@ -22,6 +22,7 @@
           :placeholder="$t('common.range')"
           size="large"
           :clearable="false"
+          unlink-panels
           :range-separator="separator">
         </el-date-picker>
       </el-form-item>
@@ -112,8 +113,10 @@
 
     watch: {
       'form.date': function (val, oldval) {
-        if(val) {
+        if(val.length > 0) {
           this.separator = '-';
+        }else {
+          this.separator = '';
         }
       }
     },

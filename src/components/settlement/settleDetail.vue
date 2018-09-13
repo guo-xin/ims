@@ -108,7 +108,19 @@
         manageList: {}
       }
     },
-
+    computed: {
+      basicParams() {
+        let form = this.form;
+        return {
+          nickname: form.user,
+          role_name: form.date,
+          state: form.state,
+          offset: this.currentPage - 1,
+          pageSize: this.pageSize,
+          format: 'cors'
+        }
+      }
+    },
     created() {
       this.getData();
     },
@@ -125,17 +137,12 @@
 
       // 导出
       down() {
-        let params = 'http://baidu.com';
         let a = document.createElement('a');
         a.setAttribute('download', true);
-        a.setAttribute('href', params);
+        a.setAttribute('href', this.basicParams);
         a.click();
       },
 
-      // 配置
-      setting() {
-        this.$router.push({ name: 'settleSet' });
-      },
       querySearchAsync(string, cb) {
         axios.get(`${config.host}/org/perm/roles`).then((res) => {
           let data = res.data;
@@ -162,16 +169,8 @@
       getData() {
         if(!this.loading) {
           this.loading = true;
-          let form = this.form;
           axios.get(`${config.host}/org/perm/user/list`, {
-            params: {
-              nickname: form.user,
-              role_name: form.date,
-              state: form.state,
-              offset: this.currentPage - 1,
-              pageSize: this.pageSize,
-              format: 'cors'
-            }
+            params: this.basicParams
           }).then((res) => {
             this.loading = false;
             let data = res.data;
