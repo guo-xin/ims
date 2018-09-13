@@ -2,7 +2,7 @@
   <div class="agencyList">
     <header class="page-header">
       <h2 class="page-title">代理商列表</h2>
-      <el-button size="large" type="primary" @click="createRole()">创建</el-button>
+      <el-button size="large" type="primary" @click="createAgency()">创建</el-button>
     </header>
 
     <el-form class="search-form" :model="formData">
@@ -32,7 +32,7 @@
       </div>
     </el-form>
 
-    <el-table :data="agencies" stripe v-loading="isLoading">
+    <el-table :data="agencies" stripe v-loading="isLoading" @row-click="goDetail">
       <el-table-column prop="name" label="代理商名称"></el-table-column>
       <el-table-column prop="qd_uid" label="代理商ID"></el-table-column>
       <el-table-column prop="level" :formatter="formatLevel" label="等级"></el-table-column>
@@ -113,7 +113,16 @@
           status: ''
         }
       },
-      createRole() {
+      goDetail(row) {
+        console.log(row)
+        this.$router.push({
+          name: 'agencyDetail',
+          params: {
+            id: row.qd_uid
+          }
+        })
+      },
+      createAgency() {
         this.$router.push({name: 'agencyCreate'})
       },
       handleSizeChange(size = 10) {
@@ -133,5 +142,9 @@
 </script>
 
 <style scoped lang="scss">
-
+.agencyList {
+  .el-table tr {
+    cursor: pointer;
+  }
+}
 </style>
