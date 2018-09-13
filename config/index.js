@@ -11,8 +11,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'https://oasbp.qa.qfpay.net',
-        // target: 'http://172.100.113.124:8198',
+        // target: 'https://oasbp.qa.qfpay.net',
+        target: 'http://172.100.113.124:8198',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/'

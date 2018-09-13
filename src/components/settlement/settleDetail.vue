@@ -21,6 +21,13 @@
         </el-date-picker>
       </el-form-item>
 
+      <el-form-item :label="$t('settleMent.panel.settleType')" prop="state">
+        <el-select v-model="form.state" :placeholder="$t('common.choose')">
+          <el-option :label="$t('common.all')" value=""></el-option>
+          <el-option :label="$t('authority.panel.open')" value=1></el-option>
+          <el-option :label="$t('authority.panel.close')" value=9></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item :label="$t('settleMent.panel.settleName')" prop="role">
         <el-autocomplete
           v-model="form.role"
@@ -30,21 +37,7 @@
         ></el-autocomplete>
       </el-form-item>
 
-      <el-form-item :label="$t('settleMent.panel.settleType')" prop="state">
-        <el-select v-model="form.state" :placeholder="$t('common.choose')">
-          <el-option :label="$t('common.all')" value=""></el-option>
-          <el-option :label="$t('authority.panel.open')" value=1></el-option>
-          <el-option :label="$t('authority.panel.close')" value=9></el-option>
-        </el-select>
-      </el-form-item>
       <el-form-item :label="$t('settleMent.panel.payPass')" prop="state">
-        <el-select v-model="form.state" :placeholder="$t('common.choose')">
-          <el-option :label="$t('common.all')" value=""></el-option>
-          <el-option :label="$t('authority.panel.open')" value=1></el-option>
-          <el-option :label="$t('authority.panel.close')" value=9></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item :label="$t('settleMent.panel.payType')" prop="state">
         <el-select v-model="form.state" :placeholder="$t('common.choose')">
           <el-option :label="$t('common.all')" value=""></el-option>
           <el-option :label="$t('authority.panel.open')" value=1></el-option>
@@ -60,7 +53,7 @@
         </el-select>
       </el-form-item>
       <div class="buttons">
-        <el-button type="primary" @click="search()">{{ $t('common.search') }}</el-button>
+        <el-button type="primary" :loading="loading" @click="search()">{{ $t('common.search') }}</el-button>
         <el-button @click="reset()">{{ $t('common.reset') }}</el-button>
       </div>
     </el-form>
@@ -78,7 +71,7 @@
     </el-table>
 
     <div class="pagination_wrapper" v-if="manageList.total >= 1">
-      <el-button size="large" type="primary" @click="create" class="el-button-primary">{{  $t('common.export') }}</el-button>
+      <el-button size="large" type="primary" @click="down" class="el-button-primary">{{  $t('common.export') }}</el-button>
       <el-pagination
         ref="page"
         layout="total, sizes, prev, pager, next, jumper"
@@ -115,7 +108,19 @@
         manageList: {}
       }
     },
-
+    computed: {
+      basicParams() {
+        let form = this.form;
+        return {
+          nickname: form.user,
+          role_name: form.date,
+          state: form.state,
+          offset: this.currentPage - 1,
+          pageSize: this.pageSize,
+          format: 'cors'
+        }
+      }
+    },
     created() {
       this.getData();
     },
@@ -130,23 +135,14 @@
         this.$refs['form'].resetFields();
       },
 
-      detail() {
-
+      // 导出
+      down() {
+        let a = document.createElement('a');
+        a.setAttribute('download', true);
+        a.setAttribute('href', this.basicParams);
+        a.click();
       },
 
-      dele() {
-
-      },
-
-      // 创建
-      create() {
-        this.$router.push({ name: 'settleCreate' });
-      },
-
-      // 配置
-      setting() {
-        this.$router.push({ name: 'settleSet' });
-      },
       querySearchAsync(string, cb) {
         axios.get(`${config.host}/org/perm/roles`).then((res) => {
           let data = res.data;
@@ -173,16 +169,8 @@
       getData() {
         if(!this.loading) {
           this.loading = true;
-          let form = this.form;
           axios.get(`${config.host}/org/perm/user/list`, {
-            params: {
-              nickname: form.user,
-              role_name: form.date,
-              state: form.state,
-              offset: this.currentPage - 1,
-              pageSize: this.pageSize,
-              format: 'cors'
-            }
+            params: this.basicParams
           }).then((res) => {
             this.loading = false;
             let data = res.data;

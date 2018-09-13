@@ -5,7 +5,8 @@ import main from 'components/main/main'
 import agencyList from 'components/agency/list'
 import agencyDetail from 'components/agency/detail'
 import agencyModify from 'components/agency/modify'
-// import tradeList from 'components/trade/list'
+import tradeList from 'components/trade/list'
+import tradeTotal from 'components/trade/total'
 import roleList from 'components/authority/roleList'
 import roleModify from 'components/authority/modify'
 import userList from 'components/authority/userList'
@@ -13,10 +14,11 @@ import forgetPassword from 'components/forgetPassword'
 import bussiness from 'components/merchant/bussinessList'
 import mchnt from 'components/merchant/merchantList'
 import settleDetail from 'components/settlement/settleDetail'
-import settleManage from 'components/settlement/settleManage'
+import settleMode from 'components/settlement/settleMode'
 import settleTotal from 'components/settlement/settleTotal'
 import settleSet from 'components/settlement/settleSet'
-import settleCreate from 'components/settlement/settleCreate'
+import modCreate from 'components/settlement/modCreate'
+import modDetail from 'components/settlement/modDetail'
 import home from 'components/home/home'
 
 Vue.use(Router)
@@ -82,6 +84,16 @@ export default new Router({
           component: agencyModify
         },
         {
+          path: 'trade_detail_list',
+          name: 'tradeList',
+          component: tradeList
+        },
+        {
+          path: 'trade_summary_list',
+          name: 'tradeTotal',
+          component: tradeTotal
+        },
+        {
           path: 'perm_role_list',
           name: 'roleList',
           component: roleList
@@ -108,16 +120,21 @@ export default new Router({
         },
         {
           path: 'clearing_template_list',
-          name: 'settleManage',
-          component: settleManage
+          name: 'settleMode',
+          component: settleMode
         },
         {
-          path: 'settleCreate',
-          name: 'settleCreate',
-          component: settleCreate
+          path: 'clearing_template_list/modCreate',
+          name: 'modCreate',
+          component: modCreate
         },
         {
-          path: 'settleSet',
+          path: 'clearing_template_list/modDetail',
+          name: 'modDetail',
+          component: modDetail
+        },
+        {
+          path: 'clearing_template_list/settleSet',
           name: 'settleSet',
           component: settleSet
         },

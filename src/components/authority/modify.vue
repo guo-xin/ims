@@ -94,7 +94,6 @@
           } else {
             this.$message.error(data.resperr)
           }
-
         })
       },
       handleCheckAllChange(val, index) {
