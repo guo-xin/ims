@@ -1,7 +1,7 @@
 <template>
   <div class="agencyCreate">
     <header class="page-header style2">
-      <h2 class="page-title">添加渠道</h2>
+      <h2 class="page-title">{{this.isUpdate ? '修改渠道' : '添加渠道'}}</h2>
       <el-button type="text" @click="cancel"><i class="el-icon-close"></i><span>关闭</span></el-button>
     </header>
     <el-steps :active="active" finish-status="finish">
@@ -12,80 +12,84 @@
     <el-form v-show="active === 0" v-loading="isLoading" ref="baseform" :rules="baseFormRules" :model="baseform">
       <h3>基本信息</h3>
       <el-form-item prop="name" label="代理商名称">
-        <el-input v-model="baseform.name"></el-input>
+        <el-input v-model="baseform.name" @blur="updateAgency('name', $event)"></el-input>
       </el-form-item>
       <el-form-item :prop="baseform.levelcode >= 2 ? 'parent_uid' : 'levelcode'" label="代理商级别" style="width:446px">
         <el-select v-model="baseform.levelcode" @change="selectLevel">
           <el-option v-for="level in levels" :label="level.text" :value="level.code" :key="level.code"></el-option>
         </el-select>
-        <el-select :disabled="baseform.levelcode === 1" v-model="baseform.parent_uid" placeholder="所属代理">
+        <el-select :disabled="baseform.levelcode === 1" v-model="baseform.parent_uid" placeholder="所属代理" @change="updateAgency('secondAgency', $event)">
           <el-option v-for="agency in allAgencys" :label="agency.name" :value="agency.qd_uid" :key="agency.qd_uid"></el-option>
         </el-select>
       </el-form-item>
       <hr/>
       <el-form-item prop="short_name" label="代理商简称">
-        <el-input v-model="baseform.short_name"></el-input>
+        <el-input v-model="baseform.short_name" @blur="updateAgency('short_name', $event)"></el-input>
       </el-form-item>
       <el-form-item prop="auth_province" label="代理区域" style="width:446px">
         <el-select ref="province" v-model="baseform.auth_province" @change="selectProvince">
           <el-option v-for="province in areas" :label="province.areaname" :value="province.areaid" :key="province.areaid"></el-option>
         </el-select>
-        <el-select ref="city" v-model="baseform.auth_city">
+        <el-select ref="city" v-model="baseform.auth_city" @change="selectCity">
           <el-option v-for="city in citys" :label="city.cityname" :value="city.cityid" :key="city.cityid"></el-option>
         </el-select>
       </el-form-item>
       <hr/>
       <el-form-item prop="address" label="地址">
-        <el-input v-model="baseform.address"></el-input>
+        <el-input v-model="baseform.address" @blur="updateAgency('address', $event)"></el-input>
       </el-form-item>
       <el-form-item prop="business_name" label="联系人">
-        <el-input v-model="baseform.business_name"></el-input>
+        <el-input v-model="baseform.business_name" @blur="updateAgency('business_name', $event)"></el-input>
       </el-form-item>
       <el-form-item prop="legal_name" label="法人">
-        <el-input v-model="baseform.legal_name"></el-input>
+        <el-input v-model="baseform.legal_name" @blur="updateAgency('legal_name', $event)"></el-input>
       </el-form-item>
       <el-form-item prop="business_mobile" label="联系人电话">
-        <el-input v-model="baseform.business_mobile"></el-input>
+        <el-input v-model="baseform.business_mobile" @blur="updateAgency('business_mobile', $event)"></el-input>
       </el-form-item>
       <el-form-item prop="mobile" label="法人电话">
-        <el-input v-model="baseform.mobile "></el-input>
+        <el-input v-model="baseform.mobile" @blur="updateAgency('mobile', $event)"></el-input>
       </el-form-item>
       <el-form-item prop="slsm_userid" label="所属业务员">
-        <el-select v-model="baseform.slsm_userid" :disabled="baseform.levelcode > 1">
+        <el-select v-model="baseform.slsm_userid" :disabled="baseform.levelcode > 1" @change="updateAgency('selectSaleMan', $event)">
           <el-option v-for="sale in sales" :label="sale.name" :value="sale.userid" :key="sale.userid"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item class="username" prop="username" label="登录账号" :error="isRegisteredErrorMessage">
+      <el-form-item v-if="!isUpdate" class="username" prop="username" label="登录账号" :error="isRegisteredErrorMessage">
         <el-input @blur="verifyRegister" @focus="clearRegisterError" v-model="baseform.username"></el-input>
         <i v-show="isRegisterLoading" class="el-icon-loading"></i>
         <i v-show="!isRegisterLoading && !isRegistered" title="可以使用" class="el-icon-circle-check" style="color:#67c10d"></i>
       </el-form-item>
       <el-form-item prop="password" label="登录密码">
-        <el-input v-model="baseform.password"></el-input>
+        <el-input v-model="baseform.password" @blur="updateAgency('password', $event)"></el-input>
       </el-form-item>
     </el-form>
 
     <el-form v-show="active === 1" ref="bankinfoform" :rules="bankinfoFormRules" :model="bankinfo">
       <h3>结算信息</h3>
       <el-form-item prop="bankuser" label="账户名称">
-        <el-input v-model="bankinfo.bankuser"></el-input>
+        <el-input v-model="bankinfo.bankuser" @blur="updateAgency('bankuser', $event)"></el-input>
       </el-form-item>
       <el-form-item prop="bankaccount" label="结算账号">
-        <el-input v-model="bankinfo.bankaccount"></el-input>
+        <el-input v-model="bankinfo.bankaccount" @blur="updateAgency('bankaccount', $event)"></el-input>
       </el-form-item>
       <el-form-item prop="headbankname" label="总行名称">
-        <el-input v-model="bankinfo.headbankname"></el-input>
+        <el-input v-model="bankinfo.headbankname" @blur="updateAgency('headbankname', $event)"></el-input>
       </el-form-item>
       <hr/>
       <el-form-item prop="bankname" label="支行名称">
-        <el-input v-model="bankinfo.bankname"></el-input>
+        <el-input v-model="bankinfo.bankname" @blur="updateAgency('bankname', $event)"></el-input>
       </el-form-item>
       <el-form-item prop="bankcode" label="联行号">
-        <el-input v-model="bankinfo.bankcode"></el-input>
+        <el-input v-model="bankinfo.bankcode" @blur="updateAgency('bankcode', $event)"></el-input>
       </el-form-item>
     </el-form>
 
-    <footer>
+    <footer v-if="isUpdate">
+      <el-button v-show="active === 0" type="primary" @click="next">下一步</el-button>
+      <el-button v-show="active === 1" @click="pre">上一步</el-button>
+    </footer>
+    <footer v-else>
       <el-button type="primary" @click="next">
         {{active === 1 ? '完成' : '下一步'}}
       </el-button>
@@ -100,6 +104,7 @@
   export default {
     data() {
       return {
+        isUpdate: false,
         isLoading: false,
         active: 0, // 当前步骤
         baseform: {
@@ -180,17 +185,28 @@
       }
     },
     created() {
-      this.fetchAgencyLevel()
+      this.isUpdate = this.$route.name === 'agencyEdit'
       this.fetchSalesman()
-      this.fetchCity()
-      let base = localStorage.getItem('base')
-      let bankinfo = localStorage.getItem('bankinfo')
+      let base = {}
+      let bankinfo = {}
+      if (this.isUpdate) {
+        this.baseFormRules.password = [
+          {required: false}
+        ]
+        base = localStorage.getItem('baseEdit')
+        bankinfo = localStorage.getItem('bankinfoEdit')
+      } else {
+        base = localStorage.getItem('base')
+        bankinfo = localStorage.getItem('bankinfo')
+      }
       if (base) {
         this.baseform = JSON.parse(base)
       }
       if (bankinfo) {
         this.bankinfo = JSON.parse(bankinfo)
       }
+      this.fetchAgencyLevel()
+      this.fetchCity()
     },
     methods: {
       next() {
@@ -198,13 +214,16 @@
           this.$refs['baseform'].validate((valid) => {
             if (valid) {
               this.active += 1
-              localStorage.setItem('base', JSON.stringify(this.baseform))
+              if (this.isUpdate) {
+                localStorage.setItem('baseEdit', JSON.stringify(this.baseform))
+              } else {
+                localStorage.setItem('base', JSON.stringify(this.baseform))
+              }
             }
           })
-        } else if (this.active === 1) {
+        } else if (this.active === 1) { // 创建 完成
           this.$refs['bankinfoform'].validate((valid) => {
             if (valid) {
-              localStorage.setItem('bankinfo', JSON.stringify(this.bankinfo))
               this.create()
             }
           })
@@ -241,6 +260,9 @@
         this.areas.map((area, index) => {
           if (area.areaid === value) {
             this.citys = area.cities
+            if (this.isUpdate) {
+              this.updateAgency('updateProvince', area.areaname)
+            }
           }
         })
         if (cityId) {
@@ -249,12 +271,24 @@
           this.baseform.auth_city = ''
         }
       },
+      selectCity(value) {
+        if (this.isUpdate) {
+          this.citys.map((city, index) => {
+            if (city.cityid === value) {
+              this.updateAgency('updateProvinceCity', city.cityname)
+            }
+          })
+        }
+      },
       fetchAgencyLevel() {
         this.$http(`${config.host}/org/tools/level`)
         .then((res) => {
           let data = res.data
           if (data.respcd === '0000') {
             this.levels = data.data.records
+            if (this.isUpdate && this.baseform.levelcode === 2) {
+              this.allAgencys = this.levels[1].parentinfo
+            }
           } else {
             this.$message.error(data.resperr)
           }
@@ -279,9 +313,15 @@
           let data = res.data
           if (data.respcd === '0000') {
             this.areas = data.data.records
-            let base = JSON.parse(localStorage.getItem('base'))
-            if (base.auth_city) {
-              this.selectProvince(base.auth_province, base.auth_city)
+            if (this.baseform.auth_city) {
+              this.selectProvince(this.baseform.auth_province, this.baseform.auth_city)
+            }
+            if (this.isUpdate) {
+              this.areas.map((area, index) => {
+                if (area.areaname === this.baseform.auth_province) {
+                  this.citys = area.cities
+                }
+              })
             }
           } else {
             this.$message.error(data.resperr)
@@ -305,6 +345,7 @@
           if (data.respcd === '0000') {
             this.isRegistered = false
             this.isRegisteredErrorMessage = ''
+            this.updateAgency('username', username)
           } else if (data.respcd === '2102') {
             this.isRegistered = true
             this.isRegisteredErrorMessage = '登录账号已注册'
@@ -333,6 +374,46 @@
             localStorage.removeItem('bankinfo')
             this.$message.success('创建成功')
             this.$router.push({name: 'agencyList'})
+          } else {
+            this.$message.error(data.resperr)
+          }
+        })
+      },
+      updateAgency(key, e) {
+        if (!this.isUpdate) {
+          return false
+        }
+        let agentId = this.$route.params.id
+        let params = {}
+        if (key === 'secondAgency') {
+          params['levelcode'] = 2
+          params['parent_uid'] = e
+        } else if (key === 'updateProvince') {
+          params['auth_province'] = e
+          params['auth_city'] = ''
+        } else if (key === 'updateProvinceCity') {
+          params['auth_province'] = this.$refs.province.selected.label || this.baseform.auth_province
+          params['auth_city'] = e
+        } else if (key === 'selectSaleMan') {
+          params['levelcode'] = 1
+          params['slsm_userid'] = e
+        } else if (e.target.value) {
+          params[key] = e.target.value
+        } else {
+          return false
+        }
+        this.$http({
+          method: 'post',
+          url: `${config.host}/org/agent/${agentId}/edit`,
+          data: qs.stringify(params)
+        })
+        .then((res) => {
+          let data = res.data
+          if (data.respcd === '0000') {
+            this.$refs['baseform'].clearValidate()
+            this.$refs['bankinfoform'].clearValidate()
+            this.$message.success('修改成功')
+            // this.$router.push({name: 'agencyList'})
           } else {
             this.$message.error(data.resperr)
           }

@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import login from 'components/login/login'
 import main from 'components/main/main'
 import agencyList from 'components/agency/list'
-import agencyCreate from 'components/agency/create'
+import agencyDetail from 'components/agency/detail'
+import agencyModify from 'components/agency/modify'
 // import tradeList from 'components/trade/list'
 import roleList from 'components/authority/roleList'
 import roleModify from 'components/authority/modify'
@@ -66,9 +67,19 @@ export default new Router({
           component: agencyList
         },
         {
+          path: 'agent_detail/:id',
+          name: 'agencyDetail',
+          component: agencyDetail
+        },
+        {
           path: 'agent_create',
           name: 'agencyCreate',
-          component: agencyCreate
+          component: agencyModify
+        },
+        {
+          path: 'agent_edit/:id',
+          name: 'agencyEdit',
+          component: agencyModify
         },
         {
           path: 'perm_role_list',
