@@ -98,6 +98,11 @@ form.el-form {
 .el-autocomplete {
   display: block;
 }
+.el-autocomplete-suggestion.nomatch {
+  li {
+    cursor: not-allowed;
+  }
+}
 
 .el-form-item__label {
   float:none !important;
