@@ -64,6 +64,7 @@
         this.$router.push({name: 'agencyList'})
       },
       editAgency() {
+        localStorage.removeItem('hasEdit')
         this.$router.push({name: 'agencyEdit'})
       }
     }
