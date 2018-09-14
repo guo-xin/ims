@@ -55,13 +55,13 @@
           <el-option v-for="sale in sales" :label="sale.name" :value="sale.userid" :key="sale.userid"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item v-if="!isUpdate" class="username" prop="username" label="登录账号" :error="isRegisteredErrorMessage">
-        <el-input @blur="verifyRegister" @focus="clearRegisterError" v-model="baseform.username"></el-input>
+      <el-form-item class="username" prop="username" label="登录账号" :error="usernameErrorMessage">
+        <el-input :disabled="isUpdate" @blur="verifyRegister" @focus="clearRegisterError" v-model="baseform.username"></el-input>
         <i v-show="isRegisterLoading" class="el-icon-loading"></i>
         <i v-show="!isRegisterLoading && !isRegistered" title="可以使用" class="el-icon-circle-check" style="color:#67c10d"></i>
       </el-form-item>
       <el-form-item prop="password" label="登录密码">
-        <el-input v-model="baseform.password" @blur="updateAgency('password', $event)"></el-input>
+        <el-input ref="passwordInput" type="password" v-model="baseform.password" @blur="updateAgency('password', $event)"></el-input>
       </el-form-item>
     </el-form>
 
@@ -115,7 +115,8 @@
           parent_uid: '',
           slsm_userid: '',
           auth_province: '',
-          auth_city: ''
+          auth_city: '',
+          password: ''
         },
         bankinfo: {
           bankuser: '', // 账户名称
@@ -131,7 +132,7 @@
         sales: [], // 业务员 列表
         isRegisterLoading: false,
         isRegistered: true, // 已注册
-        isRegisteredErrorMessage: '', // 已注册报错文案
+        usernameErrorMessage: '', // 登录账号报错文案
         baseFormRules: {
           'name': [
             {required: true, message: '请输入代理商名称'}
@@ -194,7 +195,6 @@
       }
 
       this.isUpdate = this.$route.name === 'agencyEdit'
-      this.fetchSalesman()
       let base = {}
       let bankinfo = {}
       if (this.isUpdate) {
@@ -213,6 +213,7 @@
       if (bankinfo) {
         this.bankinfo = JSON.parse(bankinfo)
       }
+      this.fetchSalesman()
       this.fetchAgencyLevel()
       this.fetchCity()
     },
@@ -347,12 +348,15 @@
       },
       clearRegisterError() {
         this.isRegistered = true
-        this.isRegisteredErrorMessage = ''
+        this.usernameErrorMessage = ''
       },
       verifyRegister(event) {
         let username = event.target.value
         if (!username) {
           return false
+        }
+        if (!/^[A-Za-z0-9]+$/g.test(username)) {
+          this.usernameErrorMessage = '登录账户只可以输入字母或数字'
         }
         this.isRegisterLoading = true
         this.$http(`${config.host}/org/agent/check?username=${username}`)
@@ -361,11 +365,11 @@
           let data = res.data
           if (data.respcd === '0000') {
             this.isRegistered = false
-            this.isRegisteredErrorMessage = ''
+            this.usernameErrorMessage = ''
             this.updateAgency('username', username)
           } else if (data.respcd === '2102') {
             this.isRegistered = true
-            this.isRegisteredErrorMessage = '登录账号已注册'
+            this.usernameErrorMessage = '登录账号已注册'
           }
         })
       },
