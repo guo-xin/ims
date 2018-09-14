@@ -86,6 +86,7 @@
     </el-form>
 
     <footer v-if="isUpdate">
+      <el-button v-show="active === 1" type="primary" @click="goback">完成</el-button>
       <el-button v-show="active === 0" type="primary" @click="next">下一步</el-button>
       <el-button v-show="active === 1" @click="pre">上一步</el-button>
     </footer>
@@ -94,6 +95,7 @@
         {{active === 1 ? '完成' : '下一步'}}
       </el-button>
       <el-button v-show="active !== 0" @click="pre">上一步</el-button>
+      <el-button v-show="active === 0" @click="resetStep1">重置</el-button>
     </footer>
   </div>
 </template>
@@ -185,6 +187,12 @@
       }
     },
     created() {
+      // 编辑页面，刷新回详情页
+      if (localStorage.getItem('hasEdit') === '1') {
+        this.$router.push({name: 'agencyDetail'})
+        return false
+      }
+
       this.isUpdate = this.$route.name === 'agencyEdit'
       this.fetchSalesman()
       let base = {}
@@ -209,6 +217,9 @@
       this.fetchCity()
     },
     methods: {
+      goback() {
+        this.$router.push({name: 'agencyDetail'})
+      },
       next() {
         if (this.active === 0) {
           this.$refs['baseform'].validate((valid) => {
@@ -231,6 +242,12 @@
       },
       pre() {
         if (this.active-- <= 0) this.active = 0
+      },
+      resetStep1() {
+        this.$refs['baseform'].resetFields()
+        this.$refs['baseform'].clearValidate()
+        this.baseform.auth_city = ''
+        this.baseform.levelcode = ''
       },
       selectLevel(value) {
         this.levels.map((level, index) => {
@@ -412,6 +429,7 @@
           if (data.respcd === '0000') {
             this.$refs['baseform'].clearValidate()
             this.$refs['bankinfoform'].clearValidate()
+            localStorage.setItem('hasEdit', '1')
             this.$message.success('修改成功')
             // this.$router.push({name: 'agencyList'})
           } else {

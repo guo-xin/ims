@@ -32,7 +32,7 @@
       </div>
     </el-form>
 
-    <el-table :data="agencies" stripe v-loading="isLoading" @row-click="goDetail">
+    <el-table :data="agencies" stripe v-loading="isLoading" @row-click="goDetail" class="table-hover">
       <el-table-column prop="name" label="代理商名称"></el-table-column>
       <el-table-column prop="qd_uid" label="代理商ID"></el-table-column>
       <el-table-column prop="level" :formatter="formatLevel" label="等级"></el-table-column>
@@ -114,7 +114,6 @@
         }
       },
       goDetail(row) {
-        console.log(row)
         this.$router.push({
           name: 'agencyDetail',
           params: {
@@ -140,11 +139,3 @@
     }
   }
 </script>
-
-<style scoped lang="scss">
-.agencyList {
-  .el-table tr {
-    cursor: pointer;
-  }
-}
-</style>
