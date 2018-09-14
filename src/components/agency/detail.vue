@@ -1,5 +1,5 @@
 <template>
-  <div class="agencyDetail">
+  <div class="agencyDetail" v-loading="isLoading">
     <header class="page-header style2">
       <h2 class="page-title">代理商详情</h2>
       <el-button type="text" @click="cancel"><i class="el-icon-close"></i><span>关闭</span></el-button>
@@ -26,6 +26,7 @@
       <li><em>支行名称：</em><span>{{bankinfo.bankname}}</span></li>
       <li><em>联行号：</em><span>{{bankinfo.bankcode}}</span></li>
     </ul>
+    <el-button size="large" @click="cancel()">关闭</el-button>
     <el-button size="large" type="primary" @click="editAgency()">修改</el-button>
   </div>
 </template>
@@ -46,11 +47,13 @@
     },
     methods: {
       fetchData(agencyId) {
+        this.isLoading = true
         this.$http(`${config.host}/org/agent/${agencyId}`)
         .then((res) => {
           let data = res.data
           let agency = res.data.data
           if (data.respcd === '0000') {
+            this.isLoading = false
             this.base = agency.agent_base
             this.bankinfo = agency.agent_bankinfo
             localStorage.setItem('baseEdit', JSON.stringify(agency.agent_base))
