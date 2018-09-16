@@ -73,7 +73,7 @@
             <el-input v-model="formUser.account" type="text"></el-input>
           </el-form-item>
           <el-form-item prop="pwd" :label="$t('authority.dialog.pwd')">
-            <el-input v-model="formUser.pwd" type="password"  @input="passChange" @blur="passBlur"></el-input>
+            <el-input v-model="formUser.pwd" type="password"  @input="passChange" @blur="passBlur" @focus="passFocus" id="end-length"></el-input>
           </el-form-item>
         </div>
         <div class="dialog-row" v-if="!isCreat">
@@ -82,9 +82,6 @@
               <el-option :label="$t('authority.panel.open')" value=1></el-option>
               <el-option :label="$t('authority.panel.close')" value=9></el-option>
             </el-select>
-          </el-form-item>
-          <el-form-item :label="$t('authority.table.lTime')">
-            <el-input v-model="formUser.time" disabled type="text"></el-input>
           </el-form-item>
         </div>
       </el-form>
@@ -113,6 +110,7 @@
         iconLoading: false,
         isCreat: true,
         flag: false,
+        oldPass: '',
         pwdChange: false,
         userId: '',
         form: {
@@ -128,7 +126,6 @@
           account: '',
           pwd: '',
           state: '',
-          time: ''
         },
         userRules: {
           user: [
@@ -243,8 +240,14 @@
       // 输入框聚焦改变时清空
       passChange(val) {
         if(!this.flag) {
+          if(this.oldPass.length > val.length) {
+            this.formUser.pwd = '';
+          }else {
+            let dom = document.querySelector("#end-length");
+            let index = dom.selectionStart - 1;
+            this.formUser.pwd = val.substr(index, 1) || '';
+          }
           this.pwdChange = true;
-          this.formUser.pwd = val.substr(-1) || '';
           this.flag = true;
         }
       },
@@ -252,6 +255,11 @@
       // 失焦
       passBlur() {
         this.flag = false;
+      },
+
+      // 聚焦
+      passFocus() {
+        this.oldPass = this.formUser.pwd;
       },
 
       handleClose() {

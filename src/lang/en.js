@@ -43,8 +43,7 @@ const en = {
     table: {
       role: 'Role',
       account: 'Account',
-      rTime: 'Registration time',
-      lTime: 'Last landing time'
+      rTime: 'Registration time'
     },
     dialog: {
       title1: '新增用户',
@@ -62,8 +61,8 @@ const en = {
     crumbs: {
       T1: '清分明细',
       T2: '清分汇总',
-      T3: '清分模板管理',
-      T4: '清分配置管理',
+      T3: '清分模板',
+      T4: '清分配置',
       T5: '新增清分模板',
       T6: '编辑清分模板',
       T7: '清分模板详情',

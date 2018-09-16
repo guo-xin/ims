@@ -88,6 +88,7 @@
         passList: [],
         showConfirm: false,
         iconLoading: false,
+        isFirst: true,
         optionList: {},
         qd_uid: null,
         form: {
@@ -110,14 +111,26 @@
           this.qd_uid = row.qd_uid;
           this.loading = true;
 
-          Promise.all([this.getOptionList(), this.getModeDetail()]).then((data) => {
-            this.loading = false;
-            this.optionList = data[0];
-            this.tableList = data[1];
-            this.showConfirm = true;
-          }).catch(() => {
-            this.loading = false;
-          })
+          if(this.isFirst) {
+            Promise.all([this.getOptionList(), this.getModeDetail()]).then((data) => {
+              this.loading = false;
+              this.optionList = data[0];
+              this.tableList = data[1];
+              this.showConfirm = true;
+              this.isFirst = false;
+            }).catch(() => {
+              this.loading = false;
+            })
+          }else {
+            this.getModeDetail().then((data) => {
+              this.loading = false;
+              this.tableList = data;
+              this.showConfirm = true;
+            }).catch(() => {
+              this.loading = false;
+            })
+          }
+
         }
       },
 

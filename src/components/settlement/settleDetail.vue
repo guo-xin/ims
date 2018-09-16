@@ -7,8 +7,8 @@
     </header>
 
     <el-form class="search-form" ref="form" :model="form">
-      <el-form-item :label="$t('settleMent.panel.orderNo')" prop="user">
-        <el-input v-model="form.user"></el-input>
+      <el-form-item :label="$t('settleMent.panel.orderNo')" prop="syssn">
+        <el-input v-model="form.syssn"></el-input>
       </el-form-item>
       <el-form-item :label="$t('settleMent.panel.tradeTime')" prop="date" class="date-form-item">
         <el-date-picker
@@ -20,14 +20,15 @@
           :clearable="false">
         </el-date-picker>
       </el-form-item>
-
-      <el-form-item :label="$t('settleMent.panel.settleType')" prop="state">
-        <el-select v-model="form.state" :placeholder="$t('common.choose')">
+      <el-form-item :label="$t('settleMent.panel.settleType')" prop="settle_role">
+        <el-select v-model="form.settle_role" :placeholder="$t('common.choose')">
           <el-option :label="$t('common.all')" value=""></el-option>
-          <el-option :label="$t('authority.panel.open')" value=1></el-option>
-          <el-option :label="$t('authority.panel.close')" value=9></el-option>
+          <el-option :label="$t('settleMent.table.agent')" value=1></el-option>
+          <el-option :label="$t('settleMent.table.firstAgent')" value=2></el-option>
+          <el-option :label="$t('settleMent.table.secondAgent')" value=3></el-option>
         </el-select>
       </el-form-item>
+
       <el-form-item :label="$t('settleMent.panel.settleName')" prop="role">
         <el-autocomplete
           v-model="form.role"
@@ -37,19 +38,19 @@
         ></el-autocomplete>
       </el-form-item>
 
-      <el-form-item :label="$t('settleMent.panel.payPass')" prop="state">
-        <el-select v-model="form.state" :placeholder="$t('common.choose')">
+      <el-form-item :label="$t('settleMent.panel.payPass')" prop="settle_type">
+        <el-select v-model="form.settle_type" :placeholder="$t('common.choose')">
           <el-option :label="$t('common.all')" value=""></el-option>
-          <el-option :label="$t('authority.panel.open')" value=1></el-option>
-          <el-option :label="$t('authority.panel.close')" value=9></el-option>
+          <el-option :label="$t('settleMent.table.income')" value=1></el-option>
+          <el-option :label="$t('settleMent.table.expend')" value=2></el-option>
         </el-select>
       </el-form-item>
 
-      <el-form-item :label="$t('settleMent.panel.settleDetail')" prop="state">
-        <el-select v-model="form.state" :placeholder="$t('common.choose')">
+      <el-form-item :label="$t('settleMent.panel.settleDetail')" prop="settle_type">
+        <el-select v-model="form.settle_type" :placeholder="$t('common.choose')">
           <el-option :label="$t('common.all')" value=""></el-option>
-          <el-option :label="$t('authority.panel.open')" value=1></el-option>
-          <el-option :label="$t('authority.panel.close')" value=9></el-option>
+          <el-option :label="$t('settleMent.table.income')" value=1></el-option>
+          <el-option :label="$t('settleMent.table.expend')" value=2></el-option>
         </el-select>
       </el-form-item>
       <div class="buttons">
@@ -58,26 +59,31 @@
       </div>
     </el-form>
 
-    <el-table :data="manageList.list" stripe v-loading="loading">
-      <el-table-column prop="nickname" :label="$t('settleMent.panel.tradeTime')" min-width="100"></el-table-column>
-      <el-table-column prop="role_name" :label="$t('settleMent.table.sNum')" min-width="150"></el-table-column>
-      <el-table-column prop="username" :label="$t('settleMent.table.merName')"></el-table-column>
-      <el-table-column prop="join_time" :label="$t('settleMent.table.shopName')"></el-table-column>
-      <el-table-column prop="login_time" :label="$t('settleMent.table.dealer')"></el-table-column>
-      <el-table-column prop="login_time" :label="$t('settleMent.panel.settleDetail')"></el-table-column>
-      <el-table-column prop="login_time" :label="$t('settleMent.table.tradeAmount')"></el-table-column>
-      <el-table-column prop="login_time" :label="$t('settleMent.table.settlePercent')"></el-table-column>
-      <el-table-column prop="login_time" :label="$t('settleMent.table.settleAmount')"></el-table-column>
+    <el-table :data="detailList.list" stripe v-loading="loading">
+      <el-table-column prop="trade_time" :label="$t('settleMent.panel.tradeTime')" min-width="150"></el-table-column>
+      <el-table-column prop="syssn" :label="$t('settleMent.table.sNum')" min-width="120"></el-table-column>
+      <el-table-column prop="mchnt_name" :label="$t('settleMent.table.merName')"></el-table-column>
+      <el-table-column prop="shop_name" :label="$t('settleMent.table.shopName')"></el-table-column>
+      <el-table-column prop="one_name" :label="$t('settleMent.table.dealer')"></el-table-column>
+      <el-table-column :label="$t('settleMent.panel.settleDetail')">
+        <template slot-scope="scope">
+          {{ settleList[scope.row.settle_role] + (scope.row.settle_type === 1 ? $t('settleMent.table.income') : $t('settleMent.table.expend')) }}
+        </template>
+      </el-table-column>
+
+      <el-table-column prop="txamt" :label="$t('settleMent.table.tradeAmount')"></el-table-column>
+      <el-table-column prop="clearing_ratio" :label="$t('settleMent.table.settlePercent')"></el-table-column>
+      <el-table-column prop="clearing_amt" :label="$t('settleMent.table.settleAmount')"></el-table-column>
     </el-table>
 
-    <div class="pagination_wrapper" v-if="manageList.total >= 1">
+    <div class="pagination_wrapper" v-if="detailList.total >= 1">
       <el-button size="large" type="primary" @click="down" class="el-button-primary">{{  $t('common.export') }}</el-button>
       <el-pagination
         ref="page"
         layout="total, sizes, prev, pager, next, jumper"
         :page-size="pageSize"
         @size-change="handleSizeChange"
-        :total="manageList.total"
+        :total="detailList.total"
         @current-change="currentChange"
         :current-page="currentPage">
       </el-pagination>
@@ -90,6 +96,7 @@
 <script>
   import axios from 'axios';
   import config from 'config';
+  import { formatDate } from '../../common/js/util'
   // import qs from 'qs';
 
   export default {
@@ -99,22 +106,45 @@
         currentPage: 1,
         pageSize: 10,
         iconLoading: false,
-        form: {
-          user: '',
-          role: '',
-          date: [new Date(), new Date()],
-          state: ''
+        settleList: {
+          1: this.$t('settleMent.table.agent'),
+          2: this.$t('settleMent.table.firstAgent'),
+          3: this.$t('settleMent.table.secondAgent')
         },
-        manageList: {}
+        form: {
+          syssn: '',
+          date: [new Date(), new Date()],
+          settle_role: '',
+          settle_type: '',
+
+          role: '',
+
+        },
+        detailList: {}
       }
     },
     computed: {
       basicParams() {
         let form = this.form;
+        let date = form.date;
+        let [start, end] = [date[0], date[1]];
+        if(start) {
+          start.setHours(0);
+          start.setMinutes(0);
+          start.setSeconds(0);
+        }
+        if(end) {
+          end.setHours(23);
+          end.setMinutes(59);
+          end.setSeconds(59);
+        }
         return {
-          nickname: form.user,
-          role_name: form.date,
-          state: form.state,
+          syssn: form.syssn,
+          start_time: formatDate(start, 'yyyy-MM-dd HH:mm:ss'),
+          end_time: formatDate(end, 'yyyy-MM-dd HH:mm:ss'),
+          settle_role: form.settle_role,
+          settle_type: form.settle_type,
+
           offset: this.currentPage - 1,
           pageSize: this.pageSize,
           format: 'cors'
@@ -169,13 +199,13 @@
       getData() {
         if(!this.loading) {
           this.loading = true;
-          axios.get(`${config.host}/org/perm/user/list`, {
+          axios.get(`${config.host}/org/clearing/detail/list`, {
             params: this.basicParams
           }).then((res) => {
             this.loading = false;
             let data = res.data;
             if(data.respcd === config.code.OK) {
-              this.manageList = data.data;
+              this.detailList = data.data;
             } else {
               this.$message.error(data.resperr);
             }
