@@ -22,7 +22,7 @@
       </div>
     </el-form>
 
-    <el-table :data="roles" v-loading="isLoading" stripe @row-click="editRole">
+    <el-table :data="roles" v-loading="isLoading" stripe @row-click="editRole" class="table-hover">
       <el-table-column prop="role_name" label="角色名称" width="180"></el-table-column>
       <el-table-column prop="ctime" label="创建时间" width="180"></el-table-column>
       <el-table-column prop="perms" :formatter="formatPerms" label="权限"></el-table-column>
@@ -125,10 +125,3 @@
     }
   }
 </script>
-<style lang="scss">
-  .roleList {
-    .el-table__row {
-      cursor: pointer;
-    }
-  }
-</style>
