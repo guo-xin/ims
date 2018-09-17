@@ -84,7 +84,19 @@
         <el-input v-model="bankinfo.bankcode" @blur="updateAgency('bankcode', $event)"></el-input>
       </el-form-item>
     </el-form>
-
+    <el-form v-show="active === 1" ref="payfeeform" :rules="payfeeFormRules" :model="payfee">
+      <h3>支付费率</h3>
+      <el-form-item prop="wechat_fee" label="微信">
+        <el-input v-model="payfee.wechat_fee" :disabled="isUpdate">
+           <template slot="append">%</template>
+        </el-input>
+      </el-form-item>
+      <el-form-item prop="alipay_fee" label="支付宝">
+        <el-input v-model="payfee.alipay_fee" :disabled="isUpdate">
+          <template slot="append">%</template>
+        </el-input>
+      </el-form-item>
+    </el-form>
     <footer v-if="isUpdate">
       <el-button v-show="active === 1" type="primary" @click="goback">完成</el-button>
       <el-button v-show="active === 0" type="primary" @click="next">下一步</el-button>
@@ -105,6 +117,15 @@
   import config from 'config'
   export default {
     data() {
+      let numberValidator = (rule, val, cb) => {
+        if (!/^\d+(\.\d+)?$/.test(val)) {
+          cb(new Error('请输入大于0的数值'))
+        } else if (val <= 0) {
+          cb(new Error('请输入大于0的数值'))
+        } else {
+          cb()
+        }
+      }
       return {
         isUpdate: false,
         isLoading: false,
@@ -124,6 +145,10 @@
           headbankname: '', // 总行名称
           bankname: '', // 支行名称
           bankcode: '' // 网点联行号
+        },
+        payfee: {
+          wechat_fee: '', // 微信费率
+          alipay_fee: '' // 支付宝费率
         },
         levels: [], // 代理商级别
         allAgencys: [], // 所属代理
@@ -184,17 +209,26 @@
           'bankcode': [
             {required: true, message: '请输入联行号'}
           ]
+        },
+        payfeeFormRules: {
+          'wechat_fee': [
+            {required: true, message: '请输入微信费率'},
+            {validator: numberValidator}
+          ],
+          'alipay_fee': [
+            {required: true, message: '请输入支付宝费率'},
+            {validator: numberValidator}
+          ]
         }
       }
     },
     created() {
+      this.isUpdate = this.$route.name === 'agencyEdit'
       // 编辑页面，刷新回详情页
-      if (localStorage.getItem('hasEdit') === '1') {
+      if (this.isUpdate && localStorage.getItem('hasEdit') === '1') {
         this.$router.push({name: 'agencyDetail'})
         return false
       }
-
-      this.isUpdate = this.$route.name === 'agencyEdit'
       let base = {}
       let bankinfo = {}
       if (this.isUpdate) {
@@ -383,7 +417,8 @@
           url: `${config.host}/org/agent/create`,
           data: qs.stringify({
             base: JSON.stringify(paramsBase),
-            bankinfo: JSON.stringify(this.bankinfo)
+            bankinfo: JSON.stringify(this.bankinfo),
+            payfee: JSON.stringify(this.payfee)
           })
         })
         .then((res) => {
