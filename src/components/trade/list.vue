@@ -14,6 +14,7 @@
           size="large"
           value-format="yyyy-MM-dd"
           @change="datePickerChange"
+          unlink-panels
           :clearable="false">
         </el-date-picker>
       </el-form-item>
@@ -174,7 +175,7 @@
         }
         this.isLoading = true
         let params = {
-          page: this.currentPage,
+          page: this.currentPage - 1,
           page_size: this.pageSize,
           trade_start_time: this.formData.date[0] ? this.formData.date[0] + ' 00:00:00' : '',
           trade_end_time: this.formData.date[1] ? this.formData.date[1] + ' 23:59:59' : '',
