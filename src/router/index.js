@@ -89,17 +89,17 @@ export default new Router({
           component: agencyList
         },
         {
-          path: 'agent_detail/:id',
+          path: 'agent_manage_list/agent_detail/:id',
           name: 'agencyDetail',
           component: agencyDetail
         },
         {
-          path: 'agent_create',
+          path: 'agent_manage_list/agent_create',
           name: 'agencyCreate',
           component: agencyModify
         },
         {
-          path: 'agent_edit/:id',
+          path: 'agent_manage_list/agent_edit/:id',
           name: 'agencyEdit',
           component: agencyModify
         },
