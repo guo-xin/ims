@@ -189,7 +189,7 @@
                 if (/\d/g.test(+val)) {
                   cb();
                 } else {
-                  cb('银行卡号必须是数字')
+                  cb(new Error('银行卡号必须是数字'))
                 }
               }
             }
@@ -200,7 +200,7 @@
                 if(val === '') {
                   cb();
                 } else if (/!\d/g.test(+val)) {
-                  cb('手机号必须是数字');
+                  cb(new Error('手机号必须是数字'));
                 }
               }
             }

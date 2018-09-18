@@ -264,6 +264,7 @@
       }
       .el-main {
         margin-left: 246px;
+        padding-top: 100px;
       }
       .el-aside {
         padding-top: 20px;
