@@ -229,9 +229,9 @@
         this.$router.push({name: 'agencyDetail'})
         return false
       }
-      let base = {}
-      let bankinfo = {}
-      let payfee = {}
+      let base = ''
+      let bankinfo = ''
+      let payfee = ''
       if (this.isUpdate) {
         this.baseFormRules.password = [
           {required: false}
