@@ -28,8 +28,8 @@
     </ul>
     <h3>支付费率</h3>
     <ul>
-      <li><em>微信：</em><span>{{payfee.wechat_fee}}</span></li>
-      <li><em>支付宝：</em><span>{{payfee.alipay_fee}}</span></li>
+      <li><em>微信：</em><span>{{payfee.wechat_fee}}%</span></li>
+      <li><em>支付宝：</em><span>{{payfee.alipay_fee}}%</span></li>
     </ul>
     <el-button size="large" @click="cancel()">关闭</el-button>
     <el-button size="large" type="primary" @click="editAgency()">修改</el-button>
