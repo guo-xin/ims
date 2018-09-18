@@ -22,7 +22,10 @@
       </el-form-item>
       <el-form-item :label="$t('settleMent.panel.settleType')" prop="settle_role">
         <el-select v-model="form.settle_role" :placeholder="$t('common.choose')">
-
+          <el-option :label="$t('common.all')" value=""></el-option>
+          <el-option :label="$t('settleMent.table.agent')" value=1></el-option>
+          <el-option :label="$t('settleMent.table.firstAgent')" value=2></el-option>
+          <el-option :label="$t('settleMent.table.secondAgent')" value=3></el-option>
         </el-select>
       </el-form-item>
 

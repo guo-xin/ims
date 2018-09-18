@@ -41,14 +41,12 @@
           </el-option>
         </el-select>
       </el-form-item>
-
       <el-form-item :label="$t('settleMent.panel.settlePass')" prop="chnlid">
         <el-select v-model="form.chnlid" :placeholder="$t('common.choose')">
           <el-option :label="$t('common.all')" value=""></el-option>
           <el-option v-for="(item, index) in passList" :label="item.chnlname" :value="item.chnlid" :key="index"></el-option>
         </el-select>
       </el-form-item>
-
       <el-form-item :label="$t('settleMent.panel.settleDetail')" prop="settle_type">
         <el-select v-model="form.settle_type" :placeholder="$t('common.choose')">
           <el-option :label="$t('common.all')" value=""></el-option>
