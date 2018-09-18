@@ -7,7 +7,7 @@ import axios from 'axios'
 import store from './store'
 import config from 'src/config'
 import router from './router'
-import { Autocomplete, Container, Header, Aside, Main, Upload, Select, Option, TableColumn, Table, Button, Pagination, Dropdown, DropdownItem, DropdownMenu, Loading, DatePicker, Input, Message, MessageBox, Form, FormItem, Radio, RadioGroup, RadioButton, Dialog, Col, Row, CheckboxGroup, Checkbox, Rate, Tooltip, Menu, Submenu, MenuItem, MenuItemGroup, Steps, Step } from 'qfpay-element-ui';
+import { Autocomplete, Container, Header, Aside, Main, Upload, Select, Option, TableColumn, Table, Button, Pagination, Dropdown, DropdownItem, DropdownMenu, Loading, DatePicker, Input, Message, MessageBox, Form, FormItem, Radio, RadioGroup, RadioButton, Dialog, Col, Row, CheckboxGroup, Checkbox, Rate, Tooltip, Menu, Submenu, MenuItem, MenuItemGroup, Steps, Step, InputNumber } from 'qfpay-element-ui';
 import Store from 'assets/js/store'
 import VueI18n from 'vue-i18n'
 import 'assets/scss/common.scss'
@@ -62,6 +62,7 @@ Vue.use(MenuItem)
 Vue.use(MenuItemGroup)
 Vue.use(Step)
 Vue.use(Steps)
+Vue.use(InputNumber)
 
 // Create VueI18n instance with options
 const i18n = new VueI18n({

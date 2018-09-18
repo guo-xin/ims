@@ -11,8 +11,12 @@ import roleList from 'components/authority/roleList'
 import roleModify from 'components/authority/modify'
 import userList from 'components/authority/userList'
 import forgetPassword from 'components/forgetPassword'
-import bussiness from 'components/merchant/bussinessList'
-import mchnt from 'components/merchant/merchantList'
+import bussinessList from 'components/merchant/bussinessList'
+import merchantList from 'components/merchant/merchantList'
+import auditList from 'components/merchant/auditList'
+import mchntDetail from 'components/merchant/detail'
+import auditDetail from 'components/merchant/auditDetail'
+import createMerchant from 'components/merchant/createMerchant'
 import settleDetail from 'components/settlement/settleDetail'
 import settleMode from 'components/settlement/settleMode'
 import settleTotal from 'components/settlement/settleTotal'
@@ -51,18 +55,34 @@ export default new Router({
         {
           path: 'shop_manage_list',
           name: 'shop_manage_list',
-          component: bussiness
+          component: bussinessList
         },
         {
           path: 'mchnt_manage_list',
           name: 'mchnt_manage_list',
-          component: mchnt
+          component: merchantList
+        },
+        {
+          path: 'mchnt_manage_list/mchnt_create',
+          name: 'mchntCreate',
+          component: createMerchant
+        },
+        {
+          path: 'mchnt_manage_list/mchnt_detail',
+          name: 'mchntDetail',
+          component: mchntDetail
         },
         {
           path: 'mchnt_audit_list',
           name: 'mchnt_audit_list',
-          component: bussiness
+          component: auditList
         },
+        {
+          path: 'mchnt_audit_list/audit_detail',
+          name: 'auditDetail',
+          component: auditDetail
+        },
+
         {
           path: 'agent_manage_list',
           name: 'agencyList',

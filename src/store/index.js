@@ -19,22 +19,30 @@ const store = new Vuex.Store({
   },
   actions: {
     getUserPermission ({ commit }, payload) { // 获取用户权限信息
-      axios.get(`${config.host}/org/perm/user/perms`, {
-        params: Object.assign({}, {format: 'cors'}, payload)
+      return new Promise((resolve, reject) => {
+        axios.get(`${config.host}/org/perm/user/perms`, {
+          params: Object.assign({}, {format: 'cors'}, payload)
+        })
+          .then((res) => {
+            let data = res.data
+            if (data.respcd === config.code.OK) {
+
+              data.data.menu_struct.unshift({code: 'home', descr: '首页', group: []});
+              data.data.menu_struct = data.data.menu_struct.map((item) => {
+                if(item.group.length) {
+                  item.index = item.group[0].index[0]
+                }
+                return item
+              })
+              commit({
+                type: 'getPermissionData',
+                data: data.data
+              })
+              resolve()
+            }
+          })
+          .catch(reject)
       })
-        .then((res) => {
-          let data = res.data
-          if (data.respcd === config.code.OK) {
-            data.data.menu_struct.unshift({code: 'home', descr: '首页', group: []});
-            commit({
-              type: 'getPermissionData',
-              data: data.data
-            })
-          }
-        })
-        .catch(() => {
-          this.$message.error('获取权限数据失败')
-        })
     },
   }
 })

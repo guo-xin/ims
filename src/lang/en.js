@@ -174,6 +174,98 @@ const en = {
       m3: 'Failed to log in.'
     }
   },
+  merchant: {
+    title: 'Business Management',
+    create: 'Create',
+    query: 'Query',
+    reset: 'Reset',
+    patchImport: 'Batch Creation',
+    form: {
+      mchtid: 'Merchant ID',
+      mchtname: 'Merchant Name',
+      agent1: 'Agent',
+      audit_state: 'Audit State'
+    },
+    table: {
+      mchtid: 'Merchant ID',
+      mchtname: 'Merchant Name',
+      address: 'Address',
+      mobile: 'Mobile',
+      agent: 'Agent',
+      account: 'User Name',
+      cate_code: 'Category',
+      state: 'State'
+    },
+    detail: {
+      basic: {
+        title: 'Detail Info',
+        close: 'Close',
+        subtitle: 'Basic Information',
+        la1: 'Merchant Category:',
+        la2: 'Audit Status:',
+        la3: 'Name of Merchant:',
+        la4: 'Agent:',
+        la5: 'Address:',
+        la6: 'Contacts:',
+        la7: 'Legal Person:',
+        la8: 'Contact Telephone:',
+        la9: 'Email:',
+        la10: 'Engage Time:'
+      },
+      shop: {
+        subtitle: 'Shop Info',
+        la1: 'Name of Shop:',
+        la2: 'Address:',
+        la3: 'Photograph:'
+      },
+      rates: {
+        subtitle: 'Rates Info'
+      },
+      pay: {
+        subtitle: 'Payment Info',
+        la1: 'Account Name:',
+        la2: 'Bank Account:',
+        la3: 'Head Bank:',
+        la4: 'Branch Bank:',
+        la5: 'Province Bank:',
+        la6: 'Bank Code:',
+        la7: 'City Bank:',
+        la8: 'Mobile:',
+        la9: 'Bank Type:',
+        la10: 'Photograph:'
+      },
+      edit: 'Edit'
+    },
+    newMerchant: {
+      title1: 'Create A Merchant',
+      title2: 'Modify Merchant',
+      step1: 'Basic Info',
+      step2: 'Rates Info',
+      step3: 'Liquidation Info',
+      basic: {
+        cap1: 'Basic Info',
+        cap2: 'Rates Info'
+      }
+    }
+  },
+  audit: {
+    title: 'Audit Management',
+    form: {
+      mchtid: 'Merchant ID',
+      audit_state: '',
+      memo: ''
+    },
+    detail: {
+      title: 'Audit Log',
+      table: {
+        creator: 'Operator ID',
+        create_date: 'Audit Date',
+        result: 'Result',
+        memo: 'Memo'
+      },
+      doit: 'Audit'
+    }
+  },
   main: {
     desc: 'MOBILE PAYMENT MANAGEMENT SYSTEM',
     roles: [

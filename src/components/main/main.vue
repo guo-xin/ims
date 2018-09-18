@@ -49,9 +49,9 @@
           </el-row>
         </div>
       </el-header>
-      <el-container class="main-frame">
+      <div class="main-frame">
         <el-aside width="251px">
-          <el-menu class=""
+          <el-menu class="menu-wrap"
                    :collapse="isCollapse"
                    background-color="transparent"
                    text-color="#1D1D24"
@@ -60,17 +60,17 @@
                    :default-openeds="subMenuIdxs"
                    :default-active="activeIndex"
           >
-            <el-submenu v-if="menu.group.length" :index="String(i+1)" v-for="(menu, i) in menuData"
+            <el-submenu v-if="menu.group.length" :index="menu.index" v-for="menu in menuData"
                         v-bind:key="menu.code">
               <template slot="title">
                 <span :class="menuSet[menu.code].icon+' nav-icon'"></span>
                 <span slot="title">{{menu.descr}}</span>
               </template>
-              <el-menu-item v-for="(submenu, idx) in menu.group" v-bind:key="submenu.code" :index="(1+i)+'-'+(idx+1)">
+              <el-menu-item v-for="submenu in menu.group" v-bind:key="submenu.code" :index="submenu.index[1]">
                 <router-link :to="router('main/' + submenu.code)">{{submenu.descr}}</router-link>
               </el-menu-item>
             </el-submenu>
-            <el-menu-item v-else-if="menu.code==='home'" :index="String(i+1)" class="no-submenu">
+            <el-menu-item v-else-if="menu.code==='home'" index="1" class="no-submenu">
               <span :class="menuSet[menu.code].icon+' nav-icon'"></span>
               <router-link :to="router('main/' + menu.code)">
                 {{menu.descr}}
@@ -81,7 +81,7 @@
         <el-main>
           <router-view/>
         </el-main>
-      </el-container>
+      </div>
     </el-container>
   </div>
 </template>
@@ -89,7 +89,22 @@
 <script>
   import axios from 'axios';
   import config from '../../config';
-
+  const navmap = {
+      home: ["1"],
+      mchnt_manage_list: ["2", "2-1"], // 商户列表
+      shop_manage_list: ["2", "2-2"], // 门店列表
+      mchnt_audit_list: ["2", "2-3"], // 商户审核
+      trade_detail_list: ["3", "3-1"], // 交易明细
+      trade_summary_list: ["3", "3-2"], // 交易汇总
+      agent_manage_list: ["4", "4-1"],
+      clearing_detail_list: ["5", "5-1"], // 清分明细
+      clearing_summary_list: ["5", "5-2"], // 清分汇总
+      income_report_list: ["5", "5-3"], // 应收报表
+      payment_report_list: ["5", "5-4"], // 应付报表
+      clearing_template_list: ["5", "5-5"], // 清分模板
+      perm_user_list: ["6", "6-1"], // 用户管理
+      perm_role_list: ["6", "6-2"] // 角色管理
+    }
   export default {
     data() {
       return {
@@ -103,53 +118,57 @@
           label: 'Guest'
         }],
         isCollapse: false,
-        activeIndex: '1',
-        subMenuIdxs: [],
+        activeIndex: "1",
+        subMenuIdxs: ["1"],
         menuSet: {
           home: {
             icon: 'home-icon'
           }, // 首页
           mchnt_manage: { // 商户管理
-            icon: 'mcht-icon',
-            route: ['bussinessManage', 'storeManage']
+            icon: 'mcht-icon'
           },
           trade_manage: { // 交易管理
-            icon: 'trade-icon',
-            route: []
-          },
-          perm_manage: { // 权限管理
-            icon: 'auth-icon',
-            route: []
-          },
-          settlement_manage: { // 结算管理
-            icon: 'liquidation-icon',
-            route: []
+            icon: 'trade-icon'
           },
           agent_manage: { // 代理商管理
-            icon: 'agent-icon',
-            route: []
+            icon: 'agent-icon'
+          },
+          settlement_manage: { // 结算管理
+            icon: 'liquidation-icon'
+          },
+          perm_manage: { // 权限管理
+            icon: 'auth-icon'
           }
         }
       }
+    },
+    beforeRouteUpdate(to, from, next) {
+      let prePath = from.fullPath.split('/')[2];
+      let curPath = to.fullPath.split('/')[2];
+      let navarr = navmap[curPath]
+      if(prePath !== curPath) {
+        this.activeIndex = navarr.length === 2 ? navarr[1] : navarr[0]
+      }
+      next()
     },
     computed: {
       menuData() {
         return this.$store.state.menuData;
       },
     },
-
     created() {
-      this.$store.dispatch('getUserPermission');
-      if(localStorage.getItem('navIndex')) {
-        this.subMenuIdxs = JSON.parse(localStorage.getItem('navIndex')).splice(0, 1);
-        this.activeIndex = JSON.parse(localStorage.getItem('navIndex')).length === 2 ? JSON.parse(localStorage.getItem('navIndex'))[1] : JSON.parse(localStorage.getItem('navIndex'))[0]
-      }
+      var me = this;
+      this.$store.dispatch('getUserPermission').then(() => {
+        let navarr = navmap[location.hash.split('/')[2]]
+        if(location.hash.split('/')[2] !== 'home') {
+          me.subMenuIdxs = navarr.splice(0, 1);
+          me.activeIndex = navarr.length === 2 ? navarr[1] : navarr[0]
+        }
+      })
     },
-
     methods: {
       subMenuSelectedHandler(index, indexPath) {
-        console.log(index)
-        localStorage.setItem('navIndex', JSON.stringify(indexPath))
+        console.log(index, indexPath)
       },
       router(router) {
         return `/${router}`;
@@ -163,9 +182,6 @@
             if (data.respcd === config.code.OK) {
               // 登出时删除本域cookie
               (new Image()).src = `${config.ohost}/mchnt/set_cookie?sessionid=`;
-              if(localStorage.getItem('navIndex')) {
-                localStorage.removeItem('navIndex')
-              }
               this.$router.push(`/login`);
             } else {
               this.$message.error(data.respmsg);
@@ -185,6 +201,7 @@
   .layout {
     width:100%;
     height:100%;
+    overflow: hidden;
     .el-header {
       display:flex;
       align-items: center;
@@ -237,11 +254,20 @@
     }
     .main-frame {
       /*min-height: 600px;*/
+      .menu-wrap {
+        padding-bottom: 100px;
+      }
+      .el-main {
+        margin-left: 246px;
+      }
       .el-aside {
-        padding-top:20px;
+        padding-top: 20px;
         overflow-x: hidden;
         overflow-y: auto;
-        max-height: 650px;
+        height: 100%;
+        position: fixed;
+        top: 80px;
+        left: 0;
       }
       .el-menu {
         padding-left:15px;
