@@ -199,10 +199,15 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
   .layout {
-    width:100%;
-    height:100%;
-    overflow: hidden;
+    // width:100%;
+    // height:100%;
+    // overflow: hidden;
     .el-header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 100;
       display:flex;
       align-items: center;
       background-color:#ffffff;
