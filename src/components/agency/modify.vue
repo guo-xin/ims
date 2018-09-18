@@ -60,8 +60,11 @@
         <i v-show="isRegisterLoading" class="el-icon-loading"></i>
         <i v-show="!isRegisterLoading && !isRegistered" title="可以使用" class="el-icon-circle-check" style="color:#67c10d"></i>
       </el-form-item>
-      <el-form-item prop="password" label="登录密码">
-        <el-input ref="passwordInput" type="password" v-model="baseform.password" @blur="updateAgency('password', $event)"></el-input>
+      <el-form-item v-if="isUpdate" label="登录密码">
+        <el-input id="end-length" type="password" :value="editPassword" @input="inputPassword" @focus="focusPassword" @blur="updateAgency('password', $event)"></el-input>
+      </el-form-item>
+      <el-form-item v-else prop="password" label="登录密码">
+        <el-input v-model="baseform.password"></el-input>
       </el-form-item>
     </el-form>
 
@@ -130,6 +133,9 @@
         isUpdate: false,
         isLoading: false,
         active: 0, // 当前步骤
+        isInputing: false,// 正在输入密码
+        editPassword: '******',
+        oldPassword: '',
         baseform: {
           name: '',
           levelcode: '',
@@ -233,9 +239,6 @@
       let bankinfo = ''
       let payfee = ''
       if (this.isUpdate) {
-        this.baseFormRules.password = [
-          {required: false}
-        ]
         base = localStorage.getItem('baseEdit')
         bankinfo = localStorage.getItem('bankinfoEdit')
         payfee = localStorage.getItem('payfeeEdit')
@@ -443,6 +446,22 @@
             this.$message.error(data.resperr)
           }
         })
+      },
+      inputPassword(value) {
+        if (this.isInputing) {
+          if (this.oldPassword.length > value.length) {
+            this.editPassword = ''
+          } else {
+            let dom = document.querySelector("#end-length")
+            let index = dom.selectionStart - 1;
+            this.editPassword = value.substr(index, 1) || ''
+          }
+          this.isInputing = false
+        }
+      },
+      focusPassword() {
+        this.isInputing = true
+        this.oldPassword = this.editPassword
       },
       updateAgency(key, e) {
         if (!this.isUpdate) {
