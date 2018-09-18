@@ -396,6 +396,7 @@
         }
         if (!/^[A-Za-z0-9]+$/g.test(username)) {
           this.usernameErrorMessage = '登录账户只可以输入字母或数字'
+          return false
         }
         this.isRegisterLoading = true
         this.$http(`${config.host}/org/agent/check?username=${username}`)
@@ -409,6 +410,9 @@
           } else if (data.respcd === '2102') {
             this.isRegistered = true
             this.usernameErrorMessage = '登录账号已注册'
+          } else if (data.respcd === '2101') {
+            this.isRegistered = true
+            this.usernameErrorMessage = data.resperr
           }
         })
       },
