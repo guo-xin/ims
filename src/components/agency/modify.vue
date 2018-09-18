@@ -133,7 +133,7 @@
         isUpdate: false,
         isLoading: false,
         active: 0, // 当前步骤
-        isInputing: false,// 正在输入密码
+        isInputing: false, // 正在输入密码
         editPassword: '******',
         oldPassword: '',
         baseform: {
