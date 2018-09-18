@@ -22,27 +22,31 @@
       </el-form-item>
       <el-form-item :label="$t('settleMent.panel.settleType')" prop="settle_role">
         <el-select v-model="form.settle_role" :placeholder="$t('common.choose')">
-          <el-option :label="$t('common.all')" value=""></el-option>
-          <el-option :label="$t('settleMent.table.agent')" value=1></el-option>
-          <el-option :label="$t('settleMent.table.firstAgent')" value=2></el-option>
-          <el-option :label="$t('settleMent.table.secondAgent')" value=3></el-option>
+
         </el-select>
       </el-form-item>
 
-      <el-form-item :label="$t('settleMent.panel.settleName')" prop="role">
-        <el-autocomplete
-          v-model="form.role"
-          :fetch-suggestions="querySearchAsync"
-          placeholder="请输入内容"
-          @select="handleSelect"
-        ></el-autocomplete>
+      <el-form-item :label="$t('settleMent.panel.settleName')" prop="qd_uid">
+        <el-select
+          v-model="form.qd_uid"
+          filterable
+          remote
+          :placeholder="$t('settleMent.msg.t18')"
+          :remote-method="getPayList"
+          :loading="searchLoading">
+          <el-option
+            v-for="item in payList"
+            :key="item.qd_uid"
+            :label="item.name"
+            :value="item.qd_uid">
+          </el-option>
+        </el-select>
       </el-form-item>
 
-      <el-form-item :label="$t('settleMent.panel.payPass')" prop="settle_type">
-        <el-select v-model="form.settle_type" :placeholder="$t('common.choose')">
+      <el-form-item :label="$t('settleMent.panel.payPass')" prop="chnlid">
+        <el-select v-model="form.chnlid" :placeholder="$t('common.choose')">
           <el-option :label="$t('common.all')" value=""></el-option>
-          <el-option :label="$t('settleMent.table.income')" value=1></el-option>
-          <el-option :label="$t('settleMent.table.expend')" value=2></el-option>
+          <el-option v-for="(item, index) in passList" :label="item.chnlname" :value="item.chnlid" :key="index"></el-option>
         </el-select>
       </el-form-item>
 
@@ -70,7 +74,6 @@
           {{ settleList[scope.row.settle_role] + (scope.row.settle_type === 1 ? $t('settleMent.table.income') : $t('settleMent.table.expend')) }}
         </template>
       </el-table-column>
-
       <el-table-column prop="txamt" :label="$t('settleMent.table.tradeAmount')"></el-table-column>
       <el-table-column prop="clearing_ratio" :label="$t('settleMent.table.settlePercent')"></el-table-column>
       <el-table-column prop="clearing_amt" :label="$t('settleMent.table.settleAmount')"></el-table-column>
@@ -97,7 +100,7 @@
   import axios from 'axios';
   import config from 'config';
   import { formatDate } from '../../common/js/util'
-  // import qs from 'qs';
+  import qs from 'qs';
 
   export default {
     data() {
@@ -106,6 +109,9 @@
         currentPage: 1,
         pageSize: 10,
         iconLoading: false,
+        searchLoading: false,
+        payList: [],
+        passList: [],
         settleList: {
           1: this.$t('settleMent.table.agent'),
           2: this.$t('settleMent.table.firstAgent'),
@@ -116,14 +122,17 @@
           date: [new Date(), new Date()],
           settle_role: '',
           settle_type: '',
-
-          role: '',
-
+          chnlid: '',
+          qd_uid: ''
         },
         detailList: {}
       }
     },
     computed: {
+      detailHref() {
+        let detailParmas = Object.assign({}, this.basicParams, {mode: 'expo_excel'});
+        return `${config.host}/org/clearing/detail/list?${qs.stringify(detailParmas)}`;
+      },
       basicParams() {
         let form = this.form;
         let date = form.date;
@@ -144,7 +153,8 @@
           end_time: formatDate(end, 'yyyy-MM-dd HH:mm:ss'),
           settle_role: form.settle_role,
           settle_type: form.settle_type,
-
+          chnlid: form.chnlid,
+          qd_uid: form.qd_uid,
           offset: this.currentPage - 1,
           pageSize: this.pageSize,
           format: 'cors'
@@ -153,6 +163,7 @@
     },
     created() {
       this.getData();
+      this.getList();
     },
     methods: {
       // 查找
@@ -169,32 +180,54 @@
       down() {
         let a = document.createElement('a');
         a.setAttribute('download', true);
-        a.setAttribute('href', this.basicParams);
+        a.setAttribute('href', this.detailHref);
         a.click();
       },
 
-      querySearchAsync(string, cb) {
-        axios.get(`${config.host}/org/perm/roles`).then((res) => {
-          let data = res.data;
-          if(data.respcd === config.code.OK) {
-            let list = [];
-            for(let l of data.data) {
-              list.push({
-                name: l.code,
-                value: l.name
-              });
+      // 动态获取结算方
+      getPayList(query) {
+        if (query !== '') {
+          this.searchLoading = true;
+          axios.get(`${config.host}/org/tools/qdnames`, {
+            params: {
+              qdname: query,
+              format: 'cors'
             }
-            cb(list);
-          } else {
-            this.$message.error(data.resperr);
-          }
-        }).catch(() => {
+          }).then((res) => {
+            let data = res.data;
+            this.searchLoading = false;
+            if(data.respcd === config.code.OK) {
+              this.payList = data.data || [];
+            } else {
+              this.$message.error(data.resperr);
+            }
+          }).catch(() => {
+            this.searchLoading = false;
+            this.$message.error(this.$t('common.netError'));
+          })
+        }
+      },
 
-        })
+      // 获取通道列表
+      getList () {
+        let list = this.$store.state.passList;
+        if(list) {
+          this.passList = list;
+        }else {
+          axios.get(`${config.host}/org/clearing/temp/chnls?format=cors`).then((res) => {
+            let data = res.data;
+            if (data.respcd === config.code.OK) {
+              this.passList = data.data;
+              this.$store.state.passList = data.data;
+            } else {
+              this.$message.error(data.resperr);
+            }
+          }).catch(() => {
+            this.$message.error(this.$t('common.netError'));
+          });
+        }
       },
-      handleSelect(item) {
-        console.log(item, 6666)
-      },
+
       // 获取数据
       getData() {
         if(!this.loading) {

@@ -202,16 +202,22 @@
 
       // 获取通道列表
       getList () {
-        axios.get(`${config.host}/org/clearing/temp/chnls`).then((res) => {
-          let data = res.data;
-          if (data.respcd === config.code.OK) {
-            this.passList = data.data;
-          } else {
-            this.$message.error(data.resperr);
-          }
-        }).catch(() => {
-          this.$message.error(this.$t('common.netError'));
-        });
+        let list = this.$store.state.passList;
+        if(list) {
+          this.passList = list;
+        }else {
+          axios.get(`${config.host}/org/clearing/temp/chnls?format=cors`).then((res) => {
+            let data = res.data;
+            if (data.respcd === config.code.OK) {
+              this.passList = data.data;
+              this.$store.state.passList = data.data;
+            } else {
+              this.$message.error(data.resperr);
+            }
+          }).catch(() => {
+            this.$message.error(this.$t('common.netError'));
+          });
+        }
       },
 
       currentChange(current) {

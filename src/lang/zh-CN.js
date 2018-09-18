@@ -25,7 +25,7 @@ const zh = {
     range: '选择时间范围',
     confirm: '确定',
     cancel: '取消',
-    tip: '提示'
+    tip: '提示',
   },
   authority: {
     crumbs: {
@@ -156,6 +156,7 @@ const zh = {
       t15: '请输入二级代理费率',
       t16: '交易笔数为正整数',
       t17: '起始值不能大于终止值',
+      t18: '请输入结算方名称',
     }
   },
   login: {
