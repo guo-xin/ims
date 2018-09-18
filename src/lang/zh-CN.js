@@ -26,6 +26,8 @@ const zh = {
     confirm: '确定',
     cancel: '取消',
     tip: '提示',
+    start: '开始时间',
+    end: '结束时间',
   },
   authority: {
     crumbs: {
@@ -105,6 +107,7 @@ const zh = {
       tradeAmount: '交易金额',
       settlePercent: '清分比例',
       settleAmount: '清分金额',
+      count: '笔',
       order: '序列',
       passName: '通道名称',
       tradeNum: '交易笔数',

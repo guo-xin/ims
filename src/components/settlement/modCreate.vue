@@ -423,9 +423,7 @@
         }
       }
     },
-    computed: {
 
-    },
     created() {
       if(this.$route.query.create) {
         this.isCreat = true;
@@ -600,25 +598,34 @@
 
       // 获取通道列表
       getList () {
-        this.loading = true;
-        axios.get(`${config.host}/org/clearing/temp/chnls?format=cors`).then((res) => {
-          this.loading = false;
-          let data = res.data;
-          if (data.respcd === config.code.OK) {
-            this.passList = data.data;
-            if(!this.isCreat) {
-              let detailData = JSON.parse(localStorage.getItem('detailData'));
-              this.form.chnlcode = detailData.chnlid + '';
-            }
-          } else {
-            this.$message.error(data.resperr);
+        let list = this.$store.state.passList;
+        if(list) {
+          this.passList = list;
+          if(!this.isCreat) {
+            let detailData = JSON.parse(localStorage.getItem('detailData'));
+            this.form.chnlcode = detailData.chnlid + '';
           }
-        }).catch(() => {
-          this.loading = false;
-          this.$message.error(this.$t('common.netError'));
-        });
-      },
-
+        }else {
+          this.loading = true;
+          axios.get(`${config.host}/org/clearing/temp/chnls?format=cors`).then((res) => {
+            this.loading = false;
+            let data = res.data;
+            if (data.respcd === config.code.OK) {
+              this.passList = data.data;
+              this.$store.state.passList = data.data;
+              if(!this.isCreat) {
+                let detailData = JSON.parse(localStorage.getItem('detailData'));
+                this.form.chnlcode = detailData.chnlid + '';
+              }
+            } else {
+              this.$message.error(data.resperr);
+            }
+          }).catch(() => {
+            this.loading = false;
+            this.$message.error(this.$t('common.netError'));
+          });
+        }
+      }
     }
   }
 </script>
