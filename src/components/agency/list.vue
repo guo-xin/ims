@@ -94,7 +94,7 @@
             qd_uid: this.formData.qd_uid,
             level: this.formData.level,
             status: this.formData.status,
-            page: this.currentPage,
+            page: this.currentPage - 1,
             page_size: this.pageSize,
           }
         })

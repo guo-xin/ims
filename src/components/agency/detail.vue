@@ -26,6 +26,11 @@
       <li><em>支行名称：</em><span>{{bankinfo.bankname}}</span></li>
       <li><em>联行号：</em><span>{{bankinfo.bankcode}}</span></li>
     </ul>
+    <h3>支付费率</h3>
+    <ul>
+      <li><em>微信：</em><span>{{payfee.wechat_fee}}%</span></li>
+      <li><em>支付宝：</em><span>{{payfee.alipay_fee}}%</span></li>
+    </ul>
     <el-button size="large" @click="cancel()">关闭</el-button>
     <el-button size="large" type="primary" @click="editAgency()">修改</el-button>
   </div>
@@ -38,7 +43,8 @@
       return {
         isLoading: false,
         base: {},
-        bankinfo: {}
+        bankinfo: {},
+        payfee: {}
       }
     },
     created() {
@@ -56,8 +62,10 @@
             this.isLoading = false
             this.base = agency.agent_base
             this.bankinfo = agency.agent_bankinfo
+            this.payfee = agency.agent_payfee
             localStorage.setItem('baseEdit', JSON.stringify(agency.agent_base))
             localStorage.setItem('bankinfoEdit', JSON.stringify(agency.agent_bankinfo))
+            localStorage.setItem('payfeeEdit', JSON.stringify(agency.agent_payfee))
           } else {
             this.$message.error(data.resperr)
           }

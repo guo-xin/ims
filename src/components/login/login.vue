@@ -85,7 +85,7 @@
       if(localStorage.getItem('userInfo')) {
         try{
           let userInfo = JSON.parse(localStorage.getItem('userInfo'))
-          this.form.username = userInfo.nickname
+          this.form.username = userInfo.username
           this.form.password = userInfo.password
           this.form.checked = userInfo.checked
         }catch (e) {
@@ -138,7 +138,8 @@
                 }
                 if(this.form.checked) { // 勾选了记住密码
                   let userInfo = {
-                    nickname: data.data.nickname,
+                    username: data.data.username,
+                    password: this.form.password,
                     userid: data.data.userid,
                     role: data.data.role,
                     role_name: data.data.role_name,
@@ -153,7 +154,7 @@
               }
             }).catch(() => {
               this.loading = false;
-              this.$message.error(this.$t('login.msg.m3'));
+//              this.$message.error(this.$t('login.msg.m3'));
             });
           }
         });
@@ -162,18 +163,14 @@
   }
 </script>
 <style lang="scss">
-  body {
-    background-color: #f7f7f7;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
   .login {
     width:100%;
     height:100%;
-    background: url(../../assets/common_img/login-bg.png) 100% 100% no-repeat transparent;
-    background-size: cover;
     position: relative;
+    background: url(../../assets/common_img/login-bg.png) 0 0 no-repeat #f7f7f7;
+    background-size: cover;
+    background-position: 100% top;
+    overflow: auto;
     .login-wrap {
       width:519px;
       color:#ffffff;
@@ -204,6 +201,7 @@
           color:#ffffff;
         }
         .el-form-item {    margin-bottom: 24px;width: 100%;}
+        /*.el-form-item:last-child {margin-bottom: 0;}*/
         .el-form-item__label {
           color: #ffffff;
           font-size:12px;opacity:0.6;

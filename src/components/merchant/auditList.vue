@@ -1,18 +1,11 @@
 <template>
   <div class="merchant">
     <header class="page-header">
-      <h2 class="page-title">{{$t('merchant.title')}}</h2>
-      <div>
-        <el-button size="large" type="primary" @click="createMerchant">{{$t('merchant.create')}}</el-button>
-        <el-button size="large" type="primary" @click="patchImport">{{$t('merchant.patchImport')}}</el-button>
-      </div>
+      <h2 class="page-title">{{$t('audit.title')}}</h2>
     </header>
     <el-form class="search-form" :model="formData" ref="mchnt_list_form">
       <el-form-item :label="$t('merchant.form.mchtid')" prop="userid">
         <el-input v-model="formData.userid"></el-input>
-      </el-form-item>
-      <el-form-item :label="$t('merchant.form.mchtname')" prop="shopname">
-        <el-input v-model="formData.shopname"></el-input>
       </el-form-item>
 
       <el-form-item :label="$t('merchant.form.agent1')" prop="qd_uid">
@@ -78,7 +71,7 @@
 
       <el-table-column prop="audit_status_str" :label="$t('merchant.table.state')" align="center">
         <template slot-scope="scope">
-        {{ scope.row.audit_status_str }}
+          {{ scope.row.audit_status_str }}
         </template>
       </el-table-column>
     </el-table>
@@ -150,7 +143,7 @@
             let data = res.data;
             this.loading = false;
             if (data.respcd === config.code.OK) {
-            this.channels = data.data.list;
+              this.channels = data.data.list;
             } else {
               this.$message.error(data.respmsg);
             }
@@ -181,8 +174,8 @@
             let data = res.data;
             this.loading = false;
             if (data.respcd === config.code.OK) {
-               this.merchents = data.data.list
-               this.total = data.data.total
+              this.merchents = data.data.list
+              this.total = data.data.total
             } else {
               this.$message.error(data.respmsg);
             }
@@ -195,15 +188,9 @@
         this.$refs['mchnt_list_form'].resetFields();
         this.fetchData();
       },
-      createMerchant() {
-        this.$router.push({path: 'mchnt_manage_list/mchnt_create'})
-      },
-      patchImport() {
-//        this.$router.push({path: 'mchnt_manage_list/mchnt_create'})
-      },
       selectCurrentRowHandler(currentRow, oldCurrentRow) {
         this.$router.push({
-          name: 'mchntDetail',
+          name: 'auditDetail',
           query: {userid: currentRow.userid, from: 'old'}
         })
       },
@@ -223,8 +210,8 @@
   }
 </script>
 <style lang="scss">
-   .merchant {
-     height: 600px;
-     overflow-y: auto;
-   }
+  .merchant {
+    height: 600px;
+    overflow-y: auto;
+  }
 </style>

@@ -174,6 +174,97 @@ const zh = {
       m3: '登录失败.'
     }
   },
+  merchant: {
+    title: '商户管理',
+    create: '创建',
+    query: 'Query',
+    reset: 'Reset',
+    patchImport: '批量创建',
+    form: {
+      mchtid: '商户ID',
+      mchtname: '商户名称',
+      agent1: '一级代理',
+      audit_state: 'Audit State'
+    },
+    table: {
+      mchtid: '商户ID',
+      mchtname: '商户名称',
+      address: '地址',
+      mobile: '联系方式',
+      agent: '所属渠道',
+      account: '账户名称',
+      state: '审核状态'
+    },
+    detail: {
+      basic: {
+        title: '商户详情',
+        close: '关闭',
+        subtitle: '基本信息',
+        la1: '商户类型:',
+        la2: '审核状态:',
+        la3: '商户名称:',
+        la4: '所属渠道:',
+        la5: '地址:',
+        la6: '业务员:',
+        la7: '法人:',
+        la8: '业务员电话:',
+        la9: '邮箱:',
+        la10: 'Engage Time:'
+      },
+      shop: {
+        subtitle: '店铺信息',
+        la1: '店铺名称:',
+        la2: '地址:',
+        la3: '上传图片:'
+      },
+      rates: {
+        subtitle: '费率信息'
+      },
+      pay: {
+        subtitle: '清算信息',
+        la1: '账户名称:',
+        la2: '银行卡号:',
+        la3: '总行:',
+        la4: '分行:',
+        la5: '银行所属省:',
+        la6: '联行号:',
+        la7: '银行所属市:',
+        la8: '联系方式:',
+        la9: '银行类型:',
+        la10: '上传图片:'
+      },
+      edit: '编辑'
+    },
+    newMerchant: {
+      title1: '创建商户',
+      title2: '修改商户',
+      step1: '基本信息',
+      step2: '费率信息',
+      step3: '清算信息',
+      basic: {
+        cap1: '基本信息',
+        cap2: '费率信息'
+      }
+    }
+  },
+  audit: {
+    title: '审核管理',
+    form: {
+      mchtid: '商户ID',
+      audit_state: '审核状态',
+      memo: '备注'
+    },
+    detail: {
+      title: '审核记录',
+      table: {
+        creator: '操作员ID',
+        create_date: '审核日期',
+        result: '审核结果',
+        memo: '备注'
+      },
+      doit: '审核'
+    }
+  },
   main: {
     desc: '移动支付管理系统',
     roles: [
