@@ -231,12 +231,14 @@
       }
       let base = {}
       let bankinfo = {}
+      let payfee = {}
       if (this.isUpdate) {
         this.baseFormRules.password = [
           {required: false}
         ]
         base = localStorage.getItem('baseEdit')
         bankinfo = localStorage.getItem('bankinfoEdit')
+        payfee = localStorage.getItem('payfeeEdit')
       } else {
         base = localStorage.getItem('base')
         bankinfo = localStorage.getItem('bankinfo')
@@ -246,6 +248,9 @@
       }
       if (bankinfo) {
         this.bankinfo = JSON.parse(bankinfo)
+      }
+      if (payfee) {
+        this.payfee = JSON.parse(payfee)
       }
       this.fetchSalesman()
       this.fetchAgencyLevel()
