@@ -19,11 +19,13 @@
           v-model="form.date"
           type="daterange"
           :editable="false"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          :default-time="['00:00:00', '23:59:59']"
           :placeholder="$t('common.range')"
           size="large"
           :clearable="false"
-          unlink-panels
-          :range-separator="separator">
+          :start-placeholder="$t('common.start')"
+          :end-placeholder="$t('common.end')">
         </el-date-picker>
       </el-form-item>
       <el-form-item :label="$t('settleMent.panel.payPass')" prop="chnlid">
@@ -86,7 +88,6 @@
 <script>
   import axios from 'axios';
   import config from 'config';
-  import { formatDate } from '../../common/js/util'
 
   export default {
     data() {
@@ -95,7 +96,6 @@
         currentPage: 1,
         pageSize: 10,
         iconLoading: false,
-        separator: '',
         passList: [],
         form: {
           name: '',
@@ -108,16 +108,6 @@
     computed: {
       basicAuth() {
         return this.$store.state.permissionData || [];
-      }
-    },
-
-    watch: {
-      'form.date': function (val, oldval) {
-        if(val.length > 0) {
-          this.separator = '-';
-        }else {
-          this.separator = '';
-        }
       }
     },
 
@@ -163,23 +153,12 @@
           this.loading = true;
           let form = this.form;
           let date = form.date;
-          let [start, end] = [date[0], date[1]];
-          if(start) {
-            start.setHours(0);
-            start.setMinutes(0);
-            start.setSeconds(0);
-          }
-          if(end) {
-            end.setHours(23);
-            end.setMinutes(59);
-            end.setSeconds(59);
-          }
 
           axios.get(`${config.host}/org/clearing/temp/list`, {
             params: {
               name: form.name,
-              start_time: start ? formatDate(start, 'yyyy-MM-dd HH:mm:ss') : '',
-              end_time: end ? formatDate(end, 'yyyy-MM-dd HH:mm:ss') : '',
+              start_time: date[0] || '',
+              end_time: date[1] || '',
               chnlid: form.chnlid,
               offset: this.currentPage - 1,
               pageSize: this.pageSize,

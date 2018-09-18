@@ -26,7 +26,9 @@ const en = {
     range: 'select date range',
     confirm: '确定',
     cancel: '取消',
-    tip: '提示'
+    tip: '提示',
+    start: '开始时间',
+    end: '结束时间',
   },
   authority: {
     crumbs: {
@@ -106,6 +108,7 @@ const en = {
       tradeAmount: 'Transaction amount',
       settlePercent: 'Proportion of clearing',
       settleAmount: 'Amount of clearing',
+      count: '笔',
       order: '序列',
       passName: '通道名称',
       tradeNum: 'Number of pens',

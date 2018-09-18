@@ -12,9 +12,13 @@
           v-model="form.date"
           type="daterange"
           :editable="false"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          :default-time="['00:00:00', '23:59:59']"
           :placeholder="$t('common.range')"
           size="large"
-          :clearable="false">
+          :clearable="false"
+          :start-placeholder="$t('common.start')"
+          :end-placeholder="$t('common.end')">
         </el-date-picker>
       </el-form-item>
       <el-form-item :label="$t('settleMent.panel.settleType')" prop="settle_role">
@@ -63,7 +67,7 @@
     <div class="total-content">
       <div class="part-content">
         <p>{{ $t('settleMent.table.tradeNum') }}</p>
-        <h1>{{ totalList.total_trade_count || 0 }}</h1>
+        <h1>{{ totalList.total_trade_count || 0 }} {{ $t('settleMent.table.count') }}</h1>
       </div>
       <div class="part-content">
         <p class="">{{ $t('settleMent.table.settleAmount') }}</p>
@@ -109,12 +113,23 @@
 
 <script>
   import axios from 'axios';
-  import { formatDate } from '../../common/js/util'
   import config from 'config';
   import qs from 'qs';
 
   export default {
     data() {
+      let [start, end] = [new Date(), new Date()];
+      if(start) {
+        start.setHours(0);
+        start.setMinutes(0);
+        start.setSeconds(0);
+      }
+      if(end) {
+        end.setHours(23);
+        end.setMinutes(59);
+        end.setSeconds(59);
+      }
+
       return {
         loading: false,
         currentPage: 1,
@@ -124,7 +139,7 @@
         payList: [],
         passList: [],
         form: {
-          date: [new Date(), new Date()],
+          date: [start, end],
           settle_role: '',
           settle_type: '',
           chnlid: '',
@@ -143,20 +158,10 @@
       basicParams() {
         let form = this.form;
         let date = form.date;
-        let [start, end] = [date[0], date[1]];
-        if(start) {
-          start.setHours(0);
-          start.setMinutes(0);
-          start.setSeconds(0);
-        }
-        if(end) {
-          end.setHours(23);
-          end.setMinutes(59);
-          end.setSeconds(59);
-        }
+
         return {
-          start_time: formatDate(start, 'yyyy-MM-dd HH:mm:ss'),
-          end_time: formatDate(end, 'yyyy-MM-dd HH:mm:ss'),
+          start_time: date[0] || '',
+          end_time: date[1] || '',
           settle_role: form.settle_role,
           settle_type: form.settle_type,
           chnlid: form.chnlid,

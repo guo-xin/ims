@@ -232,8 +232,7 @@
             role: row.role_code,
             account: row.username,
             pwd: '******',
-            state: row.state + '',
-            time: row.login_time
+            state: row.state + ''
           })
         }
       },
@@ -245,7 +244,7 @@
           }else {
             let dom = document.querySelector("#end-length");
             let index = dom.selectionStart - 1;
-            this.formUser.pwd = val.substr(index, 1) || '';
+            this.formUser.pwd = val.charAt(index) || '';
           }
           this.pwdChange = true;
           this.flag = true;
@@ -268,8 +267,7 @@
           role: '',
           account: '',
           pwd: '',
-          state: '',
-          time: ''
+          state: ''
         }
         this.$refs['formUser'].resetFields();
         this.pwdChange = false;
