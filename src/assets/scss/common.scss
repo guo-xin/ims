@@ -141,6 +141,12 @@ form.el-form {
 .el-checkbox__input.is-disabled.is-indeterminate .el-checkbox__inner::before {
   background-color: #606266;
 }
+.el-input-number {
+  width: 100%;
+  .el-input {
+    display: inline-table;
+  }
+}
 .el-input-group__prepend {
   background-color: transparent;
   border: none;

@@ -90,14 +90,14 @@
     <el-form v-show="active === 1" ref="payfeeform" :rules="payfeeFormRules" :model="payfee">
       <h3>支付费率</h3>
       <el-form-item prop="wechat_fee" label="微信">
-        <el-input v-model="payfee.wechat_fee" :disabled="isUpdate">
+        <el-input-number v-model="payfee.wechat_fee" :controls="false" :precision="2" :disabled="isUpdate">
            <template slot="append">%</template>
-        </el-input>
+        </el-input-number>
       </el-form-item>
       <el-form-item prop="alipay_fee" label="支付宝">
-        <el-input v-model="payfee.alipay_fee" :disabled="isUpdate">
+        <el-input-number v-model="payfee.alipay_fee" :controls="false" :precision="2" :disabled="isUpdate">
           <template slot="append">%</template>
-        </el-input>
+        </el-input-number>
       </el-form-item>
     </el-form>
     <footer v-if="isUpdate">
@@ -120,15 +120,6 @@
   import config from 'config'
   export default {
     data() {
-      let numberValidator = (rule, val, cb) => {
-        if (!/^\d+(\.\d+)?$/.test(val)) {
-          cb(new Error('请输入大于0的数值'))
-        } else if (val <= 0) {
-          cb(new Error('请输入大于0的数值'))
-        } else {
-          cb()
-        }
-      }
       return {
         isUpdate: false,
         isLoading: false,
@@ -218,12 +209,10 @@
         },
         payfeeFormRules: {
           'wechat_fee': [
-            {required: true, message: '请输入微信费率'},
-            {validator: numberValidator}
+            {required: true, message: '请输入微信费率'}
           ],
           'alipay_fee': [
-            {required: true, message: '请输入支付宝费率'},
-            {validator: numberValidator}
+            {required: true, message: '请输入支付宝费率'}
           ]
         }
       }
