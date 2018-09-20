@@ -1,23 +1,22 @@
 <template>
   <div class="tradeTotal">
-    <header class="page-header"><h2 class="page-title">交易汇总</h2></header>
+    <header class="page-header"><h2 class="page-title">{{$t('trade.total')}}</h2></header>
 
     <el-form class="search-form" ref="searchform" :model="formData">
-      <el-form-item :error="acrossMonthTip" label="交易日期">
+      <el-form-item :error="acrossMonthTip" :label="$t('trade.common.tradeDate')">
         <el-date-picker
           v-model="formData.date"
           type="daterange"
           :editable="false"
           size="large"
           value-format="yyyy-MM-dd"
-          @change="datePickerChange"
           unlink-panels
           start-placeholder="开始时间"
           end-placeholder="结束时间"
           :clearable="false">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="商户名称">
+      <el-form-item :label="$t('trade.common.merchantName')">
         <el-autocomplete
           v-model="formData.mchnt_name"
           :debounce="600"
@@ -28,7 +27,7 @@
           @blur="mchntNameHandleBlur"
         ></el-autocomplete>
       </el-form-item>
-      <el-form-item label="一级代理">
+      <el-form-item :label="$t('trade.common.firstAgent')">
         <el-autocomplete
           v-model="formData.primary_agent"
           :fetch-suggestions="getPrimaryAgent"
@@ -39,7 +38,7 @@
           @blur="primaryAgentHandleBlur"
         ></el-autocomplete>
       </el-form-item>
-      <el-form-item label="二级代理">
+      <el-form-item :label="$t('trade.common.secondAgent')">
         <el-autocomplete
           v-model="formData.secondary_agent"
           :fetch-suggestions="getSecondaryAgent"
@@ -49,16 +48,16 @@
           @blur="secondaryAgentHandleBlur"
         ></el-autocomplete>
       </el-form-item>
-      <el-form-item label="支付通道">
+      <el-form-item :label="$t('trade.common.payPass')">
         <el-select v-model="formData.paytypes">
-          <el-option label="全部" value=""></el-option>
+          <el-option :label="$t('common.all')" value=""></el-option>
           <el-option label="微信支付" value="wxpay"></el-option>
           <el-option label="支付宝" value="alipay"></el-option>
         </el-select>
       </el-form-item>
       <div class="buttons">
-        <el-button type="primary" @click="search()">查找</el-button>
-        <el-button @click="reset()">重置</el-button>
+        <el-button type="primary" @click="search()">{{$t('common.search')}}</el-button>
+        <el-button @click="reset()">{{$t('common.reset')}}</el-button>
       </div>
     </el-form>
 
@@ -74,7 +73,7 @@
             <strong>{{payTotal.total_num}}</strong>
           </el-col>
           <el-col :span="8">
-            <span>手续费</span>
+            <span>{{$t('trade.common.fee')}}</span>
             <strong>￥{{payTotal.total_settlefee | formatCurrency}}</strong>
           </el-col>
         </el-row>
@@ -82,15 +81,15 @@
       <el-col :span="12">
         <el-row type="flex" align="bottom">
           <el-col :span="8" class="head">
-            <span>交易金额</span>
+            <span>退款金额</span>
             <strong>￥{{refundTotal.total_txamt | formatCurrency}}</strong>
           </el-col>
           <el-col :span="8">
-            <span>交易笔数</span>
+            <span>退款笔数</span>
             <strong>{{refundTotal.total_num}}</strong>
           </el-col>
           <el-col :span="8">
-            <span>手续费</span>
+            <span>{{$t('trade.common.fee')}}</span>
             <strong>￥{{refundTotal.total_settlefee | formatCurrency}}</strong>
           </el-col>
         </el-row>
@@ -98,20 +97,20 @@
     </el-row>
 
     <el-table :data="trades" stripe>
-      <el-table-column prop="base.sysdtm" label="交易日期"></el-table-column>
-      <el-table-column prop="base.shopname" label="商户名称"></el-table-column>
-      <el-table-column prop="base.primary" label="一级代理"></el-table-column>
-      <el-table-column prop="base.secondary" label="二级代理"></el-table-column>
-      <el-table-column prop="base.busicd_info" label="支付通道"></el-table-column>
+      <el-table-column prop="base.sysdtm" :label="$t('trade.common.tradeDate')"></el-table-column>
+      <el-table-column prop="base.shopname" :label="$t('trade.common.merchantName')"></el-table-column>
+      <el-table-column prop="base.primary" :label="$t('trade.common.firstAgent')"></el-table-column>
+      <el-table-column prop="base.secondary" :label="$t('trade.common.secondAgent')"></el-table-column>
+      <el-table-column prop="base.busicd_info" :label="$t('trade.common.payPass')"></el-table-column>
       <el-table-column label="支付交易" align="center">
-        <el-table-column align="left" prop="success.num" label="笔数"></el-table-column>
-        <el-table-column align="center" prop="success.txamt" :formatter="formatYuan" label="金额"></el-table-column>
-        <el-table-column align="right" prop="success.settlefee" :formatter="formatYuan" label="手续费"></el-table-column>
+        <el-table-column align="left" prop="success.num" :label="$t('trade.common.count')"></el-table-column>
+        <el-table-column align="center" prop="success.txamt" :formatter="formatYuan" :label="$t('trade.common.amount')"></el-table-column>
+        <el-table-column align="right" prop="success.settlefee" :formatter="formatYuan" :label="$t('trade.common.fee')"></el-table-column>
       </el-table-column>
       <el-table-column label="退款交易" align="center">
-        <el-table-column align="left" prop="cancel.num" label="笔数"></el-table-column>
-        <el-table-column align="center" prop="cancel.txamt" :formatter="formatYuan" label="金额"></el-table-column>
-        <el-table-column align="right" prop="cancel.settlefee" :formatter="formatYuan" label="手续费"></el-table-column>
+        <el-table-column align="left" prop="cancel.num" :label="$t('trade.common.count')"></el-table-column>
+        <el-table-column align="center" prop="cancel.txamt" :formatter="formatYuan" :label="$t('trade.common.amount')"></el-table-column>
+        <el-table-column align="right" prop="cancel.settlefee" :formatter="formatYuan" :label="$t('trade.common.fee')"></el-table-column>
       </el-table-column>
     </el-table>
 
@@ -169,15 +168,6 @@
       }
     },
     methods: {
-      datePickerChange(date) {
-        let startMonth = date[0].substring(0, 7)
-        let endMonth = date[1].substring(0, 7)
-        if (startMonth !== endMonth) {
-          this.acrossMonthTip = '暂不支持跨月查询'
-        } else {
-          this.acrossMonthTip = ''
-        }
-      },
       formatYuan(row, column, cellValue) {
         cellValue = (cellValue / 100).toFixed(2)
         return cellValue

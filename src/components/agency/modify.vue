@@ -1,32 +1,32 @@
 <template>
   <div class="agencyCreate">
     <header class="page-header style2">
-      <h2 class="page-title">{{this.isUpdate ? '修改渠道' : '添加渠道'}}</h2>
-      <el-button type="text" @click="cancel"><i class="el-icon-close"></i><span>关闭</span></el-button>
+      <h2 class="page-title">{{this.isUpdate ? $t('agent.agentEdit') : $t('agent.agentAdd')}}</h2>
+      <el-button type="text" @click="cancel"><i class="el-icon-close"></i><span>{{$t('common.close')}}</span></el-button>
     </header>
     <el-steps :active="active" finish-status="finish">
-      <el-step title="基本信息"></el-step>
-      <el-step title="结算信息"></el-step>
+      <el-step :title="$t('agent.baseInfo')"></el-step>
+      <el-step :title="$t('agent.settleInfo')"></el-step>
     </el-steps>
 
     <el-form v-show="active === 0" v-loading="isLoading" ref="baseform" :rules="baseFormRules" :model="baseform">
-      <h3>基本信息</h3>
-      <el-form-item prop="name" label="代理商名称">
+      <h3>{{$t('agent.baseInfo')}}</h3>
+      <el-form-item prop="name" :label="$t('agent.agentName')">
         <el-input v-model="baseform.name" @blur="updateAgency('name', $event)"></el-input>
       </el-form-item>
-      <el-form-item :prop="baseform.levelcode >= 2 ? 'parent_uid' : 'levelcode'" label="代理商级别" style="width:446px">
+      <el-form-item :prop="baseform.levelcode >= 2 ? 'parent_uid' : 'levelcode'" :label="$t('agent.agentLevel')" style="width:446px">
         <el-select v-model="baseform.levelcode" @change="selectLevel">
           <el-option v-for="level in levels" :label="level.text" :value="level.code" :key="level.code"></el-option>
         </el-select>
-        <el-select :disabled="baseform.levelcode === 1" v-model="baseform.parent_uid" placeholder="所属代理" @change="updateAgency('secondAgency', $event)">
+        <el-select :disabled="baseform.levelcode === 1" v-model="baseform.parent_uid" :placeholder="$t('agent.agentBelong')" @change="updateAgency('secondAgency', $event)">
           <el-option v-for="agency in allAgencys" :label="agency.name" :value="agency.qd_uid" :key="agency.qd_uid"></el-option>
         </el-select>
       </el-form-item>
       <hr/>
-      <el-form-item prop="short_name" label="代理商简称">
+      <el-form-item prop="short_name" :label="$t('agent.agentNickname')">
         <el-input v-model="baseform.short_name" @blur="updateAgency('short_name', $event)"></el-input>
       </el-form-item>
-      <el-form-item prop="auth_province" label="代理区域" style="width:446px">
+      <el-form-item prop="auth_province" :label="$t('agent.agentArea')" style="width:446px">
         <el-select ref="province" v-model="baseform.auth_province" @change="selectProvince">
           <el-option v-for="province in areas" :label="province.areaname" :value="province.areaid" :key="province.areaid"></el-option>
         </el-select>
@@ -35,82 +35,88 @@
         </el-select>
       </el-form-item>
       <hr/>
-      <el-form-item prop="address" label="地址">
+      <el-form-item prop="address" :label="$t('agent.address')">
         <el-input v-model="baseform.address" @blur="updateAgency('address', $event)"></el-input>
       </el-form-item>
-      <el-form-item prop="business_name" label="联系人">
+      <el-form-item prop="business_name" :label="$t('agent.contact')">
         <el-input v-model="baseform.business_name" @blur="updateAgency('business_name', $event)"></el-input>
       </el-form-item>
-      <el-form-item prop="legal_name" label="法人">
+      <el-form-item prop="legal_name" :label="$t('agent.legal')">
         <el-input v-model="baseform.legal_name" @blur="updateAgency('legal_name', $event)"></el-input>
       </el-form-item>
-      <el-form-item prop="business_mobile" label="联系人电话">
+      <el-form-item prop="business_mobile" :label="$t('agent.contactMobile')">
         <el-input v-model="baseform.business_mobile" @blur="updateAgency('business_mobile', $event)"></el-input>
       </el-form-item>
-      <el-form-item prop="mobile" label="法人电话">
+      <el-form-item prop="mobile" :label="$t('agent.legalMobile')">
         <el-input v-model="baseform.mobile" @blur="updateAgency('mobile', $event)"></el-input>
       </el-form-item>
-      <el-form-item prop="slsm_userid" label="所属业务员">
+      <el-form-item prop="slsm_userid" :label="$t('agent.saleMan')">
         <el-select v-model="baseform.slsm_userid" :disabled="baseform.levelcode > 1" @change="updateAgency('selectSaleMan', $event)">
           <el-option v-for="sale in sales" :label="sale.name" :value="sale.userid" :key="sale.userid"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item class="username" prop="username" label="登录账号" :error="usernameErrorMessage">
+      <el-form-item class="username" prop="username" :label="$t('agent.username')" :error="usernameErrorMessage">
         <el-input :disabled="isUpdate" @blur="verifyRegister" @focus="clearRegisterError" v-model="baseform.username"></el-input>
         <i v-show="isRegisterLoading" class="el-icon-loading"></i>
-        <i v-show="!isRegisterLoading && !isRegistered" title="可以使用" class="el-icon-circle-check" style="color:#67c10d"></i>
+        <i v-show="!isRegisterLoading && !isRegistered" :title="$t('agent.canuse')" class="el-icon-circle-check" style="color:#67c10d"></i>
       </el-form-item>
-      <el-form-item v-if="isUpdate" label="登录密码">
+      <el-form-item v-if="isUpdate" :label="$t('agent.password')">
         <el-input id="end-length" type="password" :value="editPassword" @input="inputPassword" @focus="focusPassword" @blur="updateAgency('password', $event)"></el-input>
       </el-form-item>
-      <el-form-item v-else prop="password" label="登录密码">
+      <el-form-item v-else prop="password" :label="$t('agent.password')">
         <el-input v-model="baseform.password"></el-input>
+      </el-form-item>
+      <el-form-item v-if="isUpdate" prop="status" :label="$t('common.status')">
+        <el-select v-model="baseform.status" @change="updateAgency('status', $event)">
+          <el-option :label="$t('common.enable')" :value="0"></el-option>
+          <el-option :label="$t('common.disable')" :value="1"></el-option>
+        </el-select>
       </el-form-item>
     </el-form>
 
     <el-form v-show="active === 1" ref="bankinfoform" :rules="bankinfoFormRules" :model="bankinfo">
-      <h3>结算信息</h3>
-      <el-form-item prop="bankuser" label="账户名称">
+      <h3>{{$t('agent.settleInfo')}}</h3>
+      <el-form-item prop="bankuser" :label="$t('agent.bankuser')">
         <el-input v-model="bankinfo.bankuser" @blur="updateAgency('bankuser', $event)"></el-input>
       </el-form-item>
-      <el-form-item prop="bankaccount" label="结算账号">
+      <el-form-item prop="bankaccount" :label="$t('agent.bankaccount')">
         <el-input v-model="bankinfo.bankaccount" @blur="updateAgency('bankaccount', $event)"></el-input>
       </el-form-item>
-      <el-form-item prop="headbankname" label="总行名称">
+      <el-form-item prop="headbankname" :label="$t('agent.headbankname')">
         <el-input v-model="bankinfo.headbankname" @blur="updateAgency('headbankname', $event)"></el-input>
       </el-form-item>
       <hr/>
-      <el-form-item prop="bankname" label="支行名称">
+      <el-form-item prop="bankname" :label="$t('agent.bankname')">
         <el-input v-model="bankinfo.bankname" @blur="updateAgency('bankname', $event)"></el-input>
       </el-form-item>
-      <el-form-item prop="bankcode" label="联行号">
+      <el-form-item prop="bankcode" :label="$t('agent.bankcode')">
         <el-input v-model="bankinfo.bankcode" @blur="updateAgency('bankcode', $event)"></el-input>
       </el-form-item>
     </el-form>
     <el-form v-show="active === 1" ref="payfeeform" :rules="payfeeFormRules" :model="payfee">
-      <h3>支付费率</h3>
-      <el-form-item prop="wechat_fee" label="微信">
+      <h3>{{$t('agent.payRate')}}</h3>
+      <el-form-item prop="wechat_fee" :label="$t('agent.wechat')">
         <el-input-number v-model="payfee.wechat_fee" :controls="false" :precision="2" :disabled="isUpdate">
            <template slot="append">%</template>
         </el-input-number>
       </el-form-item>
-      <el-form-item prop="alipay_fee" label="支付宝">
+      <el-form-item prop="alipay_fee" :label="$t('agent.alipay')">
         <el-input-number v-model="payfee.alipay_fee" :controls="false" :precision="2" :disabled="isUpdate">
           <template slot="append">%</template>
         </el-input-number>
       </el-form-item>
     </el-form>
     <footer v-if="isUpdate">
-      <el-button v-show="active === 1" type="primary" @click="goback">完成</el-button>
-      <el-button v-show="active === 0" type="primary" @click="next">下一步</el-button>
-      <el-button v-show="active === 1" @click="pre">上一步</el-button>
+      <el-button v-show="active === 1" type="primary" @click="goback">{{$t('common.done')}}</el-button>
+      <el-button v-show="active === 0" type="primary" @click="next">{{$t('common.next')}}</el-button>
+      <el-button v-show="active === 1" @click="pre">{{$t('common.prev')}}</el-button>
     </footer>
     <footer v-else>
       <el-button type="primary" @click="next">
-        {{active === 1 ? '完成' : '下一步'}}
+        {{active === 1 ? $t('common.done') : $t('common.next')}}
       </el-button>
-      <el-button v-show="active !== 0" @click="pre">上一步</el-button>
-      <el-button v-show="active === 0" @click="resetStep1">重置</el-button>
+      <el-button v-show="active !== 0" @click="pre">{{$t('common.prev')}}</el-button>
+      <el-button v-show="active === 0" @click="resetStep1">{{$t('common.reset')}}</el-button>
     </footer>
   </div>
 </template>
@@ -144,8 +150,8 @@
           bankcode: '' // 网点联行号
         },
         payfee: {
-          wechat_fee: '', // 微信费率
-          alipay_fee: '' // 支付宝费率
+          wechat_fee: 0, // 微信费率
+          alipay_fee: 0 // 支付宝费率
         },
         levels: [], // 代理商级别
         allAgencys: [], // 所属代理
@@ -157,62 +163,62 @@
         usernameErrorMessage: '', // 登录账号报错文案
         baseFormRules: {
           'name': [
-            {required: true, message: '请输入代理商名称'}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.agentName')}
           ],
           'levelcode': [
-            {required: true, message: '请选择代理商级别'}
+            {required: true, message: this.$t('agent.pleaseSelect') + this.$t('agent.agentLevel')}
           ],
           'auth_province': [
-            {required: true, message: '请选择代理区域'}
+            {required: true, message: this.$t('agent.pleaseSelect') + this.$t('agent.agentArea')}
           ],
           'short_name': [
-            {required: true, message: '请输入代理商简称'}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.agentNickname')}
           ],
           'address': [
-            {required: true, message: '请输入地址'}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.address')}
           ],
           'business_name': [
-            {required: true, message: '请输入联系人'}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.contact')}
           ],
           'legal_name': [
-            {required: true, message: '请输入法人'}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.legal')}
           ],
           'business_mobile': [
-            {required: true, message: '请输入联系人电话'}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.contactMobile')}
           ],
           'mobile': [
-            {required: true, message: '请输入法人电话'}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.legalMobile')}
           ],
           'username': [
-            {required: true, message: '请输入登录账号'}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.username')}
           ],
           'password': [
-            {required: true, message: '请输入登录密码'}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.password')}
           ]
         },
         bankinfoFormRules: {
           'bankuser': [
-            {required: true, message: '请输入账户名称'}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.bankuser')}
           ],
           'bankaccount': [
-            {required: true, message: '请输入结算账号'}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.bankaccount')}
           ],
           'headbankname': [
-            {required: true, message: '请输入总行名称'}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.headbankname')}
           ],
           'bankname': [
-            {required: true, message: '请输入支行名称'}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.bankname')}
           ],
           'bankcode': [
-            {required: true, message: '请输入联行号'}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.bankcode')}
           ]
         },
         payfeeFormRules: {
           'wechat_fee': [
-            {required: true, message: '请输入微信费率'}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.wechatRate')}
           ],
           'alipay_fee': [
-            {required: true, message: '请输入支付宝费率'}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.alipayRate')}
           ]
         }
       }
@@ -289,17 +295,17 @@
         })
         if (value === 1) {
           this.baseFormRules.levelcode = [
-            {required: true, message: '请选择代理商级别'}
+            {required: true, message: this.$t('agent.pleaseSelect') + this.$t('agent.agentLevel')}
           ]
           this.baseFormRules.slsm_userid = [
-            {required: true, message: '请选择业务员'}
+            {required: true, message: this.$t('agent.pleaseSelect') + this.$t('agent.saleMan')}
           ]
           this.baseFormRules.parent_uid = []
         } else {
           this.baseFormRules.levelcode = []
           this.baseFormRules.slsm_userid = []
           this.baseFormRules.parent_uid = [
-            {required: true, message: '请选择所属代理'}
+            {required: true, message: this.$t('agent.pleaseSelect') + this.$t('agent.agentBelong')}
           ]
           this.baseform.slsm_userid = ''
         }
@@ -387,7 +393,7 @@
           return false
         }
         if (!/^[A-Za-z0-9]+$/g.test(username)) {
-          this.usernameErrorMessage = '登录账号只可以输入字母或数字'
+          this.usernameErrorMessage = this.$t('agent.onlyLetterNumber')
           return false
         }
         this.isRegisterLoading = true
@@ -401,7 +407,7 @@
             this.updateAgency('username', username)
           } else if (data.respcd === '2102') {
             this.isRegistered = true
-            this.usernameErrorMessage = '登录账号已注册'
+            this.usernameErrorMessage = this.$t('agent.isRegistered')
           } else if (data.respcd === '2101') {
             this.isRegistered = true
             this.usernameErrorMessage = data.resperr
@@ -429,7 +435,7 @@
             this.$refs['bankinfoform'].resetFields()
             localStorage.removeItem('base')
             localStorage.removeItem('bankinfo')
-            this.$message.success('创建成功')
+            this.$message.success(this.$t('common.createSuccess'))
             this.$router.push({name: 'agencyList'})
           } else {
             this.$message.error(data.resperr)
@@ -453,6 +459,7 @@
         this.oldPassword = this.editPassword
       },
       updateAgency(key, e) {
+        // e input 是 e.target.value; select 是 value
         if (!this.isUpdate) {
           return false
         }
@@ -470,6 +477,8 @@
         } else if (key === 'selectSaleMan') {
           params['levelcode'] = 1
           params['slsm_userid'] = e
+        } else if (key === 'status') {
+          params['status'] = e
         } else if (e.target.value) {
           params[key] = e.target.value
         } else {
@@ -486,8 +495,7 @@
             this.$refs['baseform'].clearValidate()
             this.$refs['bankinfoform'].clearValidate()
             localStorage.setItem('hasEdit', '1')
-            this.$message.success('修改成功')
-            // this.$router.push({name: 'agencyList'})
+            this.$message.success(this.$t('common.updateSuccess'))
           } else {
             this.$message.error(data.resperr)
           }
