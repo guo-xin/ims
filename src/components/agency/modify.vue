@@ -60,8 +60,11 @@
         <i v-show="isRegisterLoading" class="el-icon-loading"></i>
         <i v-show="!isRegisterLoading && !isRegistered" title="可以使用" class="el-icon-circle-check" style="color:#67c10d"></i>
       </el-form-item>
-      <el-form-item prop="password" label="登录密码">
-        <el-input ref="passwordInput" type="password" v-model="baseform.password" @blur="updateAgency('password', $event)"></el-input>
+      <el-form-item v-if="isUpdate" label="登录密码">
+        <el-input id="end-length" type="password" :value="editPassword" @input="inputPassword" @focus="focusPassword" @blur="updateAgency('password', $event)"></el-input>
+      </el-form-item>
+      <el-form-item v-else prop="password" label="登录密码">
+        <el-input v-model="baseform.password"></el-input>
       </el-form-item>
     </el-form>
 
@@ -87,14 +90,14 @@
     <el-form v-show="active === 1" ref="payfeeform" :rules="payfeeFormRules" :model="payfee">
       <h3>支付费率</h3>
       <el-form-item prop="wechat_fee" label="微信">
-        <el-input v-model="payfee.wechat_fee" :disabled="isUpdate">
+        <el-input-number v-model="payfee.wechat_fee" :controls="false" :precision="2" :disabled="isUpdate">
            <template slot="append">%</template>
-        </el-input>
+        </el-input-number>
       </el-form-item>
       <el-form-item prop="alipay_fee" label="支付宝">
-        <el-input v-model="payfee.alipay_fee" :disabled="isUpdate">
+        <el-input-number v-model="payfee.alipay_fee" :controls="false" :precision="2" :disabled="isUpdate">
           <template slot="append">%</template>
-        </el-input>
+        </el-input-number>
       </el-form-item>
     </el-form>
     <footer v-if="isUpdate">
@@ -117,19 +120,13 @@
   import config from 'config'
   export default {
     data() {
-      let numberValidator = (rule, val, cb) => {
-        if (!/^\d+(\.\d+)?$/.test(val)) {
-          cb(new Error('请输入大于0的数值'))
-        } else if (val <= 0) {
-          cb(new Error('请输入大于0的数值'))
-        } else {
-          cb()
-        }
-      }
       return {
         isUpdate: false,
         isLoading: false,
         active: 0, // 当前步骤
+        isInputing: false, // 正在输入密码
+        editPassword: '******',
+        oldPassword: '',
         baseform: {
           name: '',
           levelcode: '',
@@ -212,12 +209,10 @@
         },
         payfeeFormRules: {
           'wechat_fee': [
-            {required: true, message: '请输入微信费率'},
-            {validator: numberValidator}
+            {required: true, message: '请输入微信费率'}
           ],
           'alipay_fee': [
-            {required: true, message: '请输入支付宝费率'},
-            {validator: numberValidator}
+            {required: true, message: '请输入支付宝费率'}
           ]
         }
       }
@@ -233,9 +228,6 @@
       let bankinfo = ''
       let payfee = ''
       if (this.isUpdate) {
-        this.baseFormRules.password = [
-          {required: false}
-        ]
         base = localStorage.getItem('baseEdit')
         bankinfo = localStorage.getItem('bankinfoEdit')
         payfee = localStorage.getItem('payfeeEdit')
@@ -395,7 +387,7 @@
           return false
         }
         if (!/^[A-Za-z0-9]+$/g.test(username)) {
-          this.usernameErrorMessage = '登录账户只可以输入字母或数字'
+          this.usernameErrorMessage = '登录账号只可以输入字母或数字'
           return false
         }
         this.isRegisterLoading = true
@@ -443,6 +435,22 @@
             this.$message.error(data.resperr)
           }
         })
+      },
+      inputPassword(value) {
+        if (this.isInputing) {
+          if (this.oldPassword.length > value.length) {
+            this.editPassword = ''
+          } else {
+            let dom = document.querySelector("#end-length")
+            let index = dom.selectionStart - 1;
+            this.editPassword = value.substr(index, 1) || ''
+          }
+          this.isInputing = false
+        }
+      },
+      focusPassword() {
+        this.isInputing = true
+        this.oldPassword = this.editPassword
       },
       updateAgency(key, e) {
         if (!this.isUpdate) {

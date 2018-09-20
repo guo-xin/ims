@@ -25,7 +25,9 @@ const zh = {
     range: '选择时间范围',
     confirm: '确定',
     cancel: '取消',
-    tip: '提示'
+    tip: '提示',
+    start: '开始时间',
+    end: '结束时间',
   },
   authority: {
     crumbs: {
@@ -105,6 +107,7 @@ const zh = {
       tradeAmount: '交易金额',
       settlePercent: '清分比例',
       settleAmount: '清分金额',
+      count: '笔',
       order: '序列',
       passName: '通道名称',
       tradeNum: '交易笔数',
@@ -156,6 +159,7 @@ const zh = {
       t15: '请输入二级代理费率',
       t16: '交易笔数为正整数',
       t17: '起始值不能大于终止值',
+      t18: '请输入结算方名称',
     }
   },
   login: {
