@@ -35,8 +35,8 @@ const en = {
     status: '状态',
     enable: '启用',
     disable: '停用',
-    start: '开始时间',
-    end: '结束时间'
+    startTime: '开始时间',
+    endTime: '结束时间'
   },
   authority: {
     crumbs: {
@@ -292,12 +292,21 @@ const en = {
       secondAgent: 'Second Level Agent',
       wechat: '微信支付',
       alipay: '支付宝',
+      pay: '支付',
+      refund: '退款',
       success: '成功',
       failed: '失败',
       fee: 'MDR Fee',
+      payTrade: '支付交易',
+      refundTrade: '退款交易',
       tradeAmount: 'Transaction Amount',
+      tradeCount: '交易笔数',
+      refundAmount: '退款金额',
+      refundCount: '退款笔数',
       amount: 'Total Amount',
-      count: 'Entries'
+      count: 'Entries',
+      pleaseSelect: '请选择',
+      noData: '无数据'
     }
   },
   agent: {
