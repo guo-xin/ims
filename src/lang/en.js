@@ -3,7 +3,7 @@
 import enLocale from 'qfpay-element-ui/lib/locale/lang/en'
 
 const en = {
-  enLocale,
+  ...enLocale,
   common: {
     title: 'Overseas agency service business platform',
     all: 'All',
@@ -34,7 +34,9 @@ const en = {
     tip: '提示',
     status: '状态',
     enable: '启用',
-    disable: '停用'
+    disable: '停用',
+    start: '开始时间',
+    end: '结束时间'
   },
   authority: {
     crumbs: {
@@ -114,6 +116,7 @@ const en = {
       tradeAmount: 'Transaction amount',
       settlePercent: 'Proportion of clearing',
       settleAmount: 'Amount of clearing',
+      count: '笔',
       order: '序列',
       passName: '通道名称',
       tradeNum: 'Number of pens',
@@ -165,6 +168,7 @@ const en = {
       t15: '请输入二级代理费率',
       t16: '交易笔数为正整数',
       t17: '起始值不能大于终止值',
+      t18: '请输入结算方名称',
     }
   },
   login: {
