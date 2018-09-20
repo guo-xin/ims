@@ -1,44 +1,44 @@
 <template>
   <div class="agencyList">
     <header class="page-header">
-      <h2 class="page-title">代理商列表</h2>
-      <el-button size="large" type="primary" @click="createAgency()">创建</el-button>
+      <h2 class="page-title">{{$t('agent.agentList')}}</h2>
+      <el-button size="large" type="primary" @click="createAgency()">{{$t('common.create')}}</el-button>
     </header>
 
     <el-form class="search-form" :model="formData">
-      <el-form-item label="代理商名称">
+      <el-form-item :label="$t('agent.agentName')">
         <el-input v-model="formData.name"></el-input>
       </el-form-item>
-      <el-form-item label="代理商ID">
+      <el-form-item :label="$t('agent.agentId')">
         <el-input v-model="formData.qd_uid"></el-input>
       </el-form-item>
-      <el-form-item label="代理商级别">
-        <el-select v-model="formData.level" placeholder="请选择级别">
-          <el-option label="全部" value=""></el-option>
-          <el-option label="一级" value="1"></el-option>
-          <el-option label="二级" value="2"></el-option>
+      <el-form-item :label="$t('agent.agentLevel')">
+        <el-select v-model="formData.level">
+          <el-option :label="$t('common.all')" value=""></el-option>
+          <el-option :label="$t('agent.level1')" value="1"></el-option>
+          <el-option :label="$t('agent.level2')" value="2"></el-option>
           </el-select>
       </el-form-item>
-      <el-form-item label="状态">
-        <el-select v-model="formData.status" placeholder="请选择状态">
-          <el-option label="全部" value=""></el-option>
-          <el-option label="启用" value="0"></el-option>
-          <el-option label="停用" value="1"></el-option>
+      <el-form-item :label="$t('common.status')">
+        <el-select v-model="formData.status">
+          <el-option :label="$t('common.all')" value=""></el-option>
+          <el-option :label="$t('common.enable')" value="0"></el-option>
+          <el-option :label="$t('common.disable')" value="1"></el-option>
         </el-select>
       </el-form-item>
       <div class="buttons">
-        <el-button type="primary" @click="search()">查找</el-button>
-        <el-button @click="reset()">重置</el-button>
+        <el-button type="primary" @click="search()">{{$t('common.search')}}</el-button>
+        <el-button @click="reset()">{{$t('common.reset')}}</el-button>
       </div>
     </el-form>
 
     <el-table :data="agencies" stripe v-loading="isLoading" @row-click="goDetail" class="table-hover">
-      <el-table-column prop="name" label="代理商名称"></el-table-column>
-      <el-table-column prop="qd_uid" label="代理商ID"></el-table-column>
-      <el-table-column prop="level" :formatter="formatLevel" label="等级"></el-table-column>
-      <el-table-column prop="parent_name" label="上级代理商名称"></el-table-column>
-      <el-table-column width="170" prop="join_dtm" label="注册时间"></el-table-column>
-      <el-table-column prop="status" :formatter="formatStatus" label="状态" align="center"></el-table-column>
+      <el-table-column prop="name" :label="$t('agent.agentName')"></el-table-column>
+      <el-table-column prop="qd_uid" :label="$t('agent.agentId')"></el-table-column>
+      <el-table-column prop="level" :formatter="formatLevel" :label="$t('agent.level')"></el-table-column>
+      <el-table-column prop="parent_name" :label="$t('agent.leaderAgent')"></el-table-column>
+      <el-table-column width="170" prop="join_dtm" :label="$t('agent.registerTime')"></el-table-column>
+      <el-table-column prop="status" :formatter="formatStatus" :label="$t('common.status')" align="center"></el-table-column>
     </el-table>
 
     <el-pagination
@@ -76,10 +76,10 @@
     },
     methods: {
       formatLevel(row, column, cellValue) {
-        return cellValue === 1 ? '一级' : '二级'
+        return cellValue === 1 ? this.$t('agent.level1') : this.$t('agent.level2')
       },
       formatStatus(row, column, cellValue) {
-        return cellValue === 0 ? '启用' : '停用'
+        return cellValue === 0 ? this.$t('common.enable') : this.$t('common.disable')
       },
       search() {
         this.currentPage = 1
