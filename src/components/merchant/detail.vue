@@ -141,7 +141,7 @@
       <el-row>
         <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.pay.la9')}}</span>
-          <span class="basic-content">{{form.bankinfo.banktype}}</span>
+          <span class="basic-content">{{banktype[form.bankinfo.banktype]}}</span>
         </el-col>
       </el-row>
 
@@ -150,7 +150,7 @@
           <span class="basic-label">{{$t('merchant.detail.pay.la10')}}</span>
         </el-col>
         <el-col :span="20">
-          <img src="item.url" v-for="(item,idx) in form.vouchers" class="voucher_photo" :key="idx"/>
+          <img :src="item.url" v-for="(item,idx) in form.vouchers" class="voucher_photo" :key="idx"/>
         </el-col>
       </el-row>
     </section>
@@ -178,6 +178,10 @@
         isLoading: false,
         isEditable: false,
         temp: [],
+        banktype: {
+          "1": '对私',
+          "2": '对公'
+        },
         form: {
           userinfo: {
             userid: this.$route.query.userid || getParams('userid'),
@@ -260,8 +264,6 @@
   .mchnt-detail {
     background-color: #fff;
     padding: 0 $baseGap;
-    height: 600px;
-    overflow-y: auto;
     padding-bottom: $baseGap;
     .noborder {border:none !important;}
     footer {

@@ -150,7 +150,7 @@
           <span class="basic-label">{{$t('merchant.detail.pay.la10')}}</span>
         </el-col>
         <el-col :span="20">
-          <img src="item.url" v-for="(item,idx) in form.vouchers" class="voucher_photo" :key="idx"/>
+          <img :src="item.url" v-for="(item,idx) in form.vouchers" class="voucher_photo" :key="idx"/>
         </el-col>
       </el-row>
     </section>
@@ -211,7 +211,7 @@
       </el-row>
       <el-row type="flex" class="row-bg" justify="space-around">
         <el-button type="primary" @click="judgeHandler(this, $event)" ref="passed" name="1">通过</el-button>
-        <el-button type="primary" @click="judgeHandler(this, $event)" ref="rejected" name="2">驳回</el-button>
+        <el-button type="primary" @click="judgeHandler(this, $event)" ref="rejected" name="0">驳回</el-button>
       </el-row>
     </section>
   </div>
@@ -360,8 +360,6 @@
   .mchnt-detail {
     background-color: #fff;
     padding: 0 $baseGap;
-    height: 600px;
-    overflow-y: auto;
     padding-bottom: $baseGap;
     .noborder {border:none !important;}
     .do-audit {

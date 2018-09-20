@@ -4,21 +4,25 @@ const dev = process.env.NODE_ENV === 'development';
 // 生产配置
 let host = 'https://sh.qfpay.com';
 let ohost = 'https://o.qfpay.com';
+let imgUpload = 'https://o2.qfpay.com';
 
 // 测试配置
 if (test) {
   host = ''
   ohost = 'https://o.qa.qfpay.net';
+  imgUpload = 'https://o2.qa.qfpay.net';
 }
 // 本地配置
 if (dev) {
   host = 'api'; //  https://oasbp.qa.qfpay.net http://172.100.113.124:8198 http://172.100.111.45:8198
   ohost = 'https://o.qa.qfpay.net';
+  imgUpload = 'https://o2.qa.qfpay.net'; //  172.100.111.45:8080 https://o2.qa.qfpay.net
 }
 
 export default {
   host,
   ohost,
+  imgUpload,
   code: {
     OK: '0000', // 成功
     DBERR: '2000', // 数据库查询错误

@@ -210,8 +210,4 @@
   }
 </script>
 <style lang="scss">
-  .merchant {
-    height: 600px;
-    overflow-y: auto;
-  }
 </style>
