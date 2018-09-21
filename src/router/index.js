@@ -119,12 +119,12 @@ export default new Router({
           component: roleList
         },
         {
-          path: 'perm_role_create',
+          path: 'perm_role_list/perm_role_create',
           name: 'roleCreate',
           component: roleModify
         },
         {
-          path: 'perm_role_edit/:code',
+          path: 'perm_role_list/perm_role_edit/:code',
           name: 'roleEdit',
           component: roleModify
         },

@@ -1,32 +1,32 @@
 <template>
   <div class="roleList">
     <header class="page-header">
-      <h2 class="page-title">角色管理</h2>
-      <el-button size="large" type="primary" @click="createRole()">创建</el-button>
+      <h2 class="page-title">{{$t('role.roleManage')}}</h2>
+      <el-button size="large" type="primary" @click="createRole()">{{$t('common.create')}}</el-button>
     </header>
 
     <el-form class="search-form" ref="searchform" :model="formData">
-      <el-form-item label="角色名称">
+      <el-form-item :label="$t('role.roleName')">
         <el-input v-model="formData.role_name"></el-input>
       </el-form-item>
-      <el-form-item label="状态">
+      <el-form-item :label="$t('common.status')">
         <el-select v-model="formData.status">
-          <el-option label="全部" value=""></el-option>
-          <el-option label="启用" value="1"></el-option>
-          <el-option label="停用" value="0"></el-option>
+          <el-option :label="$t('common.all')" value=""></el-option>
+          <el-option :label="$t('common.enable')" value="1"></el-option>
+          <el-option :label="$t('common.disable')" value="0"></el-option>
         </el-select>
       </el-form-item>
       <div class="buttons">
-        <el-button type="primary" @click="search()">查找</el-button>
-        <el-button @click="reset()">重置</el-button>
+        <el-button type="primary" @click="search()">{{$t('common.search')}}</el-button>
+        <el-button @click="reset()">{{$t('common.reset')}}</el-button>
       </div>
     </el-form>
 
     <el-table :data="roles" v-loading="isLoading" stripe @row-click="editRole" class="table-hover">
-      <el-table-column prop="role_name" label="角色名称" width="180"></el-table-column>
-      <el-table-column prop="ctime" label="创建时间" width="180"></el-table-column>
-      <el-table-column prop="perms" :formatter="formatPerms" label="权限"></el-table-column>
-      <el-table-column prop="status" :formatter="formatStatus" label="状态" width="80"></el-table-column>
+      <el-table-column prop="role_name" :label="$t('role.roleName')" width="180"></el-table-column>
+      <el-table-column prop="ctime" :label="$t('role.createTime')" width="180"></el-table-column>
+      <el-table-column prop="perms" :formatter="formatPerms" :label="$t('role.role')"></el-table-column>
+      <el-table-column prop="status" :formatter="formatStatus" :label="$t('common.status')" width="80"></el-table-column>
     </el-table>
 
     <el-pagination
@@ -70,7 +70,7 @@
         return perms.join(' \\ ')
       },
       formatStatus(row, column, cellValue) {
-        return cellValue === 1 ? '启用' : '停用'
+        return cellValue === 1 ? this.$t('common.enable') : this.$t('common.disable')
       },
       search() {
         this.pageSize = 10

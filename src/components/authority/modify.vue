@@ -1,19 +1,19 @@
 <template>
   <div class="roleModify">
     <header class="page-header style2">
-      <h2 v-if="isEdit" class="page-title">角色修改</h2>
-      <h2 v-else class="page-title">{{isUpdate ? '角色详情' : '新建角色'}}</h2>
-      <el-button type="text" @click="cancel"><i class="el-icon-close"></i><span>关闭</span></el-button>
+      <h2 v-if="isEdit" class="page-title">{{$t('role.editRole')}}</h2>
+      <h2 v-else class="page-title">{{isUpdate ? $t('role.roleDetail') : $t('role.createRole')}}</h2>
+      <el-button type="text" @click="cancel"><i class="el-icon-close"></i><span>{{$t('common.close')}}</span></el-button>
     </header>
 
     <el-form :model="formData" :rules="formrules" ref="form" :disabled="isUpdate && !isEdit">
-      <el-form-item ref="roleName" label="角色名称" prop="name">
+      <el-form-item ref="roleName" :label="$t('role.roleName')" prop="name">
         <el-input v-model="formData.name"></el-input>
       </el-form-item>
-      <el-form-item v-if="isUpdate" label="角色状态">
+      <el-form-item v-if="isUpdate" :label="$t('role.roleStatus')">
         <el-select v-model="formData.status">
-          <el-option label="启用" value="1"></el-option>
-          <el-option label="停用" value="0"></el-option>
+          <el-option :label="$t('common.enable')" value="1"></el-option>
+          <el-option :label="$t('common.disable')" value="0"></el-option>
         </el-select>
       </el-form-item>
       <div class="el-checkbox-groups-item" v-for="(perm, index) in formData.perms" :key="index">
@@ -24,10 +24,10 @@
       </div>
     </el-form>
     <footer>
-      <el-button v-if="isUpdate" size="large" @click="cancel">关闭</el-button>
-      <el-button v-else size="large" @click="reset">重置</el-button>
-      <el-button v-if="isUpdate" type="primary" size="large" @click="update">{{isEdit ? '保存' : '修改'}}</el-button>
-      <el-button v-else type="primary" size="large" @click="modify">提交</el-button>
+      <el-button v-if="isUpdate" size="large" @click="cancel">{{$t('common.close')}}</el-button>
+      <el-button v-else size="large" @click="reset">{{$t('common.reset')}}</el-button>
+      <el-button v-if="isUpdate" type="primary" size="large" @click="update">{{isEdit ? $t('common.save') : $t('common.edit')}}</el-button>
+      <el-button v-else type="primary" size="large" @click="modify">{{$t('common.submit')}}</el-button>
     </footer>
   </div>
 </template>
@@ -48,7 +48,7 @@
         },
         formrules: {
           'name': [
-            {required: true, message: '请输入角色名称'}
+            {required: true, message: this.$t('role.pleaseEnter') + this.$t('role.roleName')}
           ]
         }
       }
@@ -144,9 +144,9 @@
           if (data.respcd === '0000') {
             if (this.isUpdate) {
               this.isEdit = false
-              this.$message.success('角色修改成功')
+              this.$message.success(this.$t('common.updateSuccess'))
             } else {
-              this.$message.success('角色创建成功')
+              this.$message.success(this.$t('common.createSuccess'))
               this.$router.push({name: 'roleList'})
             }
           } else {
