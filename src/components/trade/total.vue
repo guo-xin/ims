@@ -216,7 +216,7 @@
         })
       },
       getMchntName(queryString, cb) {
-        let tip = [{'value': this.$t('trade.common.oData')}]
+        let tip = [{'value': this.$t('trade.common.noData')}]
         this.$http(`${config.host}/org/tools/merchants`, {
           params: {
             mchnt_name: queryString
@@ -239,7 +239,7 @@
         if (!queryString) {
           return
         }
-        let tip = [{'value': this.$t('trade.common.oData')}]
+        let tip = [{'value': this.$t('trade.common.noData')}]
         this.$http(`${config.host}/org/tools/agents`, {
           params: {
             primary_agent: queryString
@@ -262,7 +262,7 @@
         if (!queryString) {
           return
         }
-        let tip = [{'value': this.$t('trade.common.oData')}]
+        let tip = [{'value': this.$t('trade.common.noData')}]
         this.$http(`${config.host}/org/tools/agents`, {
           params: {
             secondary_agent: queryString
