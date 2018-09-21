@@ -30,14 +30,14 @@
         <el-input v-model.trim="form.userinfo.email"></el-input>
       </el-form-item>
       <el-form-item prop="cate" label="注册商户">
-        <el-select v-model="form.userinfo.cate" @change="selectCateHandler">
+        <el-select v-model="form.userinfo.cate" @change="selectHandler('cate', $event)" ref="cate">
           <el-option label="普通子商户" value="merchant"></el-option>
           <el-option label="大商户" value="bigmerchant"></el-option>
           <el-option label="连锁门店" value="submerchant"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item prop="user_type" label="商户类型">
-        <el-select v-model="form.userinfo.user_type">
+        <el-select v-model="form.userinfo.user_type" @change="selectHandler('user_type',$event)" ref="user_type">
           <el-option label="小微" value="1"></el-option>
           <el-option label="个体" value="2"></el-option>
           <el-option label="企业" value="3"></el-option>
@@ -45,7 +45,7 @@
       </el-form-item>
 
       <el-form-item prop="mcc" label="店铺类型">
-        <el-select v-model="form.userinfo.mcc" @change="selectHandler('mcc_str',$event)">
+        <el-select v-model="form.userinfo.mcc" @change="selectHandler('mcc_str',$event)" ref="mcc">
           <el-option :label="item.name" :value="item.id" v-for="(item, idx) in shopTypes" :key="idx"></el-option>
         </el-select>
       </el-form-item>
@@ -95,7 +95,7 @@
         <el-input v-model="form.bankinfo.bankmobile"></el-input>
       </el-form-item>
       <el-form-item prop="banktype" label="银行账户类型">
-        <el-select v-model="form.bankinfo.banktype">
+        <el-select v-model="form.bankinfo.banktype" ref="banktype">
           <el-option label="对私" value="1"></el-option>
           <el-option label="对公" value="2"></el-option>
         </el-select>
@@ -440,22 +440,11 @@
           this.baseRules['slsm_username'] = [
             {required: true, message: '请输入业务员账号'}
           ]
-          this.getShopTypes()
         }
+        this.getShopTypes()
       }
     },
     methods: {
-      selectCateHandler(val) {
-        if(val === 'submerchant') {
-          this.baseRules['big_uid'] = [
-            {required: true, message: '请输入连锁店总店UID'}
-          ]
-        }else {
-          if(this.baseRules['big_uid']) {
-            delete this.baseRules['big_uid']
-          }
-        }
-      },
       getShopTypes() {
         axios.get(`${config.host}/org/tools/mcc/list`, {
           params: {
@@ -501,7 +490,6 @@
               imgname: file.response.data.name,
               url: file.response.data.url,
             });
-            console.log('this.form.vouchers$$$$$$$$$$$$$$$$$', this.form.vouchers)
           }
         } else {
           this.$message.error(res.resperr);
@@ -553,6 +541,7 @@
                 this.voucherInfo[item.name + '_url'] = item.url
                 this.voucherInfo[item.name + '_name'] = item.imgname
               })
+              this.initSelection()
             } else {
               this.$message.error(data.respmsg);
             }
@@ -632,7 +621,41 @@
         this.$router.push({name: 'mchnt_manage_list'})
       },
       selectHandler(key, val) {
-        this.form.userinfo.mcc_str = this.shopTypes[--val].name;
+        if(key === 'mcc_str') {
+          this.form.userinfo.mcc_str = this.shopTypes[--val].name;
+        }else if (key === 'cate') {
+          if(val === 'submerchant') {
+            this.baseRules['big_uid'] = [
+              {required: true, message: '请输入连锁店总店UID'}
+            ]
+          }else {
+            if(this.baseRules['big_uid']) {
+              delete this.baseRules['big_uid']
+            }
+          }
+        }else if(key === 'user_type') {
+
+        }
+      },
+      initSelection() {
+        let cats = {
+          merchant: '普通子商户',
+          bigmerchant: '大商户',
+          submerchant: '连锁门店'
+        };
+        let userTypes = {
+          "1": '小微',
+          "2": '个体',
+          "3": '企业'
+        };
+        let banktypes = {
+          "1": '对私',
+          "2": '对公'
+        }
+        this.$refs['cate'].selected.label = cats[this.form.userinfo.cate];
+        this.$refs['user_type'].selected.label = userTypes[this.form.userinfo.user_type];
+        this.$refs['mcc'].selected.label = _.filter(this.shopTypes, { id: this.form.userinfo.mcc })['name']
+        this.$refs['banktype'].selected.label = banktypes[this.form.bankinfo.banktype]
       }
     }
   }

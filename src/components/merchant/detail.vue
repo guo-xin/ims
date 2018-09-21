@@ -266,9 +266,6 @@
     padding: 0 $baseGap;
     padding-bottom: $baseGap;
     .noborder {border:none !important;}
-    footer {
-      padding-bottom: 30px;
-    }
     .banner {
         padding: 28px $baseGap 0 0; margin-bottom: $miderGap;
         .title {
