@@ -22,23 +22,23 @@
       </el-form-item>
       <el-form-item :label="$t('trade.common.tradeType')">
         <el-select v-model="formData.trade_type">
-          <el-option label="全部" value=""></el-option>
-          <el-option label="支付" value="success"></el-option>
-          <el-option label="退款" value="cancel"></el-option>
+          <el-option :label="$t('common.all')" value=""></el-option>
+          <el-option :label="$t('trade.common.pay')" value="success"></el-option>
+          <el-option :label="$t('trade.common.refund')" value="cancel"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item :label="$t('trade.common.payPass')">
         <el-select v-model="formData.paytypes">
-          <el-option label="全部" value=""></el-option>
-          <el-option label="微信支付" value="wxpay"></el-option>
-          <el-option label="支付宝" value="alipay"></el-option>
+          <el-option :label="$t('common.all')" value=""></el-option>
+          <el-option :label="$t('trade.common.wechat')" value="wxpay"></el-option>
+          <el-option :label="$t('trade.common.alipay')" value="alipay"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item :label="$t('common.status')">
         <el-select v-model="formData.trade_status">
-          <el-option label="全部" value=""></el-option>
-          <el-option label="成功" value="1"></el-option>
-          <el-option label="失败" value="0"></el-option>
+          <el-option :label="$t('common.all')" value=""></el-option>
+          <el-option :label="$t('trade.common.success')" value="1"></el-option>
+          <el-option :label="$t('trade.common.failed')" value="0"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item :label="$t('trade.common.merchantName')">
@@ -147,18 +147,18 @@
         return `${year}-${month}-${day}`
       },
       formatType(row, column, cellValue) {
-        return cellValue === 'success' ? '支付' : '退款'
+        return cellValue === 'success' ? this.$t('trade.common.pay') : this.$t('trade.common.refund')
       },
       formatYuan(row, column, cellValue) {
         cellValue = (cellValue / 100).toFixed(2)
         return cellValue
       },
       formatStatus(row, column, cellValue) {
-        return cellValue === 1 ? '成功' : '失败'
+        return cellValue === 1 ? this.$t('trade.common.success') : this.$t('trade.common.failed')
       },
       fetchData() {
         if (this.formData.date.length < 2) {
-          this.acrossMonthTip = '请选择交易时间'
+          this.acrossMonthTip = this.$t('trade.common.pleaseSelect') + this.$t('trade.common.tradeTime')
         }
         if (this.acrossMonthTip) {
           return false
@@ -192,7 +192,7 @@
         })
       },
       getMchntName(queryString, cb) {
-        let tip = [{'value': '查无此商户'}]
+        let tip = [{'value': this.$t('trade.common.noData')}]
         this.$http(`${config.host}/org/tools/merchants`, {
           params: {
             mchnt_name: queryString
@@ -215,7 +215,7 @@
         if (!queryString) {
           return
         }
-        let tip = [{'value': '查无此代理'}]
+        let tip = [{'value': this.$t('trade.common.noData')}]
         this.$http(`${config.host}/org/tools/agents`, {
           params: {
             primary_agent: queryString
@@ -238,7 +238,7 @@
         if (!queryString) {
           return
         }
-        let tip = [{'value': '查无此代理'}]
+        let tip = [{'value': this.$t('trade.common.noData')}]
         this.$http(`${config.host}/org/tools/agents`, {
           params: {
             secondary_agent: queryString

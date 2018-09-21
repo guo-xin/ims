@@ -2,13 +2,14 @@
 import zhLocale from 'qfpay-element-ui/lib/locale/lang/zh-CN'
 
 const zh = {
-  ...zhLocale,
+  zhLocale,
   common: {
     title: '海外机构服务商业务平台',
     all: '全部',
     create: '创建',
     export: '导出',
     choose: '请选择',
+    submit: '提交',
     save: '保存',
     edit: '修改',
     prev: '上一步',
@@ -34,8 +35,8 @@ const zh = {
     status: '状态',
     enable: '启用',
     disable: '停用',
-    start: '开始时间',
-    end: '结束时间'
+    startTime: '开始时间',
+    endTime: '结束时间'
   },
   authority: {
     crumbs: {
@@ -290,12 +291,21 @@ const zh = {
       secondAgent: '二级代理',
       wechat: '微信支付',
       alipay: '支付宝',
+      pay: '支付',
+      refund: '退款',
       success: '成功',
       failed: '失败',
       fee: '手续费',
+      payTrade: '支付交易',
+      refundTrade: '退款交易',
       tradeAmount: '交易金额',
+      tradeCount: '交易笔数',
+      refundAmount: '退款金额',
+      refundCount: '退款笔数',
       amount: '金额',
-      count: '笔数'
+      count: '笔数',
+      pleaseSelect: '请选择',
+      noData: '无数据'
     }
   },
   agent: {
@@ -342,6 +352,17 @@ const zh = {
     agentBelong: '所属代理',
     onlyLetterNumber: '登录账号只可以输入字母或数字',
     isRegistered: '登录账号已注册'
+  },
+  role: {
+    role: '权限',
+    roleManage: '角色管理',
+    createRole: '新建角色',
+    editRole: '修改角色',
+    roleDetail: '角色详情',
+    roleName: '角色名称',
+    roleStatus: '角色状态',
+    pleaseEnter: '请输入',
+    createTime: '创建时间',
   },
   main: {
     desc: '移动支付管理系统',

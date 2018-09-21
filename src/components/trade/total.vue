@@ -11,8 +11,8 @@
           size="large"
           value-format="yyyy-MM-dd"
           unlink-panels
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          :start-placeholder="$t('common.startTime')"
+          :end-placeholder="$t('common.endTime')"
           :clearable="false">
         </el-date-picker>
       </el-form-item>
@@ -51,8 +51,8 @@
       <el-form-item :label="$t('trade.common.payPass')">
         <el-select v-model="formData.paytypes">
           <el-option :label="$t('common.all')" value=""></el-option>
-          <el-option label="微信支付" value="wxpay"></el-option>
-          <el-option label="支付宝" value="alipay"></el-option>
+          <el-option :label="$t('trade.common.wechat')" value="wxpay"></el-option>
+          <el-option :label="$t('trade.common.alipay')" value="alipay"></el-option>
         </el-select>
       </el-form-item>
       <div class="buttons">
@@ -65,11 +65,11 @@
       <el-col :span="12">
         <el-row type="flex" align="bottom">
           <el-col :span="8" class="head">
-            <span>交易金额</span>
+            <span>{{$t('trade.common.tradeAmount')}}</span>
             <strong>￥{{payTotal.total_txamt | formatCurrency}}</strong>
           </el-col>
           <el-col :span="8">
-            <span>交易笔数</span>
+            <span>{{$t('trade.common.tradeCount')}}</span>
             <strong>{{payTotal.total_num}}</strong>
           </el-col>
           <el-col :span="8">
@@ -81,11 +81,11 @@
       <el-col :span="12">
         <el-row type="flex" align="bottom">
           <el-col :span="8" class="head">
-            <span>退款金额</span>
+            <span>{{$t('trade.common.refundAmount')}}</span>
             <strong>￥{{refundTotal.total_txamt | formatCurrency}}</strong>
           </el-col>
           <el-col :span="8">
-            <span>退款笔数</span>
+            <span>{{$t('trade.common.refundCount')}}</span>
             <strong>{{refundTotal.total_num}}</strong>
           </el-col>
           <el-col :span="8">
@@ -102,12 +102,12 @@
       <el-table-column prop="base.primary" :label="$t('trade.common.firstAgent')"></el-table-column>
       <el-table-column prop="base.secondary" :label="$t('trade.common.secondAgent')"></el-table-column>
       <el-table-column prop="base.busicd_info" :label="$t('trade.common.payPass')"></el-table-column>
-      <el-table-column label="支付交易" align="center">
+      <el-table-column :label="$t('trade.common.payTrade')" align="center">
         <el-table-column align="left" prop="success.num" :label="$t('trade.common.count')"></el-table-column>
         <el-table-column align="center" prop="success.txamt" :formatter="formatYuan" :label="$t('trade.common.amount')"></el-table-column>
         <el-table-column align="right" prop="success.settlefee" :formatter="formatYuan" :label="$t('trade.common.fee')"></el-table-column>
       </el-table-column>
-      <el-table-column label="退款交易" align="center">
+      <el-table-column :label="$t('trade.common.refundTrade')" align="center">
         <el-table-column align="left" prop="cancel.num" :label="$t('trade.common.count')"></el-table-column>
         <el-table-column align="center" prop="cancel.txamt" :formatter="formatYuan" :label="$t('trade.common.amount')"></el-table-column>
         <el-table-column align="right" prop="cancel.settlefee" :formatter="formatYuan" :label="$t('trade.common.fee')"></el-table-column>
@@ -183,7 +183,7 @@
       },
       fetchData() {
         if (this.formData.date.length < 2) {
-          this.acrossMonthTip = '请选择交易时间'
+          this.acrossMonthTip = this.$t('trade.common.pleaseSelect') + this.$t('trade.common.tradeDate')
         }
         if (this.acrossMonthTip) {
           return false
@@ -216,7 +216,7 @@
         })
       },
       getMchntName(queryString, cb) {
-        let tip = [{'value': '查无此商户'}]
+        let tip = [{'value': this.$t('trade.common.oData')}]
         this.$http(`${config.host}/org/tools/merchants`, {
           params: {
             mchnt_name: queryString
@@ -239,7 +239,7 @@
         if (!queryString) {
           return
         }
-        let tip = [{'value': '查无此代理'}]
+        let tip = [{'value': this.$t('trade.common.oData')}]
         this.$http(`${config.host}/org/tools/agents`, {
           params: {
             primary_agent: queryString
@@ -262,7 +262,7 @@
         if (!queryString) {
           return
         }
-        let tip = [{'value': '查无此代理'}]
+        let tip = [{'value': this.$t('trade.common.oData')}]
         this.$http(`${config.host}/org/tools/agents`, {
           params: {
             secondary_agent: queryString
