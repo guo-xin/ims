@@ -305,7 +305,7 @@ const zh = {
       amount: '金额',
       count: '笔数',
       pleaseSelect: '请选择',
-      noData: '无数据'
+      noData: '暂无数据'
     }
   },
   agent: {

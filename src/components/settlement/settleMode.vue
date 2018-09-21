@@ -24,8 +24,8 @@
           :placeholder="$t('common.range')"
           size="large"
           :clearable="false"
-          :start-placeholder="$t('common.start')"
-          :end-placeholder="$t('common.end')">
+          :start-placeholder="$t('common.startTime')"
+          :end-placeholder="$t('common.endTime')">
         </el-date-picker>
       </el-form-item>
       <el-form-item :label="$t('settleMent.panel.payPass')" prop="chnlid">

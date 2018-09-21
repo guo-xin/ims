@@ -60,11 +60,11 @@
         <i v-show="isRegisterLoading" class="el-icon-loading"></i>
         <i v-show="!isRegisterLoading && !isRegistered" :title="$t('agent.canuse')" class="el-icon-circle-check" style="color:#67c10d"></i>
       </el-form-item>
-      <el-form-item v-if="isUpdate" :label="$t('agent.password')">
+      <el-form-item v-if="isUpdate" prop="password" :label="$t('agent.password')">
         <el-input id="end-length" type="password" :value="editPassword" @input="inputPassword" @focus="focusPassword" @blur="updateAgency('password', $event)"></el-input>
       </el-form-item>
       <el-form-item v-else prop="password" :label="$t('agent.password')">
-        <el-input v-model="baseform.password"></el-input>
+        <el-input type="password" v-model="baseform.password"></el-input>
       </el-form-item>
       <el-form-item v-if="isUpdate" prop="status" :label="$t('common.status')">
         <el-select v-model="baseform.status" @change="updateAgency('status', $event)">
@@ -282,10 +282,8 @@
         if (this.active-- <= 0) this.active = 0
       },
       resetStep1() {
+        this.baseform = {}
         this.$refs['baseform'].resetFields()
-        this.$refs['baseform'].clearValidate()
-        this.baseform.auth_city = ''
-        this.baseform.levelcode = ''
       },
       selectLevel(value) {
         this.levels.map((level, index) => {
