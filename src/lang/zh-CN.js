@@ -2,7 +2,7 @@
 import zhLocale from 'qfpay-element-ui/lib/locale/lang/zh-CN'
 
 const zh = {
-  zhLocale,
+  ...zhLocale,
   common: {
     title: '海外机构服务商业务平台',
     all: '全部',

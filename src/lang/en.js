@@ -3,7 +3,7 @@
 import enLocale from 'qfpay-element-ui/lib/locale/lang/en'
 
 const en = {
-  enLocale,
+  ...enLocale,
   common: {
     title: 'Overseas agency service business platform',
     all: 'All',
