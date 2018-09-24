@@ -298,13 +298,13 @@
     </el-form>
 
     <footer v-if="isUpdate">
-      <el-button v-show="active === 0" type="primary" @click="next">{{$t('common.prev')}}</el-button>
+      <el-button v-show="active === 0" type="primary" @click="next">{{$t('common.next')}}</el-button>
       <el-button v-show="active === 1" @click="pre">{{$t('common.prev')}}</el-button>
       <el-button v-show="active === 1" @click="next">{{$t('common.done')}}</el-button>
     </footer>
     <footer v-else>
       <el-button type="primary" @click="next">
-        {{active === 1 ? $t('common.done') : $t('common.prev')}}
+        {{active === 1 ? $t('common.done') : $t('common.next')}}
       </el-button>
       <el-button v-show="active !== 0" @click="pre">{{$t('common.prev')}}</el-button>
     </footer>
