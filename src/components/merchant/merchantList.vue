@@ -156,7 +156,7 @@
             }
           }).catch(() => {
           this.loading = false;
-          this.$message.error(data.respmsg);
+          this.$message.error(this.$t('common.netError'));
         });
       },
       selectChannelHandler(value) {
@@ -188,7 +188,7 @@
             }
           }).catch(() => {
           this.loading = false;
-//          this.$message.error(this.$t('common.netError'));
+          this.$message.error(this.$t('common.netError'));
         });
       },
       reset() {
