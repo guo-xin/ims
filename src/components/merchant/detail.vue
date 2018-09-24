@@ -179,8 +179,8 @@
         isEditable: false,
         temp: [],
         banktype: {
-          "1": '对私',
-          "2": '对公'
+          "1": this.$t('common.privata'),
+          "2": this.$t('common.pub')
         },
         form: {
           userinfo: {

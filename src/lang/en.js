@@ -8,36 +8,42 @@ const en = {
     title: 'Overseas agency service business platform',
     all: 'All',
     create: 'Create',
-    export: '导出',
+    export: 'Export',
     choose: 'Please choose',
     save: 'Save',
-    submit: '提交',
+    submit: 'Submit',
     edit: 'Edit',
-    prev: '上一步',
-    next: '下一步',
-    done: '完成',
+    prev: 'Previous',
+    next: 'Next',
+    done: 'Done',
     close: 'Close',
     search: 'Search',
-    add: '增加',
+    add: 'Add',
     reset: 'Reset',
     loading: 'Loading...',
     netError: 'Net error',
-    createSuccess: '创建成功',
-    updateSuccess: '修改成功',
-    opSucc: '操作成功',
-    opFailed: '操作失败',
+    createSuccess: 'Creation succeeded',
+    updateSuccess: 'Modification succeeded',
+    opSucc: 'Operation succeeded',
+    opFailed: 'Operation Failed',
     operate: 'operation',
-    delete: '删除',
-    look: '查看',
+    delete: 'Delete',
+    look: 'View',
     range: 'select date range',
-    confirm: '确定',
-    cancel: '取消',
-    tip: '提示',
-    status: '状态',
-    enable: '启用',
-    disable: '停用',
-    startTime: '开始时间',
-    endTime: '结束时间'
+    confirm: 'Confirm',
+    cancel: 'Cancel',
+    tip: 'Tip',
+    status: 'Status',
+    enable: 'Activate',
+    disable: 'Deactivate',
+    start: 'start time',
+    end: 'end time',
+    privata: 'Private',
+    pub: 'Public',
+    reupload: 'Re-Upload',
+    format: 'Support JPG / PNG format',
+    uploadSucc: 'Upload success',
+    uploadFailed: 'Upload failure'
   },
   authority: {
     crumbs: {
@@ -180,11 +186,11 @@ const en = {
     cap2: ' MANAGEMENT SYSTEM',
     checkbox: 'Remember the password',
     btn: 'Login',
-    forgetPass: 'Forget the password',
+    forgetPass: 'Forget password',
     msg: {
       m1: 'Please enter the account.',
       m2: 'Please enter the password.',
-      m3: 'Failed to log in.'
+      m3: 'Failed to login.'
     }
   },
   merchant: {
@@ -254,11 +260,65 @@ const en = {
       title2: 'Modify Merchant',
       step1: 'Basic Info',
       step2: 'Rates Info',
-      step3: 'Liquidation Info',
+      step3: 'Settlement Info',
       basic: {
         cap1: 'Basic Info',
-        cap2: 'Rates Info'
-      }
+        cap2: 'Rates Info',
+      },
+      form: {
+        account: 'Account',
+        shopname: 'Store Name',
+        name: 'Merchant Name',
+        legal: 'Enterprise Legal Person',
+        storeaddr: 'Store Address',
+        email: 'Contact Email Address',
+        cate: 'Merchant Type',
+        scale: 'Merchant Scale',
+        type: 'Type',
+        sub: 'Sub Merchant',
+        big: 'Big Merchant',
+        chain: 'Chain Store',
+        micro: 'Small and micro enterprises',
+        geti: 'Individual Company',
+        ent: 'Enterprises',
+        main: 'Main Store UID',
+        contact: 'Contact Name',
+        cell: 'Contact Number',
+        wei: 'WeChat Pay:',
+        ali: 'Alipay:',
+        rate: 'Merchant Rate',
+        bankuser: 'User Account Name',
+        bankaccount: 'Bank Account',
+        hbank: 'Bank Name',
+        bbank: 'Bank Branch Name',
+        bankProvice: 'Provice',
+        bankCity: 'City',
+        code: 'Swift Code',
+        mobile: 'Mobile Number',
+        banktype: 'Account Type',
+        doc: 'Documents', // 上传凭证，
+        idfront: 'Click to add a legal person id card frontage.',
+        idback: 'Click to add a legal person id card backside.',
+        oper: 'Click to add business license photos.', // 点击添加营业执照照片
+        lic: 'Click to add license photos.', // 点击添加开户许可照片
+        org: 'Click to add organization photos.', // 点击添加组织机构照片
+        protocol: 'Click Add merchant agreement photos', // 点击添加商户协议照片
+        warmfront: '* Second-generation ID cards must be used within the validity period. ID card numbers and avatars are clearly visible and full ID cards are photographed.', // 必须使用有效期内的二代身份证，身份证号码及头像清晰可见，完整身份证正面照
+        warmback: '* It is necessary to use the two generation ID card within the validity period. The validity period is clearly visible. The reverse of the complete identity card is used.', // 必须使用有效期内的二代身份证，有效期清晰可见，完整身份证反面照
+        warmoper: '* It is necessary to use the business license within the validity period. The documents need to be complete and clearly visible.', // 必须使用有效期之内的营业执照，需要证件完整且文字清晰可见
+        warmlic: '* Please upload valid license photos to ensure that the picture is clear and content is complete.', // 请上传有效的开户许可证照片，保证画面清晰，内容完整
+        warmorg: '* Please upload valid organization photos to ensure that the picture is clear and content is complete.', // 请上传有效的组织机构照片，保证画面清晰，内容完整
+        warmproto: '* Please upload valid business agreement photos to ensure that the picture is clear and content is complete.', // 请上传有效的商户协议照片，保证画面清晰，内容完整
+      },
+      rule1: 'Please choose registered merchants.', // 请选择注册商户
+      rule2: 'Please enter the name of the merchant.', // 请输入商户名称
+      rule3: 'Please enter company name.', // 请输入公司名称
+      rule4: 'Please input the correct email address.', // 请输入正确的邮箱地址
+      rule5: 'Bank card accounts must be numbers.', // 银行卡账户必须是数字
+      rule6: 'Phone numbers must be numbers.', // 手机号必须是数字
+      rule7: 'Please enter business account number.', // 请输入业务员账号
+      rule8: 'Uploading avatars must be JPG / PNG format', // 上传头像必须是jpg、png格式
+      rule9: 'Please enter chain store UID' // 请输入连锁店总店UID
     }
   },
   audit: {
@@ -276,7 +336,10 @@ const en = {
         result: 'Result',
         memo: 'Memo'
       },
-      doit: 'Audit'
+      doit: 'Audit',
+      pass: 'Pass',
+      re: 'Reject',
+      msg1: 'Please input audit notes.'
     }
   },
   trade: {

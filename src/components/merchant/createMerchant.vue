@@ -1,106 +1,106 @@
 <template>
   <div class="new-mchnt">
     <header class="page-header style2">
-      <h2 class="page-title">{{this.isUpdate ? '修改商户' : '添加商户'}}</h2>
-        <el-button type="text" @click="cancelHandler"><i class="el-icon-close"></i><span>关闭</span></el-button>
+      <h2 class="page-title">{{this.isUpdate ? $t('merchant.newMerchant.title2') : $t('merchant.newMerchant.title1')}}</h2>
+        <el-button type="text" @click="cancelHandler"><i class="el-icon-close"></i><span>{{$t('common.close')}}</span></el-button>
     </header>
     <el-steps :active="active" finish-status="finish">
-      <el-step title="基本信息"></el-step>
-      <el-step title="结算信息"></el-step>
+      <el-step :title="$t('merchant.newMerchant.step1')"></el-step>
+      <el-step :title="$t('merchant.newMerchant.step3')"></el-step>
     </el-steps>
 
     <el-form v-show="active === 0" v-loading="isLoading" ref="baseinfo" :model="form.userinfo" :rules="baseRules">
       <h3>{{$t('merchant.newMerchant.basic.cap1')}}</h3>
-      <el-form-item prop="username" label="商户账号">
+      <el-form-item prop="username" :label="$t('merchant.newMerchant.form.account')">
         <el-input v-model.trim="form.userinfo.username"></el-input>
       </el-form-item>
-      <el-form-item prop="shopname" label="商户名称">
+      <el-form-item prop="shopname" :label="$t('merchant.newMerchant.form.shopname')">
         <el-input v-model.trim="form.userinfo.shopname"></el-input>
       </el-form-item>
-      <el-form-item prop="name" label="公司名称">
+      <el-form-item prop="name" :label="$t('merchant.newMerchant.form.name')">
         <el-input v-model.trim="form.userinfo.name"></el-input>
       </el-form-item>
-      <el-form-item prop="legalperson" label="法人姓名">
+      <el-form-item prop="legalperson" :label="$t('merchant.newMerchant.form.legal')">
         <el-input v-model.trim="form.userinfo.legalperson"></el-input>
       </el-form-item>
-      <el-form-item prop="address" label="店铺地址">
+      <el-form-item prop="address" :label="$t('merchant.newMerchant.form.storeaddr')">
         <el-input v-model.trim="form.userinfo.address"></el-input>
       </el-form-item>
-      <el-form-item prop="email" label="邮件">
+      <el-form-item prop="email" :label="$t('merchant.newMerchant.form.email')">
         <el-input v-model.trim="form.userinfo.email"></el-input>
       </el-form-item>
-      <el-form-item prop="cate" label="注册商户">
+      <el-form-item prop="cate" :label="$t('merchant.newMerchant.form.cate')">
         <el-select v-model="form.userinfo.cate" @change="selectHandler('cate', $event)" ref="cate">
-          <el-option label="普通子商户" value="merchant"></el-option>
-          <el-option label="大商户" value="bigmerchant"></el-option>
-          <el-option label="连锁门店" value="submerchant"></el-option>
+          <el-option :label="$t('merchant.newMerchant.form.sub')" value="merchant"></el-option>
+          <el-option :label="$t('merchant.newMerchant.form.big')" value="bigmerchant"></el-option>
+          <el-option :label="$t('merchant.newMerchant.form.chain')" value="submerchant"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item prop="user_type" label="商户类型">
+      <el-form-item prop="user_type" :label="$t('merchant.newMerchant.form.scale')">
         <el-select v-model="form.userinfo.user_type" @change="selectHandler('user_type',$event)" ref="user_type">
-          <el-option label="小微" value="1"></el-option>
-          <el-option label="个体" value="2"></el-option>
-          <el-option label="企业" value="3"></el-option>
+          <el-option :label="$t('merchant.newMerchant.form.micro')" value="1"></el-option>
+          <el-option :label="$t('merchant.newMerchant.form.geti')" value="2"></el-option>
+          <el-option :label="$t('merchant.newMerchant.form.ent')" value="3"></el-option>
         </el-select>
       </el-form-item>
 
-      <el-form-item prop="mcc" label="店铺类型">
+      <el-form-item prop="mcc" :label="$t('merchant.newMerchant.form.type')">
         <el-select v-model="form.userinfo.mcc" @change="selectHandler('mcc_str',$event)" ref="mcc">
           <el-option :label="item.name" :value="item.id" v-for="(item, idx) in shopTypes" :key="idx"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item prop="big_uid" label="连锁店总店UID" v-if="form.userinfo.cate==='submerchant'">
+      <el-form-item prop="big_uid" :label="$t('merchant.newMerchant.form.main')" v-if="form.userinfo.cate==='submerchant'">
         <el-input v-model.trim="form.userinfo.big_uid" type="text"></el-input>
       </el-form-item>
-      <el-form-item prop="slsm_name" label="业务员账号" v-if="isUpdate">
+      <el-form-item prop="slsm_name" :label="$t('merchant.newMerchant.form.contact')" v-if="isUpdate">
         <el-input v-model.trim="form.qdinfo.slsm_name" type="text"></el-input>
       </el-form-item>
-      <el-form-item prop="mobile" label="业务员联系方式">
+      <el-form-item prop="mobile" :label="$t('merchant.newMerchant.form.cell')">
         <el-input v-model.trim="form.userinfo.mobile"></el-input>
       </el-form-item>
 
       <h3>{{$t('merchant.newMerchant.basic.cap2')}}</h3>
-      <el-form-item prop="tenpay_ratio" label="商户费率">
-        <span class="rate_label">微信支付：</span><el-input-number v-model="form.fee_ratios.tenpay_ratio" :precision="3" :step="0.001" :min="0" :max="1" @change="numberChange"></el-input-number>
+      <el-form-item prop="tenpay_ratio" :label="$t('merchant.newMerchant.form.rate')">
+        <span class="rate_label">{{$t('merchant.newMerchant.form.wei')}}</span><el-input-number v-model="form.fee_ratios.tenpay_ratio" :precision="3" :step="0.001" :min="0" :max="1" @change="numberChange"></el-input-number>
       </el-form-item>
-      <el-form-item prop="alipay_ratio" label="商户费率">
-        <span class="rate_label">支付宝：</span><el-input-number v-model="form.fee_ratios.alipay_ratio" :precision="3" :step="0.001" :min="0" :max="1"></el-input-number>
+      <el-form-item prop="alipay_ratio" :label="$t('merchant.newMerchant.form.rate')">
+        <span class="rate_label">{{$t('merchant.newMerchant.form.ali')}}</span><el-input-number v-model="form.fee_ratios.alipay_ratio" :precision="3" :step="0.001" :min="0" :max="1"></el-input-number>
       </el-form-item>
     </el-form>
     <!-- step2 -->
     <el-form v-show="active === 1" ref="bankinfos"  :model="form.bankinfo" :rules="bankRules">
-      <h3>结算信息</h3>
-      <el-form-item prop="bankuser" label="账户名称">
+      <h3>{{$t('merchant.newMerchant.step3')}}</h3>
+      <el-form-item prop="bankuser" :label="$t('merchant.newMerchant.form.bankuser')">
         <el-input v-model="form.bankinfo.bankuser"></el-input>
       </el-form-item>
-      <el-form-item prop="bankaccount" label="清算账号">
+      <el-form-item prop="bankaccount" :label="$t('merchant.newMerchant.form.bankaccount')">
         <el-input v-model="form.bankinfo.bankaccount"></el-input>
       </el-form-item>
-      <el-form-item prop="headbankname" label="总行名称">
+      <el-form-item prop="headbankname" :label="$t('merchant.newMerchant.form.hbank')">
         <el-input v-model="form.bankinfo.headbankname"></el-input>
       </el-form-item>
-      <el-form-item prop="bankname" label="支行名称">
+      <el-form-item prop="bankname" :label="$t('merchant.newMerchant.form.bbank')">
         <el-input v-model="form.bankinfo.bankname"></el-input>
       </el-form-item>
-      <el-form-item prop="bankProvince" label="银行省">
+      <el-form-item prop="bankProvince" :label="$t('merchant.newMerchant.form.bankProvice')">
         <el-input v-model="form.bankinfo.bankProvince"></el-input>
       </el-form-item>
-      <el-form-item prop="bankCity" label="银行市">
+      <el-form-item prop="bankCity" :label="$t('merchant.newMerchant.form.bankCity')">
         <el-input v-model="form.bankinfo.bankCity"></el-input>
       </el-form-item>
-      <el-form-item prop="bankcode" label="联行号">
+      <el-form-item prop="bankcode" :label="$t('merchant.newMerchant.form.code')">
         <el-input v-model="form.bankinfo.bankcode"></el-input>
       </el-form-item>
-      <el-form-item prop="bankmobile" label="预留手机号">
+      <el-form-item prop="bankmobile" :label="$t('merchant.newMerchant.form.mobile')">
         <el-input v-model="form.bankinfo.bankmobile"></el-input>
       </el-form-item>
-      <el-form-item prop="banktype" label="银行账户类型">
+      <el-form-item prop="banktype" :label="$t('merchant.newMerchant.form.banktype')">
         <el-select v-model="form.bankinfo.banktype" ref="banktype">
-          <el-option label="对私" value="1"></el-option>
-          <el-option label="对公" value="2"></el-option>
+          <el-option :label="$t('common.privata')" value="1"></el-option>
+          <el-option :label="$t('common.pub')" value="2"></el-option>
         </el-select>
       </el-form-item>
-      <h3>上传凭证</h3>
+      <h3>{{$t('merchant.newMerchant.form.doc')}}</h3>
       <el-row>
         <el-col :span="24">
           <div>
@@ -124,15 +124,15 @@
                 }">
                 <div v-if="voucherInfo.idcardfront_url" class="avatar-wrap">
                   <img :src="voucherInfo.idcardfront_url" class="avatar">
-                  <span class="img-tip">重新上传</span>
+                  <span class="img-tip">{{$t('common.reupload')}}</span>
                 </div>
                 <div v-else class="avatar-uploader-wrap">
                   <i class="avatar-uploader-icon el-icon-plus"></i>
-                  <div class="avatar-desc">点击添加法人身份证正面照</div>
-                  <div class="avatar-tip">支持jpg／png格式</div>
+                  <div class="avatar-desc">{{$t('merchant.newMerchant.form.idfront')}}</div>
+                  <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">* 必须使用有效期内的二代身份证，身份证号码及头像清晰可见，完整身份证正面照。</div>
+              <div class="image_info">{{$t('merchant.newMerchant.form.warmfront')}}</div>
             </el-col>
             <el-col :span="7" class="up-item">
               <el-upload
@@ -154,15 +154,15 @@
                 }">
                 <div v-if="voucherInfo.idcardback_url" class="avatar-wrap">
                   <img :src="voucherInfo.idcardback_url" class="avatar">
-                  <i class="img-tip">重新上传</i>
+                  <i class="img-tip">{{$t('common.reupload')}}</i>
                 </div>
                 <div v-else class="avatar-uploader-wrap">
                   <i class="avatar-uploader-icon el-icon-plus"></i>
-                  <div class="avatar-desc">点击添加法人身份证反面照</div>
-                  <div class="avatar-tip">支持jpg／png格式</div>
+                  <div class="avatar-desc">{{$t('merchant.newMerchant.form.idback')}}</div>
+                  <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">* 必须使用有效期内的二代身份证，有效期清晰可见，完整身份证反面照。</div>
+              <div class="image_info">{{$t('merchant.newMerchant.form.warmback')}}</div>
             </el-col>
 
             <el-col :span="7">
@@ -185,21 +185,21 @@
                 }">
                 <div v-if="voucherInfo.licensephoto_url" class="avatar-wrap">
                   <img :src="voucherInfo.licensephoto_url" class="avatar">
-                  <i class="img-tip">重新上传</i>
+                  <i class="img-tip">{{$t('common.reupload')}}</i>
                 </div>
                 <div v-else class="avatar-uploader-wrap">
                   <i class="avatar-uploader-icon el-icon-plus"></i>
-                  <div class="avatar-desc">点击添加营业执照照片</div>
-                  <div class="avatar-tip">支持jpg／png格式</div>
+                  <div class="avatar-desc">{{$t('merchant.newMerchant.form.oper')}}</div>
+                  <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">* 必须使用有效期之内的营业执照，需要证件完整且文字清晰可见。</div>
+              <div class="image_info">{{$t('merchant.newMerchant.form.warmoper')}}</div>
             </el-col>
           </div>
         </el-col>
       </el-row>
 
-      <el-row style="padding-top:40px;">
+      <el-row style="padding-top:50px;">
         <el-col :span="24">
           <div>
              <el-col :span="7" class="up-item">
@@ -221,15 +221,15 @@
                 }">
                  <div v-if="voucherInfo.openlicense_url" class="avatar-wrap">
                    <img :src="voucherInfo.openlicense_url" class="avatar">
-                   <i class="img-tip">重新上传</i>
+                   <i class="img-tip">{{$t('common.reupload')}}</i>
                  </div>
                  <div v-else class="avatar-uploader-wrap">
                    <i class="avatar-uploader-icon el-icon-plus"></i>
-                   <div class="avatar-desc">点击添加开户许可证照片</div>
-                   <div class="avatar-tip">支持jpg／png格式</div>
+                   <div class="avatar-desc">{{$t('merchant.newMerchant.form.lic')}}</div>
+                   <div class="avatar-tip">{{$t('common.format')}}</div>
                  </div>
                </el-upload>
-               <div class="image_info">* 请上传有效的开户许可证照片，保证画面清晰，内容完整。</div>
+               <div class="image_info">{{$t('merchant.newMerchant.form.warmlic')}}</div>
              </el-col>
 
             <el-col :span="7" class="up-item">
@@ -251,15 +251,15 @@
                 }">
                 <div v-if="voucherInfo.orgphoto_url" class="avatar-wrap">
                   <img :src="voucherInfo.orgphoto_url" class="avatar">
-                  <i class="img-tip">重新上传</i>
+                  <i class="img-tip">{{$t('common.reupload')}}</i>
                 </div>
                 <div v-else class="avatar-uploader-wrap">
                   <i class="avatar-uploader-icon el-icon-plus"></i>
-                  <div class="avatar-desc">点击添加组织机构照片</div>
-                  <div class="avatar-tip">支持jpg／png格式</div>
+                  <div class="avatar-desc">{{$t('merchant.newMerchant.form.org')}}</div>
+                  <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">* 请上传有效的组织机构照片，保证画面清晰，内容完整。</div>
+              <div class="image_info">{{$t('merchant.newMerchant.form.warmorg')}}</div>
             </el-col>
 
             <el-col :span="7">
@@ -281,15 +281,15 @@
                 }">
                 <div v-if="voucherInfo.delegateagreement_url" class="avatar-wrap">
                   <img :src="voucherInfo.delegateagreement_url" class="avatar">
-                  <i class="img-tip">重新上传</i>
+                  <i class="img-tip">{{$t('common.reupload')}}</i>
                 </div>
                 <div v-else class="avatar-uploader-wrap">
                   <i class="avatar-uploader-icon el-icon-plus"></i>
-                  <div class="avatar-desc">点击添加商户协议照片</div>
-                  <div class="avatar-tip">支持jpg／png格式</div>
+                  <div class="avatar-desc">{{$t('merchant.newMerchant.form.protocol')}}</div>
+                  <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">* 请上传有效的商户协议照片，保证画面清晰，内容完整。</div>
+              <div class="image_info">{{$t('merchant.newMerchant.form.warmproto')}}</div>
             </el-col>
           </div>
         </el-col>
@@ -298,15 +298,15 @@
     </el-form>
 
     <footer v-if="isUpdate">
-      <el-button v-show="active === 0" type="primary" @click="next">下一步</el-button>
-      <el-button v-show="active === 1" @click="pre">上一步</el-button>
-      <el-button v-show="active === 1" @click="next">完成</el-button>
+      <el-button v-show="active === 0" type="primary" @click="next">{{$t('common.prev')}}</el-button>
+      <el-button v-show="active === 1" @click="pre">{{$t('common.prev')}}</el-button>
+      <el-button v-show="active === 1" @click="next">{{$t('common.done')}}</el-button>
     </footer>
     <footer v-else>
       <el-button type="primary" @click="next">
-        {{active === 1 ? '完成' : '下一步'}}
+        {{active === 1 ? $t('common.done') : $t('common.prev')}}
       </el-button>
-      <el-button v-show="active !== 0" @click="pre">上一步</el-button>
+      <el-button v-show="active !== 0" @click="pre">{{$t('common.prev')}}</el-button>
     </footer>
   </div>
 </template>
@@ -391,16 +391,16 @@
         },
         baseRules: {
           'cate': [
-            {required: true, message: '请选择注册商户'}
+            {required: true, message: this.$t('merchant.newMerchant.rule1')}
           ],
           'shopname': [
-            {required: true, message: '请输入商户名称'}
+            {required: true, message: this.$t('merchant.newMerchant.rule2')}
             ],
           'name': [
-            {required: true, message: '请输入公司名称'}
+            {required: true, message: this.$t('merchant.newMerchant.rule3')}
           ],
           'email': [
-            { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
+            { type: 'email', message: this.$t('merchant.newMerchant.rule4'), trigger: 'blur,change' }
           ]
         },
         bankRules: {
@@ -410,7 +410,7 @@
                 if(val === '') {
                   cb();
                 } else if (!/^[0-9]*$/.test(val)) {
-                  cb(new Error('银行卡账户必须是数字'));
+                  cb(new Error(this.$t('merchant.newMerchant.rule5')));
                 }
               },
               trigger: 'blur'
@@ -422,7 +422,7 @@
                 if(val === '') {
                   cb();
                 } else if (!/^[0-9]*$/.test(val)) {
-                  cb(new Error('手机号必须是数字'));
+                  cb(new Error(this.$t('merchant.newMerchant.rule6')));
                 }
               },
               trigger: 'blur'
@@ -438,7 +438,7 @@
           this.getDetailInfo();
         }else {
           this.baseRules['slsm_username'] = [
-            {required: true, message: '请输入业务员账号'}
+            {required: true, message: this.$t('merchant.newMerchant.rule7')}
           ]
         }
         this.getShopTypes()
@@ -469,7 +469,7 @@
       beforeAvatarUpload(file) {
         const isRightImgType = file.type === 'image/jpeg' || file.type === 'image/png';
         if (!isRightImgType) {
-          this.$message.error('上传头像图片只能是 JPG 或 PNG 格式!');
+          this.$message.error(this.$t('merchant.newMerchant.rule8'));
         }
         return isRightImgType;
       },
@@ -510,10 +510,10 @@
             let data = res.data;
             if (data.respcd === config.code.OK) {
               this.voucherInfo[name + '_name'] = data.data.name;
-              this.$message.success('上传成功');
+              this.$message.success(this.$t('common.uploadSucc'));
             }else {
               this.voucherInfo[name + '_url'] = '';
-              this.$message.error('上传失败')
+              this.$message.error(this.$t('common.uploadFailed'))
             }
           }).catch(() => {
             console.log('请求失败');
@@ -578,7 +578,7 @@
             let data = res.data;
             this.loading = false;
             if (data.respcd === config.code.OK) {
-              this.$message.success(this.isUpdate ? '修改成功' : '创建成功')
+              this.$message.success(this.isUpdate ? this.$t('common.updateSuccess') : this.$t('common.createSuccess'))
               this.$router.push({
                 name: 'mchntDetail',
                 query: {userid: data.data.userid, from: (this.isUpdate ? 'edit' : 'new')}
@@ -626,7 +626,7 @@
         }else if (key === 'cate') {
           if(val === 'submerchant') {
             this.baseRules['big_uid'] = [
-              {required: true, message: '请输入连锁店总店UID'}
+              {required: true, message: this.$t('merchant.newMerchant.rule9')}
             ]
           }else {
             if(this.baseRules['big_uid']) {
@@ -639,18 +639,18 @@
       },
       initSelection() {
         let cats = {
-          merchant: '普通子商户',
-          bigmerchant: '大商户',
-          submerchant: '连锁门店'
+          merchant: this.$t('merchant.newMerchant.form.sub'),
+          bigmerchant: this.$t('merchant.newMerchant.form.big'),
+          submerchant: this.$t('merchant.newMerchant.form.chain')
         };
         let userTypes = {
-          "1": '小微',
-          "2": '个体',
-          "3": '企业'
+          "1": this.$t('merchant.newMerchant.form.micro'),
+          "2": this.$t('merchant.newMerchant.form.geti'),
+          "3": this.$t('merchant.newMerchant.form.ent')
         };
         let banktypes = {
-          "1": '对私',
-          "2": '对公'
+          "1": this.$t('common.privata'),
+          "2": this.$t('common.pub')
         }
         this.$refs['cate'].selected.label = cats[this.form.userinfo.cate];
         this.$refs['user_type'].selected.label = userTypes[this.form.userinfo.user_type];
@@ -668,8 +668,8 @@
       padding-bottom: 30px;
     }
     .el-steps {
-      padding-right: 75px;
-      /*flex-basis: 33.33%;*/
+      /*padding-right: 75px;*/
+      /*flex-basis: 50%;*/
     }
     .el-form {
       background-color: #F7F9FA;

@@ -35,8 +35,14 @@ const zh = {
     status: '状态',
     enable: '启用',
     disable: '停用',
-    startTime: '开始时间',
-    endTime: '结束时间'
+    start: '开始时间',
+    end: '结束时间',
+    privata: '对私',
+    pub: '对公',
+    reupload: '重新上传',
+    format: '支持 JPG / PNG 格式',
+    uploadSucc: '上传成功',
+    uploadFailed: '上传失败'
   },
   authority: {
     crumbs: {
@@ -256,7 +262,61 @@ const zh = {
       basic: {
         cap1: '基本信息',
         cap2: '费率信息'
-      }
+      },
+      form: {
+        account: '账号',
+        shopname: '店铺名称',
+        name: '商户名称',
+        legal: '法人',
+        storeaddr: '店铺地址',
+        email: '邮箱',
+        cate: '商户类型',
+        scale: '店铺类型',
+        type: '类型',
+        sub: '普通子商户',
+        big: '大商户',
+        chain: '连锁店',
+        micro: '小微',
+        geti: '个体',
+        ent: '企业',
+        main: '连锁店总店UID',
+        contact: '业务员姓名',
+        cell: '业务员电话',
+        wei: '微信支付:',
+        ali: '阿里支付:',
+        rate: '商户费率',
+        bankuser: '开户名',
+        bankaccount: '清算账号',
+        hbank: '总行',
+        bbank: '分行',
+        bankProvice: '银行所在省',
+        bankCity: '银行所在市',
+        code: '联行号',
+        mobile: '预留手机号',
+        banktype: '银行账户类型',
+        doc: '上传凭证',
+        idfront: '点击添加法人身份证正面照',
+        idback: '',
+        oper: '点击添加营业执照照片',
+        lic: '点击添加开户许可照片',
+        org: '点击添加组织机构照片',
+        protocol: '点击添加商户协议照片',
+        warmfront: '* 必须使用有效期内的二代身份证，身份证号码及头像清晰可见，完整身份证正面照',
+        warmback: '* 必须使用有效期内的二代身份证，有效期清晰可见，完整身份证反面照',
+        warmoper: '* 必须使用有效期之内的营业执照，需要证件完整且文字清晰可见',
+        warmlic: '* 请上传有效的开户许可证照片，保证画面清晰，内容完整',
+        warmorg: '* 请上传有效的组织机构照片，保证画面清晰，内容完整',
+        warmproto: '* 请上传有效的商户协议照片，保证画面清晰，内容完整',
+      },
+      rule1: '请选择注册商户',
+      rule2: '请输入商户名称',
+      rule3: '请输入公司名称',
+      rule4: '请输入正确的邮箱地址',
+      rule5: '银行卡账户必须是数字',
+      rule6: '手机号必须是数字',
+      rule7: '请输入业务员账号',
+      rule8: '上传头像必须是JPG/PNG格式',
+      rule9: '请输入连锁店总店UID'
     }
   },
   audit: {
@@ -274,7 +334,10 @@ const zh = {
         result: '审核结果',
         memo: '备注'
       },
-      doit: '审核'
+      doit: '审核',
+      pass: '通过',
+      re: '驳回',
+      msg1: '请输入审核备注。'
     }
   },
   trade: {

@@ -27,7 +27,7 @@ const store = new Vuex.Store({
             let data = res.data
             if (data.respcd === config.code.OK) {
 
-              data.data.menu_struct.unshift({code: 'home', descr: '首页', group: []});
+              data.data.menu_struct.unshift({code: 'home', descr: 'Home', group: []});
               data.data.menu_struct = data.data.menu_struct.map((item) => {
                 if(item.group.length) {
                   item.index = item.group[0].index[0]

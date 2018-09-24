@@ -210,8 +210,8 @@
         </el-col>
       </el-row>
       <el-row type="flex" class="row-bg" justify="space-around">
-        <el-button type="primary" @click="judgeHandler(this, $event)" ref="passed" name="1">通过</el-button>
-        <el-button type="primary" @click="judgeHandler(this, $event)" ref="rejected" name="0">驳回</el-button>
+        <el-button type="primary" @click="judgeHandler(this, $event)" ref="passed" name="1">{{$t('audit.detail.pass')}}</el-button>
+        <el-button type="primary" @click="judgeHandler(this, $event)" ref="rejected" name="0">{{$t('audit.detail.re')}}</el-button>
       </el-row>
     </section>
   </div>
@@ -277,7 +277,7 @@
         },
         auditRules: {
           'memo': [
-            {required: true, message: '请输入审核备注'}
+            {required: true, message: this.$t('audit.detail.msg1')}
           ]
         }
       }
