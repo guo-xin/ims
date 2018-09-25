@@ -318,7 +318,8 @@ const en = {
       rule6: 'Phone numbers must be numbers.', // 手机号必须是数字
       rule7: 'Please enter business account number.', // 请输入业务员账号
       rule8: 'Uploading avatars must be JPG / PNG format', // 上传头像必须是jpg、png格式
-      rule9: 'Please enter chain store UID' // 请输入连锁店总店UID
+      rule9: 'Please enter chain store UID', // 请输入连锁店总店UID
+      rule10: 'Only 60 characters can be entered at most.'
     }
   },
   audit: {

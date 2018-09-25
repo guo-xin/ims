@@ -316,7 +316,8 @@ const zh = {
       rule6: '手机号必须是数字',
       rule7: '请输入业务员账号',
       rule8: '上传头像必须是JPG/PNG格式',
-      rule9: '请输入连锁店总店UID'
+      rule9: '请输入连锁店总店UID',
+      rule10: '最多输入60个字符',
     }
   },
   audit: {

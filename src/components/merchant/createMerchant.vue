@@ -394,13 +394,26 @@
             {required: true, message: this.$t('merchant.newMerchant.rule1')}
           ],
           'shopname': [
-            {required: true, message: this.$t('merchant.newMerchant.rule2')}
+            {required: true, message: this.$t('merchant.newMerchant.rule2')},
+            {max: 60, min: 0, message: this.$t('merchant.newMerchant.rule10'), trigger: 'blur'}
             ],
           'name': [
             {required: true, message: this.$t('merchant.newMerchant.rule3')}
           ],
           'email': [
             { type: 'email', message: this.$t('merchant.newMerchant.rule4'), trigger: 'blur,change' }
+          ],
+          'mobile': [
+            {
+              validator: (rule, val, cb) => {
+                if(val === '') {
+                  cb();
+                } else if (!/^[0-9]*$/.test(val)) {
+                  cb(new Error(this.$t('merchant.newMerchant.rule6')));
+                }
+              },
+              trigger: 'blur'
+            }
           ]
         },
         bankRules: {

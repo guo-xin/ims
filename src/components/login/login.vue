@@ -18,12 +18,12 @@
             <el-input v-model.trim="form.password"  type="password" :clearable="true" @focus="addPassBorder" @blur="removePassBorder"></el-input>
           </el-form-item>
 
-          <el-form-item label="" prop="checked">
-            <el-checkbox v-model="form.checked" @change="changeCheckboxHandler">{{$t('login.checkbox')}}</el-checkbox>
-            <!--<span style="float:right" class="link-wrap">-->
-              <!--<router-link :to="{ name: 'forgetPassword'}" class="forget">{{$t('login.forgetPass')}}</router-link>-->
-            <!--</span>-->
-          </el-form-item>
+          <!--<el-form-item label="" prop="checked">-->
+            <!--<el-checkbox v-model="form.checked" @change="changeCheckboxHandler">{{$t('login.checkbox')}}</el-checkbox>-->
+            <!--&lt;!&ndash;<span style="float:right" class="link-wrap">&ndash;&gt;-->
+              <!--&lt;!&ndash;<router-link :to="{ name: 'forgetPassword'}" class="forget">{{$t('login.forgetPass')}}</router-link>&ndash;&gt;-->
+            <!--&lt;!&ndash;</span>&ndash;&gt;-->
+          <!--</el-form-item>-->
 
           <el-form-item>
             <div class="panel-header-btn submit-btn" @click="submitHandler">
@@ -63,7 +63,7 @@
         form: {
           username: '',
           password: '',
-          checked: false
+          checked: true
         },
         isNameBorder: false,
         isPassBorder: false,
