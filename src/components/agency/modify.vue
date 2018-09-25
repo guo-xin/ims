@@ -243,6 +243,9 @@
       }
       if (base) {
         this.baseform = JSON.parse(base)
+        if (this.isUpdate) {
+          this.baseform.password = '******'
+        }
       }
       if (bankinfo) {
         this.bankinfo = JSON.parse(bankinfo)
@@ -260,6 +263,9 @@
       },
       next() {
         if (this.active === 0) {
+          if (this.usernameErrorMessage) {
+            return false
+          }
           this.$refs['baseform'].validate((valid) => {
             if (valid) {
               this.active += 1
@@ -390,10 +396,6 @@
         if (!username) {
           return false
         }
-        if (!/^[A-Za-z0-9]+$/g.test(username)) {
-          this.usernameErrorMessage = this.$t('agent.onlyLetterNumber')
-          return false
-        }
         this.isRegisterLoading = true
         this.$http(`${config.host}/org/agent/check?username=${username}`)
         .then((res) => {
@@ -453,12 +455,19 @@
         }
       },
       focusPassword() {
+        this.editPassword = '******'
         this.isInputing = true
         this.oldPassword = this.editPassword
       },
       updateAgency(key, e) {
-        // e input 是 e.target.value; select 是 value
+        // input 是 e.target.value; select 是 value
         if (!this.isUpdate) {
+          return false
+        }
+        // 没有修改则不发请求
+        if (this.baseform[key] === e.target.value) {
+          return false
+        } else if (this.bankinfo[key] === e.target.value) {
           return false
         }
         let agentId = this.$route.params.id

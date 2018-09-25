@@ -100,7 +100,13 @@ form.el-form {
 }
 .el-autocomplete-suggestion.nomatch {
   li {
-    cursor: not-allowed;
+    line-height: 25px;
+    color: #999;
+    cursor: text;
+    text-align: center;
+    &:hover {
+      background-color: transparent;
+    }
   }
 }
 
