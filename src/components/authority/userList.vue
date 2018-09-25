@@ -98,6 +98,7 @@
 <script>
   import axios from 'axios';
   import config from 'config';
+  import Store from '../../assets/js/store';
   import qs from 'qs';
 
   export default {
@@ -196,7 +197,13 @@
                   message: this.$t('common.opSucc')
                 });
                 // 重新登录
-                this.handleSizeChange();
+                let userInfo = Store.get('userInfo') || {};
+                if(!this.isCreat && this.userId === userInfo.userid) {
+                  this.logout();
+                }else {
+                  this.handleSizeChange();
+                }
+
               } else if(data.respcd === config.code.USERERR) {
                 this.$message.error(data.resperr);
               }else {
@@ -334,6 +341,8 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
+
+      // 退出
       logout() {
         this.loading = true;
         axios.post(`${config.host}/org/user/logout?format=cors`)

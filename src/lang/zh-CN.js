@@ -118,7 +118,6 @@ const zh = {
       sNum: '流水号',
       merName: '商户名称',
       shopName: '门店名称',
-      dealer: '一级代理',
       tradeAmount: '交易金额',
       settlePercent: '清分比例',
       settleAmount: '清分金额',

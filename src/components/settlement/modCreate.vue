@@ -77,7 +77,7 @@
           <el-radio :label="0">{{ $t('settleMent.panel.no') }}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item :label="$t('settleMent.table.isMode')" prop="is_default" class="form-inline-label">
+      <el-form-item :label="$t('settleMent.table.isMode')" prop="is_default" class="form-inline-label" :style="$i18n.locale === 'en' ? {'width': '350px'} : ''">
         <el-radio-group v-model="form.is_default">
           <el-radio :label="1">{{ $t('settleMent.panel.yes') }}</el-radio>
           <el-radio :label="0">{{ $t('settleMent.panel.no') }}</el-radio>
@@ -266,6 +266,7 @@
       date = date.valueOf() + 24 * 3600 * 1000;
 
       return {
+        lang: '',
         loading: false,
         iconLoading: false,
         dateRange: {

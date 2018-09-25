@@ -75,7 +75,7 @@
       <el-table-column prop="syssn" :label="$t('settleMent.table.sNum')" min-width="120"></el-table-column>
       <el-table-column prop="mchnt_name" :label="$t('settleMent.table.merName')"></el-table-column>
       <el-table-column prop="shop_name" :label="$t('settleMent.table.shopName')"></el-table-column>
-      <el-table-column prop="one_name" :label="$t('settleMent.table.dealer')"></el-table-column>
+      <el-table-column prop="one_name" :label="$t('settleMent.table.firstAgent')"></el-table-column>
       <el-table-column :label="$t('settleMent.panel.settleDetail')">
         <template slot-scope="scope">
           {{ settleList[scope.row.settle_role] + (scope.row.settle_type === 1 ? $t('settleMent.table.income') : $t('settleMent.table.expend')) }}
