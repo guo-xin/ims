@@ -6,6 +6,7 @@
       <el-form-item :error="acrossMonthTip" :label="$t('trade.common.tradeDate')">
         <el-date-picker
           v-model="formData.date"
+          @change="datePickerChange"
           type="daterange"
           :editable="false"
           size="large"
@@ -168,6 +169,15 @@
       }
     },
     methods: {
+      datePickerChange(daterange) {
+        let startMonth = daterange[0].substr(0, 7)
+        let endMonth = daterange[1].substr(0, 7)
+        if (startMonth !== endMonth) {
+          this.acrossMonthTip = this.$t('trade.common.inSameMonth')
+        } else {
+          this.acrossMonthTip = ''
+        }
+      },
       formatYuan(row, column, cellValue) {
         cellValue = (cellValue / 100).toFixed(2)
         return cellValue

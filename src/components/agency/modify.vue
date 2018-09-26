@@ -464,6 +464,11 @@
         if (!this.isUpdate) {
           return false
         }
+        // 密码为空则默认为 '******'
+        if (key === 'password' && !e.target.value) {
+          this.editPassword = '******'
+          return false
+        }
         // 没有修改则不发请求
         if (this.baseform[key] === e.target.value) {
           return false
