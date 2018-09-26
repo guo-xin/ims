@@ -50,7 +50,7 @@
         </div>
       </el-header>
       <div class="main-frame">
-        <el-aside width="251px">
+        <el-aside v-if="!mini">
           <el-menu class="menu-wrap"
                    :collapse="isCollapse"
                    background-color="transparent"
@@ -66,7 +66,7 @@
                 <span :class="menuSet[menu.code].icon+' nav-icon'"></span>
                 <span slot="title">{{menu.descr}}</span>
               </template>
-              <el-menu-item v-for="submenu in menu.group" v-bind:key="submenu.code" :index="submenu.index[1]">
+              <el-menu-item v-for="submenu in menu.group" v-bind:key="submenu.code" :index="submenu.index[1]" :v-if="false">
                 <router-link :to="router('main/' + submenu.code)">{{submenu.descr}}</router-link>
               </el-menu-item>
             </el-submenu>
@@ -78,6 +78,10 @@
             </el-menu-item>
           </el-menu>
         </el-aside>
+
+        <!--<el-aside v-if="mini">-->
+              <!--zozo-->
+        <!--</el-aside>-->
         <el-main>
           <router-view/>
         </el-main>
@@ -108,6 +112,7 @@
   export default {
     data() {
       return {
+        mini: false,
         role: '1',
         loading: false,
         roles: [{
@@ -154,7 +159,16 @@
     computed: {
       menuData() {
         return this.$store.state.menuData;
-      },
+      }
+    },
+    mounted() {
+//      window.onresize = (e) => {
+//        if(document.body.clientWidth < 1280) {
+//          this.mini = true
+//        }else {
+//          this.mini = false
+//        }
+//      }
     },
     created() {
       var me = this;
@@ -168,7 +182,7 @@
     },
     methods: {
       subMenuSelectedHandler(index, indexPath) {
-        console.log(index, indexPath)
+//        console.log(index, indexPath)
       },
       router(router) {
         return `/${router}`;
@@ -198,10 +212,28 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
+  /*@media screen and (max-width:1280px){*/
+    /*.el-menu .el-menu-item > a {display:none}*/
+    /*.el-submenu .el-submenu__title {*/
+      /*> span {display:none;}*/
+      /*.el-submenu__icon-arrow {display:none;}*/
+    /*}*/
+    /*.el-aside {width:80px !important;}*/
+    /*.layout .main-frame .el-main {margin-left:80px !important;}*/
+  /*}*/
+  /*@media screen and (min-width:1281px) {*/
+    /*.el-menu .el-menu-item > a {display:inline-block}*/
+    /*.el-submenu .el-submenu__title {*/
+      /*> span {display:inline-block;}*/
+      /*.el-submenu__icon-arrow {display:inline-block;}*/
+    /*}*/
+    /*.el-aside {width:251px !important;}*/
+  /*}*/
   .layout {
-    // width:100%;
-    // height:100%;
-    // overflow: hidden;
+    .tip-box {
+      with: 340px;
+      height: auto;
+    }
     .el-header {
       position: fixed;
       width: 100%;
@@ -267,6 +299,7 @@
         padding-top: 100px;
       }
       .el-aside {
+        width:251px !important;
         padding-top: 20px;
         overflow-x: hidden;
         overflow-y: auto;

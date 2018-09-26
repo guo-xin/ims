@@ -313,8 +313,8 @@ const en = {
       rule2: 'Please enter the name of the merchant.', // 请输入商户名称
       rule3: 'Please enter company name.', // 请输入公司名称
       rule4: 'Please input the correct email address.', // 请输入正确的邮箱地址
-      rule5: 'Bank card accounts must be numbers.', // 银行卡账户必须是数字
-      rule6: 'Phone numbers must be numbers.', // 手机号必须是数字
+      rule5: 'Bank card accounts must be number.', // 银行卡账户必须是数字
+      rule6: 'Phone numbers must be number.', // 手机号必须是数字
       rule7: 'Please enter business account number.', // 请输入业务员账号
       rule8: 'Uploading avatars must be JPG / PNG format', // 上传头像必须是jpg、png格式
       rule9: 'Please enter chain store UID', // 请输入连锁店总店UID

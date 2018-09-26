@@ -406,10 +406,10 @@
           'mobile': [
             {
               validator: (rule, val, cb) => {
-                if(val === '') {
-                  cb();
-                } else if (!/^[0-9]*$/.test(val)) {
+                 if (!/^[0-9]*$/.test(val)) {
                   cb(new Error(this.$t('merchant.newMerchant.rule6')));
+                }else {
+                  cb();
                 }
               },
               trigger: 'blur'
@@ -420,10 +420,10 @@
           'bankaccount': [
             {
               validator: (rule, val, cb) => {
-                if(val === '') {
-                  cb();
-                } else if (!/^[0-9]*$/.test(val)) {
+                if (!/^[0-9]*$/.test(val)) {
                   cb(new Error(this.$t('merchant.newMerchant.rule5')));
+                }else {
+                  cb();
                 }
               },
               trigger: 'blur'
@@ -432,16 +432,21 @@
           'bankmobile': [
             {
               validator: (rule, val, cb) => {
-                if(val === '') {
-                  cb();
-                } else if (!/^[0-9]*$/.test(val)) {
+                if (!/^[0-9]*$/.test(val)) {
                   cb(new Error(this.$t('merchant.newMerchant.rule6')));
+                }else {
+                  cb();
                 }
               },
               trigger: 'blur'
             }
           ]
         }
+      }
+    },
+    computed: {
+      authData() {
+        return this.$store.state.permissionData
       }
     },
     created() {
@@ -618,13 +623,11 @@
             }
           })
         } else if (this.active === 1) { // 第二步
-//          this.$refs['bankinfos'].validate((valid) => {
-//            if (valid) {
-//              console.log(222)
-//              this.create()
-//            }
-//          })
-          this.create()
+          this.$refs['bankinfos'].validate((valid) => {
+            if (valid) {
+              this.create()
+            }
+          })
         }
       },
       numberChange(v) {
