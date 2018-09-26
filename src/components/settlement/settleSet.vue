@@ -63,7 +63,7 @@
               </el-form>
             </template>
           </el-table-column>
-          <el-table-column prop="ctime" align="center" :label="$t('settleMent.dialog.date')" min-width="120px"></el-table-column>
+          <el-table-column prop="stime" align="center" :label="$t('settleMent.dialog.date')" min-width="120px"></el-table-column>
         </el-table>
       <div class="divider"></div>
       <div slot="footer" class="dialog-footer">

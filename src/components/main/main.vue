@@ -198,10 +198,10 @@
     },
     methods: {
       selectChange(val) {
-        console.log(val, 888)
         this.$i18n.locale = val;
-        Store.set("lang", val);
-        // this.$router.push({name: this.$route.name, params: {lang: val}})
+        Store.set("oasbp_lang", val);
+        // 初始化页面及接口数据
+        this.$router.go(0);
       },
 
       subMenuSelectedHandler(index, indexPath) {
