@@ -550,9 +550,6 @@
 .el-select {
   width: 200px;
 }
-.el-steps {
-  padding-right: 75px;
-}
 hr {
   border: none;
   margin: 0;
