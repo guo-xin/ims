@@ -201,7 +201,8 @@ const en = {
     form: {
       mchtid: 'Merchant ID',
       mchtname: 'Merchant Name',
-      agent1: 'Agent',
+      agent1: 'Agent L1',
+      agent2: 'Agent L2',
       audit_state: 'Audit State'
     },
     table: {
@@ -209,7 +210,8 @@ const en = {
       mchtname: 'Merchant Name',
       address: 'Address',
       mobile: 'Mobile',
-      agent: 'Agent',
+      agent1: 'Agent L1',
+      agent2: 'Agent L2',
       account: 'User Name',
       cate_code: 'Category',
       state: 'State'

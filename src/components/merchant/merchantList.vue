@@ -21,6 +21,12 @@
         </el-select>
       </el-form-item>
 
+      <el-form-item :label="$t('merchant.form.agent2')" prop="qd_uid2">
+        <el-select v-model="formData.qd_uid2">
+          <el-option :label="item.name" :value="item.qd_uid" v-for="item in channels2" :key="item.qd_uid"></el-option>
+        </el-select>
+      </el-form-item>
+
       <el-form-item :label="$t('merchant.form.audit_state')" prop="audit_status">
         <el-select v-model="formData.audit_status" @change="selectChannelHandler">
           <el-option :label="item.val" :value="item.key" v-for="item in audits" :key="item.key"></el-option>
@@ -58,9 +64,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="agent"  :label="$t('merchant.table.agent')">
+      <el-table-column prop="qd_name"  :label="$t('merchant.table.agent1')">
         <template slot-scope="scope">
-          {{ scope.row.agent }}
+          {{ scope.row.qd_name }}
         </template>
       </el-table-column>
 
@@ -70,9 +76,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="cate_code" :label="$t('merchant.table.cate_code')">
+      <el-table-column prop="cate" :label="$t('merchant.table.cate_code')">
         <template slot-scope="scope">
-          {{ scope.row.cate_code }}
+          {{ scope.row.cate }}
         </template>
       </el-table-column>
 
@@ -105,11 +111,14 @@
           shopname: '',
           userid: '',
           qd_uid: '',
+          qd_uid2: '',
           qd_name: '',
+          qd_name2: '',
           audit_status: ''
         },
         merchents: [],
         channels: [],
+        channels2: [],
         audits: [],
         total: 0,
         pageSize: 10,
@@ -140,7 +149,7 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      getChannelList() { // 获取渠道列表
+      getChannelList() { // 获取1级渠道列表
         axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
             groupid: '',
@@ -159,24 +168,44 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      selectChannelHandler(value) {
-//        console.log(value)
+      selectChannelHandler(groupid) {
+        groupid && axios.get(`${config.host}/org/tools/qudao/list`, {
+          params: {
+            groupid: groupid,
+            format: 'cors'
+          }})
+          .then((res) => {
+            let data = res.data;
+            this.loading = false;
+            if (data.respcd === config.code.OK) {
+              this.channels2 = data.data.list;
+            } else {
+              this.$message.error(data.respmsg);
+            }
+          }).catch(() => {
+          this.loading = false;
+          this.$message.error(this.$t('common.netError'));
+        });
       },
       getMerchantDataHandler() {
         this.fetchData()
       },
       fetchData() {
+        let p = {
+          shopname: this.formData.shopname,
+          userid: this.formData.userid,
+          qd_uid: this.formData.qd_uid,
+          audit_status: this.formData.audit_status,
+          qd_name: '',
+          page: this.currentPage > 0 ? (this.currentPage - 1) : this.currentPage,
+          pagesize: this.pageSize,
+          format: 'cors'
+        }
+        if(this.formData.qd_uid2) {
+          p.qd_uid = this.formData.qd_uid2
+        }
         axios.get(`${config.host}/org/mchnt/list`, {
-          params: {
-            shopname: this.formData.shopname,
-            userid: this.formData.userid,
-            qd_uid: this.formData.qd_uid,
-            audit_status: this.formData.audit_status,
-            qd_name: '',
-            page: this.currentPage > 0 ? (this.currentPage - 1) : this.currentPage,
-            pagesize: this.pageSize,
-            format: 'cors'
-          }})
+          params: p})
           .then((res) => {
             let data = res.data;
             this.loading = false;

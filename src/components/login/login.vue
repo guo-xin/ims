@@ -82,16 +82,6 @@
 
     },
     created() {
-      if(localStorage.getItem('userInfo')) {
-        try{
-          let userInfo = JSON.parse(localStorage.getItem('userInfo'))
-          this.form.username = userInfo.username
-          this.form.password = userInfo.password
-          this.form.checked = userInfo.checked
-        }catch (e) {
-          console.log(e)
-        }
-      }
     },
     methods: {
       changeCheckboxHandler(e) {

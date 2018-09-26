@@ -201,6 +201,7 @@ const zh = {
       mchtid: '商户ID',
       mchtname: '商户名称',
       agent1: '一级代理',
+      agent2: '二级代理',
       audit_state: 'Audit State'
     },
     table: {
@@ -208,7 +209,8 @@ const zh = {
       mchtname: '商户名称',
       address: '地址',
       mobile: '联系方式',
-      agent: '所属渠道',
+      agent1: '一级渠道',
+      agent2: '二级渠道',
       account: '账户名称',
       state: '审核状态'
     },

@@ -90,7 +90,13 @@
         </el-aside>
 
         <!--<el-aside v-if="mini">-->
-              <!--zozo-->
+          <!--<el-menu class="menu-wrap"-->
+                   <!--background-color="transparent"-->
+                   <!--text-color="#1D1D24"-->
+                   <!--@select="subMenuSelectedHandler"-->
+          <!--&gt;-->
+
+          <!--</el-menu>-->
         <!--</el-aside>-->
         <el-main>
           <router-view/>
@@ -219,6 +225,7 @@
             if (data.respcd === config.code.OK) {
               // 登出时删除本域cookie
               (new Image()).src = `${config.ohost}/mchnt/set_cookie?sessionid=`;
+              localStorage.clear();
               this.$router.push(`/login`);
             } else {
               this.$message.error(data.respmsg);

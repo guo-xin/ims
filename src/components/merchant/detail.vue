@@ -263,9 +263,11 @@
 <style lang="scss">
   .mchnt-detail {
     background-color: #fff;
-    padding: 0 $baseGap;
-    padding-bottom: $baseGap;
+    padding: 0 $baseGap $baseGap $baseGap;
     .noborder {border:none !important;}
+    footer {
+      padding-top: $baseGap;
+    }
     .banner {
         padding: 28px $baseGap 0 0; margin-bottom: $miderGap;
         .title {
