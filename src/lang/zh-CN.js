@@ -346,6 +346,7 @@ const zh = {
     common: {
       tradeDate: '交易日期',
       tradeTime: '交易时间',
+      inSameMonth: '交易信息不可跨月查询',
       sNum: '流水号',
       tradeType: '交易类型',
       payPass: '支付通道',

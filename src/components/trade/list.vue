@@ -9,6 +9,7 @@
       <el-form-item :error="acrossMonthTip" :label="$t('trade.common.tradeTime')">
         <el-date-picker
           v-model="formData.date"
+          @change="datePickerChange"
           type="daterange"
           :editable="false"
           size="large"
@@ -137,6 +138,15 @@
       this.fetchData()
     },
     methods: {
+      datePickerChange(daterange) {
+        let startMonth = daterange[0].substr(0, 7)
+        let endMonth = daterange[1].substr(0, 7)
+        if (startMonth !== endMonth) {
+          this.acrossMonthTip = this.$t('trade.common.inSameMonth')
+        } else {
+          this.acrossMonthTip = ''
+        }
+      },
       formatDate(date) {
         // 参数格式: new Date()
         let year = date.getFullYear()
