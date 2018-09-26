@@ -315,13 +315,12 @@ form.el-form {
   font-weight: bold;
   color: $titleColor;
 }
+.el-step.is-horizontal .el-step__line {
+  left: 34px;
+}
 .el-step__main {
-  position: absolute;
   white-space: nowrap;
   background-color: #fff;
-  left: 24px;
-  top: -5px;
-  padding: 0 18px 0 10px;
 }
 .el-step__line {
   margin-right: 10px !important;
