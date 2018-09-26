@@ -13,15 +13,7 @@ import VueI18n from 'vue-i18n'
 import 'assets/scss/common.scss'
 import locale from 'qfpay-element-ui/lib/locale';
 
-let langAdaptor = function(lang) {
-  if(~lang.indexOf('en')) return 'en'
-  // if(lang.toLowerCase() === 'zh-tw' || lang.toLowerCase() === 'zh-hk') return 'zh-TW'
-  if(lang.toLowerCase() === 'zh-cn' || lang.toLowerCase() === 'zh') return 'zh-CN'
-  // if(~lang.indexOf('ja')) return 'ja'
-  return 'en';
-}
-
-let switchlang = Store.get("lang") || langAdaptor(navigator.language || navigator.browserLanguage || 'en');
+let switchlang = Store.get("lang") || 'en';
 
 Vue.use(VueI18n)
 

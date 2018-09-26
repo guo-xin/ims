@@ -10,8 +10,8 @@
       <el-form-item :label="$t('settleMent.panel.agentName')" prop="user">
         <el-input v-model="form.user"></el-input>
       </el-form-item>
-      <el-form-item :label="$t('settleMent.panel.payPass')" prop="chnl_id">
-        <el-select v-model="form.chnl_id" :placeholder="$t('common.choose')">
+      <el-form-item :label="$t('settleMent.panel.payPass')" prop="chnlid">
+        <el-select v-model="form.chnlid" :placeholder="$t('common.choose')">
           <el-option :label="$t('common.all')" value=""></el-option>
           <el-option v-for="(item, index) in passList" :label="item.chnlname" :value="item.chnlid" :key="index"></el-option>
         </el-select>
@@ -93,7 +93,7 @@
         qd_uid: null,
         form: {
           user: '',
-          chnl_id: ''
+          chnlid: ''
         },
         tableList: {},
         setList: {}
@@ -233,7 +233,7 @@
           axios.get(`${config.host}/org/clearing/config/list`, {
             params: {
               name: form.user,
-              chnl_id: form.chnl_id,
+              chnlid: form.chnlid,
               offset: this.currentPage - 1,
               pageSize: this.pageSize,
               format: 'cors'

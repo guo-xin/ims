@@ -122,7 +122,7 @@ const en = {
       tradeAmount: 'Amount of the transaction',
       settlePercent: 'Clearing ratio',
       settleAmount: 'Clearing amount',
-      count: '笔',
+      count: 'Entries',
       order: 'Sequence',
       passName: 'Channel name',
       tradeNum: 'Number of transactions',

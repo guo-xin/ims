@@ -266,7 +266,6 @@
       date = date.valueOf() + 24 * 3600 * 1000;
 
       return {
-        lang: '',
         loading: false,
         iconLoading: false,
         dateRange: {
