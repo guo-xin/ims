@@ -13,7 +13,7 @@ import VueI18n from 'vue-i18n'
 import 'assets/scss/common.scss'
 import locale from 'qfpay-element-ui/lib/locale';
 
-let switchlang = Store.get("lang") || 'en';
+let switchlang = Store.get("oasbp_lang") || 'en';
 
 Vue.use(VueI18n)
 
