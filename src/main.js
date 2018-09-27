@@ -82,8 +82,8 @@ axios.interceptors.response.use((res) => {
     // 清除本地cookie
     (new Image()).src = `${config.ohost}/mchnt/set_cookie?sessionid=`;
 
-    Store.set('flag', true);
-    localStorage.removeItem('lang');
+    // Store.set('flag', true);
+    localStorage.removeItem('oasbp_lang');
 
     location.replace(`${location.pathname}#/login`);
   } else {
