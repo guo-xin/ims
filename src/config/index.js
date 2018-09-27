@@ -16,7 +16,7 @@ if (test) {
 if (dev) {
   host = 'api';
   ohost = 'https://o.qa.qfpay.net';
-  imgUpload = 'https://o2.qa.qfpay.net';
+  imgUpload = 'http://172.100.111.45:8198';
 }
 
 export default {

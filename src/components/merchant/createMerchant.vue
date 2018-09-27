@@ -26,6 +26,9 @@
       <el-form-item prop="address" :label="$t('merchant.newMerchant.form.storeaddr')">
         <el-input v-model.trim="form.userinfo.address"></el-input>
       </el-form-item>
+      <el-form-item prop="slsm_username" :label="$t('merchant.newMerchant.form.contact')">
+        <el-input v-model.trim="form.userinfo.slsm_username"></el-input>
+      </el-form-item>
       <el-form-item prop="email" :label="$t('merchant.newMerchant.form.email')">
         <el-input v-model.trim="form.userinfo.email"></el-input>
       </el-form-item>
@@ -691,6 +694,9 @@
       background-color: #F7F9FA;
       margin-bottom: 24px;
       padding: 15px 30px 30px 30px;
+      .el-loading-mask {
+        width: 287px;
+      }
       h3 {
         position: relative;
         padding: 12px 0;
