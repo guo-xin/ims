@@ -26,7 +26,7 @@
       <el-form-item prop="address" :label="$t('merchant.newMerchant.form.storeaddr')">
         <el-input v-model.trim="form.userinfo.address"></el-input>
       </el-form-item>
-      <el-form-item prop="slsm_username" :label="$t('merchant.newMerchant.form.contact')">
+      <el-form-item prop="slsm_username" :label="$t('merchant.newMerchant.form.contact')" v-if="!isUpdate">
         <el-input v-model.trim="form.userinfo.slsm_username"></el-input>
       </el-form-item>
       <el-form-item prop="email" :label="$t('merchant.newMerchant.form.email')">
