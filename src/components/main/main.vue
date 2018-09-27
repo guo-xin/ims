@@ -23,27 +23,17 @@
         <div class="desc">{{$t('main.desc')}}</div>
         <div class="sign-in-info">
           <el-row type="flex">
-            <el-col :span="12">
+            <el-col :span="16">
               <div class="outer-link-wrap">
                 <a href="" class="outer-link">&nbsp;Authorit</a>
                 <a href="" class="outer-link">&nbsp;Settlement /</a>
                 <a href="" class="outer-link">&nbsp;Agent / </a>
               </div>
             </el-col>
-            <el-col :span="4" style="padding-left: 20px">
+            <el-col :span="5" class="lang-change">
               <el-select v-model="select" @change="selectChange">
                 <el-option
                   v-for="item in items"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
-            </el-col>
-            <el-col :span="5">
-              <el-select v-model="role" class="role-selector">
-                <el-option
-                  v-for="item in roles"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
@@ -130,20 +120,12 @@
     data() {
       return {
         mini: false,
-        role: '1',
         loading: false,
         select: this.$i18n.locale,
         items: [
           {label: 'English', value: 'en'},
           {label: '简体中文', value: 'zh-CN'}
         ],
-        roles: [{
-          value: '1',
-          label: 'Super Administrator'
-        }, {
-          value: '2',
-          label: 'Guest'
-        }],
         isCollapse: false,
         activeIndex: "1",
         subMenuIdxs: ["1"],
@@ -290,14 +272,9 @@
           .outer-link-wrap {
             .outer-link {float:right;text-decoration: none;color:#1D1D24;}
           }
-          .role-selector {
-            border: none;
-            font-size:$lgSize;
-            color:rgba(113,114,131,1);
-            .el-input__suffix {right:14px;}
-            .el-input__inner {
-              border:none;
-            }
+          .lang-change {
+            padding: 0 20px;
+            min-width: 150px;
           }
           .sign-out-wrap {
             display: flex;
