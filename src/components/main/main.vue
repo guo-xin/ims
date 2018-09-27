@@ -50,12 +50,12 @@
         </div>
       </el-header>
       <div class="main-frame">
-        <el-aside v-if="!mini">
+        <el-aside>
           <el-menu class="menu-wrap"
                    :collapse="isCollapse"
-                   background-color="transparent"
                    text-color="#1D1D24"
                    :unique-opened="true"
+                   background-color="#F2F4F5"
                    @select="subMenuSelectedHandler"
                    :default-openeds="subMenuIdxs"
                    :default-active="activeIndex"
@@ -63,31 +63,22 @@
             <el-submenu v-if="menu.group.length" :index="menu.index" v-for="menu in menuData"
                         v-bind:key="menu.code">
               <template slot="title">
-                <span :class="menuSet[menu.code].icon+' nav-icon'"></span>
+                <i :class="menuSet[menu.code].icon+' nav-icon'"></i>
                 <span slot="title">{{menu.descr}}</span>
               </template>
-              <el-menu-item v-for="submenu in menu.group" v-bind:key="submenu.code" :index="submenu.index[1]" :v-if="false">
-                <router-link :to="router('main/' + submenu.code)">{{submenu.descr}}</router-link>
+              <el-menu-item v-for="submenu in menu.group" v-bind:key="submenu.code" :index="submenu.index[1]" :v-if="false" @click="navTo('/main/' + submenu.code)">
+                <i class=""></i>
+                <span slot="title">{{submenu.descr}}</span>
               </el-menu-item>
             </el-submenu>
-            <el-menu-item v-else-if="menu.code==='home'" index="1" class="no-submenu">
-              <span :class="menuSet[menu.code].icon+' nav-icon'"></span>
-              <router-link :to="router('main/' + menu.code)">
+            <el-menu-item v-else-if="menu.code==='home'" index="1" class="no-submenu" @click="navTo('/main/' + menu.code)">
+              <i :class="menuSet[menu.code].icon+' nav-icon'"></i>
+              <span slot="title">
                 {{menu.descr}}
-              </router-link>
+              </span>
             </el-menu-item>
           </el-menu>
         </el-aside>
-
-        <!--<el-aside v-if="mini">-->
-          <!--<el-menu class="menu-wrap"-->
-                   <!--background-color="transparent"-->
-                   <!--text-color="#1D1D24"-->
-                   <!--@select="subMenuSelectedHandler"-->
-          <!--&gt;-->
-
-          <!--</el-menu>-->
-        <!--</el-aside>-->
         <el-main>
           <router-view/>
         </el-main>
@@ -119,14 +110,13 @@
   export default {
     data() {
       return {
-        mini: false,
         loading: false,
         select: this.$i18n.locale,
         items: [
           {label: 'English', value: 'en'},
           {label: '简体中文', value: 'zh-CN'}
         ],
-        isCollapse: false,
+        isCollapse: document.body.clientWidth < 1280,
         activeIndex: "1",
         subMenuIdxs: ["1"],
         menuSet: {
@@ -166,13 +156,13 @@
       }
     },
     mounted() {
-//      window.onresize = (e) => {
-//        if(document.body.clientWidth < 1280) {
-//          this.mini = true
-//        }else {
-//          this.mini = false
-//        }
-//      }
+      window.onresize = (e) => {
+        if(document.body.clientWidth < 1280) {
+          this.isCollapse = true
+        }else {
+          this.isCollapse = false
+        }
+      }
     },
     created() {
       var me = this;
@@ -185,6 +175,9 @@
       })
     },
     methods: {
+      navTo(route) {
+        this.$router.push(route)
+      },
       selectChange(val) {
         this.$i18n.locale = val;
         Store.set("oasbp_lang", val);
@@ -224,23 +217,12 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-  /*@media screen and (max-width:1280px){*/
-    /*.el-menu .el-menu-item > a {display:none}*/
-    /*.el-submenu .el-submenu__title {*/
-      /*> span {display:none;}*/
-      /*.el-submenu__icon-arrow {display:none;}*/
-    /*}*/
-    /*.el-aside {width:80px !important;}*/
-    /*.layout .main-frame .el-main {margin-left:80px !important;}*/
-  /*}*/
-  /*@media screen and (min-width:1281px) {*/
-    /*.el-menu .el-menu-item > a {display:inline-block}*/
-    /*.el-submenu .el-submenu__title {*/
-      /*> span {display:inline-block;}*/
-      /*.el-submenu__icon-arrow {display:inline-block;}*/
-    /*}*/
-    /*.el-aside {width:251px !important;}*/
-  /*}*/
+  @media screen and (max-width:1280px){
+    .layout .main-frame .el-main {margin-left:80px !important;}
+  }
+  @media screen and (min-width:1281px) {
+
+  }
   .layout {
     .tip-box {
       with: 340px;
@@ -300,6 +282,9 @@
       /*min-height: 600px;*/
       .menu-wrap {
         padding-bottom: 100px;
+      }
+      .menu-wrap:not(.el-menu--collapse) {
+        width: 251px;
       }
       .el-main {
         margin-left: 246px;

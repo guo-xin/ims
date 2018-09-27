@@ -76,16 +76,14 @@
         <div class="divider"></div>
       </div>
       <el-row>
-        <div v-for="(item,idx) in form.fee_ratios" :key="idx">
-          <el-col :span="10"  v-if="item.key==='tenpay_ratio'">
-            <span class="basic-label">{{item.key}}</span>
-            <span class="basic-content">{{item.value}}</span>
-          </el-col>
-          <el-col :span="14" v-if="item.key==='alipay_ratio'">
-            <span class="basic-label">{{item.key}}</span>
-            <span class="basic-content">{{item.value}}</span>
-          </el-col>
-        </div>
+        <el-col :span="10">
+          <span class="basic-label">WeChat Pay:</span>
+          <span class="basic-content">{{form.fee_ratios.tenpay_ratio}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">Alipay:</span>
+          <span class="basic-content">{{form.fee_ratios.alipay_ratio}}</span>
+        </el-col>
       </el-row>
     </section>
 
@@ -240,15 +238,14 @@
             let data = res.data;
             this.isLoading = false;
             if (data.respcd === config.code.OK) {
-                let tempArr = [];
                 this.form = data.data
-                for (let key of Object.keys(data.data.fee_ratios)) {
-                  if(key !== 'userid') {
-                    tempArr.push({key: key, value: data.data.fee_ratios[key] || ' '})
-                  }
-                }
-                this.form.fee_ratios = tempArr
-                this.temp = tempArr.concat([]);
+//                for (let key of Object.keys(data.data.fee_ratios)) {
+//                  if(key !== 'userid') {
+//                    tempArr.push({key: key, value: data.data.fee_ratios[key] || ' '})
+//                  }
+//                }
+//                this.form.fee_ratios = tempArr
+//                this.temp = tempArr.concat([]);
             } else {
               this.$message.error(data.respmsg);
             }

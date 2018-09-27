@@ -58,8 +58,8 @@
       <el-form-item prop="slsm_name" :label="$t('merchant.newMerchant.form.contact')" v-if="isUpdate">
         <el-input v-model.trim="form.qdinfo.slsm_name" type="text"></el-input>
       </el-form-item>
-      <el-form-item prop="mobile" :label="$t('merchant.newMerchant.form.cell')">
-        <el-input v-model.trim="form.userinfo.mobile"></el-input>
+      <el-form-item prop="telephone" :label="$t('merchant.newMerchant.form.cell')">
+        <el-input v-model.trim="form.userinfo.telephone"></el-input>
       </el-form-item>
 
       <h3>{{$t('merchant.newMerchant.basic.cap2')}}</h3>
@@ -335,7 +335,7 @@
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
         form: {
           userinfo: {
-            big_uid: '',
+            big_uid: '', // 连锁店总店UId
             userid: '',
             user_type: '',
             groupid: '',
@@ -344,7 +344,7 @@
             provice: '',
             city: '',
             email: '',
-            mobile: '',
+            telephone: '',
             legalperson: '',
             shopname: '',
             name: '', // 公司名称
@@ -356,26 +356,26 @@
             slsm_username: '' // 业务员账号
           },
           qdinfo: {
-            slsm_name: '',
+            slsm_name: '', // 业务员姓名
             slsm_uid: ''
           },
           fee_ratios: {
-            tenpay_ratio: '',
-            alipay_ratio: ''
+            tenpay_ratio: '', // 微信费率
+            alipay_ratio: '' // 阿里费率
           },
           bankinfo: {
-            bankaccount: '',
-            bankProvince: '',
-            bankCity: '',
-            headbankname: '',
-            bankname: '',
-            bankuser: '',
-            bankcode: '',
-            bankmobile: '',
-            banktype: '',
-            jointime: ''
+            bankaccount: '', // 开户行账号
+            bankProvince: '', // 开户行所在省
+            bankCity: '', // 所在市
+            headbankname: '', // 总行
+            bankname: '', // 支行
+            bankuser: '', // 银行用户
+            bankcode: '', // 联行号
+            bankmobile: '', // 开户关联的手机号
+            banktype: '', // 银行类型
+            jointime: '' // 入网时间
           },
-          vouchers: [],
+          vouchers: [], // 上传的凭据照片
         },
         shopTypes: [],
         voucherInfo: {
@@ -404,18 +404,17 @@
             {required: true, message: this.$t('merchant.newMerchant.rule3')}
           ],
           'email': [
-            { type: 'email', message: this.$t('merchant.newMerchant.rule4'), trigger: 'blur,change' }
+            { type: 'email', message: this.$t('merchant.newMerchant.rule4'), trigger: 'blur' }
           ],
-          'mobile': [
+          'telephone': [
             {
               validator: (rule, val, cb) => {
-                 if (!/^[0-9]*$/.test(val)) {
+                 if (!/^[0-9]*$/.test(val) && val != '') {
                   cb(new Error(this.$t('merchant.newMerchant.rule6')));
                 }else {
                   cb();
                 }
-              },
-              trigger: 'blur'
+              }
             }
           ]
         },

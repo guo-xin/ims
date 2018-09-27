@@ -34,7 +34,7 @@
       </el-form-item>
 
       <div class="buttons">
-        <el-button type="primary" @click="getMerchantDataHandler">{{$t('merchant.query')}}</el-button>
+        <el-button type="primary" @click="fetchData">{{$t('merchant.query')}}</el-button>
         <el-button @click="reset">{{$t('merchant.reset')}}</el-button>
       </div>
     </el-form>
@@ -131,7 +131,7 @@
       this.getAuditList()
     },
     methods: {
-      getAuditList() {
+      getAuditList() { // 审核列表数据
         axios.get(`${config.host}/org/tools/audit_status_map`, {
           params: {
             format: 'cors'
@@ -168,7 +168,7 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      selectChannelHandler(groupid) {
+      selectChannelHandler(groupid) { // 获取渠道列表数据
         groupid && axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
             groupid: groupid,
@@ -187,10 +187,7 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      getMerchantDataHandler() {
-        this.fetchData()
-      },
-      fetchData() {
+      fetchData() { // 获取商户列表数据
         let p = {
           shopname: this.formData.shopname,
           userid: this.formData.userid,
@@ -220,17 +217,17 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      reset() {
+      reset() { // 表单重置
         this.$refs['mchnt_list_form'].resetFields();
         this.fetchData();
       },
-      createMerchant() {
+      createMerchant() { // 商户进件/新建商户
         this.$router.push({path: 'mchnt_manage_list/mchnt_create'})
       },
-      patchImport() {
+      patchImport() { // 批量进件
 //        this.$router.push({path: 'mchnt_manage_list/mchnt_create'})
       },
-      selectCurrentRowHandler(currentRow, oldCurrentRow) {
+      selectCurrentRowHandler(currentRow, oldCurrentRow) { // 选择列表项，进入详情页
         this.$router.push({
           name: 'mchntDetail',
           query: {userid: currentRow.userid, from: 'old'}
@@ -252,4 +249,7 @@
   }
 </script>
 <style lang="scss">
+  .table-hover .el-table__row {
+    cursor: pointer;
+  }
 </style>

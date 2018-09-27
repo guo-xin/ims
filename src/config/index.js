@@ -10,7 +10,7 @@ let imgUpload = 'https://o2.qfpay.com';
 if (test) {
   host = ''
   ohost = 'https://o.qa.qfpay.net';
-  imgUpload = 'http://172.100.111.45:8198';
+  imgUpload = 'https://o2.qa.qfpay.net';
 }
 // 本地配置
 if (dev) {
