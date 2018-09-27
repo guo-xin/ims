@@ -244,11 +244,15 @@
       if (base) {
         this.baseform = JSON.parse(base)
         if (this.isUpdate) {
+          this.oldBaseform = JSON.parse(base)
           this.baseform.password = '******'
         }
       }
       if (bankinfo) {
         this.bankinfo = JSON.parse(bankinfo)
+        if (this.isUpdate) {
+          this.oldBankinfo = JSON.parse(base)
+        }
       }
       if (payfee) {
         this.payfee = JSON.parse(payfee)
@@ -460,39 +464,40 @@
         this.oldPassword = this.editPassword
       },
       updateAgency(key, e) {
-        // input 是 e.target.value; select 是 value
         if (!this.isUpdate) {
           return false
         }
+        // input 是 e.target.value; select 是 value
+        let value = typeof e === 'object' ? e.target.value : e
         // 密码为空则默认为 '******'
-        if (key === 'password' && !e.target.value) {
+        if (key === 'password' && !value) {
           this.editPassword = '******'
           return false
         }
         // 没有修改则不发请求
-        if (this.baseform[key] === e.target.value) {
+        if (this.oldBaseform[key] === value) {
           return false
-        } else if (this.bankinfo[key] === e.target.value) {
+        } else if (this.oldBankinfo[key] === value) {
           return false
         }
         let agentId = this.$route.params.id
         let params = {}
         if (key === 'secondAgency') {
           params['levelcode'] = 2
-          params['parent_uid'] = e
+          params['parent_uid'] = value
         } else if (key === 'updateProvince') {
-          params['auth_province'] = e
+          params['auth_province'] = value
           params['auth_city'] = ''
         } else if (key === 'updateProvinceCity') {
           params['auth_province'] = this.$refs.province.selected.label || this.baseform.auth_province
-          params['auth_city'] = e
+          params['auth_city'] = value
         } else if (key === 'selectSaleMan') {
           params['levelcode'] = 1
-          params['slsm_userid'] = e
+          params['slsm_userid'] = value
         } else if (key === 'status') {
-          params['status'] = e
-        } else if (e.target.value) {
-          params[key] = e.target.value
+          params['status'] = value
+        } else if (value) {
+          params[key] = value
         } else {
           return false
         }
