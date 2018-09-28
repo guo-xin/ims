@@ -22,13 +22,13 @@
       </el-form-item>
 
       <el-form-item :label="$t('merchant.form.agent2')" prop="qd_uid2">
-        <el-select v-model="formData.qd_uid2">
+        <el-select v-model="formData.qd_uid2" :placeholder="$t('merchant.form.ph')">
           <el-option :label="item.name" :value="item.qd_uid" v-for="item in channels2" :key="item.qd_uid"></el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item :label="$t('merchant.form.audit_state')" prop="audit_status">
-        <el-select v-model="formData.audit_status" @change="selectChannelHandler">
+        <el-select v-model="formData.audit_status">
           <el-option :label="item.val" :value="item.key" v-for="item in audits" :key="item.key"></el-option>
         </el-select>
       </el-form-item>
@@ -224,6 +224,7 @@
       },
       reset() { // 表单重置
         this.$refs['mchnt_list_form'].resetFields();
+        this.channels2 = [];
         this.fetchData();
       },
       createMerchant() { // 商户进件/新建商户

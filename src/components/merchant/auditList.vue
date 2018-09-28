@@ -15,7 +15,7 @@
       </el-form-item>
 
       <el-form-item :label="$t('merchant.form.agent2')" prop="qd_uid2">
-        <el-select v-model="formData.qd_uid2">
+        <el-select v-model="formData.qd_uid2" :placeholder="$t('merchant.form.ph')" @change="aaa">
           <el-option :label="item.name" :value="item.qd_uid" v-for="item in channels2" :key="item.qd_uid"></el-option>
         </el-select>
       </el-form-item>
@@ -165,7 +165,11 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
+      aaa(id) {
+        console.log('二级id：', id)
+      },
       selectChannelHandler(groupid) {
+        console.log('一级id：', groupid)
         groupid && axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
             groupid: groupid,
@@ -219,6 +223,7 @@
       },
       reset() {
         this.$refs['mchnt_list_form'].resetFields();
+        this.channels2.length = 0;
         this.fetchData();
       },
       selectCurrentRowHandler(currentRow, oldCurrentRow) {

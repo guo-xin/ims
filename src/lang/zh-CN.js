@@ -194,14 +194,15 @@ const zh = {
   merchant: {
     title: '商户管理',
     create: '创建',
-    query: 'Query',
-    reset: 'Reset',
+    query: '查询',
+    reset: '重置',
     patchImport: '批量创建',
     form: {
       mchtid: '商户ID',
       mchtname: '商户名称',
       agent1: '一级代理',
       agent2: '二级代理',
+      ph: '请先选择一级代理',
       audit_state: '审核状态'
     },
     table: {

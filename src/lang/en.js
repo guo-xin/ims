@@ -203,6 +203,7 @@ const en = {
       mchtname: 'Merchant Name',
       agent1: 'Agent L1',
       agent2: 'Agent L2',
+      ph: 'Please choose the L1 agent first.',
       audit_state: 'Audit State'
     },
     table: {
