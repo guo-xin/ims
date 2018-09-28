@@ -41,7 +41,9 @@ const store = new Vuex.Store({
               resolve()
             }
           })
-          .catch(reject)
+          .catch((res) => {
+            reject(res)
+          })
       })
     },
   }

@@ -50,7 +50,7 @@
         </div>
       </el-header>
       <div class="main-frame">
-        <el-aside>
+        <el-aside style="width:251px;">
           <el-menu class="menu-wrap"
                    :collapse="isCollapse"
                    text-color="#1D1D24"
@@ -218,6 +218,7 @@
 <style lang="scss">
   @media screen and (max-width:1280px){
     .layout .main-frame .el-main {margin-left:80px !important;}
+    .el-aside {width:80px !important}
   }
   @media screen and (min-width:1281px) {
 
@@ -290,7 +291,7 @@
         padding-top: 100px;
       }
       .el-aside {
-        width:251px !important;
+        width:251px;
         padding-top: 20px;
         overflow-x: hidden;
         overflow-y: auto;
