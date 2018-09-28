@@ -21,7 +21,7 @@
       </el-form-item>
 
       <el-form-item :label="$t('merchant.form.audit_state')" prop="audit_status">
-        <el-select v-model="formData.audit_status" @change="selectChannelHandler">
+        <el-select v-model="formData.audit_status">
           <el-option :label="item.val" :value="item.key" v-for="item in audits" :key="item.key"></el-option>
         </el-select>
       </el-form-item>
