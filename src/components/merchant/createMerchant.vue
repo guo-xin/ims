@@ -618,10 +618,11 @@
         if (this.active === 0) { // 第一步
           this.$refs['baseinfo'].validate((valid) => {
             if (valid) {
+              console.log(valid)
               this.active += 1
-              if (!this.isUpdate) {
-                localStorage.setItem('new_baseinfo', JSON.stringify(this.form.userinfo))
-              }
+//              if (!this.isUpdate) {
+//                localStorage.setItem('new_baseinfo', JSON.stringify(this.form.userinfo))
+//              }
             }
           })
         } else if (this.active === 1) { // 第二步
