@@ -275,7 +275,7 @@ const en = {
         email: 'Contact Email Address',
         cate: 'Merchant Type',
         scale: 'Merchant Scale',
-        type: 'Type',
+        type: 'Industry',
         sub: 'Sub Merchant',
         big: 'Big Merchant',
         chain: 'Chain Store',

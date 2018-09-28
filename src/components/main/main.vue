@@ -116,7 +116,7 @@
           {label: 'English', value: 'en'},
           {label: '简体中文', value: 'zh-CN'}
         ],
-        isCollapse: document.body.clientWidth < 1280,
+        isCollapse: document.body.clientWidth <= 1280,
         activeIndex: "1",
         subMenuIdxs: ["1"],
         menuSet: {
@@ -157,7 +157,7 @@
     },
     mounted() {
       window.onresize = (e) => {
-        if(document.body.clientWidth < 1280) {
+        if(document.body.clientWidth <= 1280) {
           this.isCollapse = true
         }else {
           this.isCollapse = false

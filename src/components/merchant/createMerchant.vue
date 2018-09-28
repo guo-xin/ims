@@ -29,6 +29,9 @@
       <el-form-item prop="slsm_username" :label="$t('merchant.newMerchant.form.contact')" v-if="!isUpdate">
         <el-input v-model.trim="form.userinfo.slsm_username"></el-input>
       </el-form-item>
+      <el-form-item prop="telephone" :label="$t('merchant.newMerchant.form.cell')">
+        <el-input v-model.trim="form.userinfo.telephone"></el-input>
+      </el-form-item>
       <el-form-item prop="email" :label="$t('merchant.newMerchant.form.email')">
         <el-input v-model.trim="form.userinfo.email"></el-input>
       </el-form-item>
@@ -57,9 +60,6 @@
       </el-form-item>
       <el-form-item prop="slsm_name" :label="$t('merchant.newMerchant.form.contact')" v-if="isUpdate">
         <el-input v-model.trim="form.qdinfo.slsm_name" type="text"></el-input>
-      </el-form-item>
-      <el-form-item prop="telephone" :label="$t('merchant.newMerchant.form.cell')">
-        <el-input v-model.trim="form.userinfo.telephone"></el-input>
       </el-form-item>
 
       <h3>{{$t('merchant.newMerchant.basic.cap2')}}</h3>
