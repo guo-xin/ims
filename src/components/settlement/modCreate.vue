@@ -178,8 +178,9 @@
 
     </el-form>
     <footer>
+      <el-button size="large" @click="close" v-if="!isCreat">{{ $t('common.close') }}</el-button>
       <el-button size="large" :loading="iconLoading" type="primary" @click="save">{{ $t('common.save') }}</el-button>
-      <el-button size="large" @click="reset">{{ $t('common.reset') }}</el-button>
+      <el-button size="large" @click="reset" v-if="isCreat">{{ $t('common.reset') }}</el-button>
     </footer>
   </div>
 </template>
