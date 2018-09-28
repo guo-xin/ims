@@ -12,7 +12,7 @@
       <el-row>
         <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la1')}}</span>
-          <span class="basic-content">{{form.userinfo.cate}}</span>
+          <span class="basic-content">{{cate[form.userinfo.cate]}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la2')}}</span>
@@ -49,7 +49,7 @@
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la10')}}</span>
-          <span class="basic-content">{{form.bankinfo.jointime}}</span>
+          <span class="basic-content">{{form.userinfo.jointime}}</span>
         </el-col>
       </el-row>
     </section>
@@ -76,16 +76,14 @@
         <div class="divider"></div>
       </div>
       <el-row>
-        <div v-for="(item,idx) in form.fee_ratios" :key="idx">
-          <el-col :span="10"  v-if="item.key==='tenpay_ratio'">
-            <span class="basic-label">{{item.key}}</span>
-            <span class="basic-content">{{item.value}}</span>
-          </el-col>
-          <el-col :span="14" v-if="item.key==='alipay_ratio'">
-            <span class="basic-label">{{item.key}}</span>
-            <span class="basic-content">{{item.value}}</span>
-          </el-col>
-        </div>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.rates.wechat')}}</span>
+          <span class="basic-content">{{form.fee_ratios.tenpay_ratio}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.rates.ali')}}</span>
+          <span class="basic-content">{{form.fee_ratios.alipay_ratio}}</span>
+        </el-col>
       </el-row>
     </section>
 
@@ -141,7 +139,7 @@
       <el-row>
         <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.pay.la9')}}</span>
-          <span class="basic-content">{{form.bankinfo.banktype}}</span>
+          <span class="basic-content">{{banktype[form.bankinfo.banktype]}}</span>
         </el-col>
       </el-row>
 
@@ -175,7 +173,7 @@
 
         <el-table-column prop="result"  :label="$t('audit.detail.table.result')">
           <template slot-scope="scope">
-            {{ scope.row.result }}
+            {{ scope.row.result_str }}
           </template>
         </el-table-column>
 
@@ -238,6 +236,15 @@
         isLoading: false,
         isEditable: false,
         temp: [],
+        cate: {
+          "merchant": this.$t('merchant.detail.cate.merchant'),
+          "bigmerchant": this.$t('merchant.detail.cate.big'),
+          "submerchant": this.$t('merchant.detail.cate.sub')
+        },
+        banktype: {
+          "1": this.$t('common.privata'),
+          "2": this.$t('common.pub')
+        },
         form: {
           userinfo: {
             userid: this.$route.query.userid || getParams('userid'),
@@ -337,14 +344,7 @@
             let data = res.data;
             this.isLoading = false;
             if (data.respcd === config.code.OK) {
-                let tempArr = [];
                 this.form = data.data
-                for (let key of Object.keys(data.data.fee_ratios)) {
-                  if(key !== 'userid') {
-                    tempArr.push({key: key, value: data.data.fee_ratios[key] || ' '})
-                  }
-                }
-                this.form.fee_ratios = tempArr
             } else {
               this.$message.error(data.respmsg);
             }

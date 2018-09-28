@@ -71,7 +71,7 @@
 
       <el-table-column prop="cate" :label="$t('merchant.table.cate_code')">
         <template slot-scope="scope">
-          {{ scope.row.cate }}
+          {{ cate[scope.row.cate] }}
         </template>
       </el-table-column>
 
@@ -107,6 +107,11 @@
           qd_uid2: '',
           qd_name: '',
           audit_status: ''
+        },
+        cate: {
+          "merchant": this.$t('merchant.detail.cate.merchant'),
+          "bigmerchant": this.$t('merchant.detail.cate.big'),
+          "submerchant": this.$t('merchant.detail.cate.sub')
         },
         merchents: [],
         channels: [],

@@ -202,7 +202,7 @@ const zh = {
       mchtname: '商户名称',
       agent1: '一级代理',
       agent2: '二级代理',
-      audit_state: 'Audit State'
+      audit_state: '审核状态'
     },
     table: {
       mchtid: '商户ID',
@@ -212,9 +212,15 @@ const zh = {
       agent1: '一级渠道',
       agent2: '二级渠道',
       account: '账户名称',
-      state: '审核状态'
+      state: '审核状态',
+      cate_code: '商户类型'
     },
     detail: {
+      cate: {
+        merchant: '普通子商户',
+        big: '大商户',
+        sub: '连锁店'
+      },
       basic: {
         title: '商户详情',
         close: '关闭',
@@ -228,7 +234,7 @@ const zh = {
         la7: '法人:',
         la8: '业务员电话:',
         la9: '邮箱:',
-        la10: 'Engage Time:'
+        la10: '商户成立日期:'
       },
       shop: {
         subtitle: '店铺信息',
@@ -237,7 +243,9 @@ const zh = {
         la3: '上传图片:'
       },
       rates: {
-        subtitle: '费率信息'
+        subtitle: '费率信息',
+        wechat: '微信支付:',
+        ali: '支付宝支付:'
       },
       pay: {
         subtitle: '清算信息',
@@ -284,7 +292,7 @@ const zh = {
         contact: '业务员账号',
         cell: '业务员电话',
         wei: '微信支付:',
-        ali: '阿里支付:',
+        ali: '支付宝支付:',
         rate: '商户费率',
         bankuser: '开户名',
         bankaccount: '清算账号',
@@ -311,7 +319,7 @@ const zh = {
       },
       rule1: '请选择商户类型',
       rule2: '请输入店铺名称',
-      rule3: '请输入公司名称',
+      rule3: '请输入商户名称',
       rule4: '请输入正确的邮箱地址',
       rule5: '银行卡账户必须是数字',
       rule6: '手机号必须是数字',

@@ -217,6 +217,11 @@ const en = {
       state: 'State'
     },
     detail: {
+      cate: {
+        merchant: 'Merchant',
+        big: 'Big-merchant',
+        sub: 'Sub-merchant'
+      },
       basic: {
         title: 'Detail Info',
         close: 'Close',
@@ -239,7 +244,9 @@ const en = {
         la3: 'Photograph:'
       },
       rates: {
-        subtitle: 'Rates Info'
+        subtitle: 'Rates Info',
+        wechat: 'WeChat Pay:',
+        ali: 'Alipay:'
       },
       pay: {
         subtitle: 'Payment Info',

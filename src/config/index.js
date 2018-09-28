@@ -2,7 +2,7 @@ const test = process.env.NODE_ENV === 'test';
 const dev = process.env.NODE_ENV === 'development';
 
 // 生产配置
-let host = 'https://sh.qfpay.com';
+let host = 'https://oasbp.qfpay.com';
 let ohost = 'https://o.qfpay.com';
 let imgUpload = 'https://o2.qfpay.com';
 
