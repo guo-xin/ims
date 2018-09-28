@@ -89,7 +89,6 @@
 
 <script>
   import axios from 'axios';
-  import Store from '../../assets/js/store';
   import config from '../../config';
   const navmap = {
       home: ["1"],
@@ -180,7 +179,7 @@
       },
       selectChange(val) {
         this.$i18n.locale = val;
-        Store.set("oasbp_lang", val);
+        sessionStorage.setItem("oasbp_lang", val)
         // 初始化页面及接口数据
         this.$router.go(0);
       },
