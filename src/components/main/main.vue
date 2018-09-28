@@ -171,6 +171,8 @@
           me.subMenuIdxs = navarr.splice(0, 1);
           me.activeIndex = navarr.length === 2 ? navarr[1] : navarr[0]
         }
+      }).catch(() => {
+        
       })
     },
     methods: {
