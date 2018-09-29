@@ -15,13 +15,13 @@
       </el-form-item>
 
       <el-form-item :label="$t('merchant.form.agent2')" prop="qd_uid2">
-        <el-select v-model="formData.qd_uid2">
+        <el-select v-model="formData.qd_uid2" :placeholder="$t('merchant.form.ph')" @change="aaa">
           <el-option :label="item.name" :value="item.qd_uid" v-for="item in channels2" :key="item.qd_uid"></el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item :label="$t('merchant.form.audit_state')" prop="audit_status">
-        <el-select v-model="formData.audit_status" @change="selectChannelHandler">
+        <el-select v-model="formData.audit_status">
           <el-option :label="item.val" :value="item.key" v-for="item in audits" :key="item.key"></el-option>
         </el-select>
       </el-form-item>
@@ -71,7 +71,7 @@
 
       <el-table-column prop="cate" :label="$t('merchant.table.cate_code')">
         <template slot-scope="scope">
-          {{ scope.row.cate }}
+          {{ cate[scope.row.cate] }}
         </template>
       </el-table-column>
 
@@ -107,6 +107,11 @@
           qd_uid2: '',
           qd_name: '',
           audit_status: ''
+        },
+        cate: {
+          "merchant": this.$t('merchant.detail.cate.merchant'),
+          "bigmerchant": this.$t('merchant.detail.cate.big'),
+          "submerchant": this.$t('merchant.detail.cate.sub')
         },
         merchents: [],
         channels: [],
@@ -160,7 +165,11 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
+      aaa(id) {
+        console.log('二级id：', id)
+      },
       selectChannelHandler(groupid) {
+        console.log('一级id：', groupid)
         groupid && axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
             groupid: groupid,
@@ -214,6 +223,7 @@
       },
       reset() {
         this.$refs['mchnt_list_form'].resetFields();
+        this.channels2.length = 0;
         this.fetchData();
       },
       selectCurrentRowHandler(currentRow, oldCurrentRow) {

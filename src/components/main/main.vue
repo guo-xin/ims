@@ -50,7 +50,7 @@
         </div>
       </el-header>
       <div class="main-frame">
-        <el-aside>
+        <el-aside style="width:251px;">
           <el-menu class="menu-wrap"
                    :collapse="isCollapse"
                    text-color="#1D1D24"
@@ -89,7 +89,6 @@
 
 <script>
   import axios from 'axios';
-  import Store from '../../assets/js/store';
   import config from '../../config';
   const navmap = {
       home: ["1"],
@@ -172,6 +171,8 @@
           me.subMenuIdxs = navarr.splice(0, 1);
           me.activeIndex = navarr.length === 2 ? navarr[1] : navarr[0]
         }
+      }).catch(() => {
+        
       })
     },
     methods: {
@@ -180,7 +181,7 @@
       },
       selectChange(val) {
         this.$i18n.locale = val;
-        Store.set("oasbp_lang", val);
+        sessionStorage.setItem("oasbp_lang", val)
         // 初始化页面及接口数据
         this.$router.go(0);
       },
@@ -219,6 +220,7 @@
 <style lang="scss">
   @media screen and (max-width:1280px){
     .layout .main-frame .el-main {margin-left:80px !important;}
+    .el-aside {width:80px !important}
   }
   @media screen and (min-width:1281px) {
 
@@ -291,7 +293,7 @@
         padding-top: 100px;
       }
       .el-aside {
-        width:251px !important;
+        width:251px;
         padding-top: 20px;
         overflow-x: hidden;
         overflow-y: auto;

@@ -63,10 +63,10 @@
       </el-form-item>
 
       <h3>{{$t('merchant.newMerchant.basic.cap2')}}</h3>
-      <el-form-item prop="tenpay_ratio" :label="$t('merchant.newMerchant.form.rate')">
+      <el-form-item prop="tenpay_ratio">
         <span class="rate_label">{{$t('merchant.newMerchant.form.wei')}}</span><el-input-number v-model="form.fee_ratios.tenpay_ratio" :precision="3" :step="0.001" :min="0" :max="1" @change="numberChange"></el-input-number>
       </el-form-item>
-      <el-form-item prop="alipay_ratio" :label="$t('merchant.newMerchant.form.rate')">
+      <el-form-item prop="alipay_ratio">
         <span class="rate_label">{{$t('merchant.newMerchant.form.ali')}}</span><el-input-number v-model="form.fee_ratios.alipay_ratio" :precision="3" :step="0.001" :min="0" :max="1"></el-input-number>
       </el-form-item>
     </el-form>
@@ -464,6 +464,9 @@
         this.getShopTypes()
       }
     },
+    mounted() {
+      this.initSelection()
+    },
     methods: {
       getShopTypes() {
         axios.get(`${config.host}/org/tools/mcc/list`, {
@@ -561,7 +564,6 @@
                 this.voucherInfo[item.name + '_url'] = item.url
                 this.voucherInfo[item.name + '_name'] = item.imgname
               })
-              this.initSelection()
             } else {
               this.$message.error(data.respmsg);
             }

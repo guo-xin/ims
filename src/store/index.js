@@ -39,9 +39,13 @@ const store = new Vuex.Store({
                 data: data.data
               })
               resolve()
+            }else {
+              reject()
             }
           })
-          .catch(reject)
+          .catch((res) => {
+            reject()
+          })
       })
     },
   }

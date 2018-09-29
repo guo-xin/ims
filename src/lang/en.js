@@ -203,6 +203,7 @@ const en = {
       mchtname: 'Merchant Name',
       agent1: 'Agent L1',
       agent2: 'Agent L2',
+      ph: 'Please choose the L1 agent first.',
       audit_state: 'Audit State'
     },
     table: {
@@ -217,6 +218,11 @@ const en = {
       state: 'State'
     },
     detail: {
+      cate: {
+        merchant: 'Merchant',
+        big: 'Big-merchant',
+        sub: 'Sub-merchant'
+      },
       basic: {
         title: 'Detail Info',
         close: 'Close',
@@ -239,7 +245,9 @@ const en = {
         la3: 'Photograph:'
       },
       rates: {
-        subtitle: 'Rates Info'
+        subtitle: 'Rates Info',
+        wechat: 'WeChat Pay:',
+        ali: 'Alipay:'
       },
       pay: {
         subtitle: 'Payment Info',

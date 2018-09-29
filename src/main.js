@@ -8,12 +8,11 @@ import store from './store'
 import config from 'src/config'
 import router from './router'
 import { Autocomplete, Container, Header, Aside, Main, Upload, Select, Option, TableColumn, Table, Button, Pagination, Dropdown, DropdownItem, DropdownMenu, Loading, DatePicker, Input, Message, MessageBox, Form, FormItem, Radio, RadioGroup, RadioButton, Dialog, Col, Row, CheckboxGroup, Checkbox, Rate, Tooltip, Menu, Submenu, MenuItem, MenuItemGroup, Steps, Step, InputNumber } from 'qfpay-element-ui';
-import Store from 'assets/js/store'
 import VueI18n from 'vue-i18n'
 import 'assets/scss/common.scss'
 import locale from 'qfpay-element-ui/lib/locale';
 
-let switchlang = Store.get("oasbp_lang") || 'en';
+let switchlang = sessionStorage.getItem("oasbp_lang") || 'en';
 
 Vue.use(VueI18n)
 
@@ -82,9 +81,7 @@ axios.interceptors.response.use((res) => {
     // 清除本地cookie
     (new Image()).src = `${config.ohost}/mchnt/set_cookie?sessionid=`;
 
-    // Store.set('flag', true);
-    localStorage.removeItem('oasbp_lang');
-
+    localStorage.clear();
     location.replace(`${location.pathname}#/login`);
   } else {
     return res
