@@ -45,7 +45,7 @@ export default new Router({
     {
       path: '/main',
       component: main,
-      redirect: '/main/home',
+      redirect: '/main/mchnt_manage_list',
       children: [
         {
           path: 'home',

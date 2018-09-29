@@ -446,11 +446,7 @@
         }
       }
     },
-    computed: {
-      authData() {
-        return this.$store.state.permissionData
-      }
-    },
+
     created() {
       if(this.$route.params) {
         this.isUpdate = this.$route.params.command === 'edit'
@@ -465,7 +461,7 @@
       }
     },
     mounted() {
-      this.initSelection()
+//      this.initSelection()
     },
     methods: {
       getShopTypes() {
@@ -546,7 +542,6 @@
       },
       avatarFailed(err, file) {
         this.$message.error(err);
-        console.log(file);
       },
       getDetailInfo() {
         axios.get(`${config.host}/org/mchnt/info`, {
