@@ -26,7 +26,7 @@
     <footer>
       <el-button v-if="isUpdate" size="large" @click="cancel">{{$t('common.close')}}</el-button>
       <el-button v-else size="large" @click="reset">{{$t('common.reset')}}</el-button>
-      <el-button v-if="isUpdate" type="primary" size="large" @click="update">{{isEdit ? $t('common.save') : $t('common.edit')}}</el-button>
+      <el-button v-if="isUpdate" v-show="hasRoleEditPerm" type="primary" size="large" @click="update">{{isEdit ? $t('common.save') : $t('common.edit')}}</el-button>
       <el-button v-else type="primary" size="large" @click="modify">{{$t('common.submit')}}</el-button>
     </footer>
   </div>
@@ -51,6 +51,11 @@
             {required: true, message: this.$t('role.pleaseEnter') + this.$t('role.roleName')}
           ]
         }
+      }
+    },
+    computed: {
+      hasRoleEditPerm() {
+        return this.$store.getters.hasPermission('perm_role_edit')
       }
     },
     created() {

@@ -2,7 +2,7 @@
   <div class="roleList">
     <header class="page-header">
       <h2 class="page-title">{{$t('role.roleManage')}}</h2>
-      <el-button size="large" type="primary" @click="createRole()">{{$t('common.create')}}</el-button>
+      <el-button v-if="hasRoleCreatePerm" size="large" type="primary" @click="createRole()">{{$t('common.create')}}</el-button>
     </header>
 
     <el-form class="search-form" ref="searchform" :model="formData">
@@ -56,6 +56,11 @@
         total: 0,
         pageSize: 10,
         currentPage: 1
+      }
+    },
+    computed: {
+      hasRoleCreatePerm() {
+        return this.$store.getters.hasPermission('perm_role_create')
       }
     },
     created() {

@@ -2,7 +2,7 @@
   <div class="agencyList">
     <header class="page-header">
       <h2 class="page-title">{{$t('trade.detail')}}</h2>
-      <el-button size="large" type="primary" @click="exportExcel()">{{$t('common.export')}}</el-button>
+      <el-button v-if="hasExportPerm" size="large" type="primary" @click="exportExcel()">{{$t('common.export')}}</el-button>
     </header>
 
     <el-form class="search-form" ref="searchform" :model="formData">
@@ -129,6 +129,11 @@
         total: 0,
         pageSize: 10,
         currentPage: 1
+      }
+    },
+    computed: {
+      hasExportPerm() {
+        return this.$store.getters.hasPermission('trade_detail_export')
       }
     },
     created() {

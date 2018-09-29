@@ -82,6 +82,10 @@
 
     },
     created() {
+      // 已登录直接跳到首页
+      if (getCookie('sessionid')) {
+        this.$router.push('/main')
+      }
     },
     methods: {
       changeCheckboxHandler(e) {

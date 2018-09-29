@@ -2,7 +2,7 @@
   <div class="agencyList">
     <header class="page-header">
       <h2 class="page-title">{{$t('agent.agentList')}}</h2>
-      <el-button size="large" type="primary" @click="createAgency()">{{$t('common.create')}}</el-button>
+      <el-button v-if="hasCreatePerm" size="large" type="primary" @click="createAgency()">{{$t('common.create')}}</el-button>
     </header>
 
     <el-form class="search-form" :model="formData">
@@ -69,6 +69,11 @@
         total: 0,
         pageSize: 10,
         currentPage: 1
+      }
+    },
+    computed: {
+      hasCreatePerm() {
+        return this.$store.getters.hasPermission('agent_manage_create')
       }
     },
     created() {
