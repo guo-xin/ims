@@ -87,7 +87,7 @@
     </el-table>
 
     <div class="pagination_wrapper" v-if="detailList.total >= 1">
-      <el-button size="large" type="primary" @click="down" class="el-button-primary">{{  $t('common.export') }}</el-button>
+      <el-button size="large" type="primary" @click="down" class="el-button-primary" v-if="basicAuth.includes('clearing_detail_export')">{{  $t('common.export') }}</el-button>
       <el-pagination
         ref="page"
         layout="total, sizes, prev, pager, next, jumper"
@@ -167,6 +167,10 @@
           pageSize: this.pageSize,
           format: 'cors'
         }
+      },
+
+      basicAuth() {
+        return this.$store.state.permissionData || [];
       }
     },
     created() {

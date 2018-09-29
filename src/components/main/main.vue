@@ -112,8 +112,8 @@
         loading: false,
         select: this.$i18n.locale,
         items: [
-          {label: 'English', value: 'en'},
-          {label: '简体中文', value: 'zh-CN'}
+          {label: 'English', value: 'en-us'},
+          {label: '简体中文', value: 'zh-cn'}
         ],
         isCollapse: document.body.clientWidth <= 1280,
         activeIndex: "1",
@@ -172,7 +172,7 @@
           me.activeIndex = navarr.length === 2 ? navarr[1] : navarr[0]
         }
       }).catch(() => {
-        
+
       })
     },
     methods: {

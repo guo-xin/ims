@@ -12,7 +12,7 @@ import VueI18n from 'vue-i18n'
 import 'assets/scss/common.scss'
 import locale from 'qfpay-element-ui/lib/locale';
 
-let switchlang = sessionStorage.getItem("oasbp_lang") || 'en';
+let switchlang = sessionStorage.getItem("oasbp_lang") || 'en-us';
 
 Vue.use(VueI18n)
 
@@ -59,8 +59,8 @@ Vue.use(InputNumber)
 const i18n = new VueI18n({
   locale: switchlang, // set locale
   messages: {
-    'en': require(`./lang/en.js`)['default'], // set locale messages
-    'zh-CN': require(`./lang/zh-CN.js`)['default']
+    'en-us': require(`./lang/en.js`)['default'], // set locale messages
+    'zh-cn': require(`./lang/zh-CN.js`)['default']
   }
 })
 locale.i18n((key, value) => i18n.t(key, value)) // 为了实现element插件的多语言切换
