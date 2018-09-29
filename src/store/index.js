@@ -11,6 +11,11 @@ const store = new Vuex.Store({
     permissionData: [],
     menuData: []
   },
+  getters: {
+    hasPermission: (state) => (perm) => {
+      return state.permissionData.find(item => item === perm)
+    }
+  },
   mutations: {
     getPermissionData (state, payload) {
       state.permissionData = payload.data.perms;
