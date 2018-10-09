@@ -271,6 +271,7 @@
         })
       },
       exportExcel() {
+        let lang = sessionStorage.getItem('oasbp_lang') || 'en-us'
         let params = {
           trade_start_time: this.formData.date[0] ? this.formData.date[0] + ' 00:00:00' : '',
           trade_end_time: this.formData.date[1] ? this.formData.date[1] + ' 23:59:59' : '',
@@ -280,7 +281,8 @@
           paytypes: this.formData.paytypes,
           mchnt_id: this.formData.mchnt_id,
           primary_agentid: this.formData.primary_agentid,
-          secondary_agentid: this.formData.secondary_agentid
+          secondary_agentid: this.formData.secondary_agentid,
+          lang
         }
         window.location.href = `${config.host}/org/trade/list/download?${qs.stringify(params)}`
       },
