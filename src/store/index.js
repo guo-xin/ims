@@ -13,7 +13,7 @@ const store = new Vuex.Store({
   },
   getters: {
     hasPermission: (state) => (perm) => {
-      return state.permissionData.find(item => item === perm)
+      return state.permissionData.includes(perm)
     }
   },
   mutations: {

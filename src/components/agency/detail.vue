@@ -33,7 +33,7 @@
       <li><em>{{$t('agent.alipay')}}：</em><span>{{payfee.alipay_fee}}%</span></li>
     </ul>
     <el-button size="large" @click="cancel()">{{$t('common.close')}}</el-button>
-    <el-button size="large" type="primary" @click="editAgency()">{{$t('common.edit')}}</el-button>
+    <el-button v-if="hasEditPerm" size="large" type="primary" @click="editAgency()">{{$t('common.edit')}}</el-button>
   </div>
 </template>
 
@@ -46,6 +46,11 @@
         base: {},
         bankinfo: {},
         payfee: {}
+      }
+    },
+    computed: {
+      hasEditPerm() {
+        return this.$store.getters.hasPermission('agent_manage_edit')
       }
     },
     created() {
