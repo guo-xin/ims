@@ -35,7 +35,7 @@ input[type="number"]{
 input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
 .el-header {
   height: 80px !important;
-  padding: 0 30px !important;
+  padding: 0 20px 0 30px !important;
 }
 
 //
@@ -119,6 +119,12 @@ form.el-form {
 }
 .el-input__inner {
   background-color: transparent;
+  padding: 0 9px;
+  font-size:$lgSize;
+  color: #1D1D24;
+}
+.el-input-number {
+  line-height: 32px;
 }
 .el-checkbox-groups-item > .el-checkbox {
   color: $titleColor;
@@ -193,7 +199,9 @@ form.el-form {
     margin-right: 5px;
   }
 }
-
+.el-input__icon {
+  line-height: 34px;
+}
 %shadow {
   box-shadow: 2px 6px 8px rgba(142, 169, 190, 0.1);
 }

@@ -719,7 +719,7 @@
           .rate_label {
             font-size: 14px;
             color:#717283;
-            padding: 0 $smGap;
+            padding:0 $smGap;
           }
         }
       }

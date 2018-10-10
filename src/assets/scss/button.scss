@@ -1,11 +1,19 @@
 .el-button--large {
   min-width: 170px;
-  font-size: $bigSize;
-  padding: 9px $midGap;
+  font-size: $lgSize;
+  padding: 8px $midGap;
+}
+.el-button--primary {
+  font-size: $lgSize;
+  padding: 8px $bigSize !important;
+  height: 34px;
 }
 .el-button--default {
+  font-size: $lgSize;
   border-color: $baseColor;
   color: $baseColor;
+  height: 34px;
+  line-height: 8px;
 }
 .el-button--text {
   color: $baseColor;
@@ -17,4 +25,7 @@
     top: 18px;
     left: $midGap;
   }
+}
+.el-input__inner {
+  height:34px !important;
 }

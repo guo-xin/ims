@@ -18,7 +18,7 @@
         <el-select v-model="baseform.levelcode" @change="selectLevel">
           <el-option v-for="level in levels" :label="level.text" :value="level.code" :key="level.code"></el-option>
         </el-select>
-        <el-select :disabled="baseform.levelcode === 1" v-model="baseform.parent_uid" :placeholder="$t('agent.agentBelong')" @change="updateAgency('secondAgency', $event)">
+        <el-select style="margin-left:10px;" :disabled="baseform.levelcode === 1" v-model="baseform.parent_uid" :placeholder="$t('agent.agentBelong')" @change="updateAgency('secondAgency', $event)">
           <el-option v-for="agency in allAgencys" :label="agency.name" :value="agency.qd_uid" :key="agency.qd_uid"></el-option>
         </el-select>
       </el-form-item>
@@ -30,7 +30,7 @@
         <el-select ref="province" v-model="baseform.auth_province" @change="selectProvince">
           <el-option v-for="province in areas" :label="province.areaname" :value="province.areaid" :key="province.areaid"></el-option>
         </el-select>
-        <el-select ref="city" v-model="baseform.auth_city" @change="selectCity">
+        <el-select style="margin-left:10px;" ref="city" v-model="baseform.auth_city" @change="selectCity">
           <el-option v-for="city in citys" :label="city.cityname" :value="city.cityid" :key="city.cityid"></el-option>
         </el-select>
       </el-form-item>

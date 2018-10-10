@@ -4,7 +4,7 @@
       <h2 class="page-title">{{$t('merchant.title')}}</h2>
       <div>
         <el-button size="large" type="primary" @click="createMerchant" v-if="authData.includes('mchnt_manage_create')">{{$t('merchant.create')}}</el-button>
-        <el-button size="large" type="primary" @click="patchImport" v-if="authData.includes('mchnt_manage_batch_create')">{{$t('merchant.patchImport')}}</el-button>
+        <el-button style="margin-left:6px;" size="large" type="primary" @click="patchImport" v-if="authData.includes('mchnt_manage_batch_create')">{{$t('merchant.patchImport')}}</el-button>
       </div>
     </header>
     <el-form class="search-form" :model="formData" ref="mchnt_list_form">
