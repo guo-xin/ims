@@ -126,6 +126,12 @@ form.el-form {
 .el-input-number {
   line-height: 32px;
 }
+.el-date-editor .el-range-separator {
+  line-height:26px;
+}
+.el-date-editor .el-range__icon {
+  line-height: 29px;
+}
 .el-checkbox-groups-item > .el-checkbox {
   color: $titleColor;
   .el-checkbox__label {
@@ -259,6 +265,12 @@ form.el-form {
       background-color: #F5FAFF;
     }
   }
+}
+.el-table .cell {
+  line-height: 18px;
+}
+.el-table thead th {
+  padding: 24px 0;
 }
 .tradeTotal {
   .el-table thead.is-group th {
