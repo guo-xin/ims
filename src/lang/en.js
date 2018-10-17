@@ -326,7 +326,7 @@ const en = {
       rule5: 'Bank card accounts must be number.', // 银行卡账户必须是数字
       rule6: 'Phone numbers must be number.', // 手机号必须是数字
       rule7: 'Please enter business account.', // 请输入业务员账号
-      rule8: 'Uploading avatars must be JPG / PNG format', // 上传头像必须是jpg、png格式
+      rule8: 'Uploading file must be JPG/PNG format', // 上传凭证必须是jpg、png格式
       rule9: 'Please enter chain store UID', // 请输入连锁店总店UID
       rule10: 'Only 60 characters can be entered at most.'
     }
