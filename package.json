@@ -8,6 +8,7 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "build_test": "node build/build.js test",
     "build": "node build/build.js production",
+    "build_sg": "node build/build.js Singapore",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {

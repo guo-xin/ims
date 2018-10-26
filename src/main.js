@@ -71,6 +71,7 @@ Vue.prototype.$http = axios
 axios.defaults.withCredentials = true; // 允许跨域请求携带cookie
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.headers.common['lang'] = switchlang;
+axios.defaults.headers.common['region'] = config.region;
 
 axios.interceptors.response.use((res) => {
   if (config.env === 'development') {
