@@ -330,6 +330,28 @@ const zh = {
       rule10: '最多输入60个字符',
     }
   },
+  shop: {
+    title: '门店管理',
+    query: '查询',
+    reset: '重置',
+    form: {
+      mchntid: '商户ID',
+      mchntname: '商户名称',
+      submchntid: '门店ID',
+      sunmchntname: '门店名称',
+    },
+    table: {
+      submchntid: '门店ID',
+      sunmchntname: '门店名称',
+      mchntid: '商户ID',
+      mchntname: '商户名称',
+      address: '门店地址',
+      telephone: '门店电话',
+      location: '门店所属国家',
+      post: '门店邮编',
+      operating: '门店营业时间'
+    }
+  },
   audit: {
     title: '审核管理',
     form: {

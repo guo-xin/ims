@@ -331,6 +331,143 @@ const en = {
       rule10: 'Only 60 characters can be entered at most.'
     }
   },
+  shop: {
+    title: 'Shop Management',
+    create: 'Create',
+    query: 'Query',
+    reset: 'Reset',
+    patchImport: 'Batch Creation',
+    form: {
+      mchntid: 'Merchant ID',
+      mchntname: 'Merchant Name',
+      submchntid: 'Shop ID',
+      sunmchntname: 'Shop Name'
+    },
+    table: {
+      submchntid: 'Shop ID',
+      sunmchntname: 'Shop Name',
+      mchntid: 'Merchant ID',
+      mchntname: 'Merchant Name',
+      address: 'Address',
+      telephone: 'Contact Number',
+      location: 'Location',
+      post: 'Postal Code',
+      operating: 'Operating Hours'
+    },
+    detail: {
+      cate: {
+        merchant: 'Merchant',
+        big: 'Big-merchant',
+        sub: 'Sub-merchant'
+      },
+      basic: {
+        title: 'Detail Info',
+        close: 'Close',
+        subtitle: 'Basic Information',
+        la1: 'Merchant Category:',
+        la2: 'Audit Status:',
+        la3: 'Name of Merchant:',
+        la4: 'Agent:',
+        la5: 'Address:',
+        la6: 'Contacts:',
+        la7: 'Legal Person:',
+        la8: 'Contact Telephone:',
+        la9: 'Email:',
+        la10: 'Engage Time:'
+      },
+      shop: {
+        subtitle: 'Shop Info',
+        la1: 'Name of Shop:',
+        la2: 'Address:',
+        la3: 'Photograph:'
+      },
+      rates: {
+        subtitle: 'Rates Info',
+        wechat: 'WeChat Pay:',
+        ali: 'Alipay:'
+      },
+      pay: {
+        subtitle: 'Payment Info',
+        la1: 'Account Name:',
+        la2: 'Bank Account:',
+        la3: 'Head Bank:',
+        la4: 'Branch Bank:',
+        la5: 'Province Bank:',
+        la6: 'Bank Code:',
+        la7: 'City Bank:',
+        la8: 'Mobile:',
+        la9: 'Bank Type:',
+        la10: 'Photograph:'
+      },
+      edit: 'Edit'
+    },
+    newMerchant: {
+      title1: 'Create A Merchant',
+      title2: 'Modify Merchant',
+      step1: 'Basic Info',
+      step2: 'Rates Info',
+      step3: 'Settlement Info',
+      basic: {
+        cap1: 'Basic Info',
+        cap2: 'Rates Info',
+      },
+      form: {
+        account: 'Account',
+        shopname: 'Store Name',
+        name: 'Merchant Name',
+        legal: 'Enterprise Legal Person',
+        storeaddr: 'Store Address',
+        email: 'Contact Email Address',
+        cate: 'Merchant Type',
+        scale: 'Merchant Scale',
+        type: 'Industry',
+        sub: 'Sub Merchant',
+        big: 'Big Merchant',
+        chain: 'Chain Store',
+        micro: 'Small and micro enterprises',
+        geti: 'Individual Company',
+        ent: 'Enterprises',
+        main: 'Main Store UID',
+        contact: 'Contact Name',
+        cell: 'Contact Number',
+        wei: 'WeChat Pay:',
+        ali: 'Alipay:',
+        rate: 'Merchant Rate',
+        bankuser: 'User Account Name',
+        bankaccount: 'Bank Account',
+        hbank: 'Bank Name',
+        bbank: 'Bank Branch Name',
+        bankProvice: 'Provice',
+        bankCity: 'City',
+        code: 'Swift Code',
+        mobile: 'Mobile Number',
+        banktype: 'Account Type',
+        doc: 'Documents', // 上传凭证，
+        idfront: 'Click to add a legal person id card frontage.',
+        idback: 'Click to add a legal person id card backside.',
+        oper: 'Click to add business license photos.', // 点击添加营业执照照片
+        lic: 'Click to add license photos.', // 点击添加开户许可照片
+        org: 'Click to add organization photos.', // 点击添加组织机构照片
+        protocol: 'Click Add merchant agreement photos', // 点击添加商户协议照片
+        warmfront: '* Second-generation ID cards must be used within the validity period. ID card numbers and avatars are clearly visible and full ID cards are photographed.', // 必须使用有效期内的二代身份证，身份证号码及头像清晰可见，完整身份证正面照
+        warmback: '* It is necessary to use the two generation ID card within the validity period. The validity period is clearly visible. The reverse of the complete identity card is used.', // 必须使用有效期内的二代身份证，有效期清晰可见，完整身份证反面照
+        warmoper: '* It is necessary to use the business license within the validity period. The documents need to be complete and clearly visible.', // 必须使用有效期之内的营业执照，需要证件完整且文字清晰可见
+        warmlic: '* Please upload valid license photos to ensure that the picture is clear and content is complete.', // 请上传有效的开户许可证照片，保证画面清晰，内容完整
+        warmorg: '* Please upload valid organization photos to ensure that the picture is clear and content is complete.', // 请上传有效的组织机构照片，保证画面清晰，内容完整
+        warmproto: '* Please upload valid business agreement photos to ensure that the picture is clear and content is complete.', // 请上传有效的商户协议照片，保证画面清晰，内容完整
+      },
+      rule1: 'Please choose registered merchants.', // 请选择注册商户
+      rule2: 'Please enter the name of the merchant.', // 请输入商户名称
+      rule3: 'Please enter company name.', // 请输入公司名称
+      rule4: 'Please input the correct email address.', // 请输入正确的邮箱地址
+      rule5: 'Bank card accounts must be number.', // 银行卡账户必须是数字
+      rule6: 'Phone numbers must be number.', // 手机号必须是数字
+      rule7: 'Please enter business account.', // 请输入业务员账号
+      rule8: 'Uploading file must be JPG/PNG format', // 上传凭证必须是jpg、png格式
+      rule9: 'Please enter chain store UID', // 请输入连锁店总店UID
+      rule10: 'Only 60 characters can be entered at most.'
+    } 
+  },
   audit: {
     title: 'Audit Management',
     form: {
