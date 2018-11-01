@@ -83,9 +83,9 @@
     },
     created() {
       // 已登录直接跳到首页
-      if (getCookie('sessionid')) {
-        this.$router.push('/main')
-      }
+//      if (getCookie('sessionid')) {
+//        this.$router.push('/main')
+//      }
     },
     methods: {
       changeCheckboxHandler(e) {
@@ -124,12 +124,6 @@
               let data = res.data;
               if(data.respcd === config.code.OK) {
                 // 当前域名下设置cookie
-                let bicon = new Image();
-                let sid = getCookie('sessionid') || '';
-                if(sid) {
-                  bicon.style.display = 'none';
-                  bicon.src = `${config.ohost}/mchnt/set_cookie?sessionid=${sid}`;
-                }
                 if(this.form.checked) { // 勾选了记住密码
                   let userInfo = {
                     username: data.data.username,
