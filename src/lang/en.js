@@ -116,8 +116,8 @@ const en = {
       no: 'No'
     },
     table: {
-      sNum: 'serial number',
-      merName: 'Business Name',
+      sNum: 'Serial number',
+      merName: 'Business name',
       shopName: 'Store name',
       tradeAmount: 'Trans amount',
       settlePercent: 'Clearing ratio',
@@ -356,7 +356,7 @@ const en = {
     detail: 'Transaction details',
     total: 'Transaction statistics',
     common: {
-      tradeDate: 'Transaction Date',
+      tradeDate: 'Trans Date',
       tradeTime: 'Transaction Time',
       inSameMonth: 'Transaction detail can only be queried within the same month',
       sNum: 'Transaction ID',
