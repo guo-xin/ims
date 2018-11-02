@@ -254,6 +254,7 @@ form.el-form {
     }
   }
 }
+
 .el-table {
   &::before {
     height: 0 !important;
@@ -271,6 +272,9 @@ form.el-form {
 }
 .el-table thead th {
   padding: 24px 0;
+}
+.el-table th > .cell {
+  word-break: break-word;
 }
 .tradeTotal {
   .el-table thead.is-group th {

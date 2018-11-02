@@ -116,14 +116,14 @@ const en = {
       no: 'No'
     },
     table: {
-      sNum: 'serial number',
-      merName: 'Business Name',
+      sNum: 'Serial number',
+      merName: 'Business name',
       shopName: 'Store name',
-      tradeAmount: 'Amount of the transaction',
+      tradeAmount: 'Trans amount',
       settlePercent: 'Clearing ratio',
       settleAmount: 'Clearing amount',
       count: 'Entries',
-      order: 'Sequence',
+      order: 'Seq',
       passName: 'Channel name',
       tradeNum: 'Number of transactions',
       lastTime: 'Last update time',
@@ -193,7 +193,7 @@ const en = {
     }
   },
   merchant: {
-    title: 'Business Management',
+    title: 'Merchant Management',
     create: 'Create',
     query: 'Query',
     reset: 'Reset',
@@ -204,13 +204,13 @@ const en = {
       agent1: 'Agent L1',
       agent2: 'Agent L2',
       ph: 'Please choose the L1 agent first.',
-      audit_state: 'Audit State'
+      audit_state: 'Merchant State'
     },
     table: {
       mchtid: 'Merchant ID',
       mchtname: 'Merchant Name',
       address: 'Address',
-      mobile: 'Mobile',
+      mobile: 'Contact Number',
       agent1: 'Agent L1',
       agent2: 'Agent L2',
       account: 'User Name',
@@ -218,25 +218,44 @@ const en = {
       state: 'State'
     },
     detail: {
+      up: 'Activate',
+      down: 'Deactivate',
       cate: {
         merchant: 'Merchant',
         big: 'Big-merchant',
         sub: 'Sub-merchant'
+      },
+      signed: {
+        yes: 'Yes',
+        no: 'No'
+      },
+      p: {
+        m: 'Monthly',
+        w: 'Weekly',
+        d: 'Daily'
       },
       basic: {
         title: 'Detail Info',
         close: 'Close',
         subtitle: 'Basic Information',
         la1: 'Merchant Category:',
-        la2: 'Audit Status:',
+        la2: 'Industry:',
         la3: 'Name of Merchant:',
         la4: 'Agent:',
         la5: 'Address:',
-        la6: 'Contacts:',
+        la6: 'Salesperson Name:',
         la7: 'Legal Person:',
         la8: 'Contact Telephone:',
-        la9: 'Email:',
-        la10: 'Engage Time:'
+        la9: 'Account:',
+        la10: 'Engage Time:',
+        la11: 'Company Name:',
+        la12: 'Company Address:',
+        la13: 'Location:',
+        la14: 'Post Code:',
+        la15: 'Contract Sign-off:',
+        la16: 'Settlement Period:',
+        la17: 'Salesperson Contact Number:',
+        la18: 'Company Telephone:'
       },
       shop: {
         subtitle: 'Shop Info',
@@ -269,21 +288,32 @@ const en = {
       title2: 'Modify Merchant',
       step1: 'Basic Info',
       step2: 'Rates Info',
-      step3: 'Settlement Info',
+      step3: 'Company Info',
       basic: {
-        cap1: 'Basic Info',
-        cap2: 'Rates Info',
+        cap1: 'Company Info',
+        cap2: 'Store Info',
       },
       form: {
+        timeformat: 'HH:MM - HH:MM',
+        is_contract: 'Contract Sign-off',
+        period: 'Settlement Period',
+        ratio: 'Service Fee Rate',
         account: 'Account',
         shopname: 'Store Name',
-        name: 'Merchant Name',
+        name: 'Company Name',
+        licensenumber: 'Company Registration Number (UEN)',
         legal: 'Enterprise Legal Person',
+        location: 'Location',
+        loc1: 'Singapore',
+        loc2: 'Hong Kong',
         storeaddr: 'Store Address',
         email: 'Contact Email Address',
+        post: 'Postal Code',
         cate: 'Merchant Type',
         scale: 'Merchant Scale',
-        type: 'Industry',
+        type1: 'Industry',
+        type2: 'Sub Industry',
+        bd: 'Brief Description',
         sub: 'Sub Merchant',
         big: 'Big Merchant',
         chain: 'Chain Store',
@@ -292,6 +322,13 @@ const en = {
         ent: 'Enterprises',
         main: 'Main Store UID',
         contact: 'Contact Name',
+        storephone: 'Store Telephone',
+        storelocation: 'Store Location',
+        storeaddress: 'Store Address',
+        storepost: 'Store Post',
+        addition: 'Additional Services',
+        storeoperating: 'Operating Hours',
+        website: 'Website URL',
         cell: 'Contact Number',
         wei: 'WeChat Pay:',
         ali: 'Alipay:',
@@ -305,19 +342,11 @@ const en = {
         code: 'Swift Code',
         mobile: 'Mobile Number',
         banktype: 'Account Type',
-        doc: 'Documents', // 上传凭证，
-        idfront: 'Click to add a legal person id card frontage.',
-        idback: 'Click to add a legal person id card backside.',
-        oper: 'Click to add business license photos.', // 点击添加营业执照照片
-        lic: 'Click to add license photos.', // 点击添加开户许可照片
-        org: 'Click to add organization photos.', // 点击添加组织机构照片
-        protocol: 'Click Add merchant agreement photos', // 点击添加商户协议照片
-        warmfront: '* Second-generation ID cards must be used within the validity period. ID card numbers and avatars are clearly visible and full ID cards are photographed.', // 必须使用有效期内的二代身份证，身份证号码及头像清晰可见，完整身份证正面照
-        warmback: '* It is necessary to use the two generation ID card within the validity period. The validity period is clearly visible. The reverse of the complete identity card is used.', // 必须使用有效期内的二代身份证，有效期清晰可见，完整身份证反面照
-        warmoper: '* It is necessary to use the business license within the validity period. The documents need to be complete and clearly visible.', // 必须使用有效期之内的营业执照，需要证件完整且文字清晰可见
-        warmlic: '* Please upload valid license photos to ensure that the picture is clear and content is complete.', // 请上传有效的开户许可证照片，保证画面清晰，内容完整
-        warmorg: '* Please upload valid organization photos to ensure that the picture is clear and content is complete.', // 请上传有效的组织机构照片，保证画面清晰，内容完整
-        warmproto: '* Please upload valid business agreement photos to ensure that the picture is clear and content is complete.', // 请上传有效的商户协议照片，保证画面清晰，内容完整
+        doc: 'Store Info', // 店铺信息
+        idfront: 'Click to add inside photos of business premises.',
+        idback: 'Click to add location photos of business premises.',
+        warmfront: '* You must use the inside picture of the merchandise / business place you sell.', // 必须使用所售商品/经营场所内景照片
+        warmback: '* You must use the premises / place of business location photos.', // 必须使用经营场所/经营场所外景照片
       },
       rule1: 'Please choose registered merchants.', // 请选择注册商户
       rule2: 'Please enter the name of the merchant.', // 请输入商户名称
@@ -328,7 +357,27 @@ const en = {
       rule7: 'Please enter business account.', // 请输入业务员账号
       rule8: 'Uploading file must be JPG/PNG format', // 上传凭证必须是jpg、png格式
       rule9: 'Please enter chain store UID', // 请输入连锁店总店UID
-      rule10: 'Only 60 characters can be entered at most.'
+      rule10: 'Only 60 characters can be entered at most.',
+      rule11: '请选择业务员',
+      rule12: 'Please enter account',
+      rule13: 'Retio must be lager than',
+      rule14: '请输入营业执照号',
+      rule15: '请选择公司所属地区',
+      rule16: '请输入公司地址',
+      rule17: '请输入公司联系人',
+      rule18: '请输入总行名称',
+      rule19: '请输入SWIFT代码',
+      rule20: '请输入银行帐户名称',
+      rule21: '请输入店铺名称',
+      rule22: '请输入店铺联系电话',
+      rule23: '请选择店铺所属地区',
+      rule24: '请输入店铺地址',
+      rule25: '请输入店铺邮编',
+      rule26: '请输入店铺附加服务',
+      rule27: '请输入店铺营业时间',
+      rule28: '请上传所售商品/经营场所内景照片',
+      rule29: '请上传经营场所/经营场所外景照片',
+      rule30: '请输入邮箱'
     }
   },
   audit: {
