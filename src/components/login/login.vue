@@ -43,17 +43,6 @@
   import qs from 'qs';
   import config from 'config';
 
-//  const getCookie = (sName) => {
-//    var aCookie = document.cookie.split(';')
-//
-//    for (let sCookie of aCookie) {
-//      var aCrumb = sCookie.split('=')
-//      if (sName == aCrumb[0].replace(/(^\s*)|(\s*$)/g, '')) {
-//        return (aCrumb[1])
-//      }
-//    }
-//    return null
-//  }
   export default {
     components: {
       ElButton,

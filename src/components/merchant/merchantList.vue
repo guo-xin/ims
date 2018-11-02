@@ -60,7 +60,7 @@
 
       <el-table-column prop="mobile"  :label="$t('merchant.table.mobile')">
         <template slot-scope="scope">
-          {{ scope.row.mobile }}
+          {{ scope.row.telephone }}
         </template>
       </el-table-column>
 
