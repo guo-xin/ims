@@ -26,7 +26,7 @@
       </div>
     </el-form>
 
-    <el-table :data="shops" stripe v-loading="isLoading">
+    <el-table :data="shops" stripe v-loading="isLoading" @current-change="selectCurrentRowHandler">
       <el-table-column prop="submchnt_id" :label="$t('shop.table.submchntid')">
         <template slot-scope="scope">
           {{ scope.row.submchnt_id }}
@@ -143,6 +143,12 @@
       reset() {
         this.$refs['shop_list_form'].resetFields();
         this.fetchData();
+      },
+      selectCurrentRowHandler(currentRow, oldCurrentRow) { // 选择列表项，进入详情页
+        this.$router.push({
+          name: 'shopDetail',
+          query: {userid: currentRow.submchnt_id, from: 'old'}
+        })
       },
       handleSizeChange(size = 10) {
         this.pageSize = size

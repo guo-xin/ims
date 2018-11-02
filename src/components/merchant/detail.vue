@@ -144,11 +144,11 @@
       </el-row>
 
       <el-row>
-        <el-col :span="4">
+        <el-col :span="24">
           <span class="basic-label">{{$t('merchant.detail.pay.la10')}}</span>
-        </el-col>
-        <el-col :span="20">
-          <img :src="item.url" v-for="(item,idx) in form.vouchers" class="voucher_photo" :key="idx"/>
+          <span class="basic-content-p">
+            <img :src="item.url" v-for="(item,idx) in form.vouchers" class="voucher_photo" :key="idx"/>
+          </span>  
         </el-col>
       </el-row>
     </section>
@@ -289,6 +289,7 @@
       .el-row {
         padding: $smGap 0 0 0;
         .basic-label {
+          vertical-align:top;
           font-size:$baseSize;
           font-weight:$bolderW;
           color:rgba(29,29,36,1);
@@ -296,6 +297,12 @@
         }
         .basic-content {
           margin-left: $smGap;
+          font-size:$baseSize;
+          font-weight:$baseW;
+          color:#717283;
+          line-height:$baseSize;
+        }
+        .basic-content-p {
           font-size:$baseSize;
           font-weight:$baseW;
           color:#717283;

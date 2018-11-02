@@ -361,19 +361,20 @@ const en = {
         sub: 'Sub-merchant'
       },
       basic: {
-        title: 'Detail Info',
+        title: 'Detail Shop',
         close: 'Close',
         subtitle: 'Basic Information',
-        la1: 'Merchant Category:',
-        la2: 'Audit Status:',
-        la3: 'Name of Merchant:',
-        la4: 'Agent:',
-        la5: 'Address:',
-        la6: 'Contacts:',
-        la7: 'Legal Person:',
-        la8: 'Contact Telephone:',
-        la9: 'Email:',
-        la10: 'Engage Time:'
+        la1: 'Merchant Name:',
+        la2: 'Account number:',
+        la3: 'Shop Name:',
+        la4: 'Contact Number:',
+        la5: 'Location:',
+        la6: 'Address:',
+        la7: 'Postal Code:',
+        la8: 'Operating Hours:',
+        la9: 'Additional Services:',
+        la10: 'Website URL(if available):',
+        la11: 'Photograph'
       },
       shop: {
         subtitle: 'Shop Info',

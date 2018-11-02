@@ -24,6 +24,7 @@ import settleSet from 'components/settlement/settleSet'
 import modCreate from 'components/settlement/modCreate'
 import modDetail from 'components/settlement/modDetail'
 import home from 'components/home/home'
+import shopDetail from 'components/merchant/bussDetail'
 
 Vue.use(Router)
 
@@ -56,6 +57,11 @@ export default new Router({
           path: 'shop_manage_list',
           name: 'shop_manage_list',
           component: bussinessList
+        },
+        {
+          path: 'shop_manage_list/shop_detail',
+          name: 'shopDetail',
+          component: shopDetail
         },
         {
           path: 'mchnt_manage_list',
