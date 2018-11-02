@@ -458,11 +458,11 @@
     },
     methods: {
       checkPhotosIsUpdated() {
-        if(!this.voucherInfo.goodsphoto_url) { // && this.form.vouchers.includes('goodsphoto')
+        if(!this.voucherInfo.goodsphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('goodsphoto')
           this.$message.error(this.$t('merchant.newMerchant.rule28'));
           return false;
         }
-        if(!this.voucherInfo.shopphoto_url) { // && this.form.vouchers.includes('shopphoto')
+        if(!this.voucherInfo.shopphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
           this.$message.error(this.$t('merchant.newMerchant.rule29'));
           return false;
         }
@@ -870,7 +870,7 @@
         display:flex;align-items: center;
       }
       .up-item {
-        margin-right:24px;
+        margin-right:32px;
       }
       .image_info {
         font-size: 14px;
