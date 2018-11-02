@@ -48,11 +48,11 @@
         </el-select>
       </el-form-item>
 
-      <!--<el-form-item prop="mcc2" :label="$t('merchant.newMerchant.form.type2')">-->
-        <!--<el-select v-model="form.mcc2" ref="mcc2">-->
-          <!--<el-option :label="item.name" :value="item.id" v-for="item in shopTypes2" :key="item.id"></el-option>-->
-        <!--</el-select>-->
-      <!--</el-form-item>-->
+      <el-form-item prop="status" :label="$t('merchant.newMerchant.form.type2')" v-if="isUpdate">
+        <el-select v-model="form.status" ref="mcc2">
+          <el-option :label="item.name" :value="item.val" v-for="item in statusList" :key="item.val"></el-option>
+        </el-select>
+      </el-form-item>
 
       <h3 style="padding:0;margin:0;font-size:0;color:transparent;" class="no-divider">&nbsp;</h3>
       <el-form-item :label="$t('merchant.newMerchant.form.bd')" prop="memo" class="memo">
@@ -73,7 +73,7 @@
       </el-form-item>
 
       <el-form-item prop="tenpay_ratio" :label="$t('merchant.newMerchant.form.ratio')+'(%)'">
-        <el-input-number v-model.trim="form.tenpay_ratio" :precision="2" :step="0.01" :min="0" :max="1"></el-input-number>
+        <el-input-number v-model.trim="form.tenpay_ratio" :precision="2" :step="0.01" :min="0" :max="5"></el-input-number>
       </el-form-item>
     </el-form>
     <!-- step2 -->
@@ -93,7 +93,7 @@
             <el-option :label="$t('merchant.newMerchant.form.loc2')" value="HK"></el-option>
           </el-select>
         </el-form-item>
-      <el-form-item prop="address" :label="$t('merchant.newMerchant.form.storeaddr')">
+      <el-form-item prop="address" :label="$t('merchant.newMerchant.form.address')">
           <el-input v-model.trim="form.address"></el-input>
       </el-form-item>
         <el-form-item prop="legalperson" :label="$t('merchant.newMerchant.form.legal')">
@@ -265,6 +265,7 @@
         active: 0, // 当前步骤,
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
         form: {
+            status: '',
             primary_uid: '', // 一级代理商id
             secondary_uid: '', // 二级代理商id
             sls_uid: '', // 业务员id
@@ -310,6 +311,10 @@
           {value: 'month', name: '月'},
           {value: 'week', name: '周'},
           {value: 'date', name: '日'},
+        ],
+        statusList: [
+          {name: this.$t('merchant.detail.up'), val: 1},
+          {name: this.$t('merchant.detail.down'), val: 0}
         ],
         voucherInfo: {
           goodsphoto_url: '', // 经营场所内景照片url
@@ -418,6 +423,7 @@
             }
           ],
           'bankaccount': [
+            {required: true, message: this.$t('merchant.newMerchant.rule22'), trigger: 'blur'},
             {
               validator: (rule, val, cb) => {
                 if (!/^[0-9]*$/.test(val)) {
@@ -679,6 +685,7 @@
               this.form.bankuser = bankinfo.bankuser;
               this.form.bankaccount = bankinfo.bankaccount;
               this.form.bankname = bankinfo.bankname;
+              this.form.status = +uinfo.status;
             } else {
               this.$message.error(data.respmsg);
             }
@@ -870,7 +877,7 @@
         display:flex;align-items: center;
       }
       .up-item {
-        margin-right:32px;
+        margin-right:24px;
       }
       .image_info {
         font-size: 14px;

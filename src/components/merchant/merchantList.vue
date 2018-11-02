@@ -29,7 +29,7 @@
 
       <el-form-item :label="$t('merchant.form.audit_state')" prop="status">
         <el-select v-model="formData.status">
-          <el-option :label="item.name" :value="item.val" v-for="item in audits" :key="item.val"></el-option>
+          <el-option :label="item.name" :value="item.val" v-for="item in statusList" :key="item.val"></el-option>
         </el-select>
       </el-form-item>
 
@@ -119,9 +119,9 @@
         merchents: [],
         channels: [],
         channels2: [],
-        audits: [
-          {name: this.$t('merchant.detail.up'), val: 0},
-          {name: this.$t('merchant.detail.down'), val: 1}
+        statusList: [
+          {name: this.$t('merchant.detail.up'), val: 1},
+          {name: this.$t('merchant.detail.down'), val: 0}
         ],
         total: 0,
         pageSize: 10,
@@ -148,7 +148,7 @@
             let data = res.data;
             this.loading = false;
             if (data.respcd === config.code.OK) {
-              this.audits = data.data;
+              this.statusList = data.data;
             } else {
               this.$message.error(data.respmsg);
             }

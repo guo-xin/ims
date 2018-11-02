@@ -244,9 +244,9 @@ const en = {
         la4: 'Agent:',
         la5: 'Address:',
         la6: 'Salesperson Name:',
-        la7: 'Legal Person:',
-        la8: 'Contact Telephone:',
-        la9: 'Account:',
+        la7: 'Contact Person:',
+        la8: 'Email:',
+        la9: 'Status:',
         la10: 'Engage Time:',
         la11: 'Company Name:',
         la12: 'Company Address:',
@@ -255,11 +255,12 @@ const en = {
         la15: 'Contract Sign-off:',
         la16: 'Settlement Period:',
         la17: 'Salesperson Contact Number:',
-        la18: 'Company Telephone:'
+        la18: 'Contact Number:',
+        la19: 'Registration Number (UEN):'
       },
       shop: {
         subtitle: 'Shop Info',
-        la1: 'Name of Shop:',
+        la1: 'Merchant Name:',
         la2: 'Address:',
         la3: 'Photograph:'
       },
@@ -312,7 +313,7 @@ const en = {
         cate: 'Merchant Type',
         scale: 'Merchant Scale',
         type1: 'Industry',
-        type2: 'Sub Industry',
+        type2: 'Merchant Status',
         bd: 'Brief Description',
         sub: 'Sub Merchant',
         big: 'Big Merchant',
@@ -517,7 +518,7 @@ const en = {
       rule8: 'Uploading file must be JPG/PNG format', // 上传凭证必须是jpg、png格式
       rule9: 'Please enter chain store UID', // 请输入连锁店总店UID
       rule10: 'Only 60 characters can be entered at most.'
-    } 
+    }
   },
   audit: {
     title: 'Audit Management',

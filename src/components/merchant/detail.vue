@@ -9,6 +9,24 @@
         <div class="title">{{$t('merchant.detail.basic.subtitle')}}</div>
         <div class="divider"></div>
       </div>
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la4')}}</span>
+          <span class="basic-content">{{form.qdinfo.qd_name}}</span>
+        </el-col>
+
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la6')}}</span>
+          <span class="basic-content">{{form.qdinfo.slsm_name}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la17')}}</span>
+          <span class="basic-content">{{form.qdinfo.slsm_mobile}}</span>
+        </el-col>
+      </el-row>
 
       <el-row>
         <el-col :span="10">
@@ -16,26 +34,27 @@
           <span class="basic-content">{{form.userinfo.shopname}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.shop.la2')}}</span>
-          <span class="basic-content">{{form.userinfo.address}}</span>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la1')}}</span>
           <span class="basic-content">{{cate[form.userinfo.cate]}}</span>
         </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la2')}}</span>
-          <span class="basic-content">{{form.userinfo.mcc_str}}</span>
-        </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la2')}}</span>
+          <span class="basic-content">{{form.userinfo.mcc_str}}</span>
+        </el-col>
+        <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la11')}}</span>
           <span class="basic-content">{{form.userinfo.name}}</span>
+        </el-col>
+
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la18')}}</span>
+          <span class="basic-content">{{form.userinfo.telephone}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la12')}}</span>
@@ -67,48 +86,22 @@
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la15')}}</span>
-          <span class="basic-content">{{isSigned[form.userinfo.is_contract]}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la19')}}</span>
+          <span class="basic-content">{{form.userinfo.licensenumber}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la16')}}</span>
-          <span class="basic-content">{{period[form.userinfo.settlement_time]}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la9')}}</span>
+          <span class="basic-content">{{status[form.userinfo.status]}}</span>
         </el-col>
       </el-row>
 
       <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la9')}}</span>
-          <span class="basic-content">{{form.userinfo.username}}</span>
-        </el-col>
-        <el-col :span="14">
+        <el-col :span="24">
           <span class="basic-label">{{$t('merchant.detail.basic.la10')}}</span>
           <span class="basic-content">{{form.userinfo.jointime}}</span>
         </el-col>
       </el-row>
 
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la4')}}</span>
-          <span class="basic-content">{{form.qdinfo.qd_name}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la6')}}</span>
-          <span class="basic-content">{{form.qdinfo.slsm_name}}</span>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la17')}}</span>
-          <span class="basic-content">{{form.qdinfo.slsm_mobile}}</span>
-        </el-col>
-
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la18')}}</span>
-          <span class="basic-content">{{form.userinfo.telephone}}</span>
-        </el-col>
-      </el-row>
     </section>
 
     <section class="rates">
@@ -117,9 +110,19 @@
         <div class="divider"></div>
       </div>
       <el-row>
-        <el-col :span="24">
+        <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.rates.wechat')}}</span>
           <span class="basic-content">{{form.fee_ratios.tenpay_ratio}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la15')}}</span>
+          <span class="basic-content">{{isSigned[form.userinfo.is_contract]}}</span>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="24">
+          <span class="basic-label">{{$t('merchant.detail.basic.la16')}}</span>
+          <span class="basic-content">{{period[form.userinfo.settlement_time]}}</span>
         </el-col>
       </el-row>
     </section>
@@ -209,6 +212,10 @@
           week: this.$t('merchant.detail.p.w'),
           date: this.$t('merchant.detail.p.d'),
         },
+        status: {
+            1: this.$t('merchant.detail.up'),
+            0: this.$t('merchant.detail.down')
+         },
         form: {
           userinfo: {
             userid: this.$route.query.userid || getParams('userid'), // 商户ID
