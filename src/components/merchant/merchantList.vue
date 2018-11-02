@@ -120,8 +120,8 @@
         channels: [],
         channels2: [],
         statusList: [
-          {name: this.$t('merchant.detail.up'), val: 1},
-          {name: this.$t('merchant.detail.down'), val: 0}
+          {name: this.$t('merchant.detail.up'), val: 0},
+          {name: this.$t('merchant.detail.down'), val: 1}
         ],
         total: 0,
         pageSize: 10,

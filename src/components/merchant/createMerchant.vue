@@ -313,8 +313,8 @@
           {value: 'date', name: '日'},
         ],
         statusList: [
-          {name: this.$t('merchant.detail.up'), val: 1},
-          {name: this.$t('merchant.detail.down'), val: 0}
+          {name: this.$t('merchant.detail.up'), val: 0},
+          {name: this.$t('merchant.detail.down'), val: 1}
         ],
         voucherInfo: {
           goodsphoto_url: '', // 经营场所内景照片url

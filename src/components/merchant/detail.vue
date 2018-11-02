@@ -213,8 +213,8 @@
           date: this.$t('merchant.detail.p.d'),
         },
         status: {
-            1: this.$t('merchant.detail.up'),
-            0: this.$t('merchant.detail.down')
+            0: this.$t('merchant.detail.up'),
+            1: this.$t('merchant.detail.down')
          },
         form: {
           userinfo: {
