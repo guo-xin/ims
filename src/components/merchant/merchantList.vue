@@ -27,9 +27,9 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item :label="$t('merchant.form.audit_state')" prop="audit_status">
-        <el-select v-model="formData.audit_status">
-          <el-option :label="item.val" :value="item.key" v-for="item in audits" :key="item.key"></el-option>
+      <el-form-item :label="$t('merchant.form.audit_state')" prop="status">
+        <el-select v-model="formData.status">
+          <el-option :label="item.name" :value="item.val" v-for="item in audits" :key="item.val"></el-option>
         </el-select>
       </el-form-item>
 
@@ -60,7 +60,7 @@
 
       <el-table-column prop="mobile"  :label="$t('merchant.table.mobile')">
         <template slot-scope="scope">
-          {{ scope.row.mobile }}
+          {{ scope.row.telephone }}
         </template>
       </el-table-column>
 
@@ -82,11 +82,6 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="audit_status_str" :label="$t('merchant.table.state')" align="center">
-        <template slot-scope="scope">
-        {{ scope.row.audit_status_str }}
-        </template>
-      </el-table-column>
     </el-table>
 
     <el-pagination
@@ -114,7 +109,7 @@
           qd_uid2: '',
           qd_name: '',
           qd_name2: '',
-          audit_status: ''
+          status: ''
         },
         cate: {
           "merchant": this.$t('merchant.detail.cate.merchant'),
@@ -124,7 +119,10 @@
         merchents: [],
         channels: [],
         channels2: [],
-        audits: [],
+        audits: [
+          {name: this.$t('merchant.detail.up'), val: 0},
+          {name: this.$t('merchant.detail.down'), val: 1}
+        ],
         total: 0,
         pageSize: 10,
         currentPage: 0
@@ -138,7 +136,7 @@
     created() {
       this.fetchData()
       this.getChannelList()
-      this.getAuditList()
+//      this.getAuditList()
     },
     methods: {
       getAuditList() { // 审核列表数据
@@ -202,10 +200,10 @@
           shopname: this.formData.shopname,
           userid: this.formData.userid,
           qd_uid: this.formData.qd_uid,
-          audit_status: this.formData.audit_status,
+          status: this.formData.status,
           qd_name: '',
           page: this.currentPage > 0 ? (this.currentPage - 1) : this.currentPage,
-          pagesize: this.pageSize,
+          page_size: this.pageSize,
           format: 'cors'
         }
         if(this.formData.qd_uid2) {
@@ -217,8 +215,8 @@
             let data = res.data;
             this.loading = false;
             if (data.respcd === config.code.OK) {
-               this.merchents = data.data.list
-               this.total = data.data.total
+               this.merchents = data.data.mchnt_infos
+               this.total = data.data.mchnt_cnt
             } else {
               this.$message.error(data.respmsg);
             }

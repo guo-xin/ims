@@ -54,6 +54,7 @@ Vue.use(MenuItemGroup)
 Vue.use(Step)
 Vue.use(Steps)
 Vue.use(InputNumber)
+// Vue.use(TimePicker)
 
 // Create VueI18n instance with options
 const i18n = new VueI18n({
@@ -79,9 +80,6 @@ axios.interceptors.response.use((res) => {
   }
   let data = res.data;
   if (data.respcd == config.code.SESSIONERR || data.respcd == config.code.LOGINERR) {
-    // 清除本地cookie
-    (new Image()).src = `${config.ohost}/mchnt/set_cookie?sessionid=`;
-
     localStorage.clear();
     location.replace(`${location.pathname}#/login`);
   } else {

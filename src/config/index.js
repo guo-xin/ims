@@ -3,21 +3,21 @@ let host, ohost, region = 'domestic', imgUpload = '';
 
 switch (env) {
   case 'test': // 线上测试
-    host = '';
+    host = 'https://oasbp.qa.qfpay.net';
     ohost = 'https://o.qa.qfpay.net';
     imgUpload = 'https://o2.qa.qfpay.net';
     break;
 
   case 'development':
-    host = 'https://oasbp.qa.qfpay.net';
+    host = 'http://172.100.108.179:6500'; // https://oasbp.qa.qfpay.net
     ohost = 'https://o.qa.qfpay.net';
-    imgUpload = 'http://172.100.111.45:8198';
+    imgUpload = 'https://o2.qa.qfpay.net';
     break;
 
   case 'Singapore': // 新加坡
-    host = `https://`;
+    host = `http://172.100.108.179:6500`;
     ohost = `https://`;
-    imgUpload = ``;
+    imgUpload = 'https://o2.qfpay.com';
     region = 'Singapore';
     break;
 

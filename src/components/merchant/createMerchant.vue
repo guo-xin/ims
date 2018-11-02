@@ -9,106 +9,170 @@
       <el-step :title="$t('merchant.newMerchant.step3')"></el-step>
     </el-steps>
 
-    <el-form v-show="active === 0" v-loading="isLoading" ref="baseinfo" :model="form.userinfo" :rules="baseRules">
+    <el-form v-show="active === 0" v-loading="isLoading" ref="baseinfo" :model="form" :rules="baseRules">
       <h3>{{$t('merchant.newMerchant.basic.cap1')}}</h3>
 
-      <el-form-item :label="$t('merchant.form.agent1')" prop="primary_uid">
-        <el-select v-model="form.userinfo.primary_uid" @change="selectChannelHandler">
+      <el-form-item :label="$t('merchant.form.agent1')" prop="primary_uid" v-if="!isUpdate">
+        <el-select v-model="form.primary_uid" @change="selectChannelHandler">
           <el-option :label="item.name" :value="item.qd_uid" v-for="item in channels1" :key="item.qd_uid"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item :label="$t('merchant.form.agent2')" prop="qd_uid2">
-        <el-select v-model="form.userinfo.secondary_uid" :placeholder="$t('merchant.form.ph')">
+      <el-form-item :label="$t('merchant.form.agent2')" prop="secondary_uid" v-if="!isUpdate">
+        <el-select v-model="form.secondary_uid" :placeholder="$t('merchant.form.ph')" @change="selectChannel2Handler">
           <el-option :label="item.name" :value="item.qd_uid" v-for="item in channels2" :key="item.qd_uid"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item prop="username" :label="$t('merchant.newMerchant.form.account')">
-        <el-input v-model.trim="form.userinfo.username"></el-input>
-      </el-form-item>
-      <el-form-item prop="shopname" :label="$t('merchant.newMerchant.form.shopname')">
-        <el-input v-model.trim="form.userinfo.shopname"></el-input>
-      </el-form-item>
-      <el-form-item prop="name" :label="$t('merchant.newMerchant.form.name')">
-        <el-input v-model.trim="form.userinfo.name"></el-input>
-      </el-form-item>
-      <el-form-item prop="address" :label="$t('merchant.newMerchant.form.storeaddr')">
-        <el-input v-model.trim="form.userinfo.address"></el-input>
-      </el-form-item>
-      <el-form-item prop="slsm_username" :label="$t('merchant.newMerchant.form.contact')" v-if="!isUpdate">
-        <el-input v-model.trim="form.userinfo.slsm_username"></el-input>
-      </el-form-item>
-      <el-form-item prop="telephone" :label="$t('merchant.newMerchant.form.cell')">
-        <el-input v-model.trim="form.userinfo.telephone"></el-input>
-      </el-form-item>
-      <el-form-item prop="email" :label="$t('merchant.newMerchant.form.email')">
-        <el-input v-model.trim="form.userinfo.email"></el-input>
-      </el-form-item>
-      <el-form-item prop="cate" :label="$t('merchant.newMerchant.form.cate')">
-        <el-select v-model="form.userinfo.cate" @change="selectHandler('cate', $event)" ref="cate">
-          <el-option :label="$t('merchant.newMerchant.form.sub')" value="merchant"></el-option>
-          <el-option :label="$t('merchant.newMerchant.form.big')" value="bigmerchant"></el-option>
-          <el-option :label="$t('merchant.newMerchant.form.chain')" value="submerchant"></el-option>
+
+      <el-form-item :label="$t('merchant.newMerchant.form.contact')" prop="sls_uid">
+        <el-select v-model="form.sls_uid" ref="sls">
+          <el-option :label="item.name" :value="item.userid" v-for="item in salesperson" :key="item.userid"></el-option>
         </el-select>
       </el-form-item>
 
-      <el-form-item prop="mcc" :label="$t('merchant.newMerchant.form.type')">
-        <el-select v-model="form.userinfo.mcc" @change="selectHandler('mcc_str',$event)" ref="mcc">
-          <el-option :label="item.name" :value="item.id" v-for="(item, idx) in shopTypes" :key="idx"></el-option>
+      <el-form-item prop="shopname" :label="$t('merchant.newMerchant.form.shopname')">
+        <el-input v-model.trim="form.shopname"></el-input>
+      </el-form-item>
+      <!--<el-form-item prop="email" :label="$t('merchant.newMerchant.form.email')">-->
+        <!--<el-input v-model.trim="form.email"></el-input>-->
+      <!--</el-form-item>-->
+      <el-form-item prop="cate" :label="$t('merchant.newMerchant.form.cate')">
+        <el-select v-model="form.cate" ref="cate" :disabled="isUpdate">
+          <el-option :label="$t('merchant.newMerchant.form.sub')" value="merchant"></el-option>
+          <el-option :label="$t('merchant.newMerchant.form.big')" value="bigmerchant"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item prop="big_uid" :label="$t('merchant.newMerchant.form.main')" v-if="form.userinfo.cate==='submerchant'">
-        <el-input v-model.trim="form.userinfo.big_uid" type="text"></el-input>
+
+      <el-form-item prop="mcc" :label="$t('merchant.newMerchant.form.type1')">
+        <el-select v-model="form.mcc" ref="mcc">
+          <el-option :label="item.name" :value="item.id" v-for="item in shopTypes" :key="item.id"></el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item prop="slsm_name" :label="$t('merchant.newMerchant.form.contact')" v-if="isUpdate">
-        <el-input v-model.trim="form.qdinfo.slsm_name" type="text"></el-input>
+
+      <!--<el-form-item prop="mcc2" :label="$t('merchant.newMerchant.form.type2')">-->
+        <!--<el-select v-model="form.mcc2" ref="mcc2">-->
+          <!--<el-option :label="item.name" :value="item.id" v-for="item in shopTypes2" :key="item.id"></el-option>-->
+        <!--</el-select>-->
+      <!--</el-form-item>-->
+
+      <h3 style="padding:0;margin:0;font-size:0;color:transparent;" class="no-divider">&nbsp;</h3>
+      <el-form-item :label="$t('merchant.newMerchant.form.bd')" prop="memo" class="memo">
+        <el-input type="textarea" v-model="form.memo" :rows="3" resize="none"></el-input>
       </el-form-item>
 
       <h3>{{$t('merchant.newMerchant.basic.cap2')}}</h3>
-      <el-form-item prop="tenpay_ratio">
-        <span class="rate_label">{{$t('merchant.newMerchant.form.wei')}}</span><el-input-number v-model="form.userinfo.tenpay_ratio" :precision="3" :step="0.001" :min="0" :max="1" @change="numberChange"></el-input-number>
+      <el-form-item prop="is_contract" :label="$t('merchant.newMerchant.form.is_contract')">
+        <el-select v-model="form.is_contract">
+          <el-option :label="item.name" :value="item.value" v-for="item in signedList" :key="item.value"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item prop="settlement_time" :label="$t('merchant.newMerchant.form.period')">
+        <el-select v-model="form.settlement_time">
+          <el-option :label="item.name" :value="item.value" v-for="item in settlements" :key="item.value"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item prop="tenpay_ratio" :label="$t('merchant.newMerchant.form.ratio')+'(%)'">
+        <el-input-number v-model.trim="form.tenpay_ratio" :precision="2" :step="0.01" :min="0" :max="1"></el-input-number>
       </el-form-item>
     </el-form>
     <!-- step2 -->
-    <el-form v-show="active === 1" ref="bankinfos"  :model="form.bankinfo" :rules="bankRules">
+      <el-form v-show="active === 1" ref="bankinfos"  :model="form" :rules="bankRules">
       <h3>{{$t('merchant.newMerchant.step3')}}</h3>
-      <el-form-item prop="bankuser" :label="$t('merchant.newMerchant.form.bankuser')">
-        <el-input v-model="form.userinfo.bankuser"></el-input>
+      <el-form-item prop="name" :label="$t('merchant.newMerchant.form.name')">
+        <el-input v-model.trim="form.name"></el-input>
+      </el-form-item>
+
+      <el-form-item prop="licensenumber" :label="$t('merchant.newMerchant.form.licensenumber')">
+          <el-input v-model.trim="form.licensenumber" type="number"></el-input>
+      </el-form-item>
+
+        <el-form-item prop="location" :label="$t('merchant.newMerchant.form.location')">
+          <el-select v-model="form.location">
+            <el-option :label="$t('merchant.newMerchant.form.loc1')" value="SG"></el-option>
+            <el-option :label="$t('merchant.newMerchant.form.loc2')" value="HK"></el-option>
+          </el-select>
+        </el-form-item>
+      <el-form-item prop="address" :label="$t('merchant.newMerchant.form.storeaddr')">
+          <el-input v-model.trim="form.address"></el-input>
+      </el-form-item>
+        <el-form-item prop="legalperson" :label="$t('merchant.newMerchant.form.legal')">
+          <el-input v-model.trim="form.legalperson"></el-input>
+        </el-form-item>
+
+        <el-form-item prop="telephone" :label="$t('merchant.newMerchant.form.cell')">
+          <el-input v-model.trim="form.telephone"></el-input>
+        </el-form-item>
+
+        <el-form-item prop="post" :label="$t('merchant.newMerchant.form.post')">
+          <el-input v-model.trim="form.post"></el-input>
+        </el-form-item>
+
+        <el-form-item prop="email" :label="$t('merchant.newMerchant.form.email')">
+          <el-input v-model.trim="form.email" :disabled="isUpdate"></el-input>
+        </el-form-item>
+
+        <el-form-item prop="bankuser" :label="$t('merchant.newMerchant.form.bankuser')">
+        <el-input v-model="form.bankuser"></el-input>
       </el-form-item>
       <el-form-item prop="bankaccount" :label="$t('merchant.newMerchant.form.bankaccount')">
-        <el-input v-model="form.userinfo.bankaccount"></el-input>
+        <el-input v-model.trim="form.bankaccount"></el-input>
       </el-form-item>
       <el-form-item prop="headbankname" :label="$t('merchant.newMerchant.form.hbank')">
-        <el-input v-model="form.userinfo.headbankname"></el-input>
+        <el-input v-model.trim="form.headbankname"></el-input>
       </el-form-item>
       <el-form-item prop="bankname" :label="$t('merchant.newMerchant.form.bbank')">
-        <el-input v-model="form.userinfo.bankname"></el-input>
+        <el-input v-model.trim="form.bankname"></el-input>
       </el-form-item>
-      <el-form-item prop="bankProvince" :label="$t('merchant.newMerchant.form.bankProvice')">
-        <el-input v-model="form.userinfo.bankProvince"></el-input>
-      </el-form-item>
-      <el-form-item prop="bankCity" :label="$t('merchant.newMerchant.form.bankCity')">
-        <el-input v-model="form.userinfo.bankCity"></el-input>
-      </el-form-item>
+
       <el-form-item prop="bankcode" :label="$t('merchant.newMerchant.form.code')">
-        <el-input v-model="form.userinfo.brchbank_code"></el-input>
+        <el-input v-model.trim="form.bankcode"></el-input>
       </el-form-item>
-      <el-form-item prop="bankmobile" :label="$t('merchant.newMerchant.form.mobile')">
-        <el-input v-model="form.userinfo.bankmobile"></el-input>
-      </el-form-item>
-      <el-form-item prop="banktype" :label="$t('merchant.newMerchant.form.banktype')">
-        <el-select v-model="form.userinfo.banktype" ref="banktype">
-          <el-option :label="$t('common.privata')" value="1"></el-option>
-          <el-option :label="$t('common.pub')" value="2"></el-option>
-        </el-select>
-      </el-form-item>
-      <h3>{{$t('merchant.newMerchant.form.doc')}}</h3>
-      <el-row>
+      <section v-if="!isUpdate">
+        <h3>{{$t('merchant.newMerchant.form.doc')}}</h3>
+        <el-form-item prop="storename" :label="$t('merchant.newMerchant.form.storename')">
+          <el-input v-model.trim="form.storename"></el-input>
+        </el-form-item>
+
+        <el-form-item prop="storetelephone" :label="$t('merchant.newMerchant.form.storephone')">
+          <el-input v-model.trim="form.storetelephone"></el-input>
+        </el-form-item>
+
+        <el-form-item prop="storelocation" :label="$t('merchant.newMerchant.form.storelocation')">
+          <el-select v-model="form.storelocation">
+            <el-option :label="$t('merchant.newMerchant.form.loc1')" value="SG"></el-option>
+            <el-option :label="$t('merchant.newMerchant.form.loc2')" value="HK"></el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item prop="storeaddress" :label="$t('merchant.newMerchant.form.storeaddress')">
+          <el-input v-model.trim="form.storeaddress"></el-input>
+        </el-form-item>
+
+        <el-form-item prop="storepost" :label="$t('merchant.newMerchant.form.storepost')">
+          <el-input v-model.trim="form.storepost"></el-input>
+        </el-form-item>
+
+        <el-form-item prop="storeadditional" :label="$t('merchant.newMerchant.form.addition')">
+          <el-input v-model.trim="form.storeadditional"></el-input>
+        </el-form-item>
+
+        <el-form-item prop="storeoperating" :label="$t('merchant.newMerchant.form.storeoperating')">
+          <el-input v-model.trim="form.storeoperating" :placeholder="$t('merchant.newMerchant.form.timeformat')"></el-input>
+        </el-form-item>
+
+        <el-form-item prop="website" :label="$t('merchant.newMerchant.form.website')">
+          <el-input v-model.trim="form.website"></el-input>
+        </el-form-item>
+      </section>
+
+      <el-row v-if="!isUpdate">
         <el-col :span="24">
           <div>
             <el-col :span="7" class="up-item">
               <el-upload
                 :file-list="form.vouchers"
-                v-loading="idcardfrontloading"
+                v-loading="goodsphotoloading"
                 :on-progress="startAvatarUpload"
                 class="avatar-uploader"
                 :action="uploadInterface"
@@ -119,12 +183,12 @@
                 :data="{
                     category: 1,
                     source: 1,
-                    tag: 'idcardfront',
+                    tag: 'goodsphoto',
                     enuserid: 'EPeRaNEt',
                     format: 'cors'
                 }">
-                <div v-if="voucherInfo.idcardfront_url" class="avatar-wrap">
-                  <img :src="voucherInfo.idcardfront_url" class="avatar">
+                <div v-if="voucherInfo.goodsphoto_url" class="avatar-wrap">
+                  <img :src="voucherInfo.goodsphoto_url" class="avatar">
                   <span class="img-tip">{{$t('common.reupload')}}</span>
                 </div>
                 <div v-else class="avatar-uploader-wrap">
@@ -138,7 +202,7 @@
             <el-col :span="7" class="up-item">
               <el-upload
                 :file-list="form.vouchers"
-                v-loading="idcardbackloading"
+                v-loading="shopphotoloading"
                 :on-progress="startAvatarUpload"
                 class="avatar-uploader"
                 :action="uploadInterface"
@@ -149,12 +213,12 @@
                 :data="{
                     category: 1,
                     source: 1,
-                    tag: 'idcardback',
+                    tag: 'shopphoto',
                     format: 'cors',
                     enuserid: 'EPeRaNEt'
                 }">
-                <div v-if="voucherInfo.idcardback_url" class="avatar-wrap">
-                  <img :src="voucherInfo.idcardback_url" class="avatar">
+                <div v-if="voucherInfo.shopphoto_url" class="avatar-wrap">
+                  <img :src="voucherInfo.shopphoto_url" class="avatar">
                   <i class="img-tip">{{$t('common.reupload')}}</i>
                 </div>
                 <div v-else class="avatar-uploader-wrap">
@@ -195,46 +259,34 @@
     data() {
       return {
         isLoading: false,
-        licensephotoloading: false,
-        orgphotoloading: false,
-        openlicenseloading: false,
-        idcardfrontloading: false,
-        idcardbackloading: false,
-        delegateagreementloading: false,
+        goodsphotoloading: false,
+        shopphotoloading: false,
         isUpdate: false,
         active: 0, // 当前步骤,
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
         form: {
-          userinfo: {
             primary_uid: '', // 一级代理商id
             secondary_uid: '', // 二级代理商id
             sls_uid: '', // 业务员id
-            username: '', // 账号
             shopname: '', // 商户名称
-            mcc: '', // 商家类型，仅可以填数字
-            mcc_str: '',
+            mcc: '', // 一级商家类型，仅可以填数字
             memo: '', // 简介
-            is_contract: false, // 是否签署合同
+            is_contract: '', // 是否签署合同
             settlement_time: '', // 按月、周、或日结算日期
             tenpay_ratio: '', // 服务费率
+            standard_ratio: 0, // 基准费率
             name: '', // 公司名称
             licensenumber: '', // 公司注册号码（UEN）
-            location: '', // 公司地点
+            location: '', // 公司地区
             address: '', // 公司地址
-            userid: '',
-            user_type: '',
-            groupid: '',
+            legalperson: '', // 公司联系人
+            telephone: '', // 公司联系人电话
             cate: '',
-
-            provice: '',
-            city: '',
             email: '',
-            telephone: '',
-            legalperson: '',
             headbankname: '', // 总行
             bankname: '', // 支行
             bankuser: '', // 银行用户
-            brchbank_code: '', // 联行号
+            bankcode: '', // 联行号
             storename: '', // 店铺名称
             storetelephone: '', // 店铺联系电话
             storelocation: '', // 店铺位置
@@ -242,54 +294,129 @@
             storepost: '', // 店铺邮编
             storeadditional: '', // 店铺附加服务
             storeoperating: '', // 店铺营业时间
-            website: '' // 店铺网址
-          },
-          vouchers: [], // 上传的凭据照片
+            website: '', // 店铺网址
+            vouchers: [], // 上传的凭据照片
         },
-        shopTypes: [],
+        shopTypes: [], // 一级渠道的店铺类型列表
+//        shopTypes2: [], // 二级渠道的店铺类型列表
         channels1: [],
         channels2: [],
+        salesperson: [],
+        signedList: [
+          {value: 1, name: '是'},
+          {value: 0, name: '否'}
+        ],
+        settlements: [
+          {value: 'month', name: '月'},
+          {value: 'week', name: '周'},
+          {value: 'date', name: '日'},
+        ],
         voucherInfo: {
-          orgphoto_url: '', // 组织机构代码证
-          orgphoto_name: '',
-          openlicense_url: '', // 开户许可证url
-          openlicense_name: '',
-          licensephoto_url: '', // 营业执照照片url
-          licensephoto_name: '',
-          idcardfront_url: '', // 身份证正面/法人身份证正面url
-          idcardfront_name: '',
-          idcardback_url: '', // 身份证背面/法人身份证背面url
-          idcardback_name: '',
-          delegateagreement_url: '',
-          delegateagreement_name: '' // 业务代理协议
+          goodsphoto_url: '', // 经营场所内景照片url
+          goodsphoto_name: '',
+          shopphoto_url: '',
+          shopphoto_name: ''
         },
         baseRules: {
           'cate': [
             {required: true, message: this.$t('merchant.newMerchant.rule1')}
           ],
+          'sls_uid': [
+            {required: true, message: this.$t('merchant.newMerchant.rule11')}
+          ],
           'shopname': [
             {required: true, message: this.$t('merchant.newMerchant.rule2')},
             {max: 60, min: 0, message: this.$t('merchant.newMerchant.rule10'), trigger: 'blur'}
-            ],
-          'name': [
-            {required: true, message: this.$t('merchant.newMerchant.rule3')}
           ],
+          'tenpay_ratio': [
+            {
+              validator: (rule, val, cb) => {
+              if (+val <= this.form.standard_ratio) {
+                cb(new Error(this.$t('merchant.newMerchant.rule13') + this.form.standard_ratio));
+              }else {
+                cb();
+              }
+            }}
+          ]
+        },
+        bankRules: {
           'email': [
-            { type: 'email', message: this.$t('merchant.newMerchant.rule4'), trigger: 'blur' }
+            { required: true, message: this.$t('merchant.newMerchant.rule30'), trigger: 'blur' },
+            {
+              validator: (rule, val, cb) => {
+                if (!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(val)) {
+                  cb(new Error(this.$t('merchant.newMerchant.rule4')));
+                }else {
+                  cb();
+                }
+              }
+            }
           ],
           'telephone': [
             {
               validator: (rule, val, cb) => {
-                 if (!/^[0-9]*$/.test(val) && val != '') {
+                if (!/^[0-9]*$/.test(val) && val != '') {
                   cb(new Error(this.$t('merchant.newMerchant.rule6')));
                 }else {
                   cb();
                 }
               }
             }
-          ]
-        },
-        bankRules: {
+          ],
+          'name': [
+            {required: true, message: this.$t('merchant.newMerchant.rule3')}
+          ],
+          'licensenumber': [
+            {required: true, message: this.$t('merchant.newMerchant.rule14')}
+          ],
+          'location': [
+            {required: true, message: this.$t('merchant.newMerchant.rule15')}
+          ],
+          'address': [
+            {required: true, message: this.$t('merchant.newMerchant.rule16')}
+          ],
+          'legalperson': [
+            {required: true, message: this.$t('merchant.newMerchant.rule17')}
+          ],
+          'headbankname': [
+            {required: true, message: this.$t('merchant.newMerchant.rule18')}
+          ],
+          'bankcode': [
+            {required: true, message: this.$t('merchant.newMerchant.rule19')}
+          ],
+          'bankuser': [
+            {required: true, message: this.$t('merchant.newMerchant.rule20')}
+          ],
+          'storename': [
+            {required: true, message: this.$t('merchant.newMerchant.rule21')}
+          ],
+          'storelocation': [
+            {required: true, message: this.$t('merchant.newMerchant.rule23')}
+          ],
+          'storeaddress': [
+            {required: true, message: this.$t('merchant.newMerchant.rule24')}
+          ],
+          'storepost': [
+            {required: true, message: this.$t('merchant.newMerchant.rule25')}
+          ],
+          'storeadditional': [
+            {required: true, message: this.$t('merchant.newMerchant.rule26')}
+          ],
+          'storeoperating': [
+            {required: true, message: this.$t('merchant.newMerchant.rule27')}
+          ],
+          'storetelephone': [
+            {required: true, message: this.$t('merchant.newMerchant.rule22'), trigger: 'blur'},
+            {
+              validator: (rule, val, cb) => {
+                if (!/^[0-9]*$/.test(val)) {
+                  cb(new Error(this.$t('merchant.newMerchant.rule6')));
+                }else {
+                  cb();
+                }
+              }
+            }
+          ],
           'bankaccount': [
             {
               validator: (rule, val, cb) => {
@@ -321,33 +448,59 @@
     created() {
       if(this.$route.params) {
         this.isUpdate = this.$route.params.command === 'edit'
-        if(this.isUpdate) {
-          this.getDetailInfo();
-        }else {
-          this.baseRules['slsm_username'] = [
-            {required: true, message: this.$t('merchant.newMerchant.rule7')}
-          ]
-        }
+        !this.isUpdate && this.getChannelList()
+        this.getFee()
+        this.getSalesPersonList()
         this.getShopTypes()
-        this.getChannelList()
-//        this.getFee()
       }
     },
     mounted() {
-//      this.initSelection()
     },
     methods: {
-      getFee() {
-        axios.get(`${config.host}/org/tools/get/fee`, {
+      checkPhotosIsUpdated() {
+        if(!this.voucherInfo.goodsphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('goodsphoto')
+          this.$message.error(this.$t('merchant.newMerchant.rule28'));
+          return false;
+        }
+        if(!this.voucherInfo.shopphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
+          this.$message.error(this.$t('merchant.newMerchant.rule29'));
+          return false;
+        }
+        return true
+      },
+      getSalesPersonList(uid) {
+        axios.get(`${config.host}/org/tools/slsm`, {
           params: {
-            agent_uid: '',
+            agent_uid: uid || '',
             format: 'cors'
           }})
           .then((res) => {
             let data = res.data;
             this.loading = false;
             if (data.respcd === config.code.OK) {
-              this.form.qd_fee = data.data.qd_fee;
+              this.salesperson = data.data;
+            } else {
+              this.$message.error(data.respmsg);
+            }
+          }).catch(() => {
+          this.loading = false;
+          this.$message.error(this.$t('common.netError'));
+        });
+      },
+      getFee(agentUid) {
+        let p = {
+          format: 'cors',
+        }
+        if(agentUid) {
+          p.agent_uid = agentUid
+        }
+        axios.get(`${config.host}/org/tools/get/fee`, {
+          params: p})
+          .then((res) => {
+            let data = res.data;
+            this.loading = false;
+            if (data.respcd === config.code.OK) {
+              this.form.standard_ratio = data.data.qd_fee;
             } else {
               this.$message.error(data.respmsg);
             }
@@ -376,7 +529,7 @@
         });
       },
       selectChannelHandler(groupid) { // 获取二级渠道列表数据
-        groupid && axios.get(`${config.host}/org/tools/qudao/list`, {
+        axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
             groupid: groupid,
             format: 'cors'
@@ -386,6 +539,8 @@
             this.loading = false;
             if (data.respcd === config.code.OK) {
               this.channels2 = data.data.list;
+              this.getFee(groupid)
+              this.getSalesPersonList(groupid)
             } else {
               this.$message.error(data.respmsg);
             }
@@ -394,16 +549,29 @@
             this.$message.error(this.$t('common.netError'));
           });
       },
-      getShopTypes() {
+      selectChannel2Handler(groupid) {
+        console.log(groupid)
+        this.getFee(groupid)
+        this.getSalesPersonList(groupid)
+      },
+      getShopTypes(mcc1) {
         axios.get(`${config.host}/org/tools/mcc/list`, {
           params: {
+            mcc: mcc1 || '',
             format: 'cors'
           }})
           .then((res) => {
             let data = res.data;
             this.isLoading = false;
             if (data.respcd === config.code.OK) {
-              this.shopTypes = data.data;
+              if(mcc1) {
+                this.shopTypes2 = data.data
+              }else {
+                this.shopTypes = data.data;
+              }
+              if(this.isUpdate) {
+                this.getDetailInfo()
+              }
             } else {
               this.$message.error(data.respmsg);
             }
@@ -448,7 +616,7 @@
       imgUpload(name, flag) {
         if(flag || this.voucherInfo[name + '_url']) {
           axios.post(`${config.imgUpload}/util/v1/cpfile`, qs.stringify({
-            enuserid: this.form.userinfo.userid,
+            enuserid: this.form.userid,
             imgurl: this.voucherInfo[name + '_url'],
             format: 'cors'
           }), {
@@ -477,18 +645,40 @@
         axios.get(`${config.host}/org/mchnt/info`, {
           params: {
             userid: this.$route.params.userid,
-            mode: 'info',
+            type: 'bigmerchant',
             format: 'cors'
           }})
           .then((res) => {
             let data = res.data;
             this.isLoading = false;
             if (data.respcd === config.code.OK) {
-              this.form = data.data
-              data.data.vouchers.forEach((item) => {
-                this.voucherInfo[item.name + '_url'] = item.url
-                this.voucherInfo[item.name + '_name'] = item.imgname
-              })
+              let uinfo = data.data.userinfo;
+              let fee = data.data.fee_ratios
+              let qdinfo = data.data.qdinfo;
+              let bankinfo = data.data.bankinfo;
+
+              this.form.cate = uinfo.cate
+              this.form.shopname = uinfo.shopname;
+              this.form.memo = uinfo.memo;
+              this.form.tenpay_ratio = fee.tenpay_ratio;
+              this.form.sls_uid = qdinfo.slsm_uid;
+              this.form.mcc = +uinfo.mcc;
+              this.form.memo = uinfo.memo;
+              this.form.is_contract = uinfo.is_contract;
+              this.form.settlement_time = uinfo.settlement_time;
+              this.form.name = uinfo.name;
+              this.form.licensenumber = uinfo.licensenumber;
+              this.form.location = uinfo.location_code;
+              this.form.address = uinfo.address;
+              this.form.legalperson = uinfo.legalperson;
+              this.form.telephone = uinfo.telephone;
+              this.form.post = uinfo.post;
+              this.form.email = uinfo.email;
+              this.form.headbankname = bankinfo.headbankname;
+              this.form.bankcode = bankinfo.bankcode;
+              this.form.bankuser = bankinfo.bankuser;
+              this.form.bankaccount = bankinfo.bankaccount;
+              this.form.bankname = bankinfo.bankname;
             } else {
               this.$message.error(data.respmsg);
             }
@@ -498,24 +688,25 @@
         });
       },
       create() {
-        let params1 = Object.assign(this.form.userinfo, this.form.fee_ratios, this.form.qdinfo)
-        let parmas2 = Object.assign(this.form.bankinfo, {vouchers: JSON.stringify(this.form.vouchers)})
-        let params = Object.assign(params1, parmas2)
+        let params = Object.assign({}, this.form)
         let url = this.isUpdate ? `${config.host}/org/mchnt/edit` : `${config.host}/org/mchnt/signup`
         params.format = 'cors'
-        if(this.isUpdate) {
-          delete params['slsm_username']
+        if(!this.isUpdate) {
+          let converted = _.map(_.cloneDeep(this.form.vouchers), (item) => {
+            return _.pick(item, ['name', 'imgname']);
+          })
+          params.vouchers = {}
+          converted.forEach((item) => {
+            let vals = _.values(item)
+            params.vouchers[vals[0]] = vals[1]
+          })
+          params.vouchers.enuserid = 'EPeRaNEt';
+          params.vouchers = JSON.stringify(params.vouchers)
+        }else {
+          params.type = 'bigmerchant';
+          params.userid = this.$route.params.userid
         }
-        let converted = _.map(_.cloneDeep(this.form.vouchers), (item) => {
-          return _.pick(item, ['name', 'imgname']);
-        })
-        params.vouchers = {}
-        converted.forEach((item) => {
-          let vals = _.values(item)
-          params.vouchers[vals[0]] = vals[1]
-        })
-        params.vouchers.enuserid = 'EPeRaNEt';
-        params.vouchers = JSON.stringify(params.vouchers)
+
         axios.post(url, qs.stringify(params), {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -528,7 +719,7 @@
               this.$message.success(this.isUpdate ? this.$t('common.updateSuccess') : this.$t('common.createSuccess'))
               this.$router.push({
                 name: 'mchntDetail',
-                query: {userid: data.data.userid, from: (this.isUpdate ? 'edit' : 'new')}
+                query: {userid: data.data.mchnt_userid, from: (this.isUpdate ? 'edit' : 'new')}
               })
             } else {
               this.$message.error(data.respmsg);
@@ -553,34 +744,32 @@
           })
         } else if (this.active === 1) { // 第二步
           this.$refs['bankinfos'].validate((valid) => {
-            if (valid) {
+            if (valid && this.checkPhotosIsUpdated()) {
               this.create()
             }
           })
         }
       },
-      numberChange(v) {
-//        console.log(this.form.fee_ratios.tenpay_ratio)
-      },
       cancelHandler() {
         this.$router.push({name: 'mchnt_manage_list'})
       },
-      selectHandler(key, val) {
-        if(key === 'mcc_str') {
-          this.form.userinfo.mcc_str = this.shopTypes[--val].name;
-        }else if (key === 'cate') {
-          if(val === 'submerchant') {
-            this.baseRules['big_uid'] = [
-              {required: true, message: this.$t('merchant.newMerchant.rule9')}
-            ]
-          }else {
-            if(this.baseRules['big_uid']) {
-              delete this.baseRules['big_uid']
-            }
-          }
-        }else if(key === 'user_type') {
-
-        }
+      selectMccHandler(val) {
+//        if(key === 'mcc_str') {
+//          this.form.userinfo.mcc_str = this.shopTypes[--val].name;
+//        }else if (key === 'cate') {
+//          if(val === 'submerchant') {
+//            this.baseRules['big_uid'] = [
+//              {required: true, message: this.$t('merchant.newMerchant.rule9')}
+//            ]
+//          }else {
+//            if(this.baseRules['big_uid']) {
+//              delete this.baseRules['big_uid']
+//            }
+//          }
+//        }else if(key === 'user_type') {
+//
+//        }
+        this.getShopTypes(val)
       },
       initSelection() {
         let cats = {
@@ -616,12 +805,15 @@
       /*padding-right: 75px;*/
       /*flex-basis: 50%;*/
     }
+    .el-form .no-divider:after {
+      background-color: transparent;
+    }
     .el-form {
       background-color: #F7F9FA;
       margin-bottom: 24px;
       padding: 15px 30px 30px 30px;
       .el-loading-mask {
-        width: 287px;
+        width: 300px;
       }
       h3 {
         position: relative;
@@ -653,6 +845,12 @@
           }
         }
       }
+      .el-form-item.memo {
+        width:940px;
+        .el-form-item__content {
+          width: 100%;
+        }
+      }
       .el-form-item:nth-of-type(3n) {
         /*margin-right: 0;*/
       }
@@ -672,7 +870,7 @@
         display:flex;align-items: center;
       }
       .up-item {
-        margin-right:50px;
+        margin-right:32px;
       }
       .image_info {
         font-size: 14px;
@@ -727,9 +925,8 @@
           }
         }
       }
-
       .avatar-uploader-wrap {
-        width: 285px;
+        width: 298px;
         height: 214px;
         background-color: #f2f2f2;
         text-align: center;
