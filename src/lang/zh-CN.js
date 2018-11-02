@@ -210,7 +210,7 @@ const zh = {
       mchtname: '商户名称',
       address: '地址',
       mobile: '联系方式',
-      agent1: '一级渠道',
+      agent1: '所属渠道',
       agent2: '二级渠道',
       account: '账户名称',
       state: '商户状态',
