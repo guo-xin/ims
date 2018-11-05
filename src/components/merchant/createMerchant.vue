@@ -249,6 +249,7 @@
   </div>
 </template>
 <script>
+  /* eslint-disable */
   import config from 'config'
   import axios from 'axios';
   import qs from 'qs';
