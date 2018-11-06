@@ -47,6 +47,10 @@
           <span class="basic-label">{{$t('merchant.detail.basic.bd')}}</span>
           <span class="basic-content">{{form.userinfo.memo}}</span>
         </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la9')}}</span>
+          <span class="basic-content">{{status[form.userinfo.status]}}</span>
+        </el-col>
       </el-row>
     </section>
 
@@ -56,20 +60,22 @@
         <div class="divider"></div>
       </div>
       <el-row>
+
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.rates.wechat')}}</span>
-          <span class="basic-content">{{form.fee_ratios.tenpay_ratio}}</span>
-        </el-col>
-        <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la15')}}</span>
           <span class="basic-content">{{isSigned[form.userinfo.is_contract]}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la16')}}</span>
+          <span class="basic-content">{{period[form.userinfo.settlement_time]}}</span>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="24">
-          <span class="basic-label">{{$t('merchant.detail.basic.la16')}}</span>
-          <span class="basic-content">{{period[form.userinfo.settlement_time]}}</span>
+          <span class="basic-label">{{$t('merchant.detail.rates.wechat')}}</span>
+          <span class="basic-content">{{form.fee_ratios.tenpay_ratio}}</span>
         </el-col>
+
       </el-row>
     </section>
 
@@ -116,19 +122,8 @@
           <span class="basic-content">{{form.userinfo.legalperson}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la10')}}</span>
-          <span class="basic-content">{{form.userinfo.jointime}}</span>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la19')}}</span>
           <span class="basic-content">{{form.userinfo.licensenumber}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la9')}}</span>
-          <span class="basic-content">{{status[form.userinfo.status]}}</span>
         </el-col>
       </el-row>
 
