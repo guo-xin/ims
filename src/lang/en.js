@@ -214,12 +214,14 @@ const en = {
       agent1: 'Agent L1',
       agent2: 'Agent L2',
       account: 'User Name',
-      cate_code: 'Category',
-      state: 'State'
+      industry: 'Industry',
+      state: 'State',
+      store: 'Shop'
     },
     detail: {
       up: 'Activate',
       down: 'Deactivate',
+      redit: 'Continue To Edit',
       cate: {
         merchant: 'Merchant',
         big: 'Big-merchant',
@@ -237,7 +239,8 @@ const en = {
       basic: {
         title: 'Detail Info',
         close: 'Close',
-        subtitle: 'Basic Information',
+        subtitle: 'Basic Info',
+        bd: 'Brief Description',
         la1: 'Merchant Category:',
         la2: 'Industry:',
         la3: 'Name of Merchant:',
@@ -270,7 +273,7 @@ const en = {
         ali: 'Alipay:'
       },
       pay: {
-        subtitle: 'Payment Info',
+        subtitle: 'Company Info',
         la1: 'Account Name:',
         la2: 'Account Number:',
         la3: 'Bank Name:',
@@ -415,7 +418,7 @@ const en = {
       basic: {
         title: 'Detail Shop',
         close: 'Close',
-        subtitle: 'Basic Information',
+        subtitle: 'Basic Info',
         la1: 'Merchant Name:',
         la2: 'Account number:',
         la3: 'Shop Name:',
@@ -425,7 +428,7 @@ const en = {
         la7: 'Postal Code:',
         la8: 'Operating Hours:',
         la9: 'Additional Services:',
-        la10: 'Website URL(if available):',
+        la10: 'Website URL:',
         la11: 'Photograph'
       },
       shop: {
@@ -441,8 +444,8 @@ const en = {
       },
       pay: {
         subtitle: 'Payment Info',
-        la1: 'Account Name:',
-        la2: 'Bank Account:',
+        la1: 'Bank Account Name:',
+        la2: 'Bank Account Number:',
         la3: 'Head Bank:',
         la4: 'Branch Bank:',
         la5: 'Province Bank:',

@@ -713,6 +713,14 @@
         }else {
           params.type = 'bigmerchant';
           params.userid = this.$route.params.userid
+          delete params.storename;
+          delete params.storetelephone;
+          delete params.storelocation;
+          delete params.storeaddress;
+          delete params.storepost;
+          delete params.storeadditional;
+          delete params.storeoperating;
+          delete params.website;
         }
 
         axios.post(url, qs.stringify(params), {

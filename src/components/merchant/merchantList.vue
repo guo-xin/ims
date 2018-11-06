@@ -76,12 +76,17 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="cate" :label="$t('merchant.table.cate_code')">
+      <el-table-column prop="cate" :label="$t('merchant.table.industry')">
         <template slot-scope="scope">
-          {{ cate[scope.row.cate] }}
+          {{ scope.row.mcc_str }}
         </template>
       </el-table-column>
 
+      <el-table-column :label="$t('merchant.table.store')">
+        <template slot-scope="scope">
+          <el-button type="text" @click.stop="shopDetail(scope.row.userid)">{{ $t('common.look') }}</el-button>
+        </template>
+      </el-table-column>
     </el-table>
 
     <el-pagination
@@ -136,9 +141,14 @@
     created() {
       this.fetchData()
       this.getChannelList()
-//      this.getAuditList()
     },
     methods: {
+      shopDetail(submchntId) {
+        this.$router.push({
+          path: 'shop_manage_list/shop_detail',
+          query: {userid: submchntId, from: 'old'}
+        })
+      },
       getAuditList() { // 审核列表数据
         axios.get(`${config.host}/org/tools/audit_status_map`, {
           params: {

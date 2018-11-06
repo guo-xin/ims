@@ -214,11 +214,13 @@ const zh = {
       agent2: '二级渠道',
       account: '账户名称',
       state: '商户状态',
-      cate_code: '商户类型'
+      industry: '行业',
+      store: '门店'
     },
     detail: {
       up: '启用',
       down: '禁用',
+      redit: '继续编辑',
       cate: {
         merchant: '普通子商户',
         big: '大商户',
@@ -405,7 +407,7 @@ const zh = {
     },
     detail: {
       basic: {
-        title: '门户详情',
+        title: '门店详情',
         close: '关闭',
         subtitle: '基本信息',
         la1: '商户名称:',

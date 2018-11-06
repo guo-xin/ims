@@ -14,7 +14,10 @@
           <span class="basic-label">{{$t('merchant.detail.basic.la4')}}</span>
           <span class="basic-content">{{form.qdinfo.qd_name}}</span>
         </el-col>
-
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la2')}}</span>
+          <span class="basic-content">{{form.userinfo.mcc_str}}</span>
+        </el-col>
       </el-row>
 
       <el-row>
@@ -41,67 +44,10 @@
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la2')}}</span>
-          <span class="basic-content">{{form.userinfo.mcc_str}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la11')}}</span>
-          <span class="basic-content">{{form.userinfo.name}}</span>
-        </el-col>
-
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la18')}}</span>
-          <span class="basic-content">{{form.userinfo.telephone}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la12')}}</span>
-          <span class="basic-content">{{form.userinfo.address}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.bd')}}</span>
+          <span class="basic-content">{{form.userinfo.memo}}</span>
         </el-col>
       </el-row>
-
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la7')}}</span>
-          <span class="basic-content">{{form.userinfo.legalperson}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la8')}}</span>
-          <span class="basic-content">{{form.userinfo.email}}</span>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la13')}}</span>
-          <span class="basic-content">{{form.userinfo.location}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la14')}}</span>
-          <span class="basic-content">{{form.userinfo.post}}</span>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la19')}}</span>
-          <span class="basic-content">{{form.userinfo.licensenumber}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la9')}}</span>
-          <span class="basic-content">{{status[form.userinfo.status]}}</span>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="24">
-          <span class="basic-label">{{$t('merchant.detail.basic.la10')}}</span>
-          <span class="basic-content">{{form.userinfo.jointime}}</span>
-        </el-col>
-      </el-row>
-
     </section>
 
     <section class="rates">
@@ -132,6 +78,60 @@
         <div class="title">{{$t('merchant.detail.pay.subtitle')}}</div>
         <div class="divider"></div>
       </div>
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la11')}}</span>
+          <span class="basic-content">{{form.userinfo.name}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la18')}}</span>
+          <span class="basic-content">{{form.userinfo.telephone}}</span>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la13')}}</span>
+          <span class="basic-content">{{form.userinfo.location}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la12')}}</span>
+          <span class="basic-content">{{form.userinfo.address}}</span>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la14')}}</span>
+          <span class="basic-content">{{form.userinfo.post}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la8')}}</span>
+          <span class="basic-content">{{form.userinfo.email}}</span>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la7')}}</span>
+          <span class="basic-content">{{form.userinfo.legalperson}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la10')}}</span>
+          <span class="basic-content">{{form.userinfo.jointime}}</span>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la19')}}</span>
+          <span class="basic-content">{{form.userinfo.licensenumber}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la9')}}</span>
+          <span class="basic-content">{{status[form.userinfo.status]}}</span>
+        </el-col>
+      </el-row>
+
       <el-row>
         <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.pay.la1')}}</span>
@@ -173,6 +173,10 @@
     <footer v-if="isEditable">
       <el-button @click="editHandler">{{$t('merchant.detail.edit')}}</el-button>
     </footer>
+    <footer v-if="isReEditable">
+      <el-button @click="editHandler">{{$t('merchant.detail.redit')}}</el-button>
+      <el-button @click="cancel">{{$t('merchant.detail.basic.close')}}</el-button>
+    </footer>
   </div>
 </template>
 <script>
@@ -193,6 +197,7 @@
       return {
         isLoading: false,
         isEditable: false,
+        isReEditable: false,
         temp: [],
         cate: {
           "merchant": this.$t('merchant.detail.cate.merchant'),
@@ -257,8 +262,8 @@
       }
     },
     created() {
-      console.log(this.$route.query)
       this.isEditable = this.$route.query.from === 'old'
+      this.isReEditable = this.$route.query.from === 'edit'
       this.fetchDetailData()
     },
     methods: {
@@ -279,15 +284,7 @@
             let data = res.data;
             this.isLoading = false;
             if (data.respcd === config.code.OK) {
-                console.log('%%%%%%%%%%$$############# detail:', data.data)
                 this.form = data.data
-//                for (let key of Object.keys(data.data.fee_ratios)) {
-//                  if(key !== 'userid') {
-//                    tempArr.push({key: key, value: data.data.fee_ratios[key] || ' '})
-//                  }
-//                }
-//                this.form.fee_ratios = tempArr
-//                this.temp = tempArr.concat([]);
             } else {
               this.$message.error(data.respmsg);
             }

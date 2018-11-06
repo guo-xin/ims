@@ -69,7 +69,7 @@
           <span class="basic-label">{{$t('shop.detail.basic.la11')}}</span>
            <span class="basic-content-p">
              <img :src="item.url" v-for="(item,url) in form.vouchers" class="voucher_photo" :key="url"/>
-          </span> 
+          </span>
         </el-col>
       </el-row>
     </section>
@@ -118,7 +118,7 @@
     created() {
       console.log("这是门店管理打印的参数")
       console.log(this.$route.query)
-      this.isEditable = this.$route.query.from === 'old'
+//      this.isEditable = this.$route.query.from === 'old'
       this.fetchDetailData()
     },
     methods: {
@@ -178,8 +178,8 @@
           font-size:$baseSize;
           font-weight:$bolderW;
           color:rgba(29,29,36,1);
-          line-height:$baseSize;
           vertical-align:top;
+          line-height:19px;
         }
         .basic-content {
           margin-left: $smGap;

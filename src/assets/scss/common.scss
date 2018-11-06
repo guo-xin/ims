@@ -267,6 +267,9 @@ form.el-form {
     }
   }
 }
+.el-table tr {
+  cursor: pointer;
+}
 .el-table .cell {
   line-height: 18px;
 }
