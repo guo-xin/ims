@@ -429,7 +429,7 @@ const en = {
         la8: 'Operating Hours:',
         la9: 'Additional Services:',
         la10: 'Website URL:',
-        la11: 'Photograph'
+        la11: 'Photograph'   
       },
       shop: {
         subtitle: 'Shop Info',

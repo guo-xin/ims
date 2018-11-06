@@ -187,12 +187,19 @@
           font-weight:$baseW;
           color:#717283;
           line-height:$baseSize;
+          vertical-align:top;
         }
         .basic-content-p {
           font-size:$baseSize;
           font-weight:$baseW;
           color:#717283;
           line-height:$baseSize;
+          .voucher_photo {
+              width:200px;
+              height:150px;
+              display:inline-block;
+              margin-left:$smGap;
+          }
         }
       }
     }
