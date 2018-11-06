@@ -479,6 +479,9 @@ const en = {
       msg1: 'Please input audit notes.'
     }
   },
+  batch: {
+    title: 'Batch Creation'
+  },
   trade: {
     detail: 'Transaction details',
     total: 'Transaction statistics',

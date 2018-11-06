@@ -244,7 +244,7 @@
         this.$router.push({path: 'mchnt_manage_list/mchnt_create'})
       },
       patchImport() { // 批量进件
-//        this.$router.push({path: 'mchnt_manage_list/mchnt_create'})
+        this.$router.push({path: 'mchnt_manage_list/batch_import'})
       },
       selectCurrentRowHandler(currentRow, oldCurrentRow) { // 选择列表项，进入详情页
         this.$router.push({

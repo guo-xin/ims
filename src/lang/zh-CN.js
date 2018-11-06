@@ -424,6 +424,9 @@ const zh = {
       }
     }
   },
+  batch: {
+    title: '批量创建'
+  },
   audit: {
     title: '审核管理',
     form: {

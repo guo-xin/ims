@@ -699,6 +699,7 @@
         let params = Object.assign({}, this.form)
         let url = this.isUpdate ? `${config.host}/org/mchnt/edit` : `${config.host}/org/mchnt/signup`
         params.format = 'cors'
+        params.tenpay_ratio = parseFloat(params.tenpay_ratio).toFixed(2)
         if(!this.isUpdate) {
           let converted = _.map(_.cloneDeep(this.form.vouchers), (item) => {
             return _.pick(item, ['name', 'imgname']);
