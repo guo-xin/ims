@@ -292,7 +292,7 @@ const en = {
       title2: 'Modify Merchant',
       step1: 'Basic Info',
       step2: 'Rates Info',
-      step3: 'Basic Info',
+      step3: 'Company Info',
       basic: {
         cap1: 'Basic Info',
         cap2: 'Rates Info',
@@ -312,7 +312,7 @@ const en = {
         loc1: 'Singapore',
         loc2: 'Hong Kong',
         storeaddr: 'Store Address',
-        email: 'Contact Email Address',
+        email: 'Email Address',
         post: 'Postal Code',
         cate: 'Merchant Category',
         scale: 'Merchant Scale',
@@ -339,18 +339,18 @@ const en = {
         wei: 'WeChat Pay:',
         ali: 'Alipay:',
         rate: 'Merchant Rate',
-        bankuser: 'User Account Name',
-        bankaccount: 'Account Number',
+        bankuser: 'Bank Account Name',
+        bankaccount: 'Bank Account Number',
         hbank: 'Bank Name',
-        bbank: 'Branch Bank',
+        bbank: 'Branch',
         bankProvice: 'Provice',
         bankCity: 'City',
         code: 'Swift Code',
         mobile: 'Mobile Number',
         banktype: 'Account Type',
         doc: 'Store Info', // 店铺信息
-        idfront: 'Click to add inside photos of business premises.',
-        idback: 'Click to add location photos of business premises.',
+        idfront: 'Click to upload shop interior photo.',
+        idback: 'Click to upload shop front photo.',
         warmfront: '* You must use the inside picture of the merchandise / business place you sell.', // 必须使用所售商品/经营场所内景照片
         warmback: '* You must use the premises / place of business location photos.', // 必须使用经营场所/经营场所外景照片
       },
@@ -456,72 +456,6 @@ const en = {
         la10: 'Photograph:'
       },
       edit: 'Edit'
-    },
-    newMerchant: {
-      title1: 'Create A Merchant',
-      title2: 'Modify Merchant',
-      step1: 'Basic Info',
-      step2: 'Rates Info',
-      step3: 'Settlement Info',
-      basic: {
-        cap1: 'Basic Info',
-        cap2: 'Rates Info',
-      },
-      form: {
-        account: 'Account',
-        shopname: 'Store Name',
-        name: 'Merchant Name',
-        legal: 'Enterprise Legal Person',
-        storeaddr: 'Store Address',
-        email: 'Email',
-        cate: 'Merchant Category',
-        scale: 'Merchant Scale',
-        type: 'Industry',
-        sub: 'Sub Merchant',
-        big: 'Big Merchant',
-        chain: 'Chain Store',
-        micro: 'Small and micro enterprises',
-        geti: 'Individual Company',
-        ent: 'Enterprises',
-        main: 'Main Store UID',
-        contact: 'Contact Name',
-        cell: 'Contact Number',
-        wei: 'WeChat Pay:',
-        ali: 'Alipay:',
-        rate: 'Merchant Rate',
-        bankuser: 'Account Name',
-        bankaccount: 'Bank Account',
-        hbank: 'Bank Name',
-        bbank: 'Bank Branch Name',
-        bankProvice: 'Provice',
-        bankCity: 'City',
-        code: 'Swift Code',
-        mobile: 'Mobile Number',
-        banktype: 'Account Type',
-        doc: 'Documents', // 上传凭证，
-        idfront: 'Click to add a legal person id card frontage.',
-        idback: 'Click to add a legal person id card backside.',
-        oper: 'Click to add business license photos.', // 点击添加营业执照照片
-        lic: 'Click to add license photos.', // 点击添加开户许可照片
-        org: 'Click to add organization photos.', // 点击添加组织机构照片
-        protocol: 'Click Add merchant agreement photos', // 点击添加商户协议照片
-        warmfront: '* Second-generation ID cards must be used within the validity period. ID card numbers and avatars are clearly visible and full ID cards are photographed.', // 必须使用有效期内的二代身份证，身份证号码及头像清晰可见，完整身份证正面照
-        warmback: '* It is necessary to use the two generation ID card within the validity period. The validity period is clearly visible. The reverse of the complete identity card is used.', // 必须使用有效期内的二代身份证，有效期清晰可见，完整身份证反面照
-        warmoper: '* It is necessary to use the business license within the validity period. The documents need to be complete and clearly visible.', // 必须使用有效期之内的营业执照，需要证件完整且文字清晰可见
-        warmlic: '* Please upload valid license photos to ensure that the picture is clear and content is complete.', // 请上传有效的开户许可证照片，保证画面清晰，内容完整
-        warmorg: '* Please upload valid organization photos to ensure that the picture is clear and content is complete.', // 请上传有效的组织机构照片，保证画面清晰，内容完整
-        warmproto: '* Please upload valid business agreement photos to ensure that the picture is clear and content is complete.', // 请上传有效的商户协议照片，保证画面清晰，内容完整
-      },
-      rule1: 'Please choose registered merchants.', // 请选择注册商户
-      rule2: 'Please enter the name of the merchant.', // 请输入商户名称
-      rule3: 'Please enter company name.', // 请输入公司名称
-      rule4: 'Please input the correct email address.', // 请输入正确的邮箱地址
-      rule5: 'Bank card accounts must be number.', // 银行卡账户必须是数字
-      rule6: 'Phone numbers must be number.', // 手机号必须是数字
-      rule7: 'Please enter business account.', // 请输入业务员账号
-      rule8: 'Uploading file must be JPG/PNG format', // 上传凭证必须是jpg、png格式
-      rule9: 'Please enter chain store UID', // 请输入连锁店总店UID
-      rule10: 'Only 60 characters can be entered at most.'
     }
   },
   audit: {
