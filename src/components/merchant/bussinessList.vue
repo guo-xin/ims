@@ -61,7 +61,7 @@
         <template slot-scope="scope">
           {{ scope.row.telephone }}
         </template>
-      </el-table-column> 
+      </el-table-column>
 
       <el-table-column prop="post" :label="$t('shop.table.post')">
         <template slot-scope="scope">
@@ -107,6 +107,7 @@
       }
     },
     created() {
+      this.formData.mchntid = this.$route.query.userid
       this.fetchData()
     },
     methods: {

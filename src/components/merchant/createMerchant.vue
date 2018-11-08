@@ -263,7 +263,7 @@
         goodsphotoloading: false,
         shopphotoloading: false,
         isUpdate: false,
-        active: 0, // 当前步骤,
+        active: 1, // 当前步骤,
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
         form: {
             status: '',
@@ -305,13 +305,13 @@
         channels2: [],
         salesperson: [],
         signedList: [
-          {value: 1, name: '是'},
-          {value: 0, name: '否'}
+          {value: 1, name: this.$t('merchant.detail.signed.yes')},
+          {value: 0, name: this.$t('merchant.detail.signed.no')}
         ],
         settlements: [
-          {value: 'month', name: '月'},
-          {value: 'week', name: '周'},
-          {value: 'date', name: '日'},
+          {value: 'month', name: this.$t('merchant.detail.p.m')},
+          {value: 'week', name: this.$t('merchant.detail.p.w')},
+          {value: 'date', name: this.$t('merchant.detail.p.d')},
         ],
         statusList: [
           {name: this.$t('merchant.detail.up'), val: 0},
@@ -424,7 +424,7 @@
             }
           ],
           'bankaccount': [
-            {required: true, message: this.$t('merchant.newMerchant.rule22'), trigger: 'blur'},
+            {required: true, message: this.$t('merchant.newMerchant.rule32'), trigger: 'blur'},
             {
               validator: (rule, val, cb) => {
                 if (!/^[0-9]*$/.test(val)) {
@@ -834,7 +834,7 @@
       }
       h3 {
         position: relative;
-        padding: 12px 0;
+        padding: 30px 0;
         margin: 0 0 20px;
         font-size: 20px;
         color: $titleColor;

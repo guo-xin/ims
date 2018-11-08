@@ -197,25 +197,25 @@ const en = {
     create: 'Create',
     query: 'Query',
     reset: 'Reset',
-    patchImport: 'Batch Creation',
+    patchImport: 'Batch Create',
     form: {
       mchtid: 'Merchant ID',
       mchtname: 'Merchant Name',
-      agent1: 'Agent L1',
-      agent2: 'Agent L2',
-      ph: 'Please choose the L1 agent first.',
-      audit_state: 'Merchant State'
+      agent1: '1st-tier Agent',
+      agent2: '2nd-tier Agent',
+      ph: 'Please select 1st-tier agent first.',
+      audit_state: 'Merchant Status'
     },
     table: {
       mchtid: 'Merchant ID',
       mchtname: 'Merchant Name',
       address: 'Address',
       mobile: 'Contact Number',
-      agent1: 'Agent L1',
-      agent2: 'Agent L2',
-      account: 'User Name',
+      agent1: '1st-tier Agent',
+      agent2: '2nd-tier Agent',
+      account: 'Account Name',
       industry: 'Industry',
-      state: 'State',
+      state: 'Status',
       store: 'Shop'
     },
     detail: {
@@ -224,7 +224,7 @@ const en = {
       redit: 'Continue To Edit',
       cate: {
         merchant: 'Merchant',
-        big: 'Big-merchant',
+        big: 'Chain Merchant',
         sub: 'Sub-merchant'
       },
       signed: {
@@ -243,21 +243,21 @@ const en = {
         bd: 'Brief Description',
         la1: 'Merchant Category:',
         la2: 'Industry:',
-        la3: 'Name of Merchant:',
-        la4: 'Agent:',
+        la3: 'Merchant Name:',
+        la4: 'Agent Name:',
         la5: 'Address:',
-        la6: 'Salesperson Name:',
-        la7: 'Contact Person:',
-        la8: 'Email:',
+        la6: 'Sales Rep.:',
+        la7: 'Operator:',
+        la8: 'E-mail:',
         la9: 'Status:',
-        la10: 'Engage Time:',
+        la10: 'Established Date:',
         la11: 'Company Name:',
         la12: 'Company Address:',
-        la13: 'Location:',
+        la13: 'Area:',
         la14: 'Post Code:',
-        la15: 'Contract Sign-off:',
+        la15: 'Agreement Signed (Yes/No):',
         la16: 'Settlement Period:',
-        la17: 'Salesperson Contact Number:',
+        la17: 'Sales Contact Number:',
         la18: 'Contact Number:',
         la19: 'Registration Number (UEN):'
       },
@@ -265,129 +265,132 @@ const en = {
         subtitle: 'Shop Info',
         la1: 'Merchant Name:',
         la2: 'Address:',
-        la3: 'Photograph:'
+        la3: 'Uploaded Photos:'
       },
       rates: {
-        subtitle: 'Rates Info',
+        subtitle: 'MDR Info',
         wechat: 'WeChat Pay:',
         ali: 'Alipay:'
       },
       pay: {
-        subtitle: 'Company Info',
-        la1: 'Account Name:',
-        la2: 'Account Number:',
+        subtitle: 'Settlement Info',
+        la1: 'Bank Account Name:',
+        la2: 'Bank Account No.:',
         la3: 'Bank Name:',
-        la4: 'Branch Bank:',
+        la4: 'Branch Name:',
         la5: 'Province Bank:',
         la6: 'Swift Code:',
         la7: 'City Bank:',
-        la8: 'Mobile:',
-        la9: 'Bank Type:',
-        la10: 'Photograph:'
+        la8: 'Contact No.:',
+        la9: 'Account Type:',
+        la10: 'Uploaded Photos:'
       },
       edit: 'Edit'
     },
     newMerchant: {
-      title1: 'Create A Merchant',
+      title1: 'Create Merchant',
       title2: 'Modify Merchant',
       step1: 'Basic Info',
-      step2: 'Rates Info',
+      step2: 'MDR Info',
       step3: 'Company Info',
       basic: {
         cap1: 'Basic Info',
-        cap2: 'Rates Info',
+        cap2: 'MDR Info',
       },
       form: {
         address: 'Address',
         timeformat: 'HH:MM - HH:MM',
-        is_contract: 'Contract Sign-off',
+        is_contract: 'Agreement Signed (Yes/No)',
         period: 'Settlement Period',
-        ratio: 'Service Fee Rate',
+        ratio: 'MDR',
         account: 'Account',
         shopname: 'Merchant Name',
         name: 'Company Name',
-        licensenumber: 'Registration Number (UEN)',
-        legal: 'Contact Person',
-        location: 'Location',
+        licensenumber: 'Business Registration No.',
+        legal: 'Contact Name',
+        location: 'Area',
         loc1: 'Singapore',
         loc2: 'Hong Kong',
         storeaddr: 'Store Address',
-        email: 'Email Address',
+        email: 'E-mail Address',
         post: 'Postal Code',
         cate: 'Merchant Category',
-        scale: 'Merchant Scale',
+        scale: 'Store Type',
         type1: 'Industry',
         type2: 'Merchant Status',
-        bd: 'Brief Description',
+        bd: 'Description',
         sub: 'Merchant',
-        big: 'Big-Merchant',
-        chain: 'Chain Store',
+        big: 'Chain Merchant',
+        chain: 'Branch Store',
         micro: 'Small and micro enterprises',
         geti: 'Individual Company',
         ent: 'Enterprises',
         main: 'Main Store UID',
-        contact: 'Salesperson Name',
-        storephone: 'Store Number',
-        storelocation: 'Location',
-        storeaddress: 'Address',
+        contact: 'Sales Rep. Account',
+        storephone: 'Store Contact No.',
+        storelocation: 'Store Area',
+        storeaddress: 'Store Address',
         storepost: 'Postal Code',
         storename: 'Store Name',
         addition: 'Additional Services',
-        storeoperating: 'Operating Hours',
-        website: 'Website URL',
-        cell: 'Contact Number',
+        storeoperating: 'Business Hours',
+        website: 'Website',
+        cell: 'Contact No.',
         wei: 'WeChat Pay:',
         ali: 'Alipay:',
-        rate: 'Merchant Rate',
+        rate: 'MDR',
         bankuser: 'Bank Account Name',
         bankaccount: 'Bank Account Number',
         hbank: 'Bank Name',
-        bbank: 'Branch',
+        bbank: 'Branch Name',
         bankProvice: 'Provice',
         bankCity: 'City',
         code: 'Swift Code',
-        mobile: 'Mobile Number',
+        mobile: 'Mobile No.',
         banktype: 'Account Type',
         doc: 'Store Info', // 店铺信息
-        idfront: 'Click to upload shop interior photo.',
-        idback: 'Click to upload shop front photo.',
-        warmfront: '* You must use the inside picture of the merchandise / business place you sell.', // 必须使用所售商品/经营场所内景照片
-        warmback: '* You must use the premises / place of business location photos.', // 必须使用经营场所/经营场所外景照片
+        idfront: 'Click to add store photo (indoor).',
+        idback: 'Click to add store photo (outdoor).',
+        warmfront: '* The photo has to be from inside of the store.', // 必须使用所售商品/经营场所内景照片
+        warmback: '* The photo has to be from outside of the store.', // 必须使用经营场所/经营场所外景照片
       },
-      rule1: 'Please choose registered merchants.', // 请选择注册商户
-      rule2: 'Please enter the name of the merchant.', // 请输入商户名称
-      rule3: 'Please enter company name.', // 请输入公司名称
-      rule4: 'Please input the correct email address.', // 请输入正确的邮箱地址
-      rule5: 'Bank card accounts must be number.', // 银行卡账户必须是数字
-      rule6: 'Phone numbers must be number.', // 手机号必须是数字
-      rule7: 'Please enter business account.', // 请输入业务员账号
-      rule8: 'Uploading file must be JPG/PNG format', // 上传凭证必须是jpg、png格式
-      rule9: 'Please enter chain store UID', // 请输入连锁店总店UID
-      rule10: 'Only 60 characters can be entered at most.',
-      rule11: '请选择业务员',
-      rule12: 'Please enter account',
-      rule13: 'Retio must be lager than',
-      rule14: '请输入营业执照号',
-      rule15: '请选择公司所属地区',
-      rule16: '请输入公司地址',
-      rule17: '请输入公司联系人',
-      rule18: '请输入总行名称',
-      rule19: '请输入SWIFT代码',
-      rule20: '请输入银行帐户名称',
-      rule21: '请输入店铺名称',
-      rule22: '请输入店铺联系电话',
-      rule23: '请选择店铺所属地区',
-      rule24: '请输入店铺地址',
-      rule25: '请输入店铺邮编',
-      rule26: '请输入店铺附加服务',
-      rule27: '请输入店铺营业时间',
-      rule28: '请上传所售商品/经营场所内景照片',
-      rule29: '请上传经营场所/经营场所外景照片',
-      rule30: '请输入邮箱'
+      rule1: 'Please select merchant category.', // 请选择注册商户
+      rule2: 'Please input merchant name.', // 请输入商户名称
+      rule3: 'Please input company name.', // 请输入公司名称
+      rule4: 'Please input a valid e-mail address.', // 请输入正确的邮箱地址
+      rule5: 'Numbers only for bank account.', // 银行卡账户必须是数字
+      rule6: 'Numbers only for mobile number.', // 手机号必须是数字
+      rule7: 'Please input sales rep. account.', // 请输入业务员账号
+      rule8: 'Uploaded files should be JPG/PNG format', // 上传凭证必须是jpg、png格式
+      rule9: 'Please input master merchant UID', // 请输入连锁店总店UID
+      rule10: 'Please input 60 characters at most.', // 最多输入60个字符
+      rule11: 'Please select sales rep.', // 请选择业务员
+      rule12: 'Please input account', // 请输入账号
+      rule13: 'MDR should be larger than ',
+      rule14: 'Please input business registration No.', // 请输入营业执照号
+      rule15: 'Please select area', // 请选择公司所属地区
+      rule16: 'Please input company address', // 请输入公司地址
+      rule17: 'Please input company contact name', // 请输入公司联系人
+      rule18: 'Please input bank name', // 请输入总行名称
+      rule19: 'Please input SWIFT code', // 请输入SWIFT代码
+      rule20: 'Please input bank account name', // 请输入银行帐户名称
+      rule21: 'Please input store name', // 请输入店铺名称
+      rule22: 'Please input store contact No.', // 请输入店铺联系电话
+      rule23: 'Please select area', // 请选择店铺所属地区
+      rule24: 'Please input store address', // 请输入店铺地址
+      rule25: 'Please input post code', // 请输入店铺邮编
+      rule26: 'Please input store services', // 请输入店铺附加服务
+      rule27: 'Please input business hours', // 请输入店铺营业时间
+      rule28: 'Please upload photos from inside of store', // 请上传所售商品/经营场所内景照片
+      rule29: 'Please upload photos from outside of store', // 请上传经营场所/经营场所外景照片
+      rule30: 'Please input e-mail address', // 请输入邮箱
+      rule31: 'Uploaded file must be Excel format',
+      rule32: 'Please input bank account No.',
+      rule33: 'Uploaded file must be ZIP package'
     }
   },
   shop: {
-    title: 'Shop Management',
+    title: 'Store Management',
     create: 'Create',
     query: 'Query',
     reset: 'Reset',
@@ -395,50 +398,50 @@ const en = {
     form: {
       mchntid: 'Merchant ID',
       mchntname: 'Merchant Name',
-      submchntid: 'Shop ID',
-      sunmchntname: 'Shop Name'
+      submchntid: 'Store ID',
+      sunmchntname: 'Store Name'
     },
     table: {
-      submchntid: 'Shop ID',
-      sunmchntname: 'Shop Name',
+      submchntid: 'Store ID',
+      sunmchntname: 'Store Name',
       mchntid: 'Merchant ID',
       mchntname: 'Merchant Name',
       address: 'Address',
-      telephone: 'Contact Number',
-      location: 'Location',
+      telephone: 'Contact No.',
+      location: 'Area',
       post: 'Postal Code',
-      operating: 'Operating Hours'
+      operating: 'Business Hours'
     },
     detail: {
       cate: {
         merchant: 'Merchant',
-        big: 'Big-merchant',
-        sub: 'Sub-merchant'
+        big: 'Chain Merchant',
+        sub: 'Branch Merchant'
       },
       basic: {
-        title: 'Detail Shop',
+        title: 'Store Detail',
         close: 'Close',
         subtitle: 'Basic Info',
         la1: 'Merchant Name:',
         la2: 'Account number:',
-        la3: 'Shop Name:',
-        la4: 'Contact Number:',
-        la5: 'Location:',
+        la3: 'Store Name:',
+        la4: 'Contact No.:',
+        la5: 'Area:',
         la6: 'Address:',
         la7: 'Postal Code:',
-        la8: 'Operating Hours:',
+        la8: 'Business Hours:',
         la9: 'Additional Services:',
-        la10: 'Website URL:',
-        la11: 'Photograph'   
+        la10: 'Website:',
+        la11: 'Photograph'
       },
       shop: {
-        subtitle: 'Shop Info',
-        la1: 'Name of Shop:',
+        subtitle: 'Store Info',
+        la1: 'Store Name:',
         la2: 'Address:',
         la3: 'Photograph:'
       },
       rates: {
-        subtitle: 'Rates Info',
+        subtitle: 'MDR Info',
         wechat: 'WeChat Pay:',
         ali: 'Alipay:'
       },
@@ -446,10 +449,10 @@ const en = {
         subtitle: 'Payment Info',
         la1: 'Bank Account Name:',
         la2: 'Bank Account Number:',
-        la3: 'Head Bank:',
-        la4: 'Branch Bank:',
+        la3: 'Bank Name:',
+        la4: 'Branch Bank Name:',
         la5: 'Province Bank:',
-        la6: 'Bank Code:',
+        la6: 'Swift Code:',
         la7: 'City Bank:',
         la8: 'Mobile:',
         la9: 'Bank Type:',
@@ -480,7 +483,25 @@ const en = {
     }
   },
   batch: {
-    title: 'Batch Creation'
+    title: 'Batch Creation',
+    t1: 'Batch Creation',
+    tip: {
+      txt: '* Please upload merchant information in a fixed text format. Please refer to',
+      ins: 'Batch Input Instructions',
+      template: 'Batch Input Templates',
+      and: 'and',
+      title: 'Tip',
+      close: 'Close'
+    },
+    cap: 'Batch Creation',
+    input: {
+      cap1: 'Essential Information',
+      cap2: 'Annex Information'
+    },
+    up: {
+      excel: 'Upload Excel',
+      zip: 'Upload Zip'
+    }
   },
   trade: {
     detail: 'Transaction details',
