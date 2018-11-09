@@ -35,13 +35,13 @@
 
        <el-table-column prop="submchnt_name"  :label="$t('shop.table.mchntname')">
         <template slot-scope="scope">
-          {{ scope.row.submchnt_name }}
+          {{ scope.row.mchnt_name }}
         </template>
       </el-table-column>
 
       <el-table-column width="170" prop="mchnt_name" :label="$t('shop.table.sunmchntname')">
         <template slot-scope="scope">
-          {{ scope.row.mchnt_name }}
+          {{ scope.row.submchnt_name }}
         </template>
       </el-table-column>
 
