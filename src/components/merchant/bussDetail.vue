@@ -179,7 +179,7 @@
           font-weight:$bolderW;
           color:rgba(29,29,36,1);
           vertical-align:top;
-          line-height:19px;
+          line-height:14px;
         }
         .basic-content {
           margin-left: $smGap;

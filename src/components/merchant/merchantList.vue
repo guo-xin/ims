@@ -84,7 +84,7 @@
 
       <el-table-column :label="$t('merchant.table.store')">
         <template slot-scope="scope">
-          <el-button type="text" @click.stop="shopDetail(scope.row.userid)">{{ $t('common.look') }}</el-button>
+          <el-button type="text" @click.stop="shopList(scope.row.userid)">{{ $t('common.look') }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -143,10 +143,10 @@
       this.getChannelList()
     },
     methods: {
-      shopDetail(submchntId) {
+      shopList(mchntId) {
         this.$router.push({
-          path: 'shop_manage_list/shop_detail',
-          query: {userid: submchntId, from: 'old'}
+          path: 'shop_manage_list/',
+          query: {userid: mchntId, from: 'old'}
         })
       },
       getAuditList() { // 审核列表数据

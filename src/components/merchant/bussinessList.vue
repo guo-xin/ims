@@ -61,7 +61,7 @@
         <template slot-scope="scope">
           {{ scope.row.telephone }}
         </template>
-      </el-table-column> 
+      </el-table-column>
 
       <el-table-column prop="post" :label="$t('shop.table.post')">
         <template slot-scope="scope">
@@ -107,6 +107,7 @@
       }
     },
     created() {
+      this.formData.mchntid = this.$route.query.userid
       this.fetchData()
     },
     methods: {
@@ -142,6 +143,7 @@
       },
       reset() {
         this.$refs['shop_list_form'].resetFields();
+        this.formData.mchntid = '';
         this.fetchData();
       },
       selectCurrentRowHandler(currentRow, oldCurrentRow) { // 选择列表项，进入详情页
