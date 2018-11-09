@@ -263,7 +263,7 @@
         goodsphotoloading: false,
         shopphotoloading: false,
         isUpdate: false,
-        active: 1, // 当前步骤,
+        active: 0, // 当前步骤,
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
         form: {
             status: '',
@@ -324,6 +324,9 @@
           shopphoto_name: ''
         },
         baseRules: {
+          'memo': [
+            {required: true, message: this.$t('merchant.newMerchant.rule34')}
+          ],
           'cate': [
             {required: true, message: this.$t('merchant.newMerchant.rule1')}
           ],
@@ -359,6 +362,7 @@
             }
           ],
           'telephone': [
+            { required: true, message: this.$t('merchant.newMerchant.rule35'), trigger: 'blur' },
             {
               validator: (rule, val, cb) => {
                 if (!/^[0-9]*$/.test(val) && val != '') {
@@ -368,6 +372,9 @@
                 }
               }
             }
+          ],
+          'post': [
+            { required: true, message: this.$t('merchant.newMerchant.rule36'), trigger: 'blur' }
           ],
           'name': [
             {required: true, message: this.$t('merchant.newMerchant.rule3')}
@@ -386,6 +393,9 @@
           ],
           'headbankname': [
             {required: true, message: this.$t('merchant.newMerchant.rule18')}
+          ],
+          'bankname': [
+            {required: true, message: this.$t('merchant.newMerchant.rule37')}
           ],
           'bankcode': [
             {required: true, message: this.$t('merchant.newMerchant.rule19')}
@@ -722,6 +732,12 @@
           delete params.storeadditional;
           delete params.storeoperating;
           delete params.website;
+          if(!params.primary_uid) {
+            delete params.primary_uid
+          }
+          if(!params.secondary_uid) {
+            delete params.secondary_uid
+          }
         }
 
         axios.post(url, qs.stringify(params), {

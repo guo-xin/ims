@@ -258,7 +258,7 @@ const en = {
         la15: 'Agreement Signed (Yes/No):',
         la16: 'Settlement Period:',
         la17: 'Sales Contact Number:',
-        la18: 'Contact No.:',
+        la18: 'Contact Number:',
         la19: 'Business Registration Number (UEN):'
       },
       shop: {
@@ -275,13 +275,13 @@ const en = {
       pay: {
         subtitle: 'Company Info',
         la1: 'Bank Account Name:',
-        la2: 'Bank Account No.:',
+        la2: 'Bank Account Number:',
         la3: 'Bank Name:',
         la4: 'Branch Name:',
         la5: 'Province Bank:',
         la6: 'Swift Code:',
         la7: 'City Bank:',
-        la8: 'Contact No.:',
+        la8: 'Contact Number:',
         la9: 'Account Type:',
         la10: 'Uploaded Photos:'
       },
@@ -306,7 +306,7 @@ const en = {
         account: 'Account',
         shopname: 'Merchant Name',
         name: 'Company Name',
-        licensenumber: 'Business Registration No.',
+        licensenumber: 'Business Registration Number',
         legal: 'Contact Name',
         location: 'Area',
         loc1: 'Singapore',
@@ -327,7 +327,7 @@ const en = {
         ent: 'Enterprises',
         main: 'Main Store UID',
         contact: 'Sales Rep.',
-        storephone: 'Store Contact No.',
+        storephone: 'Store Contact Number',
         storelocation: 'Store Area',
         storeaddress: 'Store Address',
         storepost: 'Postal Code',
@@ -335,7 +335,7 @@ const en = {
         addition: 'Additional Services',
         storeoperating: 'Business Hours',
         website: 'Website',
-        cell: 'Contact No.',
+        cell: 'Contact Number',
         wei: 'WeChat Pay:',
         ali: 'Alipay:',
         rate: 'MDR',
@@ -346,7 +346,7 @@ const en = {
         bankProvice: 'Provice',
         bankCity: 'City',
         code: 'Swift Code',
-        mobile: 'Mobile No.',
+        mobile: 'Mobile Number',
         banktype: 'Account Type',
         doc: 'Store Info', // 店铺信息
         idfront: 'Click to add store photo (indoor).',
@@ -367,7 +367,7 @@ const en = {
       rule11: 'Please select sales rep.', // 请选择业务员
       rule12: 'Please input account', // 请输入账号
       rule13: 'MDR should be larger than ',
-      rule14: 'Please input business registration No.', // 请输入营业执照号
+      rule14: 'Please input business registration number', // 请输入营业执照号
       rule15: 'Please select area', // 请选择公司所属地区
       rule16: 'Please input company address', // 请输入公司地址
       rule17: 'Please input company contact name', // 请输入公司联系人
@@ -375,7 +375,7 @@ const en = {
       rule19: 'Please input SWIFT code', // 请输入SWIFT代码
       rule20: 'Please input bank account name', // 请输入银行帐户名称
       rule21: 'Please input store name', // 请输入店铺名称
-      rule22: 'Please input store contact No.', // 请输入店铺联系电话
+      rule22: 'Please input store contact number', // 请输入店铺联系电话
       rule23: 'Please select area', // 请选择店铺所属地区
       rule24: 'Please input store address', // 请输入店铺地址
       rule25: 'Please input post code', // 请输入店铺邮编
@@ -385,8 +385,12 @@ const en = {
       rule29: 'Please upload photos from outside of store', // 请上传经营场所/经营场所外景照片
       rule30: 'Please input e-mail address', // 请输入邮箱
       rule31: 'Uploaded file must be Excel format',
-      rule32: 'Please input bank account No.',
-      rule33: 'Uploaded file must be ZIP package'
+      rule32: 'Please input bank account number',
+      rule33: 'Uploaded file must be ZIP package',
+      rule34: 'Please input description.',
+      rule35: 'Please input contact number.',
+      rule36: 'Please input postal code.',
+      rule37: 'Please input branch bank name.'
     }
   },
   shop: {
@@ -407,7 +411,7 @@ const en = {
       mchntid: 'Merchant ID',
       mchntname: 'Merchant Name',
       address: 'Address',
-      telephone: 'Contact No.',
+      telephone: 'Contact Number',
       location: 'Area',
       post: 'Postal Code',
       operating: 'Business Hours'
@@ -423,9 +427,9 @@ const en = {
         close: 'Close',
         subtitle: 'Basic Info',
         la1: 'Merchant Name:',
-        la2: 'Account number:',
+        la2: 'Account Number:',
         la3: 'Store Name:',
-        la4: 'Store Contact No.:',
+        la4: 'Store Contact Number:',
         la5: 'Store Area:',
         la6: 'Store Address:',
         la7: 'Postal Code:',
@@ -448,7 +452,7 @@ const en = {
       pay: {
         subtitle: 'Payment Info',
         la1: 'Bank Account Name:',
-        la2: 'Bank Account No.:',
+        la2: 'Bank Account Number:',
         la3: 'Bank Name:',
         la4: 'Branch Bank Name:',
         la5: 'Province Bank:',
@@ -554,7 +558,7 @@ const en = {
     address: 'Enterprise Address',
     contact: 'Business Contact',
     legal: 'Enterprise Legal Person',
-    contactMobile: 'Contact No.',
+    contactMobile: 'Contact Number',
     legalMobile: 'Legal person phone',
     saleMan: 'Salesman',
     belongSaleMan: 'Salesman',

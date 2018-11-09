@@ -341,7 +341,7 @@ const zh = {
         bankuser: '银行帐户名称',
         bankaccount: '银行账号',
         hbank: '银行名称',
-        bbank: '支行名称（选填）',
+        bbank: '支行名称',
         bankProvice: '银行所在省',
         bankCity: '银行所在市',
         code: 'SWIFT代码',
@@ -385,7 +385,11 @@ const zh = {
       rule30: '请输入公司邮箱',
       rule31: '只能上传Excel文件',
       rule32: '请输入银行账号',
-      rule33: '只能上传ZIP压缩包'
+      rule33: '只能上传ZIP压缩包',
+      rule34: '请输入简介',
+      rule35: '请输入公司联系人电话',
+      rule36: '请输入公司邮编',
+      rule37: '请输入支行名称'
     }
   },
   shop: {
