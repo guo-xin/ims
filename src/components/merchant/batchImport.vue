@@ -7,7 +7,7 @@
     <section class="basic">
       <div class="note">
         {{$t('batch.tip.txt')}}
-        <el-button type="text" @click="dialogVisible = true">{{$t('batch.tip.ins')}}</el-button>{{$t('batch.tip.and')}}
+        <el-button type="text" @click="dialogVisible = true">{{$t('batch.tip.ins')}}</el-button>&nbsp;{{$t('batch.tip.and')}}
         <a class="download-temp" href="javascript:void(0)">{{$t('batch.tip.template')}}</a>
         <el-dialog
           :title="$t('batch.tip.title')"
@@ -20,34 +20,31 @@
           </span>
         </el-dialog>
       </div>
-      <el-form v-loading="isLoading" ref="baseinfo" :model="form" :rules="baseRules">
+      <el-form v-loading="isLoading" ref="baseinfo" :model="form">
         <h3>{{$t('batch.cap')}}</h3>
         <el-row>
-          <el-col :span="4"><div style="height:90px;"></div></el-col>
+          <el-col :span="4">
+            <div style="height:90px;" ></div></el-col>
           <el-col :span="16">
-            <el-form-item prop="exlname" :label="$t('batch.input.cap1')">
+            <el-form-item prop="excel_name" :label="$t('batch.input.cap1')">
               <el-input
                 type="text"
-                v-model.trim="form.file_name"
+                v-model.trim="form.excel_name"
                 :clearable="true"
+                @clear="clearExcelName"
               >
                 <template slot="append">
                   <el-upload
                     class="upload-demo"
                     :with-credentials="true"
                     :action="uploadExcelInterface"
-                    :on-preview="handlePreview"
-                    :on-remove="handleRemove"
                     :before-remove="beforeRemove"
                     :show-file-list="false"
                     :before-upload="beforeExcelUpload"
-                    :on-success="avatarSuccess"
-                    :on-error="avatarFailed"
-                    :limit="1"
-                    :file-list="form.fileList"
+                    :on-remove="handleRemove"
+                    :http-request="myUploadFn"
                     :data="{
                     tag: 'excel',
-                    file_name: this.form.filename,
                     format: 'cors'
                   }">
                     <el-button size="small" type="primary"><i class="icon-up"></i>{{$t('batch.up.excel')}}</el-button>
@@ -59,32 +56,29 @@
           <el-col :span="3"><div style="height:90px;"></div></el-col>
         </el-row>
         <el-row>
-          <el-col :span="4"><div style="height:90px;"></div></el-col>
+          <el-col :span="4">
+            <div style="height:90px;"></div>
+          </el-col>
           <el-col :span="16">
-            <el-form-item prop="exlname" :label="$t('batch.input.cap2')">
+            <el-form-item prop="zip_name" :label="$t('batch.input.cap2')">
               <el-input
                 type="text"
-                v-model.trim="form.filename"
+                v-model.trim="form.zip_name"
                 :clearable="true"
+                @clear="clearZipPackage"
               >
                 <template slot="append">
                   <el-upload
                     class="upload-demo"
                     :with-credentials="true"
                     :action="uploadZipInterface"
-                    :on-remove="handleRemove"
                     :before-remove="beforeRemove"
                     :show-file-list="false"
-                    :on-success="avatarSuccess"
-                    :before-upload="beforeZipAvatarUpload"
-                    :on-change="handlePreview"
-                    :on-error="avatarFailed"
-                    :limit="1"
-                    :file-list="form.imageList"
+                    :before-upload="beforeZipUpload"
+                    :on-remove="handleRemove"
+                    :http-request="myUploadFn"
                     :data="{
                     tag: 'zip',
-                    filename: this.form.filename,
-                    content: this.form.contentZip,
                     format: 'cors'
                   }">
                     <el-button size="small" type="primary"><i class="icon-up"></i>{{$t('batch.up.zip')}}</el-button>
@@ -96,6 +90,9 @@
           <el-col :span="3"><div style="height:90px;"></div></el-col>
         </el-row>
       </el-form>
+      <footer>
+        <el-button @click="commitHandler" :disabled="isDisabled">{{$t('batch.commit')}}</el-button>
+      </footer>
     </section>
   </div>
 </template>
@@ -111,40 +108,105 @@
         dialogVisible: false,
         excelloading: false,
         ziploading: false,
+        isDisabled: false,
         uploadExcelInterface: `${config.host}/org/mchnt/upload_create_file`, // 上传excel接口
         uploadZipInterface: `${config.host}/org/mchnt/upload_batch_package`, // 上传zip接口
         form: {
-          filename: '',
-          content_excel: '',
-          contentZip: '',
-          fileList: [],
-          imageList: []
-        },
-        baseRules: {},
-
+          excel_name: '',
+          zip_name: '',
+          fileid: '',
+          dir_name: '',
+          file_name_new: ''
+        }
       }
     },
     created() {
 
     },
     methods: {
+      commitHandler() {
+        if(!this.form.fileid) {
+          this.$message.error(this.$t('batch.rule1'))
+          return;
+        }
+        if(!this.form.file_name_new) {
+          this.$message.error(this.$t('batch.rule2'))
+          return;
+        }
+        this.isDisabled = true;
+        axios.post(`${config.host}/org/mchnt/mchnt_batch_create`,qs.stringify({
+          fileid: this.form.fileid,
+          dir_name: this.form.dir_name,
+          file_name_new: this.form.file_name_new,
+          format: 'cors'
+        }), {
+        }).then((res) => {
+          let data = res.data;
+          if (data.respcd === config.code.OK) {
+            this.$message.error(this.$t('common.createSuccess'))
+            this.$router.push({
+              name: 'mchnt_manage_list',
+            })
+          }else {
+            this.$message.error(data.respmsg)
+          }
+          this.this.isDisabled = false;
+        }).catch(() => {
+          console.log('请求失败');
+          this.this.isDisabled = false;
+        })
+      },
+      clearExcelName() {
+        this.form.fileid = '';
+      },
+      clearZipPackage() {
+        this.form.dir_name = '';
+        this.form.file_name_new = '';
+      },
       cancel() {
         this.$router.push({name: 'mchnt_manage_list'})
       },
       handleRemove(file, fileList) {
         console.log(file, fileList);
       },
-      handlePreview(file, fileList) {
-        debugger;
-        if(file.status == 'ready') {
-          this.form.filename = file.name.substring(0,file.name.indexOf('.'));
-          this.form.contentZip = file;
+      myUploadFn(data) {
+        let formData = new FormData();
+        let tag = data.data.tag;
+        let reqUrl = tag === 'zip' ? this.uploadZipInterface : this.uploadExcelInterface
+        let blob = new Blob([data.file]);
+        formData.append("content", blob);
+        formData.append("file_name", data.file.name.substring(0,data.file.name.indexOf('.')));
+        formData.append("format", "cors");
+        if(tag === 'excel') {
+          this.form.excel_name = data.file.name
+        }else {
+          this.form.zip_name = data.file.name
         }
+        axios.post(reqUrl,formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then((res) => {
+          let data = res.data;
+          if (data.respcd === config.code.OK) {
+            if(tag === 'excel') {
+              this.form.fileid = data.data.fileid;
+              this.form.total_cnt = data.data.total_cnt;
+            }else {
+              this.form.dir_name = data.data.dir_name;
+              this.form.file_name_new = data.data.file_name_new;
+            }
+          }else {
+            this.$message.error(data.respmsg)
+          }
+        }).catch(() => {
+          console.log('请求失败');
+        })
       },
       beforeRemove(file, fileList) {
 //        return this.$confirm(`确定移除 ${ file.name } ？`);
       },
-      beforeZipAvatarUpload(file) {
+      beforeZipUpload(file) {
         const isRightImgType = file.type === 'application/zip'
         if (!isRightImgType) {
           this.$message.error(this.$t('merchant.newMerchant.rule33'));
@@ -157,22 +219,7 @@
         if (!isRightImgType) {
           this.$message.error(this.$t('merchant.newMerchant.rule31'));
         }
-        debugger;
         return isRightImgType;
-      },
-      avatarSuccess(res, file, fileList) {
-        let data = res.data;
-        debugger;
-        if (res.respcd === config.code.OK) {
-
-
-        } else {
-          this.$message.error(res.resperr);
-        }
-//        this[file['__ob__'].dep.subs[0].vm.data.tag + 'loading'] = false;
-      },
-      avatarFailed(err, file) {
-        this.$message.error(err);
       }
     }
   }
@@ -226,7 +273,7 @@
           border-radius: 9px;
           box-shadow:3px 6px 8px 0px rgba(142,169,190,0.1);
           .el-input-group__append {
-            width:112px;
+            width:120px;
           }
           .icon-up {
             display:inline-block;

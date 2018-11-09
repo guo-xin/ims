@@ -211,7 +211,7 @@ const en = {
       mchtname: 'Merchant Name',
       address: 'Address',
       mobile: 'Contact Number',
-      agent1: '1st-tier Agent',
+      agent1: 'Agent Name',
       agent2: '2nd-tier Agent',
       account: 'Account Name',
       industry: 'Industry',
@@ -240,26 +240,26 @@ const en = {
         title: 'Detail Info',
         close: 'Close',
         subtitle: 'Basic Info',
-        bd: 'Brief Description',
+        bd: 'Description',
         la1: 'Merchant Category:',
         la2: 'Industry:',
         la3: 'Merchant Name:',
         la4: 'Agent Name:',
         la5: 'Address:',
         la6: 'Sales Rep.:',
-        la7: 'Operator:',
-        la8: 'E-mail:',
+        la7: 'Contact Name:',
+        la8: 'E-mail Address:',
         la9: 'Status:',
         la10: 'Established Date:',
         la11: 'Company Name:',
-        la12: 'Company Address:',
+        la12: 'Address:',
         la13: 'Area:',
         la14: 'Post Code:',
         la15: 'Agreement Signed (Yes/No):',
         la16: 'Settlement Period:',
         la17: 'Sales Contact Number:',
-        la18: 'Contact Number:',
-        la19: 'Registration Number (UEN):'
+        la18: 'Contact No.:',
+        la19: 'Business Registration Number (UEN):'
       },
       shop: {
         subtitle: 'Shop Info',
@@ -269,11 +269,11 @@ const en = {
       },
       rates: {
         subtitle: 'MDR Info',
-        wechat: 'WeChat Pay:',
+        wechat: 'MDR:',
         ali: 'Alipay:'
       },
       pay: {
-        subtitle: 'Settlement Info',
+        subtitle: 'Company Info',
         la1: 'Bank Account Name:',
         la2: 'Bank Account No.:',
         la3: 'Bank Name:',
@@ -326,7 +326,7 @@ const en = {
         geti: 'Individual Company',
         ent: 'Enterprises',
         main: 'Main Store UID',
-        contact: 'Sales Rep. Account',
+        contact: 'Sales Rep.',
         storephone: 'Store Contact No.',
         storelocation: 'Store Area',
         storeaddress: 'Store Address',
@@ -425,9 +425,9 @@ const en = {
         la1: 'Merchant Name:',
         la2: 'Account number:',
         la3: 'Store Name:',
-        la4: 'Contact No.:',
-        la5: 'Area:',
-        la6: 'Address:',
+        la4: 'Store Contact No.:',
+        la5: 'Store Area:',
+        la6: 'Store Address:',
         la7: 'Postal Code:',
         la8: 'Business Hours:',
         la9: 'Additional Services:',
@@ -448,7 +448,7 @@ const en = {
       pay: {
         subtitle: 'Payment Info',
         la1: 'Bank Account Name:',
-        la2: 'Bank Account Number:',
+        la2: 'Bank Account No.:',
         la3: 'Bank Name:',
         la4: 'Branch Bank Name:',
         la5: 'Province Bank:',
@@ -496,12 +496,15 @@ const en = {
     cap: 'Batch Creation',
     input: {
       cap1: 'Essential Information',
-      cap2: 'Annex Information'
+      cap2: 'Auxiliary Information'
     },
     up: {
       excel: 'Upload Excel',
       zip: 'Upload Zip'
-    }
+    },
+    commit: 'Commit',
+    rule1: 'Please upload necessary information.',
+    rule2: 'Please upload auxiliary information.',
   },
   trade: {
     detail: 'Transaction details',
@@ -551,7 +554,7 @@ const en = {
     address: 'Enterprise Address',
     contact: 'Business Contact',
     legal: 'Enterprise Legal Person',
-    contactMobile: 'Contact Number',
+    contactMobile: 'Contact No.',
     legalMobile: 'Legal person phone',
     saleMan: 'Salesman',
     belongSaleMan: 'Salesman',

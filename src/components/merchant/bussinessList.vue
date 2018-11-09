@@ -143,6 +143,7 @@
       },
       reset() {
         this.$refs['shop_list_form'].resetFields();
+        this.formData.mchntid = '';
         this.fetchData();
       },
       selectCurrentRowHandler(currentRow, oldCurrentRow) { // 选择列表项，进入详情页
