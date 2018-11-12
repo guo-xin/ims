@@ -124,12 +124,13 @@
           page_size: this.pageSize,
           format: 'cors'
         }
+        this.isLoading = true;
         axios.get(`${config.host}/org/mchnt/sub/list`, {
           params: p})
           .then((res) => {
             console.log(p)
             let data = res.data;
-            this.loading = false;
+            this.isLoading = false;
             if (data.respcd === config.code.OK) {
               this.shops = data.data.sub_infos
               this.total = data.data.sub_cnt
@@ -137,8 +138,8 @@
               this.$message.error(data.respmsg);
             }
           }).catch(() => {
-          this.loading = false;
           this.$message.error(this.$t('common.netError'));
+          this.isLoading = false;
         });
       },
       reset() {

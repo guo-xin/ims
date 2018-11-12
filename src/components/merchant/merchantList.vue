@@ -156,14 +156,12 @@
           }})
           .then((res) => {
             let data = res.data;
-            this.loading = false;
             if (data.respcd === config.code.OK) {
               this.statusList = data.data;
             } else {
               this.$message.error(data.respmsg);
             }
           }).catch(() => {
-          this.loading = false;
           this.$message.error(this.$t('common.netError'));
         });
       },
@@ -175,14 +173,12 @@
           }})
           .then((res) => {
             let data = res.data;
-            this.loading = false;
             if (data.respcd === config.code.OK) {
             this.channels = data.data.list;
             } else {
               this.$message.error(data.respmsg);
             }
           }).catch(() => {
-          this.loading = false;
           this.$message.error(this.$t('common.netError'));
         });
       },
@@ -194,14 +190,12 @@
           }})
           .then((res) => {
             let data = res.data;
-            this.loading = false;
             if (data.respcd === config.code.OK) {
               this.channels2 = data.data.list;
             } else {
               this.$message.error(data.respmsg);
             }
           }).catch(() => {
-          this.loading = false;
           this.$message.error(this.$t('common.netError'));
         });
       },
@@ -219,11 +213,12 @@
         if(this.formData.qd_uid2) {
           p.qd_uid = this.formData.qd_uid2
         }
+        this.isLoading = true;
         axios.get(`${config.host}/org/mchnt/list`, {
           params: p})
           .then((res) => {
             let data = res.data;
-            this.loading = false;
+            this.isLoading = false;
             if (data.respcd === config.code.OK) {
                this.merchents = data.data.mchnt_infos
                this.total = data.data.mchnt_cnt
@@ -231,7 +226,7 @@
               this.$message.error(data.respmsg);
             }
           }).catch(() => {
-          this.loading = false;
+          this.isLoading = false;
           this.$message.error(this.$t('common.netError'));
         });
       },

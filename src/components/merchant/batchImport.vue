@@ -143,7 +143,7 @@
         }).then((res) => {
           let data = res.data;
           if (data.respcd === config.code.OK) {
-            this.$message.error(this.$t('common.createSuccess'))
+            this.$message.success(this.$t('common.createSuccess'))
             this.$router.push({
               name: 'mchnt_manage_list',
             })

@@ -210,7 +210,7 @@
         period: {
           month: this.$t('merchant.detail.p.m'),
           week: this.$t('merchant.detail.p.w'),
-          date: this.$t('merchant.detail.p.d'),
+          day: this.$t('merchant.detail.p.d'),
         },
         status: {
             0: this.$t('merchant.detail.up'),
