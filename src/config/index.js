@@ -9,7 +9,7 @@ switch (env) {
     break;
 
   case 'development':
-    host = 'http://172.100.108.179:6500'; // https://oasbp.qa.qfpay.net
+    host = 'https://oasbp.qa.qfpay.net';
     ohost = 'https://o.qa.qfpay.net';
     imgUpload = 'https://o2.qa.qfpay.net';
     break;
