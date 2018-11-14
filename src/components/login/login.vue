@@ -6,7 +6,7 @@
           {{$t('login.cap1')}} <br/>
           {{$t('login.cap2')}}
         </div>
-        <div class="desc">
+        <div class="desc" v-show="false">
           {{$t('login.desc')}}
         </div>
         <el-form ref="form-login"  :model="form" label-width="0px" class="form-login" :rules="rules" :autocomplete="false">
@@ -160,7 +160,7 @@
         margin-bottom:40px;
       }
       .cap {
-        width:519px;font-size:32px;line-height: 1;padding-bottom: 14px;font-weight: 600;
+        width:519px;font-size:32px;line-height: 1;padding-bottom: 44px;font-weight: 600;
       }
       .desc {
         width:355px;

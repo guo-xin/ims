@@ -1,5 +1,5 @@
 <template>
-  <div class="batch">
+  <div class="batch" v-loading="isLoading">
     <header class="page-header style2">
       <h2 class="page-title">{{$t('batch.title')}}</h2>
       <el-button type="text" @click="cancel"><i class="el-icon-close"></i><span>{{$t('merchant.detail.basic.close')}}</span></el-button>
@@ -14,13 +14,15 @@
           :visible.sync="dialogVisible"
           width="40%"
           >
-          <span>上传说明...</span>
+          <div class="tip-para">{{$t('batch.manual1')}}</div>
+          <div class="tip-para">{{$t('batch.manual2')}}</div>
+          <div class="tip-para">{{$t('batch.manual3')}}</div>
           <span slot="footer" class="dialog-footer">
             <el-button @click="dialogVisible = false">{{$t('batch.tip.close')}}</el-button>
           </span>
         </el-dialog>
       </div>
-      <el-form v-loading="isLoading" ref="baseinfo" :model="form">
+      <el-form ref="baseinfo" :model="form">
         <h3>{{$t('batch.cap')}}</h3>
         <el-row>
           <el-col :span="4">
@@ -91,7 +93,7 @@
         </el-row>
       </el-form>
       <footer>
-        <el-button @click="commitHandler" :disabled="isDisabled">{{$t('batch.commit')}}</el-button>
+        <el-button @click="commitHandler">{{$t('batch.commit')}}</el-button>
       </footer>
     </section>
   </div>
@@ -108,7 +110,6 @@
         dialogVisible: false,
         excelloading: false,
         ziploading: false,
-        isDisabled: false,
         uploadExcelInterface: `${config.host}/org/mchnt/upload_create_file`, // 上传excel接口
         uploadZipInterface: `${config.host}/org/mchnt/upload_batch_package`, // 上传zip接口
         form: {
@@ -133,7 +134,7 @@
           this.$message.error(this.$t('batch.rule2'))
           return;
         }
-        this.isDisabled = true;
+        this.isLoading = true;
         axios.post(`${config.host}/org/mchnt/mchnt_batch_create`,qs.stringify({
           fileid: this.form.fileid,
           dir_name: this.form.dir_name,
@@ -150,10 +151,10 @@
           }else {
             this.$message.error(data.respmsg)
           }
-          this.this.isDisabled = false;
+          this.isLoading = false;
         }).catch(() => {
           console.log('请求失败');
-          this.this.isDisabled = false;
+          this.isLoading = false;
         })
       },
       clearExcelName() {
@@ -273,7 +274,7 @@
           border-radius: 9px;
           box-shadow:3px 6px 8px 0px rgba(142,169,190,0.1);
           .el-input-group__append {
-            width:120px;
+            width:146px;
           }
           .icon-up {
             display:inline-block;
@@ -291,6 +292,9 @@
             color: #2196F3;
           }
         }
+      }
+      .tip-para {
+        padding: 10px 20px 10px 20px;
       }
     }
   }

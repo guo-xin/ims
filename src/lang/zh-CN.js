@@ -299,6 +299,7 @@ const zh = {
       form: {
         timeformat: 'HH:MM - HH:MM',
         is_contract: '合同是否签署',
+        cf: '请确认',
         period: '结算周期',
         ratio: '服务费率',
         account: '账号',
@@ -308,7 +309,7 @@ const zh = {
         legal: '公司联系人',
         location: '公司所属地区',
         loc1: '新加坡',
-        loc2: '香港',
+        loc2: '马来西亚',
         address: '公司地址',
         storeaddr: '门店地址',
         post: '公司邮编',
@@ -389,7 +390,12 @@ const zh = {
       rule34: '请输入简介',
       rule35: '请输入公司联系人电话',
       rule36: '请输入公司邮编',
-      rule37: '请输入支行名称'
+      rule37: '请输入支行名称',
+      rule38: '请选择行业',
+      rule39: '请确认合同是否签署',
+      rule40: '请选择结算周期',
+      rule41: '请输入门店网址',
+      rule42: '请输入可访问的门店网址'
     }
   },
   shop: {
@@ -436,25 +442,28 @@ const zh = {
     title: '批量创建',
     t1: '批量导入',
     tip: {
-      txt: '* 请上传统一格式的商户信息. 请参考',
-      ins: '批量上传说明',
-      template: 'Excel模板',
-      and: '和',
+      txt: '* 请按照固定格式上传商户资料，请参考',
+      ins: '《批量进件说明》',
+      template: '《batch merchants on-boarding.xlsx》模板',
+      and: '及',
       title: '提示',
       close: '关 闭'
     },
     cap: '批量创建',
     input: {
-      cap1: '必要信息',
-      cap2: '辅助信息'
+      cap1: '商户信息',
+      cap2: '照片信息'
     },
     up: {
       excel: '上传Excel',
-      zip: '上传图片Zip包'
+      zip: '上传图片zip包'
     },
     commit: '提交',
-    rule1: '请上传必要信息',
-    rule2: '请上传辅助信息'
+    rule1: '请上传商户信息',
+    rule2: '请上传照片信息',
+    manual1: '1、请点击下载批量上传模板《batch merchants on-boarding.xlsx》，下载后将需要入网的商户信息汇总。',
+    manual2: '2、附件请按照命名规范命名，并放入文件夹压缩后进行上传（店内照命名规范：门店电话号-goodsphoto.jpg,店外照命名规范：门店电话号-shopphoto.jpg）。',
+    manual3: '3、附件中文件夹名称与压缩包名称需保持一致，如需修改名称，请先修改文件夹名称再进行压缩。'
   },
   audit: {
     title: '审核管理',

@@ -301,6 +301,7 @@ const en = {
         address: 'Address',
         timeformat: 'HH:MM - HH:MM',
         is_contract: 'Agreement Signed (Yes/No)',
+        cf: 'Please confirm',
         period: 'Settlement Period',
         ratio: 'MDR',
         account: 'Account',
@@ -310,7 +311,7 @@ const en = {
         legal: 'Contact Name',
         location: 'Area',
         loc1: 'Singapore',
-        loc2: 'Hong Kong',
+        loc2: 'Malaysia',
         storeaddr: 'Store Address',
         email: 'E-mail Address',
         post: 'Post Code',
@@ -354,17 +355,17 @@ const en = {
         warmfront: '* The photo has to be from inside of the store.', // 必须使用所售商品/经营场所内景照片
         warmback: '* The photo has to be from outside of the store.', // 必须使用经营场所/经营场所外景照片
       },
-      rule1: 'Please select merchant category.', // 请选择注册商户
-      rule2: 'Please input merchant name.', // 请输入商户名称
-      rule3: 'Please input company name.', // 请输入公司名称
-      rule4: 'Please input a valid e-mail address.', // 请输入正确的邮箱地址
-      rule5: 'Numbers only for bank account.', // 银行卡账户必须是数字
-      rule6: 'Numbers only for mobile number.', // 手机号必须是数字
-      rule7: 'Please input sales rep. account.', // 请输入业务员账号
+      rule1: 'Please select merchant category', // 请选择注册商户
+      rule2: 'Please input merchant name', // 请输入商户名称
+      rule3: 'Please input company name', // 请输入公司名称
+      rule4: 'Please input a valid e-mail address', // 请输入正确的邮箱地址
+      rule5: 'Numbers only for bank account', // 银行卡账户必须是数字
+      rule6: 'Numbers only for mobile number', // 手机号必须是数字
+      rule7: 'Please input sales rep. account', // 请输入业务员账号
       rule8: 'Uploaded files should be JPG/PNG format', // 上传凭证必须是jpg、png格式
       rule9: 'Please input master merchant UID', // 请输入连锁店总店UID
       rule10: 'Please input 60 characters at most.', // 最多输入60个字符
-      rule11: 'Please select sales rep.', // 请选择业务员
+      rule11: 'Please select sales rep', // 请选择业务员
       rule12: 'Please input account', // 请输入账号
       rule13: 'MDR should be larger than ',
       rule14: 'Please input business registration number', // 请输入营业执照号
@@ -387,10 +388,15 @@ const en = {
       rule31: 'Uploaded file must be Excel format',
       rule32: 'Please input bank account number',
       rule33: 'Uploaded file must be ZIP package',
-      rule34: 'Please input description.',
-      rule35: 'Please input contact number.',
-      rule36: 'Please input postal code.',
-      rule37: 'Please input branch bank name.'
+      rule34: 'Please input description',
+      rule35: 'Please input contact number',
+      rule36: 'Please input postal code',
+      rule37: 'Please input branch bank name',
+      rule38: 'Please select industry',
+      rule39: 'Please confirm whether the agreement was signed',
+      rule40: 'Please select settlement period',
+      rule41: 'Please input website',
+      rule42: 'Please input a valid website'
     }
   },
   shop: {
@@ -490,25 +496,28 @@ const en = {
     title: 'Batch Creation',
     t1: 'Batch Creation',
     tip: {
-      txt: '* Please upload merchant information in a fixed text format. Please refer to',
-      ins: 'Batch Input Instructions',
-      template: 'Batch Input Templates',
+      txt: '* Please follow up the template to upload merchants data to take',
+      ins: '《batch registration procedure》',
+      template: '《batch merchants on-boarding.xlsx》',
       and: 'and',
       title: 'Tip',
       close: 'Close'
     },
     cap: 'Batch Creation',
     input: {
-      cap1: 'Essential Information',
-      cap2: 'Auxiliary Information'
+      cap1: 'Merchants Data',
+      cap2: 'Merchant\'s Photo'
     },
     up: {
       excel: 'Upload Excel',
-      zip: 'Upload Zip'
+      zip: 'Upload Photo Zip'
     },
     commit: 'Commit',
     rule1: 'Please upload necessary information.',
     rule2: 'Please upload auxiliary information.',
+    manual1: '1. Please download template《batch merchants on-boarding.xlsx》and fill in all necessary infos of on-boarding merchants.',
+    manual2: '2. There are two photo attachments one is for inner goods another for outside shop each need to be stored in a separated folder. The photo attachments need to be uploaded on folder level through compression mode individually. The criteria of photo naming is: contact number-goodsphoto.jpg and contact number-shopphoto.jpg as a example in template, it should be 18203556822-goodsphoto.jpg and 18203556822-shopphoto.jpg.',
+    manual3: '3. The folder naming should be the same as before and after compression, please revise the folder naming after then compress again if it is necessary to revise the compressed file name.'
   },
   trade: {
     detail: 'Transaction details',

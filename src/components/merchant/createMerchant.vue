@@ -1,8 +1,10 @@
 <template>
   <div class="new-mchnt">
     <header class="page-header style2">
-      <h2 class="page-title">{{this.isUpdate ? $t('merchant.newMerchant.title2') : $t('merchant.newMerchant.title1')}}</h2>
-        <el-button type="text" @click="cancelHandler"><i class="el-icon-close"></i><span>{{$t('common.close')}}</span></el-button>
+      <h2 class="page-title">
+        {{this.isUpdate ? $t('merchant.newMerchant.title2') : $t('merchant.newMerchant.title1')}}</h2>
+      <el-button type="text" @click="cancelHandler"><i class="el-icon-close"></i><span>{{$t('common.close')}}</span>
+      </el-button>
     </header>
     <el-steps :active="active" finish-status="finish">
       <el-step :title="$t('merchant.newMerchant.step1')"></el-step>
@@ -33,7 +35,7 @@
         <el-input v-model.trim="form.shopname"></el-input>
       </el-form-item>
       <!--<el-form-item prop="email" :label="$t('merchant.newMerchant.form.email')">-->
-        <!--<el-input v-model.trim="form.email"></el-input>-->
+      <!--<el-input v-model.trim="form.email"></el-input>-->
       <!--</el-form-item>-->
       <el-form-item prop="cate" :label="$t('merchant.newMerchant.form.cate')">
         <el-select v-model="form.cate" ref="cate" :disabled="isUpdate">
@@ -49,7 +51,7 @@
       </el-form-item>
 
       <el-form-item prop="status" :label="$t('merchant.newMerchant.form.type2')" v-if="isUpdate">
-        <el-select v-model="form.status" ref="mcc2">
+        <el-select v-model="form.status">
           <el-option :label="item.name" :value="item.val" v-for="item in statusList" :key="item.val"></el-option>
         </el-select>
       </el-form-item>
@@ -61,7 +63,7 @@
 
       <h3>{{$t('merchant.newMerchant.basic.cap2')}}</h3>
       <el-form-item prop="is_contract" :label="$t('merchant.newMerchant.form.is_contract')">
-        <el-select v-model="form.is_contract">
+        <el-select v-model="form.is_contract" :placeholder="$t('merchant.newMerchant.form.cf')">
           <el-option :label="item.name" :value="item.value" v-for="item in signedList" :key="item.value"></el-option>
         </el-select>
       </el-form-item>
@@ -73,46 +75,47 @@
       </el-form-item>
 
       <el-form-item prop="tenpay_ratio" :label="$t('merchant.newMerchant.form.ratio')+'(%)'">
-        <el-input-number v-model.trim="form.tenpay_ratio" :precision="2" :step="0.01" :min="0" :max="5"></el-input-number>
+        <el-input-number v-model.trim="form.tenpay_ratio" :precision="2" :step="0.01" :min="0"
+                         :max="5"></el-input-number>
       </el-form-item>
     </el-form>
     <!-- step2 -->
-      <el-form v-show="active === 1" ref="bankinfos"  :model="form" :rules="bankRules">
+    <el-form v-show="active === 1" ref="bankinfos" :model="form" :rules="bankRules">
       <h3>{{$t('merchant.newMerchant.step3')}}</h3>
       <el-form-item prop="name" :label="$t('merchant.newMerchant.form.name')">
         <el-input v-model.trim="form.name"></el-input>
       </el-form-item>
 
       <el-form-item prop="licensenumber" :label="$t('merchant.newMerchant.form.licensenumber')">
-          <el-input v-model.trim="form.licensenumber" type="number"></el-input>
+        <el-input v-model.trim="form.licensenumber" type="number"></el-input>
       </el-form-item>
 
-        <el-form-item prop="location" :label="$t('merchant.newMerchant.form.location')">
-          <el-select v-model="form.location">
-            <el-option :label="$t('merchant.newMerchant.form.loc1')" value="SG"></el-option>
-            <el-option :label="$t('merchant.newMerchant.form.loc2')" value="HK"></el-option>
-          </el-select>
-        </el-form-item>
+      <el-form-item prop="location" :label="$t('merchant.newMerchant.form.location')">
+        <el-select v-model="form.location">
+          <el-option :label="$t('merchant.newMerchant.form.loc1')" value="SG"></el-option>
+          <el-option :label="$t('merchant.newMerchant.form.loc2')" value="MY"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item prop="address" :label="$t('merchant.newMerchant.form.address')">
-          <el-input v-model.trim="form.address"></el-input>
+        <el-input v-model.trim="form.address"></el-input>
       </el-form-item>
-        <el-form-item prop="legalperson" :label="$t('merchant.newMerchant.form.legal')">
-          <el-input v-model.trim="form.legalperson"></el-input>
-        </el-form-item>
+      <el-form-item prop="legalperson" :label="$t('merchant.newMerchant.form.legal')">
+        <el-input v-model.trim="form.legalperson"></el-input>
+      </el-form-item>
 
-        <el-form-item prop="telephone" :label="$t('merchant.newMerchant.form.cell')">
-          <el-input v-model.trim="form.telephone"></el-input>
-        </el-form-item>
+      <el-form-item prop="telephone" :label="$t('merchant.newMerchant.form.cell')">
+        <el-input v-model.trim="form.telephone"></el-input>
+      </el-form-item>
 
-        <el-form-item prop="post" :label="$t('merchant.newMerchant.form.post')">
-          <el-input v-model.trim="form.post"></el-input>
-        </el-form-item>
+      <el-form-item prop="post" :label="$t('merchant.newMerchant.form.post')">
+        <el-input v-model.trim="form.post"></el-input>
+      </el-form-item>
 
-        <el-form-item prop="email" :label="$t('merchant.newMerchant.form.email')">
-          <el-input v-model.trim="form.email" :disabled="isUpdate"></el-input>
-        </el-form-item>
+      <el-form-item prop="email" :label="$t('merchant.newMerchant.form.email')">
+        <el-input v-model.trim="form.email" :disabled="isUpdate"></el-input>
+      </el-form-item>
 
-        <el-form-item prop="bankuser" :label="$t('merchant.newMerchant.form.bankuser')">
+      <el-form-item prop="bankuser" :label="$t('merchant.newMerchant.form.bankuser')">
         <el-input v-model="form.bankuser"></el-input>
       </el-form-item>
       <el-form-item prop="bankaccount" :label="$t('merchant.newMerchant.form.bankaccount')">
@@ -141,7 +144,7 @@
         <el-form-item prop="storelocation" :label="$t('merchant.newMerchant.form.storelocation')">
           <el-select v-model="form.storelocation">
             <el-option :label="$t('merchant.newMerchant.form.loc1')" value="SG"></el-option>
-            <el-option :label="$t('merchant.newMerchant.form.loc2')" value="HK"></el-option>
+            <el-option :label="$t('merchant.newMerchant.form.loc2')" value="MY"></el-option>
           </el-select>
         </el-form-item>
 
@@ -158,7 +161,8 @@
         </el-form-item>
 
         <el-form-item prop="storeoperating" :label="$t('merchant.newMerchant.form.storeoperating')">
-          <el-input v-model.trim="form.storeoperating" :placeholder="$t('merchant.newMerchant.form.timeformat')"></el-input>
+          <el-input v-model.trim="form.storeoperating"
+                    :placeholder="$t('merchant.newMerchant.form.timeformat')"></el-input>
         </el-form-item>
 
         <el-form-item prop="website" :label="$t('merchant.newMerchant.form.website')">
@@ -168,7 +172,7 @@
 
       <el-row v-if="!isUpdate">
         <el-col :span="24">
-          <div>
+          <div class="uploader-wrap">
             <el-col :span="7" class="up-item">
               <el-upload
                 :file-list="form.vouchers"
@@ -255,6 +259,7 @@
   import qs from 'qs';
   import ElFormItem from "../../../node_modules/qfpay-element-ui/packages/form/src/form-item.vue";
   import _ from 'lodash'
+
   export default {
     components: {ElFormItem},
     data() {
@@ -266,38 +271,38 @@
         active: 0, // 当前步骤,
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
         form: {
-            status: '',
-            primary_uid: '', // 一级代理商id
-            secondary_uid: '', // 二级代理商id
-            sls_uid: '', // 业务员id
-            shopname: '', // 商户名称
-            mcc: '', // 一级商家类型，仅可以填数字
-            memo: '', // 简介
-            is_contract: '', // 是否签署合同
-            settlement_time: '', // 按月、周、或日结算日期
-            tenpay_ratio: '', // 服务费率
-            standard_ratio: 0, // 基准费率
-            name: '', // 公司名称
-            licensenumber: '', // 公司注册号码（UEN）
-            location: '', // 公司地区
-            address: '', // 公司地址
-            legalperson: '', // 公司联系人
-            telephone: '', // 公司联系人电话
-            cate: '',
-            email: '',
-            headbankname: '', // 总行
-            bankname: '', // 支行
-            bankuser: '', // 银行用户
-            bankcode: '', // 联行号
-            storename: '', // 店铺名称
-            storetelephone: '', // 店铺联系电话
-            storelocation: '', // 店铺位置
-            storeaddress: '', // 店铺地址
-            storepost: '', // 店铺邮编
-            storeadditional: '', // 店铺附加服务
-            storeoperating: '', // 店铺营业时间
-            website: '', // 店铺网址
-            vouchers: [], // 上传的凭据照片
+          status: '',
+          primary_uid: '', // 一级代理商id
+          secondary_uid: '', // 二级代理商id
+          sls_uid: '', // 业务员id
+          shopname: '', // 商户名称
+          mcc: '', // 一级商家类型，仅可以填数字
+          memo: '', // 简介
+          is_contract: '', // 是否签署合同
+          settlement_time: '', // 按月、周、或日结算日期
+          tenpay_ratio: '', // 服务费率
+          standard_ratio: 0, // 基准费率
+          name: '', // 公司名称
+          licensenumber: '', // 公司注册号码（UEN）
+          location: '', // 公司地区
+          address: '', // 公司地址
+          legalperson: '', // 公司联系人
+          telephone: '', // 公司联系人电话
+          cate: '',
+          email: '',
+          headbankname: '', // 总行
+          bankname: '', // 支行
+          bankuser: '', // 银行用户
+          bankcode: '', // 联行号
+          storename: '', // 店铺名称
+          storetelephone: '', // 店铺联系电话
+          storelocation: '', // 店铺位置
+          storeaddress: '', // 店铺地址
+          storepost: '', // 店铺邮编
+          storeadditional: '', // 店铺附加服务
+          storeoperating: '', // 店铺营业时间
+          website: '', // 店铺网址
+          vouchers: [], // 上传的凭据照片
         },
         shopTypes: [], // 一级渠道的店铺类型列表
 //        shopTypes2: [], // 二级渠道的店铺类型列表
@@ -324,6 +329,15 @@
           shopphoto_name: ''
         },
         baseRules: {
+          'mcc': [
+            {required: true, message: this.$t('merchant.newMerchant.rule38')}
+          ],
+          'is_contract': [
+            {required: true, message: this.$t('merchant.newMerchant.rule39')}
+          ],
+          'settlement_time': [
+            {required: true, message: this.$t('merchant.newMerchant.rule40')}
+          ],
           'memo': [
             {required: true, message: this.$t('merchant.newMerchant.rule34')}
           ],
@@ -340,41 +354,42 @@
           'tenpay_ratio': [
             {
               validator: (rule, val, cb) => {
-              if (+val <= this.form.standard_ratio) {
-                cb(new Error(this.$t('merchant.newMerchant.rule13') + this.form.standard_ratio));
-              }else {
-                cb();
+                if (+val <= this.form.standard_ratio) {
+                  cb(new Error(this.$t('merchant.newMerchant.rule13') + this.form.standard_ratio));
+                } else {
+                  cb();
+                }
               }
-            }}
+            }
           ]
         },
         bankRules: {
           'email': [
-            { required: true, message: this.$t('merchant.newMerchant.rule30'), trigger: 'blur' },
+            {required: true, message: this.$t('merchant.newMerchant.rule30'), trigger: 'blur'},
             {
               validator: (rule, val, cb) => {
                 if (!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(val)) {
                   cb(new Error(this.$t('merchant.newMerchant.rule4')));
-                }else {
+                } else {
                   cb();
                 }
               }
             }
           ],
           'telephone': [
-            { required: true, message: this.$t('merchant.newMerchant.rule35'), trigger: 'blur' },
+            {required: true, message: this.$t('merchant.newMerchant.rule35'), trigger: 'blur'},
             {
               validator: (rule, val, cb) => {
                 if (!/^[0-9]*$/.test(val) && val != '') {
                   cb(new Error(this.$t('merchant.newMerchant.rule6')));
-                }else {
+                } else {
                   cb();
                 }
               }
             }
           ],
           'post': [
-            { required: true, message: this.$t('merchant.newMerchant.rule36'), trigger: 'blur' }
+            {required: true, message: this.$t('merchant.newMerchant.rule36'), trigger: 'blur'}
           ],
           'name': [
             {required: true, message: this.$t('merchant.newMerchant.rule3')}
@@ -427,7 +442,7 @@
               validator: (rule, val, cb) => {
                 if (!/^[0-9]*$/.test(val)) {
                   cb(new Error(this.$t('merchant.newMerchant.rule6')));
-                }else {
+                } else {
                   cb();
                 }
               }
@@ -435,23 +450,26 @@
           ],
           'bankaccount': [
             {required: true, message: this.$t('merchant.newMerchant.rule32'), trigger: 'blur'},
-            {
-              validator: (rule, val, cb) => {
-                if (!/^[0-9]*$/.test(val)) {
-                  cb(new Error(this.$t('merchant.newMerchant.rule5')));
-                }else {
-                  cb();
-                }
-              },
-              trigger: 'blur'
-            }
           ],
           'bankmobile': [
             {
               validator: (rule, val, cb) => {
                 if (!/^[0-9]*$/.test(val)) {
                   cb(new Error(this.$t('merchant.newMerchant.rule6')));
-                }else {
+                } else {
+                  cb();
+                }
+              },
+              trigger: 'blur'
+            }
+          ],
+          'website': [
+            {required: true, message: this.$t('merchant.newMerchant.rule41'), trigger: 'blur'},
+            {
+              validator: (rule, val, cb) => {
+                if (!/((http|ftp|https|file):\/\/([\w\-]+\.)+[\w\-]+(\/[\w\u4e00-\u9fa5\-\.\/?\@\%\!\&=\+\~\:\#\;\,]*)?)/ig.test(val)) {
+                  cb(new Error(this.$t('merchant.newMerchant.rule42')));
+                } else {
                   cb();
                 }
               },
@@ -463,7 +481,7 @@
     },
 
     created() {
-      if(this.$route.params) {
+      if (this.$route.params) {
         this.isUpdate = this.$route.params.command === 'edit'
         !this.isUpdate && this.getChannelList()
         this.getFee()
@@ -475,11 +493,11 @@
     },
     methods: {
       checkPhotosIsUpdated() {
-        if(!this.voucherInfo.goodsphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('goodsphoto')
+        if (!this.voucherInfo.goodsphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('goodsphoto')
           this.$message.error(this.$t('merchant.newMerchant.rule28'));
           return false;
         }
-        if(!this.voucherInfo.shopphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
+        if (!this.voucherInfo.shopphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
           this.$message.error(this.$t('merchant.newMerchant.rule29'));
           return false;
         }
@@ -490,7 +508,8 @@
           params: {
             agent_uid: uid || '',
             format: 'cors'
-          }})
+          }
+        })
           .then((res) => {
             let data = res.data;
             this.loading = false;
@@ -508,11 +527,12 @@
         let p = {
           format: 'cors',
         }
-        if(agentUid) {
+        if (agentUid) {
           p.agent_uid = agentUid
         }
         axios.get(`${config.host}/org/tools/get/fee`, {
-          params: p})
+          params: p
+        })
           .then((res) => {
             let data = res.data;
             this.loading = false;
@@ -531,7 +551,8 @@
           params: {
             groupid: '',
             format: 'cors'
-          }})
+          }
+        })
           .then((res) => {
             let data = res.data;
             this.loading = false;
@@ -550,7 +571,8 @@
           params: {
             groupid: groupid,
             format: 'cors'
-          }})
+          }
+        })
           .then((res) => {
             let data = res.data;
             this.loading = false;
@@ -562,9 +584,9 @@
               this.$message.error(data.respmsg);
             }
           }).catch(() => {
-            this.loading = false;
-            this.$message.error(this.$t('common.netError'));
-          });
+          this.loading = false;
+          this.$message.error(this.$t('common.netError'));
+        });
       },
       selectChannel2Handler(groupid) {
         console.log(groupid)
@@ -576,17 +598,18 @@
           params: {
             mcc: mcc1 || '',
             format: 'cors'
-          }})
+          }
+        })
           .then((res) => {
             let data = res.data;
             this.isLoading = false;
             if (data.respcd === config.code.OK) {
-              if(mcc1) {
+              if (mcc1) {
                 this.shopTypes2 = data.data
-              }else {
+              } else {
                 this.shopTypes = data.data;
               }
-              if(this.isUpdate) {
+              if (this.isUpdate) {
                 this.getDetailInfo()
               }
             } else {
@@ -613,12 +636,14 @@
           this.voucherInfo[data.tag + '_url'] = data.url;
           this.voucherInfo[data.tag + '_name'] = data.name;
           let _target = _.find(this.form.vouchers, _.matchesProperty('name', file.response.data.tag))
-          if(_target) {
-            let idx = _.findIndex(this.form.vouchers, function(_target) { return _target.name == file.response.data.tag; });
+          if (_target) {
+            let idx = _.findIndex(this.form.vouchers, function (_target) {
+              return _target.name == file.response.data.tag;
+            });
             this.form.vouchers[idx].name = file.response.data.tag;
             this.form.vouchers[idx].imgname = file.response.data.name;
             this.form.vouchers[idx].url = file.response.data.url;
-          }else {
+          } else {
             this.form.vouchers.push({
               name: file.response.data.tag,
               imgname: file.response.data.name,
@@ -631,7 +656,7 @@
         this[file['__ob__'].dep.subs[0].vm.data.tag + 'loading'] = false;
       },
       imgUpload(name, flag) {
-        if(flag || this.voucherInfo[name + '_url']) {
+        if (flag || this.voucherInfo[name + '_url']) {
           axios.post(`${config.imgUpload}/util/v1/cpfile`, qs.stringify({
             enuserid: this.form.userid,
             imgurl: this.voucherInfo[name + '_url'],
@@ -645,7 +670,7 @@
             if (data.respcd === config.code.OK) {
               this.voucherInfo[name + '_name'] = data.data.name;
               this.$message.success(this.$t('common.uploadSucc'));
-            }else {
+            } else {
               this.voucherInfo[name + '_url'] = '';
               this.$message.error(this.$t('common.uploadFailed'))
             }
@@ -664,7 +689,8 @@
             userid: this.$route.params.userid,
             type: 'bigmerchant',
             format: 'cors'
-          }})
+          }
+        })
           .then((res) => {
             let data = res.data;
             this.isLoading = false;
@@ -710,7 +736,7 @@
         let url = this.isUpdate ? `${config.host}/org/mchnt/edit` : `${config.host}/org/mchnt/signup`
         params.format = 'cors'
         params.tenpay_ratio = parseFloat(params.tenpay_ratio).toFixed(2)
-        if(!this.isUpdate) {
+        if (!this.isUpdate) {
           let converted = _.map(_.cloneDeep(this.form.vouchers), (item) => {
             return _.pick(item, ['name', 'imgname']);
           })
@@ -721,7 +747,7 @@
           })
           params.vouchers.enuserid = 'EPeRaNEt';
           params.vouchers = JSON.stringify(params.vouchers)
-        }else {
+        } else {
           params.type = 'bigmerchant';
           params.userid = this.$route.params.userid
           delete params.storename;
@@ -732,10 +758,10 @@
           delete params.storeadditional;
           delete params.storeoperating;
           delete params.website;
-          if(!params.primary_uid) {
+          if (!params.primary_uid) {
             delete params.primary_uid
           }
-          if(!params.secondary_uid) {
+          if (!params.secondary_uid) {
             delete params.secondary_uid
           }
         }
@@ -821,7 +847,7 @@
         }
         this.$refs['cate'].selected.label = cats[this.form.userinfo.cate];
         this.$refs['user_type'].selected.label = userTypes[this.form.userinfo.user_type];
-        this.$refs['mcc'].selected.label = _.filter(this.shopTypes, { id: this.form.userinfo.mcc })['name']
+        this.$refs['mcc'].selected.label = _.filter(this.shopTypes, {id: this.form.userinfo.mcc})['name']
         this.$refs['banktype'].selected.label = banktypes[this.form.bankinfo.banktype]
       }
     }
@@ -833,10 +859,6 @@
     padding: 0 30px;
     footer {
       padding-bottom: 30px;
-    }
-    .el-steps {
-      /*padding-right: 75px;*/
-      /*flex-basis: 50%;*/
     }
     .el-form .no-divider:after {
       background-color: transparent;
@@ -854,7 +876,7 @@
         margin: 0 0 20px;
         font-size: 20px;
         color: $titleColor;
-        &:after{
+        &:after {
           content: '';
           position: absolute;
           left: 0;
@@ -870,40 +892,33 @@
         vertical-align: top;
         margin-right: 80px;
         .el-form-item__content {
-          width:300px;
+          width: 300px;
           .rate_label {
             font-size: 14px;
-            color:#717283;
-            padding:0 $smGap;
+            color: #717283;
+            padding: 0 $smGap;
           }
         }
       }
       .el-form-item.memo {
-        width:940px;
+        width: 940px;
         .el-form-item__content {
           width: 100%;
         }
       }
-      .el-form-item:nth-of-type(3n) {
-        /*margin-right: 0;*/
+      .uploader-wrap {
+        padding-top: 20px;
       }
-      /*.upload-comp {*/
-        /*.pic-uploaded {*/
-          /*width:285px;height:214px;*/
-          /*display:inline-block;*/
-        /*}*/
-        /*.el-upload,.el-upload-dragger {*/
-          /*width:285px;*/
-        /*}*/
-      /*}*/
-
       .upload-label {
-        color: grey;font-size:14px;
-        height: 204px;;width:100%;
-        display:flex;align-items: center;
+        color: grey;
+        font-size: 14px;
+        height: 204px;;
+        width: 100%;
+        display: flex;
+        align-items: center;
       }
       .up-item {
-        margin-right:24px;
+        margin-right: 24px;
       }
       .image_info {
         font-size: 14px;
@@ -933,7 +948,7 @@
           line-height: 214px;
           position: absolute;
           left: 0;
-          top:0;
+          top: 0;
           color: #ffffff;
           text-align: center;
           background-color: rgba(0, 0, 0, 0.5);
@@ -982,11 +997,11 @@
         .avatar-desc {
           font-size: $baseSize;
           color: #8a8c92;
-          padding-top:$smGap
+          padding-top: $smGap
         }
         .avatar-tip {
           color: #bdbdbd;
-          font-size:$baseSize;
+          font-size: $baseSize;
         }
 
       }
