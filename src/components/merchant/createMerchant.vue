@@ -25,6 +25,12 @@
         </el-select>
       </el-form-item>
 
+      <el-form-item :label="$t('merchant.newMerchant.form.escrow')" prop="qd_uid" v-if="isUpdate">
+        <el-select v-model="qd_uid" @change="getSalesPersonList">
+          <el-option :label="item.name" :value="item.qd_uid" v-for="item in allagent" :key="item.qd_uid"></el-option>
+        </el-select>
+      </el-form-item>
+
       <el-form-item :label="$t('merchant.newMerchant.form.contact')" prop="sls_uid">
         <el-select v-model="form.sls_uid" ref="sls">
           <el-option :label="item.name" :value="item.userid" v-for="item in salesperson" :key="item.userid"></el-option>
@@ -270,6 +276,7 @@
         isUpdate: false,
         active: 0, // 当前步骤,
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
+        qd_uid: '', // 所有代理商id
         form: {
           status: '',
           primary_uid: '', // 一级代理商id
@@ -309,6 +316,7 @@
         channels1: [],
         channels2: [],
         salesperson: [],
+        allagent: [], // 代理商列表
         signedList: [
           {value: 1, name: this.$t('merchant.detail.signed.yes')},
           {value: 0, name: this.$t('merchant.detail.signed.no')}
@@ -487,11 +495,29 @@
         this.getFee()
         this.getSalesPersonList()
         this.getShopTypes()
+        this.isUpdate && this.getAllAgent();
       }
     },
     mounted() {
     },
     methods: {
+      getAllAgent() {
+        axios.get(`${config.host}/org/tools/agentnames`, {
+          params: {
+            format: 'cors'
+          }
+        })
+          .then((res) => {
+            let data = res.data;
+            if (data.respcd === config.code.OK) {
+               this.allagent = data.data;
+            } else {
+              this.$message.error(data.respmsg);
+            }
+          }).catch(() => {
+          this.$message.error(this.$t('common.netError'));
+        });
+      },
       checkPhotosIsUpdated() {
         if (!this.voucherInfo.goodsphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('goodsphoto')
           this.$message.error(this.$t('merchant.newMerchant.rule28'));
@@ -512,14 +538,15 @@
         })
           .then((res) => {
             let data = res.data;
-            this.loading = false;
             if (data.respcd === config.code.OK) {
               this.salesperson = data.data;
+              if(this.isUpdate) {
+                this.form.sls_uid = ''
+              }
             } else {
               this.$message.error(data.respmsg);
             }
           }).catch(() => {
-          this.loading = false;
           this.$message.error(this.$t('common.netError'));
         });
       },
@@ -535,14 +562,12 @@
         })
           .then((res) => {
             let data = res.data;
-            this.loading = false;
             if (data.respcd === config.code.OK) {
               this.form.standard_ratio = data.data.qd_fee;
             } else {
               this.$message.error(data.respmsg);
             }
           }).catch(() => {
-          this.loading = false;
           this.$message.error(this.$t('common.netError'));
         });
       },
@@ -555,14 +580,12 @@
         })
           .then((res) => {
             let data = res.data;
-            this.loading = false;
             if (data.respcd === config.code.OK) {
               this.channels1 = data.data.list;
             } else {
               this.$message.error(data.respmsg);
             }
           }).catch(() => {
-          this.loading = false;
           this.$message.error(this.$t('common.netError'));
         });
       },
@@ -575,7 +598,6 @@
         })
           .then((res) => {
             let data = res.data;
-            this.loading = false;
             if (data.respcd === config.code.OK) {
               this.channels2 = data.data.list;
               this.getFee(groupid)
@@ -584,7 +606,6 @@
               this.$message.error(data.respmsg);
             }
           }).catch(() => {
-          this.loading = false;
           this.$message.error(this.$t('common.netError'));
         });
       },
@@ -773,7 +794,6 @@
         })
           .then((res) => {
             let data = res.data;
-            this.loading = false;
             if (data.respcd === config.code.OK) {
               this.$message.success(this.isUpdate ? this.$t('common.updateSuccess') : this.$t('common.createSuccess'))
               this.$router.push({
@@ -784,7 +804,6 @@
               this.$message.error(data.respmsg);
             }
           }).catch(() => {
-          this.loading = false;
           this.$message.error(this.$t('common.netError'));
         });
       },

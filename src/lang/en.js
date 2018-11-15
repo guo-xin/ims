@@ -298,6 +298,7 @@ const en = {
         cap2: 'MDR Info',
       },
       form: {
+        escrow: 'Agent',
         address: 'Address',
         timeformat: 'HH:MM - HH:MM',
         is_contract: 'Agreement Signed (Yes/No)',

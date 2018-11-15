@@ -297,6 +297,7 @@ const zh = {
         cap2: '支付信息'
       },
       form: {
+        escrow: '代理商',
         timeformat: 'HH:MM - HH:MM',
         is_contract: '合同是否签署',
         cf: '请确认',
