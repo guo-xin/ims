@@ -25,24 +25,28 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item :label="$t('merchant.newMerchant.form.escrow')" prop="qd_uid" v-if="isUpdate">
-        <el-select v-model="qd_uid" @change="getSalesPersonList">
-          <el-option :label="item.name" :value="item.qd_uid" v-for="item in allagent" :key="item.qd_uid"></el-option>
+      <el-form-item :label="$t('merchant.newMerchant.form.contact')" prop="sls_uid" v-if="!isUpdate">
+        <el-select v-model="form.sls_uid" ref="sls">
+         <el-option :label="item.name" :value="item.userid" v-for="item in salesperson" :key="item.userid"></el-option>
         </el-select>
       </el-form-item>
 
-      <el-form-item :label="$t('merchant.newMerchant.form.contact')" prop="sls_uid">
-        <el-select v-model="form.sls_uid" ref="sls">
-          <el-option :label="item.name" :value="item.userid" v-for="item in salesperson" :key="item.userid"></el-option>
-        </el-select>
+      <el-form-item :label="$t('merchant.newMerchant.form.contact')" prop="sls_uid" v-if="isUpdate">
+
+        <el-input id="op_type" v-model="form.sls_name"
+                  :placeholder="$t('merchant.newMerchant.rule43')"
+                  readonly
+                  class="sub-account-item-info"><template slot="append"><i class="el-icon-arrow-down tree-indic" @click.stop="showTreeComponent"></i></template>
+        </el-input>
+        <el-tree id="op-type-tree" :data="salesperson" :props="defaultProps" @node-click="handleNodeClick"
+                 v-show="isShowTree"
+                 style="position:absolute;top:38px;z-index:9;width:299px;overflow-y:auto;height:320px;"></el-tree>
       </el-form-item>
 
       <el-form-item prop="shopname" :label="$t('merchant.newMerchant.form.shopname')">
         <el-input v-model.trim="form.shopname"></el-input>
       </el-form-item>
-      <!--<el-form-item prop="email" :label="$t('merchant.newMerchant.form.email')">-->
-      <!--<el-input v-model.trim="form.email"></el-input>-->
-      <!--</el-form-item>-->
+
       <el-form-item prop="cate" :label="$t('merchant.newMerchant.form.cate')">
         <el-select v-model="form.cate" ref="cate" :disabled="isUpdate">
           <el-option :label="$t('merchant.newMerchant.form.sub')" value="merchant"></el-option>
@@ -93,7 +97,7 @@
       </el-form-item>
 
       <el-form-item prop="licensenumber" :label="$t('merchant.newMerchant.form.licensenumber')">
-        <el-input v-model.trim="form.licensenumber" type="number"></el-input>
+        <el-input v-model.trim="form.licensenumber"></el-input>
       </el-form-item>
 
       <el-form-item prop="location" :label="$t('merchant.newMerchant.form.location')">
@@ -265,7 +269,16 @@
   import qs from 'qs';
   import ElFormItem from "../../../node_modules/qfpay-element-ui/packages/form/src/form-item.vue";
   import _ from 'lodash'
-
+  const getParams = (key) => {
+    // 获取参数
+    let url = window.location.hash.split('?')[1] || '';
+    // 正则筛选地址栏
+    let reg = new RegExp('(^|&)' + key + '=([^&]*)(&|$)')
+    // 匹配目标参数
+    let result = url.match(reg)
+    // 返回参数值
+    return result ? decodeURIComponent(result[2]) : ''
+  }
   export default {
     components: {ElFormItem},
     data() {
@@ -277,11 +290,14 @@
         active: 0, // 当前步骤,
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
         qd_uid: '', // 所有代理商id
+        isShowTree: false,
+        forFlag: false,
         form: {
           status: '',
           primary_uid: '', // 一级代理商id
           secondary_uid: '', // 二级代理商id
           sls_uid: '', // 业务员id
+          sls_name: '', // 业务员姓名
           shopname: '', // 商户名称
           mcc: '', // 一级商家类型，仅可以填数字
           memo: '', // 简介
@@ -316,7 +332,11 @@
         channels1: [],
         channels2: [],
         salesperson: [],
-        allagent: [], // 代理商列表
+        defaultProps: {
+          children: 'slsm',
+          label: 'name',
+          value: 'uid'
+        },
         signedList: [
           {value: 1, name: this.$t('merchant.detail.signed.yes')},
           {value: 0, name: this.$t('merchant.detail.signed.no')}
@@ -472,37 +492,49 @@
             }
           ],
           'website': [
-            {required: true, message: this.$t('merchant.newMerchant.rule41'), trigger: 'blur'},
-            {
-              validator: (rule, val, cb) => {
-                if (!/((http|ftp|https|file):\/\/([\w\-]+\.)+[\w\-]+(\/[\w\u4e00-\u9fa5\-\.\/?\@\%\!\&=\+\~\:\#\;\,]*)?)/ig.test(val)) {
-                  cb(new Error(this.$t('merchant.newMerchant.rule42')));
-                } else {
-                  cb();
-                }
-              },
-              trigger: 'blur'
-            }
+            {required: true, message: this.$t('merchant.newMerchant.rule41'), trigger: 'blur'}
           ]
         }
       }
     },
 
     created() {
-      if (this.$route.params) {
-        this.isUpdate = this.$route.params.command === 'edit'
+      if (this.$route.query) {
+        this.isUpdate = this.$route.query.command === 'edit' || getParams('command') === 'edit'
         !this.isUpdate && this.getChannelList()
+        !this.isUpdate && this.getSalesPersonList();
         this.getFee()
-        this.getSalesPersonList()
-        this.getShopTypes()
-        this.isUpdate && this.getAllAgent();
+        !this.isUpdate && this.getShopTypes()
+        this.isUpdate && this.getAllSalesperson();
       }
     },
     mounted() {
+      var _self = this;
+      document.addEventListener('click', (evt) => {
+        if ('el-tree-node'.indexOf(evt.target.className) == -1) {
+          if (_self.isShowTree) this.isShowTree = false;
+        }
+        if (evt.target.parentNode && evt.target.parentNode.id === 'op_type' && evt.target.className.indexOf('el-input__icon el-icon-caret-bottom') === -1) {
+          evt.preventDefault();
+          _self.showTreeComponent(evt);
+        }
+      }, false);
     },
     methods: {
-      getAllAgent() {
-        axios.get(`${config.host}/org/tools/agentnames`, {
+      handleNodeClick(node) {
+        console.log(node);
+        if(+node.isLeaf && Object.prototype.toString.call(node.slsm) === "[object Undefined]") {
+          console.log('f')
+           this.form.sls_uid = node.uid;
+           this.form.sls_name = node.name;
+           this.isShowTree = false;
+        }
+      },
+      showTreeComponent(e) {
+        this.isShowTree = true;
+      },
+      getAllSalesperson() {
+        axios.get(`${config.host}/org/tools/org/slsms`, {
           params: {
             format: 'cors'
           }
@@ -510,7 +542,8 @@
           .then((res) => {
             let data = res.data;
             if (data.respcd === config.code.OK) {
-               this.allagent = data.data;
+               this.salesperson = data.data;
+               this.getShopTypes()
             } else {
               this.$message.error(data.respmsg);
             }
@@ -528,27 +561,6 @@
           return false;
         }
         return true
-      },
-      getSalesPersonList(uid) {
-        axios.get(`${config.host}/org/tools/slsm`, {
-          params: {
-            agent_uid: uid || '',
-            format: 'cors'
-          }
-        })
-          .then((res) => {
-            let data = res.data;
-            if (data.respcd === config.code.OK) {
-              this.salesperson = data.data;
-              if(this.isUpdate) {
-                this.form.sls_uid = ''
-              }
-            } else {
-              this.$message.error(data.respmsg);
-            }
-          }).catch(() => {
-          this.$message.error(this.$t('common.netError'));
-        });
       },
       getFee(agentUid) {
         let p = {
@@ -600,6 +612,7 @@
             let data = res.data;
             if (data.respcd === config.code.OK) {
               this.channels2 = data.data.list;
+//              this.secondary_uid = ''
               this.getFee(groupid)
               this.getSalesPersonList(groupid)
             } else {
@@ -610,9 +623,27 @@
         });
       },
       selectChannel2Handler(groupid) {
-        console.log(groupid)
         this.getFee(groupid)
         this.getSalesPersonList(groupid)
+      },
+      getSalesPersonList(uid) {
+        axios.get(`${config.host}/org/tools/slsm`, {
+          params: {
+            agent_uid: uid || this.qd_uid || '',
+            format: 'cors'
+          }
+        })
+          .then((res) => {
+            let data = res.data;
+            if (data.respcd === config.code.OK) {
+              this.salesperson = data.data;
+              this.form.sls_uid = ''
+            } else {
+              this.$message.error(data.respmsg);
+            }
+          }).catch(() => {
+          this.$message.error(this.$t('common.netError'));
+        });
       },
       getShopTypes(mcc1) {
         axios.get(`${config.host}/org/tools/mcc/list`, {
@@ -707,7 +738,7 @@
       getDetailInfo() {
         axios.get(`${config.host}/org/mchnt/info`, {
           params: {
-            userid: this.$route.params.userid,
+            userid: this.$route.query.userid || getParams('userid'),
             type: 'bigmerchant',
             format: 'cors'
           }
@@ -725,7 +756,8 @@
               this.form.shopname = uinfo.shopname;
               this.form.memo = uinfo.memo;
               this.form.tenpay_ratio = fee.tenpay_ratio;
-              this.form.sls_uid = qdinfo.slsm_uid;
+              this.qd_uid = qdinfo.qd_uid;
+              this.form.sls_uid = qdinfo.sls_uid;
               this.form.mcc = +uinfo.mcc;
               this.form.memo = uinfo.memo;
               this.form.is_contract = uinfo.is_contract;
@@ -744,6 +776,7 @@
               this.form.bankaccount = bankinfo.bankaccount;
               this.form.bankname = bankinfo.bankname;
               this.form.status = +uinfo.status;
+              this.getSalesPersonName(this.salesperson); // 匹配树形结构的销售员name
             } else {
               this.$message.error(data.respmsg);
             }
@@ -751,6 +784,22 @@
           this.isLoading = false;
           this.$message.error(this.$t('common.netError'));
         });
+      },
+      getSalesPersonName(list) {
+        for(let l of list) {
+          if(l.slsm && l.slsm.length > 0) {
+            this.getSalesPersonName(l.slsm);
+          }else {
+            if(l.uid === this.form.sls_uid) {
+              this.form.sls_name = l.name;
+              this.forFlag = true;
+              return;
+            }
+          }
+          if(this.forFlag) {
+            return;
+          }
+        }
       },
       create() {
         let params = Object.assign({}, this.form)
@@ -770,7 +819,7 @@
           params.vouchers = JSON.stringify(params.vouchers)
         } else {
           params.type = 'bigmerchant';
-          params.userid = this.$route.params.userid
+          params.userid = this.$route.query.userid || getParams('userid')
           delete params.storename;
           delete params.storetelephone;
           delete params.storelocation;
@@ -779,6 +828,7 @@
           delete params.storeadditional;
           delete params.storeoperating;
           delete params.website;
+          delete params.sls_name
           if (!params.primary_uid) {
             delete params.primary_uid
           }
@@ -830,44 +880,6 @@
       },
       cancelHandler() {
         this.$router.push({name: 'mchnt_manage_list'})
-      },
-      selectMccHandler(val) {
-//        if(key === 'mcc_str') {
-//          this.form.userinfo.mcc_str = this.shopTypes[--val].name;
-//        }else if (key === 'cate') {
-//          if(val === 'submerchant') {
-//            this.baseRules['big_uid'] = [
-//              {required: true, message: this.$t('merchant.newMerchant.rule9')}
-//            ]
-//          }else {
-//            if(this.baseRules['big_uid']) {
-//              delete this.baseRules['big_uid']
-//            }
-//          }
-//        }else if(key === 'user_type') {
-//
-//        }
-        this.getShopTypes(val)
-      },
-      initSelection() {
-        let cats = {
-          merchant: this.$t('merchant.newMerchant.form.sub'),
-          bigmerchant: this.$t('merchant.newMerchant.form.big'),
-          submerchant: this.$t('merchant.newMerchant.form.chain')
-        };
-        let userTypes = {
-          "1": this.$t('merchant.newMerchant.form.micro'),
-          "2": this.$t('merchant.newMerchant.form.geti'),
-          "3": this.$t('merchant.newMerchant.form.ent')
-        };
-        let banktypes = {
-          "1": this.$t('common.privata'),
-          "2": this.$t('common.pub')
-        }
-        this.$refs['cate'].selected.label = cats[this.form.userinfo.cate];
-        this.$refs['user_type'].selected.label = userTypes[this.form.userinfo.user_type];
-        this.$refs['mcc'].selected.label = _.filter(this.shopTypes, {id: this.form.userinfo.mcc})['name']
-        this.$refs['banktype'].selected.label = banktypes[this.form.bankinfo.banktype]
       }
     }
   }
@@ -889,6 +901,34 @@
       .el-loading-mask {
         width: 300px;
       }
+      .sub-account-item-info {
+        position: relative;
+        #op_type {
+          text-align: left;
+        }
+        .el-input-group__append {
+          padding:0 !important;
+          .tree-indic {
+            width: 32px;
+            height: 30px;
+            line-height: 32px;
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+          }
+        }
+        .el-input__icon {
+          position: absolute;
+          width: 35px;
+          height: 100%;
+          right: 0;
+          top: 0;
+          text-align: center;
+          color: #d9d0bf;
+          transition: all .3s;
+        }
+      }
+
       h3 {
         position: relative;
         padding: 30px 0;

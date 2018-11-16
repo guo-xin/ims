@@ -245,7 +245,7 @@
         margin-left:30px;
         padding:0 15px;
         color:rgba(29,29,36,1);
-        line-height:34px;
+        line-height:1;
       }
       .sign-in-info {
         flex:1;height:100%;

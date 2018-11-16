@@ -266,7 +266,7 @@
         this.$router.push({name: 'mchnt_manage_list'})
       },
       editHandler() {
-        this.$router.push({name: 'mchntCreate', params: {command: 'edit', userid: this.form.userinfo.userid}})
+        this.$router.push({name: 'mchntCreate', query: {command: 'edit', userid: this.form.userinfo.userid}})
       },
       fetchDetailData() {
         axios.get(`${config.host}/org/mchnt/info`, {

@@ -7,7 +7,7 @@ import axios from 'axios'
 import store from './store'
 import config from 'src/config'
 import router from './router'
-import { Autocomplete, Container, Header, Aside, Main, Upload, Select, Option, TableColumn, Table, Button, Pagination, Dropdown, DropdownItem, DropdownMenu, Loading, DatePicker, Input, Message, MessageBox, Form, FormItem, Radio, RadioGroup, RadioButton, Dialog, Col, Row, CheckboxGroup, Checkbox, Rate, Tooltip, Menu, Submenu, MenuItem, MenuItemGroup, Steps, Step, InputNumber } from 'qfpay-element-ui';
+import { Tree, Autocomplete, Container, Header, Aside, Main, Upload, Select, Option, TableColumn, Table, Button, Pagination, Dropdown, DropdownItem, DropdownMenu, Loading, DatePicker, Input, Message, MessageBox, Form, FormItem, Radio, RadioGroup, RadioButton, Dialog, Col, Row, CheckboxGroup, Checkbox, Rate, Tooltip, Menu, Submenu, MenuItem, MenuItemGroup, Steps, Step, InputNumber } from 'qfpay-element-ui';
 import VueI18n from 'vue-i18n'
 import 'assets/scss/common.scss'
 import locale from 'qfpay-element-ui/lib/locale';
@@ -16,6 +16,7 @@ let switchlang = sessionStorage.getItem("oasbp_lang") || 'en-us';
 
 Vue.use(VueI18n)
 
+Vue.use(Tree)
 Vue.use(Autocomplete)
 Vue.use(Container)
 Vue.use(Header)

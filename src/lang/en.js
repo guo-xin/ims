@@ -397,7 +397,8 @@ const en = {
       rule39: 'Please confirm whether the agreement was signed',
       rule40: 'Please select settlement period',
       rule41: 'Please input website',
-      rule42: 'Please input a valid website'
+      rule42: 'Please input a valid website',
+      rule43: 'Please select salesperson'
     }
   },
   shop: {
@@ -507,15 +508,15 @@ const en = {
     cap: 'Batch Creation',
     input: {
       cap1: 'Merchants Data',
-      cap2: 'Merchant\'s Photo'
+      cap2: 'Merchants Photo'
     },
     up: {
       excel: 'Upload Excel',
       zip: 'Upload Photo Zip'
     },
     commit: 'Commit',
-    rule1: 'Please upload necessary information.',
-    rule2: 'Please upload auxiliary information.',
+    rule1: 'Please upload merchants data.',
+    rule2: 'Please upload merchants photo.',
     manual1: '1. Please download template《batch merchants on-boarding.xlsx》and fill in all necessary infos of on-boarding merchants.',
     manual2: '2. There are two photo attachments one is for inner goods another for outside shop each need to be stored in a separated folder. The photo attachments need to be uploaded on folder level through compression mode individually. The criteria of photo naming is: contact number-goodsphoto.jpg and contact number-shopphoto.jpg as a example in template, it should be 18203556822-goodsphoto.jpg and 18203556822-shopphoto.jpg.',
     manual3: '3. The folder naming should be the same as before and after compression, please revise the folder naming after then compress again if it is necessary to revise the compressed file name.'
