@@ -181,7 +181,7 @@ const en = {
     nameph: 'Enter your phone number or E-mail',
     passph: 'Password',
     desc: 'We handle billions of dollars every year for forward-thinking businesses in the world',
-    cap1: 'MOBILE PAYMENT',
+    cap1: 'INSTITUTION',
     cap2: ' MANAGEMENT SYSTEM',
     checkbox: 'Remember the password',
     btn: 'Login',
@@ -610,7 +610,7 @@ const en = {
     createTime: 'Creation time',
   },
   main: {
-    desc: 'MOBILE PAYMENT MANAGEMENT SYSTEM',
+    desc: 'INSTITUTION MANAGEMENT SYSTEM',
     roles: [
       ''
     ],

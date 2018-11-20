@@ -21,7 +21,7 @@
       </el-form-item>
 
       <div class="buttons">
-        <el-button type="primary" @click="getShopDataHandler">{{$t('merchant.query')}}</el-button>
+        <el-button type="primary" @click="fetchData('query')">{{$t('merchant.query')}}</el-button>
         <el-button @click="reset">{{$t('merchant.reset')}}</el-button>
       </div>
     </el-form>
@@ -111,10 +111,10 @@
       this.fetchData()
     },
     methods: {
-      getShopDataHandler() {
-        this.fetchData()
-      },
-      fetchData() {
+      fetchData(query) {
+        if(query) {
+          this.currentPage = 0
+        }
         let p = {
           mchnt_uid: this.formData.mchntid,
           shopname: this.formData.mchntname,
