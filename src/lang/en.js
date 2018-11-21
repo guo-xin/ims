@@ -216,7 +216,7 @@ const en = {
       account: 'Account Name',
       industry: 'Industry',
       state: 'Status',
-      store: 'Shop'
+      store: 'Store'
     },
     detail: {
       up: 'Activate',
