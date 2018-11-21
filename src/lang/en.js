@@ -178,7 +178,7 @@ const en = {
     }
   },
   login: {
-    nameph: 'Enter your phone number or E-mail',
+    nameph: 'UserName Or E-mail',
     passph: 'Password',
     desc: 'We handle billions of dollars every year for forward-thinking businesses in the world',
     cap1: 'INSTITUTION',

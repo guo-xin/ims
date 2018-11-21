@@ -10,7 +10,7 @@
           {{$t('login.desc')}}
         </div>
         <el-form ref="form-login"  :model="form" label-width="0px" class="form-login" :rules="rules" :autocomplete="false">
-          <el-form-item label="Phone Number or E-mail" prop="username">
+          <el-form-item :label="$t('login.nameph')" prop="username">
             <el-input type="text" v-model.trim="form.username" :clearable="true" @focus="addNameBorder" @blur="removeNameBorder"></el-input>
           </el-form-item>
 
@@ -71,10 +71,6 @@
 
     },
     created() {
-      // 已登录直接跳到首页
-//      if (getCookie('sessionid')) {
-//        this.$router.push('/main')
-//      }
     },
     methods: {
       changeCheckboxHandler(e) {

@@ -177,7 +177,7 @@ const zh = {
     }
   },
   login: {
-    nameph: '请输入电话或E-mail',
+    nameph: '用户名或邮箱',
     passph: '密码',
     desc: '文案待定',
     cap1: '移动支付',
