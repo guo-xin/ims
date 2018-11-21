@@ -76,7 +76,7 @@ const en = {
   },
   settleMent: {
     crumbs: {
-      T1: 'Clearing Details',
+      T1: 'Clearing Detail',
       T2: 'Clearing Summary',
       T3: 'Clearing Template',
       T4: 'Clearing Tonfiguration',
@@ -522,8 +522,8 @@ const en = {
     manual3: '3. The folder naming should be the same as before and after compression, please revise the folder naming after then compress again if it is necessary to revise the compressed file name.'
   },
   trade: {
-    detail: 'Transaction Details',
-    total: 'Transaction Statistics',
+    detail: 'Transaction Detail',
+    total: 'Transaction Summary',
     common: {
       tradeDate: 'Transaction Date',
       tradeTime: 'Transaction Time',
