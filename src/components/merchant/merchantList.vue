@@ -236,7 +236,7 @@
       reset() { // 表单重置
         this.$refs['mchnt_list_form'].resetFields();
         this.channels2 = [];
-        this.fetchData();
+        this.fetchData('query');
       },
       createMerchant() { // 商户进件/新建商户
         this.$router.push({path: 'mchnt_manage_list/mchnt_create'})
