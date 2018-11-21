@@ -490,7 +490,7 @@ const zh = {
   },
   trade: {
     detail: '交易明细',
-    total: '交易统计',
+    total: '交易汇总',
     common: {
       tradeDate: '交易日期',
       tradeTime: '交易时间',
