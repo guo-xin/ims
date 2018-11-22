@@ -220,9 +220,9 @@ const en = {
       industry: 'Industry',
       state: 'Status',
       store: 'Store',
-      payment: 'Payment setting',
-      pid: 'Alipay service provider ID',
-      wechatM: 'WeChat official account ID',
+      payment: 'Payment Setting',
+      pid: 'Alipay Service Provider ID',
+      wechatM: 'WeChat Official Account ID',
       wechatpay: 'WetChat Pay'
     },
     payment: {

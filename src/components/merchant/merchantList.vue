@@ -46,13 +46,13 @@
         </template>
       </el-table-column>
 
-      <el-table-column width="170" prop="shopname" :label="$t('merchant.table.mchtname')">
+      <el-table-column prop="shopname" :label="$t('merchant.table.mchtname')">
         <template slot-scope="scope">
           {{ scope.row.shopname }}
         </template>
       </el-table-column>
 
-      <el-table-column width="170" prop="address"  :label="$t('merchant.table.address')">
+      <el-table-column prop="address"  :label="$t('merchant.table.address')">
         <template slot-scope="scope">
           {{ scope.row.address }}
         </template>
@@ -88,7 +88,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('merchant.table.payment')">
+      <el-table-column :label="$t('merchant.table.payment')" width="150">
         <template slot-scope="scope">
           <el-button v-if="scope.row.deploy == 1" type="text" @click.stop="paymentConfigure(scope.row.userid,scope.row.deploy)">{{ $t('merchant.payment.configured') }}</el-button>
           <el-button v-else type="text" @click.stop="paymentConfigure(scope.row.userid,scope.row.deploy)">{{ $t('merchant.payment.nonconfigured') }}</el-button>
@@ -106,10 +106,10 @@
       :current-page="currentPage">
     </el-pagination>
 
-    <el-dialog  
-        :title="$t('merchant.table.payment')" 
-        :visible.sync="centerDialogVisible" 
-        :show-close="false" 
+    <el-dialog
+        :title="$t('merchant.table.payment')"
+        :visible.sync="centerDialogVisible"
+        :show-close="false"
         width="400px"
         left
         class="dialog"
@@ -172,11 +172,11 @@
         pageSize: 10,
         currentPage: 0,
         centerDialogVisible: false,
-        paymentConfigures: [],  
+        paymentConfigures: [],
         baseRules: {
           'mchntid': [
             {required: true, message: this.$t('merchant.payment.rule1')}
-           
+
           ],
           'termid': [
             {required: true, message: this.$t('merchant.payment.rule2'), trigger: 'change'},
@@ -345,10 +345,10 @@
             params: p
           }).then((res) => {
             this.PIDlist = res.data.data
-            this.centerDialogVisible = true 
-            if(deploy === 0) { // 0表示未配置 edit控制select与input的可编辑状态，这里设置为可编辑，dialogType控制下方按钮的展示，这里设置为保存  
-              this.paymentEdit.edit = false    
-              this.paymentEdit.dialogType = true        
+            this.centerDialogVisible = true
+            if(deploy === 0) { // 0表示未配置 edit控制select与input的可编辑状态，这里设置为可编辑，dialogType控制下方按钮的展示，这里设置为保存
+              this.paymentEdit.edit = false
+              this.paymentEdit.dialogType = true
             }else {
               let p = {
                   userid: userid,
@@ -364,7 +364,7 @@
                 this.paymentEdit.edit = true
                 this.paymentEdit.dialogType = false
               })
-            }  
+            }
           })
       },
       editStatus() { // 将对话框的状态改为可编辑
@@ -400,7 +400,7 @@
                   }
                 })
             }
-        }) 
+        })
       }
     }
   }

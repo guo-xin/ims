@@ -591,7 +591,7 @@ const zh = {
     createTime: '创建时间',
   },
   main: {
-    desc: '移动支付管理系统',
+    desc: '机构管理系统',
     roles: [
       ''
     ],
