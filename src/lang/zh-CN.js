@@ -42,7 +42,10 @@ const zh = {
     reupload: '重新上传',
     format: '支持 JPG / PNG 格式',
     uploadSucc: '上传成功',
-    uploadFailed: '上传失败'
+    uploadFailed: '上传失败',
+    SAVE: '保存',
+    CLOSE: '关闭',
+    EDIT: '编辑'
   },
   authority: {
     crumbs: {
@@ -205,6 +208,13 @@ const zh = {
       ph: '请先选择一级代理',
       audit_state: '商户状态'
     },
+    payment: {
+      configured: "已配置",
+      nonconfigured: "未配置",
+      rule1: "请选择PID",
+      rule2: "请选择微信商户ID",
+      rule3: "输入类型必须是数字"
+    },
     table: {
       mchtid: '商户ID',
       mchtname: '商户名称',
@@ -215,7 +225,10 @@ const zh = {
       account: '账户名称',
       state: '商户状态',
       industry: '行业',
-      store: '门店'
+      store: '门店',
+      payment: '支付配置',
+      wechatM: '微信商户号',
+      wechatpay: '微信支付'
     },
     detail: {
       up: '启用',

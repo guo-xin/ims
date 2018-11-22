@@ -87,6 +87,13 @@
           <el-button type="text" @click.stop="shopList(scope.row.userid)">{{ $t('common.look') }}</el-button>
         </template>
       </el-table-column>
+
+      <el-table-column :label="$t('merchant.table.payment')">
+        <template slot-scope="scope">
+          <el-button v-if="scope.row.deploy == 1" type="text" @click.stop="paymentConfigure(scope.row.userid,scope.row.deploy)">{{ $t('merchant.payment.configured') }}</el-button>
+          <el-button v-else type="text" @click.stop="paymentConfigure(scope.row.userid,scope.row.deploy)">{{ $t('merchant.payment.nonconfigured') }}</el-button>
+        </template>
+      </el-table-column>
     </el-table>
 
     <el-pagination
@@ -98,11 +105,44 @@
       @current-change="handleCurrentChange"
       :current-page="currentPage">
     </el-pagination>
+
+    <el-dialog  
+        :title="$t('merchant.table.payment')" 
+        :visible.sync="centerDialogVisible" 
+        :show-close="false" 
+        width="400px"
+        left
+        class="dialog"
+      >
+      <el-form :model="payMentform" class="dialog_form" :rules="baseRules" ref="payMentform">
+        <el-form-item :label="$t('merchant.table.wechatpay')" class="dialog_form_item"></el-form-item>
+        <el-form-item label="PID" class="dialog_form_item" prop="mchntid">
+          <el-select
+              v-model="payMentform.mchntid"
+              :disabled="paymentEdit.edit">
+            <el-option :label="item.mchntnm" :value="item.mchntid" v-for="item in PIDlist" :key="item.mchntid"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label="$t('merchant.table.wechatpay')" class="dialog_form_item" prop="termid">
+          <el-input
+              v-model="payMentform.termid"
+              :disabled="paymentEdit.edit"
+              maxlength="9">
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="dialogType" class="dialog_form_button">
+          <el-button type="text" @click="resetForm('payMentform')">{{ $t('common.CLOSE') }}</el-button>
+          <el-button v-if="paymentEdit.dialogType" type="text" @click="changePayment('payMentform')">{{ $t('common.SAVE') }}</el-button>
+          <el-button v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 <script>
   import config from 'config'
   import axios from 'axios';
+  import qs from 'qs';
   export default {
     data() {
       return {
@@ -130,7 +170,39 @@
         ],
         total: 0,
         pageSize: 10,
-        currentPage: 0
+        currentPage: 0,
+        centerDialogVisible: false,
+        paymentConfigures: [],  
+        baseRules: {
+          'mchntid': [
+            {required: true, message: this.$t('merchant.payment.rule1')}
+           
+          ],
+          'termid': [
+            {required: true, message: this.$t('merchant.payment.rule2'), trigger: 'change'},
+            {
+              validator: (rule, val, cb) => {
+                if (!/^[0-9]*$/.test(+val)) {
+                  cb(new Error(this.$t('merchant.payment.rule3')));
+                } else {
+                  cb();
+                }
+              }
+            }
+          ]
+        },
+        payMentform: {
+            mchntid: '',
+            termid: ''
+        },
+        PIDlist: [],
+        paymentEdit: {
+            userid: '',
+            id: '',
+            type: '',
+            edit: '',
+            dialogType: ''
+        }
       }
     },
     computed: {
@@ -261,6 +333,74 @@
           this.currentPage = 0
         }
         this.fetchData()
+      },
+      paymentConfigure(userid, deploy) { // 支付配置状态查看或改变
+          let p = {
+              type: "weixin",
+              format: 'cors'
+          }
+          this.paymentEdit.type = deploy
+          this.paymentEdit.userid = userid
+          axios.get(`${config.host}/org/tools/get/channelinfo`, { // 获取select选项中的字段
+            params: p
+          }).then((res) => {
+            this.PIDlist = res.data.data
+            this.centerDialogVisible = true 
+            if(deploy === 0) { // 0表示未配置 edit控制select与input的可编辑状态，这里设置为可编辑，dialogType控制下方按钮的展示，这里设置为保存  
+              this.paymentEdit.edit = false    
+              this.paymentEdit.dialogType = true        
+            }else {
+              let p = {
+                  userid: userid,
+                  format: 'cors'
+              }
+              axios.get(`${config.host}/org/mchnt/channel/info`, {
+                params: p
+              }).then((res) => {
+                let data = res.data.data[0]
+                this.payMentform.termid = data.termid
+                this.payMentform.mchntid = data.mchntid
+                this.paymentEdit.id = data.id
+                this.paymentEdit.edit = true
+                this.paymentEdit.dialogType = false
+              })
+            }  
+          })
+      },
+      editStatus() { // 将对话框的状态改为可编辑
+        this.paymentEdit.edit = false
+        this.paymentEdit.dialogType = true
+      },
+      resetForm(payMentform) {
+          this.centerDialogVisible = false
+          this.$refs[payMentform].resetFields()
+      },
+      changePayment(payMentform) { // 保存用户支付配置的信息
+        this.$refs[payMentform].validate((valid) => {
+            if(valid) {
+                let url = this.paymentEdit.type == 0 ? ('/org/mchnt/channel/bind') : ('/org/mchnt/channel/edit')
+                let params = {
+                  userid: this.paymentEdit.userid,
+                  mchntid: this.payMentform.mchntid,
+                  termid: this.payMentform.termid,
+                  format: 'cors'
+                }
+                if (this.paymentEdit.type == 1) {
+                  params['id'] = this.paymentEdit.id
+                }
+                axios.post(`${config.host}${url}`, qs.stringify(params), {}).then((res) => {
+                  this.resetForm('payMentform')
+                  let data = res.data;
+                  if (data.respcd === config.code.OK) {
+                    this.fetchData();
+                    let messageTip = this.paymentEdit.type == 0 ? this.$t('common.createSuccess') : this.$t('common.updateSuccess');
+                    this.$message.success(messageTip);
+                  } else {
+                    this.$message.error(data.respmsg);
+                  }
+                })
+            }
+        }) 
       }
     }
   }
@@ -268,5 +408,21 @@
 <style lang="scss">
   .table-hover .el-table__row {
     cursor: pointer;
+  }
+  .dialog {
+      box-shadow:2px 2px 4px 0px rgba(29,29,36,0.1);
+      border-radius:2px;
+      font-size:24px;
+      .el-dialog__body {
+          padding: 10px 40px;
+      }
+      .dialog_form_item {
+          padding: 0;
+          width: 300px;
+      }
+      .dialog_form_button {
+          padding-left: 200px;
+          width: 100%;
+      }
   }
 </style>

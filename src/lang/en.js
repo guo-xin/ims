@@ -43,7 +43,10 @@ const en = {
     reupload: 'Re-Upload',
     format: 'Support JPG / PNG format',
     uploadSucc: 'Upload success',
-    uploadFailed: 'Upload failure'
+    uploadFailed: 'Upload failure',
+    CLOSE: 'CLOSE',
+    SAVE: 'SAVE',
+    EDIT: 'EDIT'
   },
   authority: {
     crumbs: {
@@ -216,7 +219,17 @@ const en = {
       account: 'Account Name',
       industry: 'Industry',
       state: 'Status',
-      store: 'Store'
+      store: 'Store',
+      payment: 'Payment configuration',
+      wechatM: 'WeChat merchant ID',
+      wechatpay: 'Wetchat Pay'
+    },
+    payment: {
+      configured: "Configured",
+      nonconfigured: "Non-configured",
+      rule1: "PID is required",
+      rule2: "Wetchat Pay ID is required",
+      rule3: "Type must be number"
     },
     detail: {
       up: 'Activate',
