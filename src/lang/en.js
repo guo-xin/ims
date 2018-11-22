@@ -220,16 +220,17 @@ const en = {
       industry: 'Industry',
       state: 'Status',
       store: 'Store',
-      payment: 'Payment configuration',
-      wechatM: 'WeChat merchant ID',
-      wechatpay: 'Wetchat Pay'
+      payment: 'Payment setting',
+      pid: 'Alipay service provider ID',
+      wechatM: 'WeChat official account ID',
+      wechatpay: 'WetChat Pay'
     },
     payment: {
       configured: "Configured",
       nonconfigured: "Non-configured",
-      rule1: "PID is required",
-      rule2: "Wetchat Pay ID is required",
-      rule3: "Type must be number"
+      rule1: "Alipay service provider ID is required",
+      rule2: "WeChat official account ID is required",
+      rule3: "Integer"
     },
     detail: {
       up: 'Activate',

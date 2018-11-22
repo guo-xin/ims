@@ -211,8 +211,8 @@ const zh = {
     payment: {
       configured: "已配置",
       nonconfigured: "未配置",
-      rule1: "请选择PID",
-      rule2: "请选择微信商户ID",
+      rule1: "请选择服务商号",
+      rule2: "请选择微信商户号",
       rule3: "输入类型必须是数字"
     },
     table: {
@@ -227,6 +227,7 @@ const zh = {
       industry: '行业',
       store: '门店',
       payment: '支付配置',
+      pid: '服务商号',
       wechatM: '微信商户号',
       wechatpay: '微信支付'
     },

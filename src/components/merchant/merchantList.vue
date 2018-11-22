@@ -115,15 +115,15 @@
         class="dialog"
       >
       <el-form :model="payMentform" class="dialog_form" :rules="baseRules" ref="payMentform">
-        <el-form-item :label="$t('merchant.table.wechatpay')" class="dialog_form_item"></el-form-item>
-        <el-form-item label="PID" class="dialog_form_item" prop="mchntid">
+        <el-form-item :label="$t('merchant.table.wechatpay')" class="dialog_form_header"></el-form-item>
+        <el-form-item :label="$t('merchant.table.pid')" class="dialog_form_item" prop="mchntid">
           <el-select
               v-model="payMentform.mchntid"
               :disabled="paymentEdit.edit">
             <el-option :label="item.mchntnm" :value="item.mchntid" v-for="item in PIDlist" :key="item.mchntid"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item :label="$t('merchant.table.wechatpay')" class="dialog_form_item" prop="termid">
+        <el-form-item :label="$t('merchant.table.wechatM')" class="dialog_form_item" prop="termid">
           <el-input
               v-model="payMentform.termid"
               :disabled="paymentEdit.edit"
@@ -419,6 +419,10 @@
       .dialog_form_item {
           padding: 0;
           width: 300px;
+      }
+      .dialog_form_header {
+          width: 300px;
+          margin-left: -30px;
       }
       .dialog_form_button {
           padding-left: 200px;
