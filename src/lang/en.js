@@ -220,17 +220,10 @@ const en = {
       industry: 'Industry',
       state: 'Status',
       store: 'Store',
-<<<<<<< Updated upstream
-      payment: 'Payment Setting',
-      pid: 'Alipay Service Provider ID',
-      wechatM: 'WeChat Official Account ID',
-      wechatpay: 'WetChat Pay'
-=======
       payment: 'Payment setting',
       pid: 'Alipay service provider ID',
       wechatM: 'WeChat official account ID',
       wechatpay: 'WeChat Pay'
->>>>>>> Stashed changes
     },
     payment: {
       configured: "Configured",

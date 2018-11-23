@@ -129,6 +129,7 @@
               type="text"
               v-model.trim="payMentform.termid"
               :disabled="paymentEdit.edit"
+              max-length="9"
               >
           </el-input>
         </el-form-item>
@@ -351,33 +352,6 @@
       paymentConfigure(userid, deploy) { // 支付配置状态查看或改变
           this.paymentEdit.type = deploy
           this.paymentEdit.userid = userid
-<<<<<<< Updated upstream
-          axios.get(`${config.host}/org/tools/get/channelinfo`, { // 获取select选项中的字段
-            params: p
-          }).then((res) => {
-            this.PIDlist = res.data.data
-            this.centerDialogVisible = true
-            if(deploy === 0) { // 0表示未配置 edit控制select与input的可编辑状态，这里设置为可编辑，dialogType控制下方按钮的展示，这里设置为保存
-              this.paymentEdit.edit = false
-              this.paymentEdit.dialogType = true
-            }else {
-              let p = {
-                  userid: userid,
-                  format: 'cors'
-              }
-              axios.get(`${config.host}/org/mchnt/channel/info`, {
-                params: p
-              }).then((res) => {
-                let data = res.data.data[0]
-                this.payMentform.termid = data.termid
-                this.payMentform.mchntid = data.mchntid
-                this.paymentEdit.id = data.id
-                this.paymentEdit.edit = true
-                this.paymentEdit.dialogType = false
-              })
-            }
-          })
-=======
           this.centerDialogVisible = true 
           // debugger;
           if(deploy === 0) { // 0表示未配置 edit控制select与input的可编辑状态，这里设置为可编辑，dialogType控制下方按钮的展示，这里设置为保存 
@@ -400,7 +374,6 @@
               this.paymentEdit.dialogType = false
             })
           }  
->>>>>>> Stashed changes
       },
       editStatus() { // 将对话框的状态改为可编辑
         this.paymentEdit.edit = false
