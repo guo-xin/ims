@@ -220,17 +220,24 @@ const en = {
       industry: 'Industry',
       state: 'Status',
       store: 'Store',
+<<<<<<< Updated upstream
       payment: 'Payment Setting',
       pid: 'Alipay Service Provider ID',
       wechatM: 'WeChat Official Account ID',
       wechatpay: 'WetChat Pay'
+=======
+      payment: 'Payment setting',
+      pid: 'Alipay service provider ID',
+      wechatM: 'WeChat official account ID',
+      wechatpay: 'WeChat Pay'
+>>>>>>> Stashed changes
     },
     payment: {
       configured: "Configured",
       nonconfigured: "Non-configured",
       rule1: "Alipay service provider ID is required",
       rule2: "WeChat official account ID is required",
-      rule3: "Integer"
+      rule3: "Type must be digital"
     },
     detail: {
       up: 'Activate',

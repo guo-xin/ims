@@ -3,8 +3,7 @@
       <div class="login-wrap">
         <img class="logo" src="../../assets/common_img/logo.png"/>
         <div class="cap">
-          {{$t('login.cap1')}} <br/>
-          {{$t('login.cap2')}}
+          {{$t('login.cap1')}}<br v-if="type != 'zh-cn'"/>{{$t('login.cap2')}}
         </div>
         <div class="desc" v-show="false">
           {{$t('login.desc')}}
@@ -54,6 +53,7 @@
           password: '',
           checked: true
         },
+        type: '',
         isNameBorder: false,
         isPassBorder: false,
         loading: false,
@@ -71,6 +71,9 @@
 
     },
     created() {
+        console.log(this.$i18n.locale)
+        this.type = this.$i18n.locale
+        // this.type = t == 'zh-cn' ? false : true
     },
     methods: {
       changeCheckboxHandler(e) {

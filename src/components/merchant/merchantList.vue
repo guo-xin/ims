@@ -112,7 +112,8 @@
         :show-close="false"
         width="400px"
         left
-        class="dialog"
+        class="dialog merchant"
+        @close="closeForm"
       >
       <el-form :model="payMentform" class="dialog_form" :rules="baseRules" ref="payMentform">
         <el-form-item :label="$t('merchant.table.wechatpay')" class="dialog_form_header"></el-form-item>
@@ -120,14 +121,15 @@
           <el-select
               v-model="payMentform.mchntid"
               :disabled="paymentEdit.edit">
-            <el-option :label="item.mchntnm" :value="item.mchntid" v-for="item in PIDlist" :key="item.mchntid"></el-option>
+            <el-option :label="item.mchntid" :value="item.mchntid" v-for="item in PIDlist" :key="item.mchntid"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item :label="$t('merchant.table.wechatM')" class="dialog_form_item" prop="termid">
           <el-input
-              v-model="payMentform.termid"
+              type="text"
+              v-model.trim="payMentform.termid"
               :disabled="paymentEdit.edit"
-              maxlength="9">
+              >
           </el-input>
         </el-form-item>
         <el-form-item prop="dialogType" class="dialog_form_button">
@@ -179,7 +181,7 @@
 
           ],
           'termid': [
-            {required: true, message: this.$t('merchant.payment.rule2'), trigger: 'change'},
+            {required: true, message: this.$t('merchant.payment.rule2')},
             {
               validator: (rule, val, cb) => {
                 if (!/^[0-9]*$/.test(+val)) {
@@ -213,6 +215,7 @@
     created() {
       this.fetchData()
       this.getChannelList()
+      this.fetchSelectData()
     },
     methods: {
       shopList(mchntId) {
@@ -334,13 +337,21 @@
         }
         this.fetchData()
       },
+      fetchSelectData() {
+        let p = {
+            type: "weixin",
+            format: 'cors'
+        }
+        axios.get(`${config.host}/org/tools/get/channelinfo`, { // 获取select选项中的字段
+            params: p
+        }).then((res) => {
+          this.PIDlist = res.data.data
+        })
+      },
       paymentConfigure(userid, deploy) { // 支付配置状态查看或改变
-          let p = {
-              type: "weixin",
-              format: 'cors'
-          }
           this.paymentEdit.type = deploy
           this.paymentEdit.userid = userid
+<<<<<<< Updated upstream
           axios.get(`${config.host}/org/tools/get/channelinfo`, { // 获取select选项中的字段
             params: p
           }).then((res) => {
@@ -366,6 +377,30 @@
               })
             }
           })
+=======
+          this.centerDialogVisible = true 
+          // debugger;
+          if(deploy === 0) { // 0表示未配置 edit控制select与input的可编辑状态，这里设置为可编辑，dialogType控制下方按钮的展示，这里设置为保存 
+            this.paymentEdit.edit = false    
+            this.paymentEdit.dialogType = true   
+            // this.$refs['payMentform'].resetFields()
+          }else {
+            let p = {
+                userid: userid,
+                format: 'cors'
+             }
+            axios.get(`${config.host}/org/mchnt/channel/info`, {
+              params: p
+            }).then((res) => {
+              let data = res.data.data[0]
+              this.payMentform.termid = data.termid
+              this.payMentform.mchntid = data.mchntid
+              this.paymentEdit.id = data.id
+              this.paymentEdit.edit = true
+              this.paymentEdit.dialogType = false
+            })
+          }  
+>>>>>>> Stashed changes
       },
       editStatus() { // 将对话框的状态改为可编辑
         this.paymentEdit.edit = false
@@ -373,7 +408,13 @@
       },
       resetForm(payMentform) {
           this.centerDialogVisible = false
-          this.$refs[payMentform].resetFields()
+      },
+      closeForm() {
+          this.payMentform = {
+              mchntid: '',
+              termid: ''
+          }
+          this.$refs['payMentform'].resetFields()
       },
       changePayment(payMentform) { // 保存用户支付配置的信息
         this.$refs[payMentform].validate((valid) => {
@@ -409,10 +450,10 @@
   .table-hover .el-table__row {
     cursor: pointer;
   }
-  .dialog {
-      box-shadow:2px 2px 4px 0px rgba(29,29,36,0.1);
-      border-radius:2px;
-      font-size:24px;
+  .merchant.dialog {
+      box-shadow: 2px 2px 4px 0px rgba(29,29,36,0.1);
+      border-radius: 2px;
+      font-size: 24px;
       .el-dialog__body {
           padding: 10px 40px;
       }

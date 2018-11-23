@@ -183,8 +183,8 @@ const zh = {
     nameph: '用户名或邮箱',
     passph: '密码',
     desc: '文案待定',
-    cap1: '移动支付',
-    cap2: ' 管理系统',
+    cap1: '机构',
+    cap2: '管理系统',
     checkbox: '记住密码',
     btn: '登录',
     forgetPass: '忘记密码？',
@@ -212,7 +212,7 @@ const zh = {
       configured: "已配置",
       nonconfigured: "未配置",
       rule1: "请选择服务商号",
-      rule2: "请选择微信商户号",
+      rule2: "请输入微信商户号",
       rule3: "输入类型必须是数字"
     },
     table: {
