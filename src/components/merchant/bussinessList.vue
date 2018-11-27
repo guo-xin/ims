@@ -128,7 +128,6 @@
         axios.get(`${config.host}/org/mchnt/sub/list`, {
           params: p})
           .then((res) => {
-            console.log(p)
             let data = res.data;
             this.isLoading = false;
             if (data.respcd === config.code.OK) {

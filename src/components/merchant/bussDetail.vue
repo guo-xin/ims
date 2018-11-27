@@ -116,9 +116,6 @@
       }
     },
     created() {
-      console.log("这是门店管理打印的参数")
-      console.log(this.$route.query)
-//      this.isEditable = this.$route.query.from === 'old'
       this.fetchDetailData()
     },
     methods: {

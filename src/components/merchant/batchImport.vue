@@ -153,7 +153,6 @@
           }
           this.isLoading = false;
         }).catch(() => {
-          console.log('请求失败');
           this.isLoading = false;
         })
       },
@@ -168,7 +167,6 @@
         this.$router.push({name: 'mchnt_manage_list'})
       },
       handleRemove(file, fileList) {
-        console.log(file, fileList);
       },
       myUploadFn(data) {
         let formData = new FormData();
@@ -201,7 +199,6 @@
             this.$message.error(data.respmsg)
           }
         }).catch(() => {
-          console.log('请求失败');
         })
       },
       beforeRemove(file, fileList) {

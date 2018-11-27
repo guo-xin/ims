@@ -290,7 +290,6 @@
       }
     },
     created() {
-      console.log(this.$route.query)
       this.isEditable = this.$route.query.from === 'old'
       this.fetchDetailData()
     },

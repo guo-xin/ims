@@ -183,11 +183,10 @@
         this.$i18n.locale = val;
         sessionStorage.setItem("oasbp_lang", val)
         // 初始化页面及接口数据
-        this.$router.go(0);
+        location.reload();
       },
 
       subMenuSelectedHandler(index, indexPath) {
-//        console.log(index, indexPath)
       },
       router(router) {
         return `/${router}`;

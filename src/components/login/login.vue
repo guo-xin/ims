@@ -71,9 +71,7 @@
 
     },
     created() {
-        console.log(this.$i18n.locale)
         this.type = this.$i18n.locale
-        // this.type = t == 'zh-cn' ? false : true
     },
     methods: {
       changeCheckboxHandler(e) {

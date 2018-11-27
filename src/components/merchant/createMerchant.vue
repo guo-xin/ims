@@ -522,9 +522,7 @@
     },
     methods: {
       handleNodeClick(node) {
-        console.log(node);
         if(+node.isLeaf && Object.prototype.toString.call(node.slsm) === "[object Undefined]") {
-          console.log('f')
            this.form.sls_uid = node.uid;
            this.form.sls_name = node.name;
            this.isShowTree = false;
@@ -727,7 +725,6 @@
               this.$message.error(this.$t('common.uploadFailed'))
             }
           }).catch(() => {
-            console.log('请求失败');
             this.voucherInfo[name] = '';
           })
         }

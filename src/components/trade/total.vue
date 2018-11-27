@@ -98,7 +98,7 @@
     </el-row>
 
     <el-table :data="trades" stripe>
-      <el-table-column prop="base.sysdtm" :label="$t('trade.common.tradeDate')"></el-table-column>
+      <el-table-column prop="base.sysdtm" :label="$t('trade.common.tradeDate')" width="115"></el-table-column>
       <el-table-column prop="base.shopname" :label="$t('trade.common.merchantName')"></el-table-column>
       <el-table-column prop="base.primary" :label="$t('trade.common.firstAgent')"></el-table-column>
       <el-table-column prop="base.secondary" :label="$t('trade.common.secondAgent')"></el-table-column>

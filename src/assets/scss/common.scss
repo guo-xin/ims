@@ -277,7 +277,7 @@ form.el-form {
   padding: 24px 0;
 }
 .el-table th > .cell {
-  word-break: break-word;
+  word-break: keep-all;
 }
 .tradeTotal {
   .el-table thead.is-group th {
