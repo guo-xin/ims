@@ -1,5 +1,5 @@
 const env = process.env.NODE_ENV
-let host, ohost, region = 'Singapore', imgUpload = '';
+let host, ohost, region = 'HK', imgUpload = '';
 
 switch (env) {
   case 'test': // 线上测试
@@ -15,9 +15,9 @@ switch (env) {
     break;
 
   default: // 线上正式
-     host = 'https://ims-sg.qfapi.com';
+     host = 'https://ims-hk.qfapi.com';
      ohost = 'https://o.qfpay.com';
-     imgUpload = 'https://o2-sg.qfapi.com';
+     imgUpload = 'https://o2-hk.qfapi.com';
 }
 
 export default {
