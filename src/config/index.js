@@ -1,5 +1,5 @@
 const env = process.env.NODE_ENV
-let host, ohost, region = 'domestic', imgUpload = '';
+let host, ohost, region = 'Singapore', imgUpload = '';
 
 switch (env) {
   case 'test': // 线上测试
@@ -9,22 +9,15 @@ switch (env) {
     break;
 
   case 'development':
-    host = 'https://oasbp.qa.qfpay.net'; // https://oasbp.qa.qfpay.net
+    host = 'https://oasbp.qa.qfpay.net';
     ohost = 'https://o.qa.qfpay.net';
     imgUpload = 'https://o2.qa.qfpay.net';
     break;
 
-  case 'Singapore': // 新加坡
-    host = `http://172.100.108.179:6500`;
-    ohost = `https://`;
-    imgUpload = 'https://o2.qfpay.com';
-    region = 'Singapore';
-    break;
-
   default: // 线上正式
-     host = 'https://oasbp.qfpay.com';
+     host = 'https://ims-sg.qfapi.com';
      ohost = 'https://o.qfpay.com';
-     imgUpload = 'https://o2.qfpay.com';
+     imgUpload = 'https://o2-sg.qfapi.com';
 }
 
 export default {
