@@ -455,7 +455,7 @@ const zh = {
     }
   },
   batch: {
-    title: '批量创建',
+    title: '批量创建jiang',
     t1: '批量导入',
     tip: {
       txt: '* 请按照固定格式上传商户资料，请参考',
