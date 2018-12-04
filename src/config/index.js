@@ -9,9 +9,9 @@ switch (env) {
     break;
 
   case 'development':
-    host = 'https://oasbp.qa.qfpay.net';
+    host = 'api'; // https://oasbp.qa.qfpay.net
     ohost = 'https://o.qa.qfpay.net';
-    imgUpload = 'https://o2.qa.qfpay.net';
+    imgUpload = 'https://o2.qfpay.com';
     break;
 
   default: // 线上正式

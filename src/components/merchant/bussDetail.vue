@@ -9,32 +9,11 @@
         <div class="title">{{$t('shop.detail.basic.subtitle')}}</div>
         <div class="divider"></div>
       </div>
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('shop.detail.basic.la1')}}</span>
-          <span class="basic-content">{{ form.userinfo.name}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('shop.detail.basic.la2')}}</span>
-          <span class="basic-content">{{form.userinfo.username}}</span>
-        </el-col>
-      </el-row>
 
       <el-row>
         <el-col :span="10">
           <span class="basic-label">{{$t('shop.detail.basic.la3')}}</span>
           <span class="basic-content">{{form.userinfo.shopname}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('shop.detail.basic.la4')}}</span>
-          <span class="basic-content">{{form.userinfo.telephone}}</span>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('shop.detail.basic.la5')}}</span>
-          <span class="basic-content">{{form.userinfo.location}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('shop.detail.basic.la6')}}</span>
@@ -44,23 +23,12 @@
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('shop.detail.basic.la7')}}</span>
-          <span class="basic-content">{{form.userinfo.post}}</span>
+          <span class="basic-label">{{$t('shop.detail.basic.la4')}}</span>
+          <span class="basic-content">{{form.userinfo.telephone}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('shop.detail.basic.la8')}}</span>
           <span class="basic-content">{{form.userinfo.operating}}</span>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('shop.detail.basic.la9')}}</span>
-          <span class="basic-content">{{form.userinfo.additional}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('shop.detail.basic.la10')}}</span>
-          <span class="basic-content">{{form.userinfo.website}}</span>
         </el-col>
       </el-row>
 
@@ -75,13 +43,18 @@
     </section>
 
     <footer v-if="isEditable">
-      <el-button>{{$t('merchant.detail.edit')}}</el-button>
+      <el-button @click="editHandler">{{$t('merchant.detail.edit')}}</el-button>
+    </footer>
+    <footer v-if="isReEditable">
+      <el-button @click="editHandler">{{$t('merchant.detail.redit')}}</el-button>
+      <el-button @click="cancel">{{$t('merchant.detail.basic.close')}}</el-button>
     </footer>
   </div>
 </template>
 <script>
   import config from 'config'
   import axios from 'axios';
+  import _ from 'lodash'
   const getParams = (key) => {
     // 获取参数
     let url = window.location.hash.split('?')[1] || '';
@@ -97,6 +70,7 @@
       return {
         isLoading: false,
         isEditable: false,
+        isReEditable: false,
         form: {
           userinfo: {
             userid: this.$route.query.userid || getParams('userid'),
@@ -116,11 +90,16 @@
       }
     },
     created() {
+      this.isEditable = 'old'.indexOf(this.$route.query.from) > -1;
+      this.isReEditable = this.$route.query.from === 'edit';
       this.fetchDetailData()
     },
     methods: {
       cancel() {
         this.$router.push({name: 'shop_manage_list'})
+      },
+      editHandler() {
+        this.$router.push({name: 'createStore', query: {command: 'edit', userid: this.form.userinfo.userid}})
       },
       fetchDetailData() {
         axios.get(`${config.host}/org/mchnt/sub/info`, {
@@ -133,7 +112,10 @@
             let data = res.data;
             this.isLoading = false;
             if (data.respcd === config.code.OK) {
-                this.form = data.data
+                this.form.userinfo = data.data.userinfo;
+                this.form.vouchers = _.filter(data.data.vouchers, (item) => {
+                  return ~'goodsphoto|shopphoto|paypoint|otherphoto'.indexOf(item.name)
+                })
             } else {
               this.$message.error(data.respmsg);
             }

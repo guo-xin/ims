@@ -418,6 +418,7 @@ const zh = {
     title: '门店管理',
     query: '查询',
     reset: '重置',
+    create: '创建',
     form: {
       mchntid: '商户ID',
       mchntname: '商户名称',
@@ -452,6 +453,25 @@ const zh = {
         la10: '门店网址:',
         la11: '图片展示:'
       }
+    },
+    newStore: {
+      title1: '创建门店',
+      title2: '编辑门店',
+      model: {
+        storename: '门店名称',
+        storeaddress: '门店地址',
+        mobile: '联系电话',
+        operation: '营业时间'
+      },
+      rule1: '请输入门店名称',
+      rule2: '请输入门店地址',
+      rule3: '请输入联系电话',
+      rule4: '请输入营业时间',
+      casher: '点击添加收银台照片',
+      warmcasher: '请上传收银台照片',
+      mustcasher: '* 必须上传收银台照片',
+      other: '点击添加补充资料照片',
+      warmother: ''
     }
   },
   batch: {

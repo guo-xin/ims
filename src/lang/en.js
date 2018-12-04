@@ -460,31 +460,26 @@ const en = {
         la10: 'Website:',
         la11: 'Photograph:'
       },
-      shop: {
-        subtitle: 'Store Info',
-        la1: 'Store Name:',
-        la2: 'Address:',
-        la3: 'Photograph:'
-      },
-      rates: {
-        subtitle: 'MDR Info',
-        wechat: 'WeChat Pay:',
-        ali: 'Alipay:'
-      },
-      pay: {
-        subtitle: 'Payment Info',
-        la1: 'Bank Account Name:',
-        la2: 'Bank Account Number:',
-        la3: 'Bank Name:',
-        la4: 'Branch Bank Name:',
-        la5: 'Province Bank:',
-        la6: 'Swift Code:',
-        la7: 'City Bank:',
-        la8: 'Mobile:',
-        la9: 'Bank Type:',
-        la10: 'Photograph:'
-      },
       edit: 'Edit'
+    },
+    newStore: {
+      title1: '创建门店',
+      title2: '编辑门店',
+      model: {
+        storename: '门店名称',
+        storeaddress: '门店地址',
+        mobile: '联系电话',
+        operation: '营业时间'
+      },
+      rule1: '请输入门店名称',
+      rule2: '请输入门店地址',
+      rule3: '请输入联系电话',
+      rule4: '请输入营业时间',
+      casher: '点击添加收银台照片',
+      warmcasher: '请上传收银台照片',
+      mustcasher: '* 必须上传收银台照片',
+      other: '点击添加补充资料照片',
+      warmother: ''
     }
   },
   audit: {
