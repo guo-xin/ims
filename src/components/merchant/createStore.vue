@@ -51,11 +51,11 @@
                 </div>
                 <div v-else class="avatar-uploader-wrap">
                   <i class="avatar-uploader-icon el-icon-plus"></i>
-                  <div class="avatar-desc">{{$t('merchant.newMerchant.form.idfront')}}</div>
+                  <div class="avatar-desc">{{$t('merchant.newMerchant.picture.goodsphoto')}}</div>
                   <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">{{$t('merchant.newMerchant.form.warmfront')}}</div>
+              <div class="image_info">{{$t('merchant.newMerchant.form.warmgood')}}</div>
             </el-col>
             <!-- 经营场所外景照片上传-->
             <el-col :span="7" class="up-item">
@@ -82,11 +82,11 @@
                 </div>
                 <div v-else class="avatar-uploader-wrap">
                   <i class="avatar-uploader-icon el-icon-plus"></i>
-                  <div class="avatar-desc">{{$t('merchant.newMerchant.form.idback')}}</div>
+                  <div class="avatar-desc">{{$t('merchant.newMerchant.picture.shopphoto')}}</div>
                   <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">{{$t('merchant.newMerchant.form.warmback')}}</div>
+              <div class="image_info">{{$t('merchant.newMerchant.form.warmshop')}}</div>
             </el-col>
             <!-- 收银台照片上传-->
             <el-col :span="7" class="up-item">
