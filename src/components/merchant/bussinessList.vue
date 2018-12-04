@@ -2,6 +2,9 @@
   <div class="shop">
     <header class="page-header">
       <h2 class="page-title">{{$t('shop.title')}}</h2>
+      <!--<div>-->
+        <!--<el-button size="large" type="primary" @click="createStore">{{$t('shop.create')}}</el-button>-->
+      <!--</div>-->
     </header>
     <el-form class="search-form" :model="formData" ref="shop_list_form">
       <el-form-item :label="$t('shop.form.mchntid')" prop="mchntid">
@@ -51,21 +54,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="location_str" :label="$t('shop.table.location')" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.location_str }}
-        </template>
-      </el-table-column>
-
       <el-table-column prop="telephone" :label="$t('shop.table.telephone')">
         <template slot-scope="scope">
           {{ scope.row.telephone }}
-        </template>
-      </el-table-column>
-
-      <el-table-column prop="post" :label="$t('shop.table.post')">
-        <template slot-scope="scope">
-          {{ scope.row.post }}
         </template>
       </el-table-column>
 
@@ -111,6 +102,11 @@
       this.fetchData()
     },
     methods: {
+      createStore() {
+        this.$router.push({
+          name: 'createStore',
+        })
+      },
       fetchData(query) {
         if(query) {
           this.currentPage = 0

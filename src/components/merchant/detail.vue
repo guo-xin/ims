@@ -11,108 +11,34 @@
       </div>
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la4')}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la1')}}</span>
           <span class="basic-content">{{form.qdinfo.qd_name}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la2')}}</span>
-          <span class="basic-content">{{form.userinfo.mcc_str}}</span>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la6')}}</span>
           <span class="basic-content">{{form.qdinfo.slsm_name}}</span>
         </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la17')}}</span>
-          <span class="basic-content">{{form.qdinfo.slsm_mobile}}</span>
-        </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.shop.la1')}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la3')}}</span>
           <span class="basic-content">{{form.userinfo.shopname}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la1')}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la4')}}</span>
           <span class="basic-content">{{cate[form.userinfo.cate]}}</span>
         </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.bd')}}</span>
-          <span class="basic-content">{{form.userinfo.memo}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la5')}}</span>
+          <span class="basic-content">{{form.userinfo.mcc_str}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la9')}}</span>
-          <span class="basic-content">{{status[form.userinfo.status]}}</span>
-        </el-col>
-      </el-row>
-    </section>
-
-    <section class="rates">
-      <div class="banner">
-        <div class="title">{{$t('merchant.detail.rates.subtitle')}}</div>
-        <div class="divider"></div>
-      </div>
-      <el-row>
-
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la15')}}</span>
-          <span class="basic-content">{{isSigned[form.userinfo.is_contract]}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la16')}}</span>
-          <span class="basic-content">{{period[form.userinfo.settlement_time]}}</span>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="24">
-          <span class="basic-label">{{$t('merchant.detail.rates.wechat')}}</span>
-          <span class="basic-content">{{form.fee_ratios.tenpay_ratio}}</span>
-        </el-col>
-
-      </el-row>
-    </section>
-
-    <section class="payment">
-      <div class="banner">
-        <div class="title">{{$t('merchant.detail.pay.subtitle')}}</div>
-        <div class="divider"></div>
-      </div>
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la11')}}</span>
-          <span class="basic-content">{{form.userinfo.name}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la18')}}</span>
-          <span class="basic-content">{{form.userinfo.telephone}}</span>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la13')}}</span>
-          <span class="basic-content">{{form.userinfo.location}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la12')}}</span>
-          <span class="basic-content">{{form.userinfo.address}}</span>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la14')}}</span>
-          <span class="basic-content">{{form.userinfo.post}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la8')}}</span>
-          <span class="basic-content">{{form.userinfo.email}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la6')}}</span>
+          <span class="basic-content">{{isSigned[form.userinfo.status]}}</span>
         </el-col>
       </el-row>
 
@@ -122,51 +48,129 @@
           <span class="basic-content">{{form.userinfo.legalperson}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la19')}}</span>
-          <span class="basic-content">{{form.userinfo.licensenumber}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la8')}}</span>
+          <span class="basic-content">{{form.userinfo.telephone}}</span>
         </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.pay.la1')}}</span>
-          <span class="basic-content">{{form.bankinfo.bankuser}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la9')}}</span>
+          <span v-if="form.userinfo.eep" class="basic-content">{{$t('merchant.newMerchant.doctype.type1')}}</span>
+          <span v-else-if="form.userinfo.passport" class="basic-content">{{$t('merchant.newMerchant.doctype.type2')}}</span>
+          <span v-else-if="form.userinfo.idnumber" class="basic-content">{{$t('merchant.newMerchant.doctype.type3')}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.pay.la2')}}</span>
-          <span class="basic-content">{{form.bankinfo.bankaccount}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la10')}}</span>
+          <span class="basic-content">{{form.number}}</span>
         </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.pay.la3')}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la11')}}</span>
+          <span class="basic-content">{{form.userinfo.email}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la12')}}</span>
+          <span class="basic-content">{{form.userinfo.address}}</span>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la13')}}</span>
+          <span class="basic-content">{{form.userinfo.br}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la14')}}</span>
+          <span class="basic-content">{{form.userinfo.br_expire_time}}</span>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la15')}}</span>
+          <span class="basic-content">{{form.userinfo.ci}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la16')}}</span>
+          <span class="basic-content">{{form.userinfo.ci_expire_time}}</span>
+        </el-col>
+      </el-row>
+    </section>
+
+    <section class="rates">
+      <div class="banner">
+        <div class="title">{{$t('merchant.detail.basic.paymenttitle')}}</div>
+        <div class="divider"></div>
+      </div>
+
+      <div v-for="item in form.fee_ratios" :key="item.name">
+        <h3>{{item.name}}</h3>
+        <el-row v-for="fee in item.busicd" :key="fee.trade_type_name">
+          <el-col :span="8">
+            <span class="basic-label">{{fee.trade_type_name}}</span>
+            <span class="basic-content">{{fee.ratio}}</span>
+          </el-col>
+        </el-row>
+      </div>
+    </section>
+
+    <section class="rates">
+      <div class="banner">
+        <div class="title">{{$t('merchant.detail.rates.setitle')}}</div>
+        <div class="divider"></div>
+      </div>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la17')}}</span>
           <span class="basic-content">{{form.bankinfo.headbankname}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.pay.la4')}}</span>
-          <span class="basic-content">{{form.bankinfo.bankname}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la18')}}</span>
+          <span class="basic-content">{{form.bankinfo.bankuser}}</span>
         </el-col>
       </el-row>
 
       <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la19')}}</span>
+          <span class="basic-content">{{form.bankinfo.bankaccount}}</span>
+        </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.pay.la6')}}</span>
-          <span class="basic-content">{{form.bankinfo.bankcode}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la20')}}</span>
+          <span class="basic-content">{{form.bankinfo.bankProvince}}</span>
         </el-col>
       </el-row>
 
-      <!--<el-row>-->
-        <!--<el-col :span="4">-->
-          <!--<span class="basic-label">{{$t('merchant.detail.pay.la10')}}</span>-->
-        <!--</el-col>-->
-        <!--<el-col :span="20">-->
-          <!--<img :src="item.url" v-for="(item,idx) in form.vouchers" class="voucher_photo" :key="idx"/>-->
-        <!--</el-col>-->
-      <!--</el-row>-->
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la21')}}</span>
+          <span class="basic-content">{{form.userinfo.remit_amt}}</span>
+        </el-col>
+      </el-row>
+
     </section>
+
+    <section>
+      <div class="banner">
+        <div class="title">{{$t('merchant.detail.document.doctitle')}}</div>
+        <div class="divider"></div>
+        <el-row>
+         <el-col :span="24">
+           <span class="basic-content-p">
+             <img :src="item.url" v-for="(item,url) in form.vouchers" class="voucher_photo" :key="url"/>
+          </span>
+         </el-col>
+       </el-row>
+      </div>
+    </section>
+
     <footer v-if="isEditable">
       <el-button @click="editHandler">{{$t('merchant.detail.edit')}}</el-button>
+      <el-button @click="createShop">{{$t('merchant.detail.createShop')}}</el-button>
     </footer>
     <footer v-if="isReEditable">
       <el-button @click="editHandler">{{$t('merchant.detail.redit')}}</el-button>
@@ -177,6 +181,7 @@
 <script>
   import config from 'config'
   import axios from 'axios';
+  import { formatDate } from '../../common/js/util'
   const getParams = (key) => {
     // 获取参数
     let url = window.location.hash.split('?')[1] || '';
@@ -193,6 +198,7 @@
         isLoading: false,
         isEditable: false,
         isReEditable: false,
+        license: '',
         temp: [],
         cate: {
           "merchant": this.$t('merchant.detail.cate.merchant'),
@@ -204,8 +210,8 @@
           "2": this.$t('common.pub')
         },
         isSigned: {
-          0: this.$t('merchant.detail.signed.no'),
-          1: this.$t('merchant.detail.signed.yes'),
+          0: this.$t('common.enable'),
+          1: this.$t('common.disable'),
         },
         period: {
           month: this.$t('merchant.detail.p.m'),
@@ -217,6 +223,7 @@
             1: this.$t('merchant.detail.down')
          },
         form: {
+          number: '',
           userinfo: {
             userid: this.$route.query.userid || getParams('userid'), // 商户ID
             user_type: '',
@@ -227,6 +234,7 @@
             city: '',
             email: '',
             mobile: '',
+            remit_amt: '',
             legalperson: '', // 公司联系人
             shopname: '', // 商户名称
             name: '', // 公司名称
@@ -234,9 +242,6 @@
             jointime: '',
             mcc: '', // 店铺类型编码，仅可以填数字
             mcc_str: '' // 商户类型名称
-          },
-          fee_ratios: {
-            tenpay_ratio: ''
           },
           qdinfo: {
             qd_name: '', // 所属代理商名称
@@ -246,12 +251,10 @@
             slsm_mobile: '' // 业务员手机号
           },
           bankinfo: {
-            bankaccount: '', // 银行帐号
-            headbankname: '', // 总行名称
-            bankname: '', // 支行名称
-            bankuser: '', // 银行帐户名称
-            bankcode: '', // SWIFT代码
-            jointime: ''
+            headbankname: '',
+            bankuser: '',
+            bankaccount: '',
+            bankProvince: ''
           }
         }
       }
@@ -280,6 +283,9 @@
             this.isLoading = false;
             if (data.respcd === config.code.OK) {
                 this.form = data.data
+                this.form.userinfo.ci_expire_time = formatDate(this.form.userinfo.ci_expire_time, 'dd/MM/yyyy')
+                this.form.userinfo.br_expire_time = formatDate(this.form.userinfo.br_expire_time, 'dd/MM/yyyy')
+                this.form.number = this.form.userinfo['idnumber'] || this.form.userinfo['passport'] || this.form.userinfo['eep']
             } else {
               this.$message.error(data.respmsg);
             }
@@ -287,6 +293,9 @@
           this.isLoading = false;
           this.$message.error(this.$t('common.netError'));
         });
+      },
+      createShop() {
+        this.$router.push({name: 'createStore', query: {big_uid: this.form.userinfo.userid}})
       }
     }
   }

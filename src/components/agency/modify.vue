@@ -344,7 +344,7 @@
         }
       },
       fetchAgencyLevel() {
-        this.$http(`${config.host}/org/tools/level`)
+        this.$http(`${config.host}/org/tools/level?format=cors`)
         .then((res) => {
           let data = res.data
           if (data.respcd === '0000') {
@@ -358,7 +358,7 @@
         })
       },
       fetchSalesman() {
-        this.$http(`${config.host}/org/tools/slsm`)
+        this.$http(`${config.host}/org/tools/slsm?format=cors`)
         .then((res) => {
           let data = res.data
           if (data.respcd === '0000') {
@@ -370,7 +370,7 @@
       },
       fetchCity() {
         this.isLoading = true
-        this.$http(`${config.host}/org/tools/areacities`)
+        this.$http(`${config.host}/org/tools/areacities?format=cors`)
         .then((res) => {
           this.isLoading = false
           let data = res.data
@@ -401,7 +401,7 @@
           return false
         }
         this.isRegisterLoading = true
-        this.$http(`${config.host}/org/agent/check?username=${username}`)
+        this.$http(`${config.host}/org/agent/check?username=${username}&format=cors`)
         .then((res) => {
           this.isRegisterLoading = false
           let data = res.data
@@ -429,7 +429,8 @@
           data: qs.stringify({
             base: JSON.stringify(paramsBase),
             bankinfo: JSON.stringify(this.bankinfo),
-            payfee: JSON.stringify(this.payfee)
+            payfee: JSON.stringify(this.payfee),
+            format: 'cors'
           })
         })
         .then((res) => {

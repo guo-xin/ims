@@ -101,6 +101,7 @@
             status: this.formData.status,
             page: this.currentPage - 1,
             page_size: this.pageSize,
+            format: 'cors'
           }
         })
         .then((res) => {

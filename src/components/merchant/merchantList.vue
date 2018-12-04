@@ -88,6 +88,18 @@
         </template>
       </el-table-column>
 
+      <el-table-column prop="cate" :label="$t('merchant.table.detail')">
+        <template slot-scope="scope">
+          <el-button type="text">{{ $t('common.look') }}</el-button>
+        </template>
+      </el-table-column>
+
+       <el-table-column prop="cate" :label="$t('merchant.table.merstatus')">
+        <template slot-scope="scope">
+          {{ isSigned[scope.row.status] }}
+        </template>
+      </el-table-column>
+
       <el-table-column :label="$t('merchant.table.payment')" width="150">
         <template slot-scope="scope">
           <el-button v-if="scope.row.deploy == 1" type="text" @click.stop="paymentConfigure(scope.row.userid,scope.row.deploy)">{{ $t('merchant.payment.configured') }}</el-button>
@@ -129,7 +141,7 @@
               type="text"
               v-model.trim="payMentform.termid"
               :disabled="paymentEdit.edit"
-              max-length="9"
+              maxlength="9"
               >
           </el-input>
         </el-form-item>
@@ -171,6 +183,10 @@
           {name: this.$t('merchant.detail.up'), val: 0},
           {name: this.$t('merchant.detail.down'), val: 1}
         ],
+        isSigned: {
+          0: this.$t('common.enable'),
+          1: this.$t('common.disable'),
+        },
         total: 0,
         pageSize: 10,
         currentPage: 0,
