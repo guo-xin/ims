@@ -323,7 +323,7 @@
       },
       next() {
         this.$refs['store-form'].validate((valid) => {
-          if (valid && this.checkPhotosIsUpdated()) {
+          if (valid) {
             this.commit()
           }
         })

@@ -211,9 +211,12 @@ const zh = {
     payment: {
       configured: "已配置",
       nonconfigured: "未配置",
-      rule1: "请选择服务商号",
-      rule2: "请输入微信商户号",
-      rule3: "输入类型必须是数字"
+      merchantID: '商户号',
+      merchChildID: '子商户号',
+      merchantPass: '商户秘钥',
+      rule1: "请选择商户号",
+      rule2: "请输入子商户号",
+      rule3: "请输入商户秘钥"
     },
     table: {
       mchtid: '商户ID',

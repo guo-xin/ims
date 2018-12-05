@@ -93,19 +93,17 @@
         <el-input v-model="bankinfo.bankcode" @blur="updateAgency('bankcode', $event)"></el-input>
       </el-form-item>
     </el-form>
-    <el-form v-show="active === 1" ref="payfeeform" :rules="payfeeFormRules" :model="payfee">
+
+    <el-form v-show="active === 1" ref="payfeeform" :rules="payfeeFormRules">
       <h3>{{$t('agent.payRate')}}</h3>
-      <el-form-item prop="wechat_fee" :label="$t('agent.wechat')">
-        <el-input-number v-model="payfee.wechat_fee" :controls="false" :precision="2" :disabled="isUpdate">
-           <template slot="append">%</template>
-        </el-input-number>
-      </el-form-item>
-      <el-form-item prop="alipay_fee" :label="$t('agent.alipay')">
-        <el-input-number v-model="payfee.alipay_fee" :controls="false" :precision="2" :disabled="isUpdate">
-          <template slot="append">%</template>
-        </el-input-number>
-      </el-form-item>
+      <div :label="item.name" v-for="item in payfee" :key="item.name">
+        <h4>{{item.name}}</h4>
+        <el-form-item :label="fee.trade_type_name" v-for="fee in item.busicd" :key="fee.trade_type_name">
+            <el-input-number v-model.trim="fee.ratio" :precision="2" :step="0.01" :min="+fee.ratioMin" :max="5"></el-input-number>
+        </el-form-item>
+      </div>
     </el-form>
+
     <footer v-if="isUpdate">
       <el-button v-show="active === 1" type="primary" @click="goback">{{$t('common.done')}}</el-button>
       <el-button v-show="active === 0" type="primary" @click="next">{{$t('common.next')}}</el-button>
@@ -123,13 +121,14 @@
 
 <script>
   import qs from 'qs'
+  import axios from 'axios'
   import config from 'config'
   export default {
     data() {
       return {
         isUpdate: false,
         isLoading: false,
-        active: 0, // 当前步骤
+        active: 1, // 当前步骤
         isInputing: false, // 正在输入密码
         editPassword: '******',
         oldPassword: '',
@@ -149,10 +148,7 @@
           bankname: '', // 支行名称
           bankcode: '' // 网点联行号
         },
-        payfee: {
-          wechat_fee: 0, // 微信费率
-          alipay_fee: 0 // 支付宝费率
-        },
+        payfee: [],
         levels: [], // 代理商级别
         allAgencys: [], // 所属代理
         areas: [], // 所有省份和城市
@@ -257,11 +253,33 @@
       if (payfee) {
         this.payfee = JSON.parse(payfee)
       }
+      this.fetchRadio()
       this.fetchSalesman()
       this.fetchAgencyLevel()
       this.fetchCity()
     },
     methods: {
+      fetchRadio(agentUid) {
+        let p = {
+          format: 'cors',
+        }
+        if (agentUid) {
+          p.agent_uid = agentUid
+        }
+        axios.get(`${config.host}/org/tools/get/ratio`, {
+          params: p
+        })
+          .then((res) => {
+            let data = res.data;
+            if (data.respcd === config.code.OK) {
+              this.payfee = data.data;
+            } else {
+              this.$message.error(data.respmsg);
+            }
+          }).catch(() => {
+          this.$message.error(this.$t('common.netError'));
+        });
+      },
       goback() {
         this.$router.push({name: 'agencyDetail'})
       },
@@ -423,13 +441,14 @@
         let paramsBase = JSON.parse(JSON.stringify(this.baseform))
         paramsBase.auth_province = this.$refs.province.selected.label || ''
         paramsBase.auth_city = this.$refs.city.selected.label || ''
+        this.payfeeT = this.refee(this.payfee)
         this.$http({
           method: 'post',
           url: `${config.host}/org/agent/create`,
           data: qs.stringify({
             base: JSON.stringify(paramsBase),
             bankinfo: JSON.stringify(this.bankinfo),
-            payfee: JSON.stringify(this.payfee),
+            payfee: JSON.stringify(this.payfeeT),
             format: 'cors'
           })
         })
@@ -486,6 +505,7 @@
         if (key === 'secondAgency') {
           params['levelcode'] = 2
           params['parent_uid'] = value
+          this.fetchRadio(this.baseform.parent_uid)
         } else if (key === 'updateProvince') {
           params['auth_province'] = value
           params['auth_city'] = ''
@@ -521,6 +541,15 @@
       },
       cancel() {
         this.$router.push({name: 'agencyList'})
+      },
+      refee(f) { // 注册及编辑的费率结构修改
+        let e = []
+        for(let i of f) {
+          for(let j of i.busicd) {
+            e.push(j)
+          }
+        }
+        return e
       }
     }
   }
@@ -540,6 +569,22 @@
     padding: 12px 0;
     margin: 0 0 20px;
     font-size: 20px;
+    color: $titleColor;
+    &:after{
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50px;
+      height: 2px;
+      background-color: #232629;
+    }
+  }
+  h4 {
+    position: relative;
+    padding: 12px 0;
+    margin: 0 0 20px;
+    font-size: 14px;
     color: $titleColor;
     &:after{
       content: '';

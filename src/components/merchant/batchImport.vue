@@ -110,7 +110,7 @@
         dialogVisible: false,
         excelloading: false,
         ziploading: false,
-        uploadExcelInterface: `${config.host}/org/mchnt/upload_create_file`, // 上传excel接口
+        uploadExcelInterface: `${config.host}/org/mchnt/hk/upload_create_file`, // 上传excel接口
         uploadZipInterface: `${config.host}/org/mchnt/upload_batch_package`, // 上传zip接口
         form: {
           excel_name: '',
@@ -135,7 +135,7 @@
           return;
         }
         this.isLoading = true;
-        axios.post(`${config.host}/org/mchnt/mchnt_batch_create`,qs.stringify({
+        axios.post(`${config.host}/org/mchnt/hk/mchnt_batch_create`,qs.stringify({
           fileid: this.form.fileid,
           dir_name: this.form.dir_name,
           file_name_new: this.form.file_name_new,

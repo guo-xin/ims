@@ -122,33 +122,34 @@
         :title="$t('merchant.table.payment')"
         :visible.sync="centerDialogVisible"
         :show-close="false"
-        width="400px"
-        left
+        width="1000px"
+        center
         class="dialog merchant"
         @close="closeForm"
       >
       <el-form :model="payMentform" class="dialog_form" :rules="baseRules" ref="payMentform">
         <el-form-item :label="$t('merchant.table.wechatpay')" class="dialog_form_header"></el-form-item>
-        <el-form-item :label="$t('merchant.table.pid')" class="dialog_form_item" prop="mchntid">
-          <el-select
-              v-model="payMentform.mchntid"
-              :disabled="paymentEdit.edit">
-            <el-option :label="item.mchntid" :value="item.mchntid" v-for="item in PIDlist" :key="item.mchntid"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item :label="$t('merchant.table.wechatM')" class="dialog_form_item" prop="termid">
-          <el-input
-              type="text"
-              v-model.trim="payMentform.termid"
-              :disabled="paymentEdit.edit"
-              maxlength="9"
-              >
-          </el-input>
-        </el-form-item>
-        <el-form-item prop="dialogType" class="dialog_form_button">
-          <el-button type="text" @click="resetForm('payMentform')">{{ $t('common.CLOSE') }}</el-button>
-          <el-button v-if="paymentEdit.dialogType" type="text" @click="changePayment('payMentform')">{{ $t('common.SAVE') }}</el-button>
-          <el-button v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
+        <el-form-item v-for="item in ratioList" :key="item.type">
+            <h3>{{item.name}}</h3>
+            <el-form-item :label="$t('merchant.payment.merchantID')" prop="merchantID">
+                <el-input
+                  v-model="payMentform.merchantID"
+                >
+                </el-input>
+            </el-form-item>
+            <el-form-item :label="$t('merchant.payment.merchChildID')" prop="merchChildID">
+                <el-input
+                  v-model="payMentform.merchChildID"
+                >
+                </el-input>
+            </el-form-item>
+            <el-form-item :label="$t('merchant.payment.merchantPass')" prop="merchantPass">
+                <el-input
+                  v-model="payMentform.merchantPass"
+                >
+                </el-input>
+            </el-form-item>
+
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -211,8 +212,9 @@
           ]
         },
         payMentform: {
-            mchntid: '',
-            termid: ''
+            merchantID: '',
+            merchChildID: '',
+            merchantPass: ''
         },
         PIDlist: [],
         paymentEdit: {
@@ -221,7 +223,8 @@
             type: '',
             edit: '',
             dialogType: ''
-        }
+        },
+        ratioList: []
       }
     },
     computed: {
@@ -233,8 +236,30 @@
       this.fetchData()
       this.getChannelList()
       this.fetchSelectData()
+      this.fetchRadio()
     },
     methods: {
+      fetchRadio(agentUid) {
+        let p = {
+          format: 'cors',
+        }
+        if (agentUid) {
+          p.agent_uid = agentUid
+        }
+        axios.get(`${config.host}/org/tools/get/ratio`, {
+          params: p
+        })
+          .then((res) => {
+            let data = res.data;
+            if (data.respcd === config.code.OK) {
+              this.radioList = data.data;
+            } else {
+              this.$message.error(data.respmsg);
+            }
+          }).catch(() => {
+          this.$message.error(this.$t('common.netError'));
+        });
+      },
       shopList(mchntId) {
         this.$router.push({
           path: 'shop_manage_list/',

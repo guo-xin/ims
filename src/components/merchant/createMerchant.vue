@@ -155,7 +155,7 @@
       <el-form-item prop="remit_amt" :label="$t('merchant.newMerchant.form.moneySettment')">
         <el-input 
           v-model.trim="formData.remit_amt"
-          maxlength='8'></el-input>
+          maxlength='5'></el-input>
       </el-form-item>
     </el-form>
     <!-- step2 -->
@@ -1035,7 +1035,6 @@
         if (this.active-- <= 0) this.active = 0
       },
       next() {
-        console.log(this.formData.sls_uid, 777)
         if (this.active === 0) { // 第一步
           this.$refs['baseinfo'].validate((valid) => {
             if (valid) {
@@ -1047,7 +1046,7 @@
           })
         } else if (this.active === 1) { // 第二步
           this.$refs['bankinfos'].validate((valid) => {
-            if (valid && this.checkPhotosIsUpdated()) {
+            if (valid) {
               this.create()
             }
           })
