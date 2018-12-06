@@ -122,37 +122,43 @@
         :title="$t('merchant.table.payment')"
         :visible.sync="centerDialogVisible"
         :show-close="false"
-        width="1000px"
+        width=""
         center
         class="dialog merchant"
         @close="closeForm"
       >
       <el-form :model="payMentform" class="dialog_form" :rules="baseRules" ref="payMentform">
-        <el-form-item :label="$t('merchant.table.wechatpay')" class="dialog_form_header"></el-form-item>
-        <el-form-item v-for="item in ratioList" :key="item.type">
-            <h3>{{item.name}}</h3>
-            <el-form-item :label="$t('merchant.payment.merchantID')" prop="merchantID">
+        <div v-for="item in ratioList" :key="item.type">
+            <h4>{{item.name}}</h4>
+            <el-form-item class="form_item" prop="merchantID">
+                <span>{{$t('merchant.payment.merchantID')}}</span>
                 <el-input
                   v-model="payMentform.merchantID"
                 >
                 </el-input>
             </el-form-item>
-            <el-form-item :label="$t('merchant.payment.merchChildID')" prop="merchChildID">
+            <el-form-item class="form_item" prop="merchChildID">
+                <span>{{$t('merchant.payment.merchChildID')}}</span>
                 <el-input
                   v-model="payMentform.merchChildID"
                 >
                 </el-input>
             </el-form-item>
-            <el-form-item :label="$t('merchant.payment.merchantPass')" prop="merchantPass">
+            <el-form-item class="form_item" prop="merchantPass">
+                <span>{{$t('merchant.payment.merchantPass')}}</span>
                 <el-input
                   v-model="payMentform.merchantPass"
                 >
                 </el-input>
             </el-form-item>
-
-        </el-form-item>
+            <el-checkbox-group class="checkbox">
+              <el-checkbox v-for="fee in item.busicd" :key="fee.trade_type_name" :label="fee.trade_type_name">{{fee.trade_type_name}}
+              </el-checkbox>
+            </el-checkbox-group>
+        </div>
       </el-form>
     </el-dialog>
+
   </div>
 </template>
 <script>
@@ -252,7 +258,7 @@
           .then((res) => {
             let data = res.data;
             if (data.respcd === config.code.OK) {
-              this.radioList = data.data;
+              this.ratioList = data.data;
             } else {
               this.$message.error(data.respmsg);
             }
@@ -468,20 +474,34 @@
       box-shadow: 2px 2px 4px 0px rgba(29,29,36,0.1);
       border-radius: 2px;
       font-size: 24px;
-      .el-dialog__body {
-          padding: 10px 40px;
-      }
-      .dialog_form_item {
+      .dialog_form {
+        .form_item {
+          width: 210px;
+          height: 40px;
           padding: 0;
-          width: 300px;
+          .el-input {
+            width: 150px;
+          }
+        }
+        .checkbox {
+          display: inline-block;
+        }
       }
-      .dialog_form_header {
-          width: 300px;
-          margin-left: -30px;
-      }
-      .dialog_form_button {
-          padding-left: 200px;
-          width: 100%;
+      h4 {
+        position: relative;
+        padding: 10px 0;
+        margin: 0 0 20px;
+        font-size: 20px;
+        color: $titleColor;
+        &:after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 50px;
+          height: 2px;
+          background-color: #232629;
+        }
       }
   }
 </style>

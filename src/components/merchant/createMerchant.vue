@@ -84,7 +84,7 @@
 
       <el-form-item prop="documentNum" :label="$t('merchant.newMerchant.form.doucumentNum')">
         <el-input 
-          v-model.trim="formData.doucumentNum"
+          v-model.trim="formData.documentNum"
           maxlength='12'
         ></el-input>
       </el-form-item>
@@ -131,7 +131,7 @@
       <div :label="item.name" v-for="item in radioList" :key="item.name" prop="tenpay_ratio">
         <h4>{{item.name}}</h4>
         <el-form-item :label="fee.trade_type_name" v-for="fee in item.busicd" :key="fee.trade_type_name">
-            <el-input-number v-model.trim="fee.ratio" :precision="2" :step="0.01" :min="+fee.ratioMin" :max="5"></el-input-number>
+            <el-input-number v-model.trim="fee.ratio" :precision="2" :step="0.01" :max="5"></el-input-number>
         </el-form-item>
       </div>
 
@@ -441,7 +441,7 @@
           operatingT: '', // 店铺营业时间
           vouchers: [], // 上传的凭据照片
           documentType: '', // 证件类型
-          doucumentNum: '',
+          documentNum: '',
           primary_uid: '', // 一级代理商id
           secondary_uid: '', // 二级代理商id
           sls_uid: '', // 业务员id
@@ -485,7 +485,7 @@
           otherphoto_url: ''
         },
         baseRules: {
-          'slsm_name': [
+          'sls_uid': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule1')}
           ],
           'cate': [
@@ -526,7 +526,7 @@
           'documentType': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule7')}
           ],
-          'documentNumber': [
+          'documentNum': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule8')}
           ],
           'mcc': [
@@ -615,16 +615,7 @@
             }
           ],
           'operatingT': [
-            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule20'), trigger: 'blur'},
-            {
-              validator: (rule, val, cb) => {
-                if (!/^[0-9]*$/.test(val) && val != '') {
-                  cb(new Error(this.$t('merchant.newMerchant.specialRule.rule1')));
-                } else {
-                  cb();
-                }
-              }
-            }
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule20'), trigger: 'blur'}
           ]
         },
         radioList: []
@@ -887,7 +878,7 @@
               this.formData.shopname = uinfo.shopname; // 商户名称
               this.formData.cate = uinfo.cate; // 商户类型
               this.formData.mcc = +uinfo.mcc; // 行业类别
-              this.formData.doucumentNum = uinfo.idnumber || uinfo.eep || uinfo.passport
+              this.formData.documentNum = uinfo.idnumber || uinfo.eep || uinfo.passport
               this.formData.address = uinfo.cate; //
               this.formData.legalperson = uinfo.legalperson; // 联系人姓名
               this.formData.telephone = uinfo.telephone; // 联系电话
@@ -968,9 +959,17 @@
         }
         let params = {}
         form.mchnt[this.formData.documentType] = this.formData.doucumentNum
+        let radioListValue = this.refee(this.radioList)
+        console.log(radioListValue, 4444)
+        for(let i in radioListValue) {
+            if(i['ratio'] === '') {
+              delete radioListValue[i]
+            }
+        }
+        console.log(radioListValue, 5555)
         params.mchnt = JSON.stringify(form.mchnt)
         params.store = JSON.stringify(form.store)
-        params.mchnt_ratios = JSON.stringify(this.refee(this.radioList))
+        params.mchnt_ratios = JSON.stringify(radioListValue)
         let url = this.isUpdate ? `${config.host}/org/mchnt/edit` : `${config.host}/org/mchnt/signup`
         params.format = 'cors'
         // params.tenpay_ratio = parseFloat(params.tenpay_ratio).toFixed(2)
@@ -1046,7 +1045,7 @@
           })
         } else if (this.active === 1) { // 第二步
           this.$refs['bankinfos'].validate((valid) => {
-            if (valid) {
+            if (valid && this.checkPhotosIsUpdated()) {
               this.create()
             }
           })

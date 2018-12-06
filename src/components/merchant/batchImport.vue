@@ -130,10 +130,10 @@
           this.$message.error(this.$t('batch.rule1'))
           return;
         }
-        if(!this.form.file_name_new) {
-          this.$message.error(this.$t('batch.rule2'))
-          return;
-        }
+        // if(!this.form.file_name_new) {
+        //   this.$message.error(this.$t('batch.rule2'))
+        //   return;
+        // }
         this.isLoading = true;
         axios.post(`${config.host}/org/mchnt/hk/mchnt_batch_create`,qs.stringify({
           fileid: this.form.fileid,

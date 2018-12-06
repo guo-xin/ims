@@ -99,7 +99,7 @@
       <div :label="item.name" v-for="item in payfee" :key="item.name">
         <h4>{{item.name}}</h4>
         <el-form-item :label="fee.trade_type_name" v-for="fee in item.busicd" :key="fee.trade_type_name">
-            <el-input-number v-model.trim="fee.ratio" :precision="2" :step="0.01" :min="+fee.ratioMin" :max="5"></el-input-number>
+            <el-input-number v-model.trim="fee.ratio" :disabled="isUpdate" :precision="2" :step="0.01" :max="5"></el-input-number>
         </el-form-item>
       </div>
     </el-form>
@@ -128,7 +128,7 @@
       return {
         isUpdate: false,
         isLoading: false,
-        active: 1, // 当前步骤
+        active: 0, // 当前步骤
         isInputing: false, // 正在输入密码
         editPassword: '******',
         oldPassword: '',
@@ -221,6 +221,7 @@
     },
     created() {
       this.isUpdate = this.$route.name === 'agencyEdit'
+      !this.isUpdate && this.fetchRadio()
       // 编辑页面，刷新回详情页
       if (this.isUpdate && localStorage.getItem('hasEdit') === '1') {
         this.$router.push({name: 'agencyDetail'})
@@ -233,6 +234,7 @@
         base = localStorage.getItem('baseEdit')
         bankinfo = localStorage.getItem('bankinfoEdit')
         payfee = localStorage.getItem('payfeeEdit')
+        this.payfee = payfee
       } else {
         base = localStorage.getItem('base')
         bankinfo = localStorage.getItem('bankinfo')
@@ -253,7 +255,6 @@
       if (payfee) {
         this.payfee = JSON.parse(payfee)
       }
-      this.fetchRadio()
       this.fetchSalesman()
       this.fetchAgencyLevel()
       this.fetchCity()
@@ -441,6 +442,7 @@
         let paramsBase = JSON.parse(JSON.stringify(this.baseform))
         paramsBase.auth_province = this.$refs.province.selected.label || ''
         paramsBase.auth_city = this.$refs.city.selected.label || ''
+        
         this.payfeeT = this.refee(this.payfee)
         this.$http({
           method: 'post',
@@ -541,6 +543,15 @@
       },
       cancel() {
         this.$router.push({name: 'agencyList'})
+      },
+      revalue(a, b) { // 为支付方式赋值
+          for(let i of a) {
+            for(let j of b) {
+              if(j['name'] === i['name']) {
+                i['busicd'] = j['busicd'];
+              }
+            }
+          }
       },
       refee(f) { // 注册及编辑的费率结构修改
         let e = []

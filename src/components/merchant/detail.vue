@@ -126,11 +126,11 @@
       <el-row>
         <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la17')}}</span>
-          <span class="basic-content">{{form.bankinfo.headbankname}}</span>
+          <span class="basic-content">{{form.bankinfo.bankuser}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la18')}}</span>
-          <span class="basic-content">{{form.bankinfo.bankuser}}</span>
+          <span class="basic-content">{{form.bankinfo.headbankname}}</span>
         </el-col>
       </el-row>
 
@@ -151,7 +151,6 @@
           <span class="basic-content">{{form.userinfo.remit_amt}}</span>
         </el-col>
       </el-row>
-
     </section>
 
     <section>
@@ -161,16 +160,16 @@
         <el-row>
          <el-col :span="24">
            <span class="basic-content-p">
-             <img :src="item.url" v-for="(item,url) in form.vouchers" class="voucher_photo" :key="url"/>
+             <img :src="item.url" v-for="(item,url) in pictures" class="voucher_photo" :key="url"/>
           </span>
          </el-col>
        </el-row>
       </div>
     </section>
 
-    <footer v-if="isEditable">
-      <el-button @click="editHandler">{{$t('merchant.detail.edit')}}</el-button>
-      <el-button @click="createShop">{{$t('merchant.detail.createShop')}}</el-button>
+    <footer>
+      <el-button v-if="isEditable" @click="editHandler">{{$t('merchant.detail.edit')}}</el-button>
+      <el-button v-if="isCreateShop" @click="createShop">{{$t('merchant.detail.createShop')}}</el-button>
     </footer>
     <footer v-if="isReEditable">
       <el-button @click="editHandler">{{$t('merchant.detail.redit')}}</el-button>
@@ -198,6 +197,7 @@
         isLoading: false,
         isEditable: false,
         isReEditable: false,
+        isCreateShop: false,
         license: '',
         temp: [],
         cate: {
@@ -256,7 +256,8 @@
             bankaccount: '',
             bankProvince: ''
           }
-        }
+        },
+        pictures: []
       }
     },
     created() {
@@ -283,9 +284,13 @@
             this.isLoading = false;
             if (data.respcd === config.code.OK) {
                 this.form = data.data
+                this.picturesSelect(this.pictures, this.form.vouchers)
                 this.form.userinfo.ci_expire_time = formatDate(this.form.userinfo.ci_expire_time, 'dd/MM/yyyy')
                 this.form.userinfo.br_expire_time = formatDate(this.form.userinfo.br_expire_time, 'dd/MM/yyyy')
                 this.form.number = this.form.userinfo['idnumber'] || this.form.userinfo['passport'] || this.form.userinfo['eep']
+                if(this.form.userinfo.cate === 'bigmerchant') {
+                  this.createShop = true
+                }
             } else {
               this.$message.error(data.respmsg);
             }
@@ -296,6 +301,13 @@
       },
       createShop() {
         this.$router.push({name: 'createStore', query: {big_uid: this.form.userinfo.userid}})
+      },
+      picturesSelect(a, b) {
+        for(let i of b) {
+          if(i['name'] === "idcardfront" || i['name'] === 'licensephoto') {
+             a.push(i)
+          }
+        }
       }
     }
   }
@@ -341,13 +353,12 @@
         }
       }
     }
-    .payment {
-      .voucher_photo {
-        width:200px;
-        height:150px;
-        display:inline-block;
-        margin-left:$smGap;
-      }
+    .voucher_photo {
+      width:300px;
+      height:200px;
+      display:inline-block;
+      margin-left:$smGap;
+      margin-top:$smGap;
     }
   }
 </style>
