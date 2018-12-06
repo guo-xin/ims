@@ -153,7 +153,7 @@
       </el-row>
     </section>
 
-    <section>
+    <section v-if="pictures.length>0">
       <div class="banner">
         <div class="title">{{$t('merchant.detail.document.doctitle')}}</div>
         <div class="divider"></div>
@@ -289,7 +289,7 @@
                 this.form.userinfo.br_expire_time = formatDate(this.form.userinfo.br_expire_time, 'dd/MM/yyyy')
                 this.form.number = this.form.userinfo['idnumber'] || this.form.userinfo['passport'] || this.form.userinfo['eep']
                 if(this.form.userinfo.cate === 'bigmerchant') {
-                  this.createShop = true
+                  this.isCreateShop = true
                 }
             } else {
               this.$message.error(data.respmsg);

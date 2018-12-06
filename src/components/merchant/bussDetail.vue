@@ -33,7 +33,7 @@
       </el-row>
 
       <el-row>
-        <el-col :span="24">
+        <el-col :span="24" v-if="form.vouchers.length>0">
           <span class="basic-label">{{$t('shop.detail.basic.la11')}}</span>
            <span class="basic-content-p">
              <img :src="item.url" v-for="(item,url) in form.vouchers" class="voucher_photo" :key="url"/>
