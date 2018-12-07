@@ -128,7 +128,7 @@
       return {
         isUpdate: false,
         isLoading: false,
-        active: 0, // 当前步骤
+        active: 1, // 当前步骤
         isInputing: false, // 正在输入密码
         editPassword: '******',
         oldPassword: '',
@@ -595,17 +595,8 @@
     position: relative;
     padding: 12px 0;
     margin: 0 0 20px;
-    font-size: 14px;
+    font-size: 18px;
     color: $titleColor;
-    &:after{
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 50px;
-      height: 2px;
-      background-color: #232629;
-    }
   }
 }
 .el-form-item {

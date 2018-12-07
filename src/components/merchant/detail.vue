@@ -169,7 +169,7 @@
 
     <footer>
       <el-button v-if="isEditable&&!isReEditable" @click="editHandler">{{$t('merchant.detail.edit')}}</el-button>
-      <el-button v-if="isCreateShop&&isEditable" @click="createShop">{{$t('merchant.detail.createShop')}}</el-button>
+      <el-button v-if="isCreateShop&&!isReEditable" @click="createShop">{{$t('merchant.detail.createShop')}}</el-button>
     </footer>
     <footer v-if="isReEditable">
       <el-button @click="editHandler">{{$t('merchant.detail.redit')}}</el-button>

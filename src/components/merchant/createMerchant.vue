@@ -222,7 +222,7 @@
                   <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">{{$t('merchant.newMerchant.form.warmfront')}}</div>
+              <!-- <div class="image_info">{{$t('merchant.newMerchant.form.warmfront')}}</div> -->
             </el-col>
             <el-col :span="7" class="up-item">
               <el-upload
@@ -252,7 +252,7 @@
                   <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">{{$t('merchant.newMerchant.form.warmlicense')}}</div>
+              <!-- <div class="image_info">{{$t('merchant.newMerchant.form.warmlicense')}}</div> -->
             </el-col>
             <el-col :span="7" class="up-item" v-if="!isUpdate">
               <el-upload
@@ -282,7 +282,7 @@
                   <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">{{$t('merchant.newMerchant.form.warmgood')}}</div>
+              <!-- <div class="image_info">{{$t('merchant.newMerchant.form.warmgood')}}</div> -->
             </el-col>
             <el-col :span="7" class="up-item" v-if="!isUpdate">
               <el-upload
@@ -312,7 +312,7 @@
                   <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">{{$t('merchant.newMerchant.form.warmshop')}}</div>
+              <!-- <div class="image_info">{{$t('merchant.newMerchant.form.warmshop')}}</div> -->
             </el-col>
             <el-col :span="7" class="up-item" v-if="!isUpdate">
               <el-upload
@@ -342,7 +342,7 @@
                   <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">{{$t('merchant.newMerchant.form.warmpaypoint')}}</div>
+              <!-- <div class="image_info">{{$t('merchant.newMerchant.form.warmpaypoint')}}</div> -->
             </el-col>
             <el-col :span="7" class="up-item" v-if="!isUpdate">
               <el-upload
@@ -430,7 +430,7 @@
           shopname: '', // 商户名称
           mcc: '', // 商家类型
           status: '', // 商户类型
-          address: '', // 公司地址
+          address: '', // 商户地址
           legalperson: '', // 公司联系人
           telephone: '', // 公司联系人电话
           email: '', // 邮箱
@@ -514,7 +514,7 @@
                 }
               }
             },
-            {max: 50, min: 0, message: this.$t('merchant.newMerchant.rule7'), trigger: 'blur'}
+            {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule8'), trigger: 'blur'}
           ],
           'legalperson': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule5')}
@@ -542,10 +542,11 @@
           ],
           'address': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule10')},
+            {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule8'), trigger: 'blur'}
           ],
           'br': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule11')},
-            {max: 25, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule6'), trigger: 'blur'}
+            {max: 25, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule7'), trigger: 'blur'}
           ],
           'br_expire_time': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule12')}
@@ -561,17 +562,18 @@
                 }
               }
             },
-            {max: 25, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule6'), trigger: 'blur'}
+            {max: 25, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule7'), trigger: 'blur'}
           ],
           'ci_expire_time': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule14')}
           ],
           'bankuser': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule15')},
-            {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule7'), trigger: 'blur'}
+            {max: 25, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule7'), trigger: 'blur'}
           ],
           'headbankname': [
-            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule16')}
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule16')},
+            {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule8'), trigger: 'blur'}
           ],
           'bankaccount': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule17')},
@@ -584,10 +586,11 @@
                 }
               }
             },
-            {max: 15, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule5'), trigger: 'blur'}
+            {max: 15, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule6'), trigger: 'blur'}
           ],
           'bankProvince': [
-            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule18')}
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule18')},
+            {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule8'), trigger: 'blur'}
           ],
           'remit_amt': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule19')},
@@ -607,9 +610,6 @@
           'shopnameT': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule20'), trigger: 'blur'},
           ],
-          'addressT': [
-            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule21'), trigger: 'blur'},
-          ],
           'telephoneT': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule22'), trigger: 'blur'},
             {
@@ -621,9 +621,6 @@
                 }
               }
             }
-          ],
-          'operatingT': [
-            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule20'), trigger: 'blur'}
           ]
         },
         radioList: []
@@ -702,29 +699,29 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      checkPhotosIsUpdated() {
-        if (!this.voucherInfo.idcardfront_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
-          this.$message.error(this.$t('merchant.newMerchant.rule44'));
-          return false;
-        }
-        if (!this.voucherInfo.licensephoto_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
-          this.$message.error(this.$t('merchant.newMerchant.rule45'));
-          return false;
-        }
-        if (!this.voucherInfo.goodsphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('goodsphoto')
-          this.$message.error(this.$t('merchant.newMerchant.rule28'));
-          return false;
-        }
-        if (!this.voucherInfo.shopphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
-          this.$message.error(this.$t('merchant.newMerchant.rule29'));
-          return false;
-        }
-        if (!this.voucherInfo.paypoint_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
-          this.$message.error(this.$t('merchant.newMerchant.rule46'));
-          return false;
-        }
-        return true
-      },
+      // checkPhotosIsUpdated() { // 图片设置的必传后又改为非必传
+      //   if (!this.voucherInfo.idcardfront_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
+      //     this.$message.error(this.$t('merchant.newMerchant.rule44'));
+      //     return false;
+      //   }
+      //   if (!this.voucherInfo.licensephoto_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
+      //     this.$message.error(this.$t('merchant.newMerchant.rule45'));
+      //     return false;
+      //   }
+      //   if (!this.voucherInfo.goodsphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('goodsphoto')
+      //     this.$message.error(this.$t('merchant.newMerchant.rule28'));
+      //     return false;
+      //   }
+      //   if (!this.voucherInfo.shopphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
+      //     this.$message.error(this.$t('merchant.newMerchant.rule29'));
+      //     return false;
+      //   }
+      //   if (!this.voucherInfo.paypoint_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
+      //     this.$message.error(this.$t('merchant.newMerchant.rule46'));
+      //     return false;
+      //   }
+      //   return true
+      // },
       getChannelList() { // 获取1级渠道列表
         axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
@@ -900,7 +897,7 @@
               this.formData.cate = uinfo.cate; // 商户类型
               this.formData.mcc = +uinfo.mcc; // 行业类别
               this.formData.documentNum = uinfo.idnumber || uinfo.eep || uinfo.passport
-              this.formData.address = uinfo.cate; //
+              this.formData.address = uinfo.address; //
               this.formData.legalperson = uinfo.legalperson; // 联系人姓名
               this.formData.telephone = uinfo.telephone; // 联系电话
               this.formData.email = uinfo.email; // 邮箱地址
@@ -1067,7 +1064,7 @@
           })
         } else if (this.active === 1) { // 第二步
           this.$refs['bankinfos'].validate((valid) => {
-            if (valid && this.checkPhotosIsUpdated()) {
+            if (valid) {
               this.isLoading = true
               this.create()
             }
@@ -1111,6 +1108,9 @@
   .new-mchnt {
     background-color: #fff;
     padding: 0 30px;
+    .up-item {
+      margin-top: 10px;
+    }
     footer {
       padding-bottom: 30px;
     }

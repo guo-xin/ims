@@ -129,24 +129,24 @@
       >
       <el-radio class="radioType1" v-model="radio" label="1">{{radioType1}}</el-radio>
       <el-radio class="radioType2" v-model="radio" label="2">{{radioType2}}</el-radio>
-      <el-form :model="payMentform_disposable" class="dialog_form" :rules="baseRules" ref="payMentform">
+      <el-form v-if="radio == 1" :model="payMentform_disposable" class="dialog_form" :rules="baseRules" ref="payMentform">
         <div v-for="item in ratioList" :key="item.type" class="ratioType">
             <h4>{{item.name}}</h4>
-            <el-form-item class="form_item" prop="merchantID" :label="$t('merchant.payment.merchantID')">
+            <el-form-item class="form_item" prop="merchantID1" :label="$t('merchant.payment.merchantID1')">
                 <el-input
-                  v-model="payMentform_disposable.merchantID"
+                  v-model="payMentform_disposable.merchantID1"
                 >
                 </el-input>
             </el-form-item>
-            <el-form-item class="form_item" prop="merchChildID" :label="$t('merchant.payment.merchantID')">
+            <el-form-item class="form_item" prop="merchChildID1" :label="$t('merchant.payment.merchantID1')">
                 <el-input
-                  v-model="payMentform_disposable.merchChildID"
+                  v-model="payMentform_disposable.merchChildID1"
                 >
                 </el-input>
             </el-form-item>
-            <el-form-item class="form_item" prop="merchantPass" :label="$t('merchant.payment.merchantPass')"> 
+            <el-form-item class="form_item" prop="merchantPass1" :label="$t('merchant.payment.merchantPass1')"> 
                 <el-input
-                  v-model="payMentform_disposable.merchantPass"
+                  v-model="payMentform_disposable.merchantPass1"
                 >
                 </el-input>
             </el-form-item>
@@ -161,23 +161,17 @@
           <el-button v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
         </el-form-item>
       </el-form>
-      <el-form :model="payMentform_two" class="dialog_form"> 
+      <el-form v-if="radio == 2" :model="payMentform_two" class="dialog_form"> 
         <div v-for="item in ratioList" :key="item.type" class="ratioType">
             <h4>{{item.name}}</h4>
-            <el-form-item class="form_item" prop="merchantID" :label="$t('merchant.payment.merchantID')">
-                <el-select v-model="payMentform_two.merchantID">
+            <el-form-item class="form_item" prop="merchantID2" :label="$t('merchant.payment.merchantID2')">
+                <el-select v-model="payMentform_two.merchantID2">
                     <el-option v-for="item in merchantID_list" :key="item.val" :label="item.val" :value="item.val"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item class="form_item" prop="merchChildID" :label="$t('merchant.payment.merchantID')">
+            <el-form-item class="form_item" prop="merchChildID2" :label="$t('merchant.payment.merchantID2')">
                 <el-input
-                  v-model="payMentform_two.merchChildID"
-                >
-                </el-input>
-            </el-form-item>
-            <el-form-item class="form_item" prop="merchantPass" :label="$t('merchant.payment.merchantPass')"> 
-                <el-input
-                  v-model="payMentform_two.merchantPass"
+                  v-model="payMentform_two.merchChildID2"
                 >
                 </el-input>
             </el-form-item>
@@ -257,11 +251,14 @@
           ]
         },
         payMentform_disposable: {
-            merchantID: '',
-            merchChildID: '',
-            merchantPass: ''
+            merchantID1: '',
+            merchChildID1: '',
+            merchantPass1: ''
         },
-        payMentform_two: [],
+        payMentform_two: {
+            merchantID2: '',
+            merchChildID2: '',
+        },
         PIDlist: [],
         paymentEdit: {
             dialogType: true

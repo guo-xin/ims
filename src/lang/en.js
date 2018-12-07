@@ -218,6 +218,7 @@ const en = {
       agent2: '2nd-tier Agent',
       account: 'Account Name',
       industry: 'Industry',
+      merstatus: 'Merchant Status',
       state: 'Status',
       store: 'Store',
       payment: 'Payment setting',
