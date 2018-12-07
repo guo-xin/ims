@@ -32,6 +32,12 @@
         </el-select>
       </el-form-item>
 
+      <el-form-item :label="$t('merchant.newMerchant.form.status')" prop="status" v-if="isUpdate&&isStatus">
+        <el-select v-model="formData.status">
+         <el-option :label="item.name" :value="item.val" v-for="item in statusList" :key="item.val"></el-option>
+        </el-select>
+      </el-form-item>
+
       <el-form-item :label="$t('merchant.newMerchant.form.contact')" prop="slsm_name" v-if="isUpdate">
           <el-input id="op_type" v-model="formData.slsm_name"
                 :placeholder="$t('merchant.newMerchant.rule43')"
@@ -366,7 +372,7 @@
                   <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">{{$t('merchant.newMerchant.form.warmother')}}</div>
+              <!-- <div class="image_info">{{$t('merchant.newMerchant.form.warmother')}}</div> -->
             </el-col>
           </div>
         </el-col>
@@ -413,6 +419,7 @@
         goodsphotoloading: false,
         shopphotoloading: false,
         isUpdate: false,
+        isStatus: false,
         active: 0, // 当前步骤,
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
         qd_uid: '', // 所有代理商id
@@ -422,6 +429,7 @@
           cate: '', // 注册商户的类型
           shopname: '', // 商户名称
           mcc: '', // 商家类型
+          status: '', // 商户类型
           address: '', // 公司地址
           legalperson: '', // 公司联系人
           telephone: '', // 公司联系人电话
@@ -467,8 +475,8 @@
           {value: 'date', name: this.$t('merchant.detail.p.d')},
         ],
         statusList: [
-          {name: this.$t('merchant.detail.up'), val: 0},
-          {name: this.$t('merchant.detail.down'), val: 1}
+          {name: this.$t('merchant.detail.up'), val: 3},
+          {name: this.$t('merchant.detail.down'), val: 4}
         ],
         voucherInfo: {
           idcardfront_url: '',
@@ -703,6 +711,18 @@
           this.$message.error(this.$t('merchant.newMerchant.rule29'));
           return false;
         }
+        if (!this.voucherInfo.idcardfront_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
+          this.$message.error(this.$t('merchant.newMerchant.rule44'));
+          return false;
+        }
+        if (!this.voucherInfo.licensephoto_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
+          this.$message.error(this.$t('merchant.newMerchant.rule45'));
+          return false;
+        }
+        if (!this.voucherInfo.paypoint_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
+          this.$message.error(this.$t('merchant.newMerchant.rule46'));
+          return false;
+        }
         return true
       },
       getChannelList() { // 获取1级渠道列表
@@ -873,6 +893,7 @@
               let vouchers = data.data.vouchers
               let bankinfo = data.data.bankinfo
               
+              this.formData.status = uinfo.status
               this.formData.sls_uid = qdinfo.sls_uid
               this.formData.vouchers = vouchers
               this.formData.shopname = uinfo.shopname; // 商户名称
@@ -893,7 +914,8 @@
               this.formData.bankaccount = bankinfo.bankaccount //
               this.formData.remit_amt = uinfo.remit_amt
 
-      
+              this.isStatus = this.formData.status == 3 || this.formData.status == 4
+
               if(uinfo.passport) {
                 this.formData.documentType = "passport"
               } else if (uinfo.idnumber) {
@@ -948,6 +970,7 @@
             ci_expire_time: this.formData.ci_expire_time, // ci有效期
             br: this.formData.br, // br编号
             br_expire_time: this.formData.br_expire_time, // br有效期
+            status: this.formData.status
           },
           store: {
             shopname: this.formData.shopnameT, // 门店地址

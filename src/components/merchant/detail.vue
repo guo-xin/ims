@@ -110,7 +110,7 @@
         <h3>{{item.name}}</h3>
         <el-row v-for="fee in item.busicd" :key="fee.trade_type_name">
           <el-col :span="8">
-            <span class="basic-label">{{fee.trade_type_name}}</span>
+            <span class="basic-label">{{fee.trade_type_name}}:</span>
             <span class="basic-content">{{fee.ratio}}</span>
           </el-col>
         </el-row>
@@ -168,8 +168,8 @@
     </section>
 
     <footer>
-      <el-button v-if="isEditable" @click="editHandler">{{$t('merchant.detail.edit')}}</el-button>
-      <el-button v-if="isCreateShop" @click="createShop">{{$t('merchant.detail.createShop')}}</el-button>
+      <el-button v-if="isEditable&&!isReEditable" @click="editHandler">{{$t('merchant.detail.edit')}}</el-button>
+      <el-button v-if="isCreateShop&&isEditable" @click="createShop">{{$t('merchant.detail.createShop')}}</el-button>
     </footer>
     <footer v-if="isReEditable">
       <el-button @click="editHandler">{{$t('merchant.detail.redit')}}</el-button>
@@ -210,9 +210,17 @@
           "2": this.$t('common.pub')
         },
         isSigned: {
-          0: this.$t('common.enable'),
-          1: this.$t('common.disable'),
+          "3": this.$t('common.enable'),
+          "4": this.$t('common.disable'),
+          "-1": this.$t('common.audit'),
+          "0": this.$t('common.refuse')
         },
+        statusList: [
+          {name: this.$t('merchant.detail.up'), val: 3},
+          {name: this.$t('merchant.detail.down'), val: 4},
+          {name: this.$t('merchant.detail.audit'), val: 0},
+          {name: this.$t('merchant.detail.refuse'), val: -1},
+        ],
         period: {
           month: this.$t('merchant.detail.p.m'),
           week: this.$t('merchant.detail.p.w'),
@@ -288,9 +296,8 @@
                 this.form.userinfo.ci_expire_time = formatDate(this.form.userinfo.ci_expire_time, 'dd/MM/yyyy')
                 this.form.userinfo.br_expire_time = formatDate(this.form.userinfo.br_expire_time, 'dd/MM/yyyy')
                 this.form.number = this.form.userinfo['idnumber'] || this.form.userinfo['passport'] || this.form.userinfo['eep']
-                if(this.form.userinfo.cate === 'bigmerchant') {
-                  this.isCreateShop = true
-                }
+                this.isCreateShop = this.form.userinfo.cate === 'bigmerchant' ? 1 : 0
+                this.isEditable = this.form.userinfo.status !== -1 ? 1 : 0
             } else {
               this.$message.error(data.respmsg);
             }

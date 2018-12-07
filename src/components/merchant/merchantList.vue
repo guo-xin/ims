@@ -122,41 +122,76 @@
         :title="$t('merchant.table.payment')"
         :visible.sync="centerDialogVisible"
         :show-close="false"
-        width=""
-        center
+        width="40%"
+        left
         class="dialog merchant"
         @close="closeForm"
       >
-      <el-form :model="payMentform" class="dialog_form" :rules="baseRules" ref="payMentform">
-        <div v-for="item in ratioList" :key="item.type">
+      <el-radio class="radioType1" v-model="radio" label="1">{{radioType1}}</el-radio>
+      <el-radio class="radioType2" v-model="radio" label="2">{{radioType2}}</el-radio>
+      <el-form :model="payMentform_disposable" class="dialog_form" :rules="baseRules" ref="payMentform">
+        <div v-for="item in ratioList" :key="item.type" class="ratioType">
             <h4>{{item.name}}</h4>
-            <el-form-item class="form_item" prop="merchantID">
-                <span>{{$t('merchant.payment.merchantID')}}</span>
+            <el-form-item class="form_item" prop="merchantID" :label="$t('merchant.payment.merchantID')">
                 <el-input
-                  v-model="payMentform.merchantID"
+                  v-model="payMentform_disposable.merchantID"
                 >
                 </el-input>
             </el-form-item>
-            <el-form-item class="form_item" prop="merchChildID">
-                <span>{{$t('merchant.payment.merchChildID')}}</span>
+            <el-form-item class="form_item" prop="merchChildID" :label="$t('merchant.payment.merchantID')">
                 <el-input
-                  v-model="payMentform.merchChildID"
+                  v-model="payMentform_disposable.merchChildID"
                 >
                 </el-input>
             </el-form-item>
-            <el-form-item class="form_item" prop="merchantPass">
-                <span>{{$t('merchant.payment.merchantPass')}}</span>
+            <el-form-item class="form_item" prop="merchantPass" :label="$t('merchant.payment.merchantPass')"> 
                 <el-input
-                  v-model="payMentform.merchantPass"
+                  v-model="payMentform_disposable.merchantPass"
                 >
                 </el-input>
             </el-form-item>
-            <el-checkbox-group class="checkbox">
+            <el-checkbox-group class="checkbox" v-model="item.checkbox">
               <el-checkbox v-for="fee in item.busicd" :key="fee.trade_type_name" :label="fee.trade_type_name">{{fee.trade_type_name}}
               </el-checkbox>
             </el-checkbox-group>
         </div>
+        <el-form-item class="dialog_button">
+          <el-button type="text" @click="resetForm('payMentform')">{{ $t('common.CLOSE') }}</el-button>
+          <el-button v-if="paymentEdit.dialogType" type="text">{{ $t('common.SAVE') }}</el-button>
+          <el-button v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
+        </el-form-item>
       </el-form>
+      <!-- <el-form :model="payMentform_two"> 
+        <div v-for="item in ratioList" :key="item.type" class="ratioType">
+            <h4>{{item.name}}</h4>
+            <el-form-item class="form_item" prop="merchantID" :label="$t('merchant.payment.merchantID')">
+                <el-select v-model="payMentform_two.merchantID">
+                    <el-option v-for="item in merchantID_list" :key="item."></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item class="form_item" prop="merchChildID" :label="$t('merchant.payment.merchantID')">
+                <el-input
+                  v-model="payMentform_two.merchChildID"
+                >
+                </el-input>
+            </el-form-item>
+            <el-form-item class="form_item" prop="merchantPass" :label="$t('merchant.payment.merchantPass')"> 
+                <el-input
+                  v-model="payMentform_two.merchantPass"
+                >
+                </el-input>
+            </el-form-item>
+            <el-checkbox-group class="checkbox" v-model="item.checkbox">
+              <el-checkbox v-for="fee in item.busicd" :key="fee.trade_type_name" :label="fee.trade_type_name">{{fee.trade_type_name}}
+              </el-checkbox>
+            </el-checkbox-group>
+        </div>
+        <el-form-item class="dialog_button">
+          <el-button type="text" @click="resetForm('payMentform')">{{ $t('common.CLOSE') }}</el-button>
+          <el-button v-if="paymentEdit.dialogType" type="text">{{ $t('common.SAVE') }}</el-button>
+          <el-button v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
+        </el-form-item>        
+      </el-form> -->
     </el-dialog>
 
   </div>
@@ -187,12 +222,16 @@
         channels: [],
         channels2: [],
         statusList: [
-          {name: this.$t('merchant.detail.up'), val: 0},
-          {name: this.$t('merchant.detail.down'), val: 1}
+          {name: this.$t('merchant.detail.up'), val: 3},
+          {name: this.$t('merchant.detail.down'), val: 4},
+          {name: this.$t('merchant.detail.audit'), val: 0},
+          {name: this.$t('merchant.detail.refuse'), val: -1},
         ],
         isSigned: {
-          0: this.$t('common.enable'),
-          1: this.$t('common.disable'),
+          "3": this.$t('common.enable'),
+          "4": this.$t('common.disable'),
+          "-1": this.$t('common.audit'),
+          "0": this.$t('common.refuse')
         },
         total: 0,
         pageSize: 10,
@@ -217,20 +256,21 @@
             }
           ]
         },
-        payMentform: {
+        payMentform_disposable: {
             merchantID: '',
             merchChildID: '',
             merchantPass: ''
         },
+        payMentform_two: [],
         PIDlist: [],
         paymentEdit: {
-            userid: '',
-            id: '',
-            type: '',
-            edit: '',
-            dialogType: ''
+            dialogType: true
         },
-        ratioList: []
+        ratioList: [],
+        ratios: [],
+        radio: "1",
+        radioType1: "一清",
+        radioType2: "俩清"
       }
     },
     computed: {
@@ -245,14 +285,12 @@
       this.fetchRadio()
     },
     methods: {
-      fetchRadio(agentUid) {
+      fetchRadio() {
         let p = {
           format: 'cors',
         }
-        if (agentUid) {
-          p.agent_uid = agentUid
-        }
-        axios.get(`${config.host}/org/tools/get/ratio`, {
+        // axios.get(`${config.host}/org/tools/get/ratio`, {
+        axios.get(`/static/a.json`, {
           params: p
         })
           .then((res) => {
@@ -471,20 +509,37 @@
     cursor: pointer;
   }
   .merchant.dialog {
+      .el-dialog__header {
+        border-bottom: 1px #2974FF solid;
+      }
       box-shadow: 2px 2px 4px 0px rgba(29,29,36,0.1);
       border-radius: 2px;
       font-size: 24px;
+      .ratioType {
+        margin-top: 30px;
+      }
+      .el-radio {
+        margin-left: 50px;
+      }
+      .radioType1 {
+        margin-left: 20px;
+      }      
       .dialog_form {
+        margin-left: 15px;
         .form_item {
-          width: 210px;
+          width: 200px;
           height: 40px;
           padding: 0;
           .el-input {
-            width: 150px;
+            width: 200px;
           }
         }
         .checkbox {
-          display: inline-block;
+          margin-top: 20px;
+        }
+        .dialog_button {
+          margin-left: 80%;
+          margin-top: 30px;
         }
       }
       h4 {

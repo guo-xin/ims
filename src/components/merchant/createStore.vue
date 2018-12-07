@@ -16,7 +16,9 @@
       </el-form-item>
 
       <el-form-item prop="telephone" :label="$t('shop.newStore.model.mobile')">
-        <el-input v-model.trim="storeModel.telephone"></el-input>
+        <el-input 
+          v-model.trim="storeModel.telephone"
+          :disabled="isUpdate"></el-input>
       </el-form-item>
 
       <el-form-item prop="operating" :label="$t('shop.newStore.model.operation')">

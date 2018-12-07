@@ -35,6 +35,8 @@ const zh = {
     status: '状态',
     enable: '启用',
     disable: '停用',
+    audit: '审核中',
+    refuse: '审核拒绝',
     startTime: '开始时间',
     endTime: '结束时间',
     privata: '对私',
@@ -237,6 +239,8 @@ const zh = {
     detail: {
       up: '启用',
       down: '禁用',
+      audit: '审核中',
+      refuse: '审核拒绝',
       redit: '继续编辑',
       createShop: '创建门店',
       cate: {
@@ -328,6 +332,7 @@ const zh = {
         cap4: '门店证照'
       },
       form: {
+        status: '商户状态',
         sub: '单店',
         big: '连锁店',
         channel: '一级代理',
@@ -462,7 +467,10 @@ const zh = {
       rule40: '请选择结算周期',
       rule41: '请输入门店网址',
       rule42: '请输入可访问的门店网址',
-      rule43: '请选择销售员'
+      rule43: '请选择销售员',
+      rule44: '请上传身份证正面/法人身份证正面',
+      rule45: '请上传营业执照',
+      rule46: '请上传收银台照片'
     }
   },
   shop: {
