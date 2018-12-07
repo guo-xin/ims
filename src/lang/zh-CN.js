@@ -347,7 +347,7 @@ const zh = {
         documentType: '证件类型',
         doucumentNum: '证件编码',
         industry: '行业类别',
-        addressT: '公司地址',
+        addressT: '商户地址',
         wechatPro: '微信主扫',
         wechatPas: '微信被扫',
         wechatPub: '微信公众号',
@@ -358,7 +358,7 @@ const zh = {
         accountType: '开户行',
         accountH: '银行账号',
         accountAddress: '银行地址',
-        moneySettment: '银行结算信息',
+        moneySettment: '资金结算信息',
         storename: '店铺名称',
         storeAddress: '店铺地址',
         storephone: '联系电话',
@@ -410,7 +410,8 @@ const zh = {
         rule8: '最多输入50个字符'
       },
       specialRule: {
-        rule1: '格式不正确'
+        rule1: '格式不正确',
+        rule2: '输入类型必须是数字'
       },
       doctype: {
         type1: '护照',
@@ -452,7 +453,7 @@ const zh = {
       rule25: '请输入门店邮编',
       rule26: '请输入门店附加服务',
       rule27: '请输入门店营业时间',
-      rule28: '请上传所售商品/经营场所内景照片',
+      rule28: '请上传经营场所/经营场所内景照片',
       rule29: '请上传经营场所/经营场所外景照片',
       rule30: '请输入公司邮箱',
       rule31: '只能上传Excel文件',

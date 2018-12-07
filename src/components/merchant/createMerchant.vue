@@ -142,12 +142,12 @@
       </div>
 
       <h3>{{$t('merchant.newMerchant.basic.cap3')}}</h3>
-      <el-form-item prop="bankuser" :label="$t('merchant.newMerchant.form.accountName')">
-        <el-input v-model.trim="formData.bankuser"></el-input>
+      <el-form-item prop="headbankname" :label="$t('merchant.newMerchant.form.accountName')">
+        <el-input v-model.trim="formData.headbankname"></el-input>
       </el-form-item>
 
-      <el-form-item prop="headbankname" :label="$t('merchant.newMerchant.form.accountType')">
-        <el-input v-model.trim="formData.headbankname"></el-input>
+      <el-form-item prop="bankuser" :label="$t('merchant.newMerchant.form.accountType')">
+        <el-input v-model.trim="formData.bankuser"></el-input>
       </el-form-item>
 
       <el-form-item prop="bankaccount" :label="$t('merchant.newMerchant.form.accountH')">
@@ -434,8 +434,8 @@
           legalperson: '', // 公司联系人
           telephone: '', // 公司联系人电话
           email: '', // 邮箱
-          headbankname: '', // 开户银行
-          bankuser: '', // 银行账户名称
+          headbankname: '', // 开户行名称
+          bankuser: '', // 开户行
           bankaccount: '', // 银行账号
           bankProvince: '', // 银行地址
           remit_amt: '', // 结算资金起点
@@ -555,7 +555,7 @@
             {
               validator: (rule, val, cb) => {
                 if (!/^[0-9]*$/.test(val) && val != '') {
-                  cb(new Error(this.$t('merchant.newMerchant.lengthRule.rule2')));
+                  cb(new Error(this.$t('merchant.newMerchant.specialRule.rule2')));
                 } else {
                   cb();
                 }
@@ -703,20 +703,20 @@
         });
       },
       checkPhotosIsUpdated() {
-        if (!this.voucherInfo.goodsphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('goodsphoto')
-          this.$message.error(this.$t('merchant.newMerchant.rule28'));
-          return false;
-        }
-        if (!this.voucherInfo.shopphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
-          this.$message.error(this.$t('merchant.newMerchant.rule29'));
-          return false;
-        }
         if (!this.voucherInfo.idcardfront_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
           this.$message.error(this.$t('merchant.newMerchant.rule44'));
           return false;
         }
         if (!this.voucherInfo.licensephoto_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
           this.$message.error(this.$t('merchant.newMerchant.rule45'));
+          return false;
+        }
+        if (!this.voucherInfo.goodsphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('goodsphoto')
+          this.$message.error(this.$t('merchant.newMerchant.rule28'));
+          return false;
+        }
+        if (!this.voucherInfo.shopphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
+          this.$message.error(this.$t('merchant.newMerchant.rule29'));
           return false;
         }
         if (!this.voucherInfo.paypoint_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
@@ -981,7 +981,7 @@
           vouchers: [], // 上传的凭据照片
         }
         let params = {}
-        form.mchnt[this.formData.documentType] = this.formData.doucumentNum
+        form.mchnt[this.formData.documentType] = this.formData.documentNum
         let radioListValue = this.refee(this.radioList)
         console.log(radioListValue, 4444)
         for(let i in radioListValue) {
@@ -1032,7 +1032,6 @@
             delete params.secondary_uid
           }
         }
-        this.isLoading = true
         axios.post(url, qs.stringify(params), {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -1069,6 +1068,7 @@
         } else if (this.active === 1) { // 第二步
           this.$refs['bankinfos'].validate((valid) => {
             if (valid && this.checkPhotosIsUpdated()) {
+              this.isLoading = true
               this.create()
             }
           })

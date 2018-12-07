@@ -161,12 +161,12 @@
           <el-button v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
         </el-form-item>
       </el-form>
-      <!-- <el-form :model="payMentform_two"> 
+      <el-form :model="payMentform_two" class="dialog_form"> 
         <div v-for="item in ratioList" :key="item.type" class="ratioType">
             <h4>{{item.name}}</h4>
             <el-form-item class="form_item" prop="merchantID" :label="$t('merchant.payment.merchantID')">
                 <el-select v-model="payMentform_two.merchantID">
-                    <el-option v-for="item in merchantID_list" :key="item."></el-option>
+                    <el-option v-for="item in merchantID_list" :key="item.val" :label="item.val" :value="item.val"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item class="form_item" prop="merchChildID" :label="$t('merchant.payment.merchantID')">
@@ -191,7 +191,7 @@
           <el-button v-if="paymentEdit.dialogType" type="text">{{ $t('common.SAVE') }}</el-button>
           <el-button v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
         </el-form-item>        
-      </el-form> -->
+      </el-form>
     </el-dialog>
 
   </div>
@@ -270,7 +270,12 @@
         ratios: [],
         radio: "1",
         radioType1: "一清",
-        radioType2: "俩清"
+        radioType2: "俩清",
+        merchantID_list: [
+          {val: '1232334'},
+          {val: '2234434'},
+          {val: '2324344'}
+        ]
       }
     },
     computed: {
