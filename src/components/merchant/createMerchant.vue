@@ -761,7 +761,7 @@
         });
       },
       selectChannel2Handler(groupid) {
-        this.getFee(groupid)
+        this.fetchRadio(groupid)
         this.getSalesPersonList(groupid)
       },
       getSalesPersonList(uid) {

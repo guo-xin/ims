@@ -347,7 +347,7 @@ const zh = {
         concatName: '联系人姓名',
         concatNumber: '联系电话',
         documentType: '证件类型',
-        doucumentNum: '证件编码',
+        doucumentNum: '证件编号',
         industry: '行业类别',
         addressT: '商户地址',
         wechatPro: '微信主扫',
