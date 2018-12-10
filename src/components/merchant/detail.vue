@@ -167,6 +167,37 @@
       </div>
     </section>
 
+    <section class="audit-log" v-if="form.userinfo.status==0">
+      <div class="banner">
+        <div class="title">{{$t('audit.detail.title')}}</div>
+        <div class="divider"></div>
+      </div>
+      <el-table :data="audit_logs" stripe v-loading="isLoading">
+        <el-table-column prop="create_user" :label="$t('audit.detail.table.creator')">
+          <template slot-scope="scope">
+            {{ scope.row.create_user }}
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="create_date" :label="$t('audit.detail.table.create_date')">
+          <template slot-scope="scope">
+            {{ scope.row.create_date }}
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="result"  :label="$t('audit.detail.table.result')">
+          <template slot-scope="scope">
+            {{ auditresult[scope.row.result] }}
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="memo"  :label="$t('audit.detail.table.memo')">
+          <template slot-scope="scope">
+            {{ scope.row.memo }}
+          </template>
+        </el-table-column>
+      </el-table>
+    </section>
     <footer>
       <el-button v-if="isEditable&&!isReEditable" @click="editHandler">{{$t('merchant.detail.edit')}}</el-button>
       <el-button v-if="isCreateShop&&!isReEditable" @click="createShop">{{$t('merchant.detail.createShop')}}</el-button>
@@ -200,6 +231,7 @@
         isCreateShop: false,
         license: '',
         temp: [],
+        audit_logs: [],
         cate: {
           "merchant": this.$t('merchant.detail.cate.merchant'),
           "bigmerchant": this.$t('merchant.detail.cate.big'),
@@ -230,6 +262,12 @@
             0: this.$t('merchant.detail.up'),
             1: this.$t('merchant.detail.down')
          },
+        auditresult: {
+          '0': this.$t('audit.deny'),
+          '1': this.$t('audit.succ'),
+          '2': this.$t('audit.fail'),
+          '-1': this.$t('audit.going'),
+        },
         form: {
           number: '',
           userinfo: {
@@ -274,6 +312,24 @@
       this.fetchDetailData()
     },
     methods: {
+      getAuditResult() {
+        axios.get(`${config.host}/org/tools/audit_logs_list`, {
+          params: {
+            userid: this.form.userinfo.userid,
+            format: 'cors'
+          }})
+          .then((res) => {
+            let data = res.data;
+            if (data.respcd === '0000') {
+              this.audit_logs = data.data;
+            } else {
+              this.$message.error(data.respmsg);
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      },
       cancel() {
         this.$router.push({name: 'mchnt_manage_list'})
       },
@@ -298,6 +354,9 @@
                 this.form.number = this.form.userinfo['idnumber'] || this.form.userinfo['passport'] || this.form.userinfo['eep']
                 this.isCreateShop = this.form.userinfo.cate === 'bigmerchant' ? 1 : 0
                 this.isEditable = this.form.userinfo.status !== -1 ? 1 : 0
+              if(data.data.userinfo.status == 0) {
+                this.getAuditResult()
+              }
             } else {
               this.$message.error(data.respmsg);
             }

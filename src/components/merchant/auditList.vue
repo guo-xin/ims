@@ -32,7 +32,7 @@
       </div>
     </el-form>
 
-    <el-table :data="merchents" stripe v-loading="isLoading" @current-change="selectCurrentRowHandler">
+    <el-table :data="merchents" stripe  @current-change="selectCurrentRowHandler" v-loading="isLoading">
       <el-table-column prop="userid" :label="$t('merchant.table.mchtid')">
         <template slot-scope="scope">
           {{ scope.row.userid }}
@@ -53,7 +53,7 @@
 
       <el-table-column prop="mobile"  :label="$t('merchant.table.mobile')">
         <template slot-scope="scope">
-          {{ scope.row.mobile }}
+          {{ scope.row.telephone }}
         </template>
       </el-table-column>
 
@@ -69,15 +69,15 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="cate" :label="$t('merchant.table.cate_code')">
+      <el-table-column prop="cate" :label="$t('audit.table.cate')">
         <template slot-scope="scope">
           {{ cate[scope.row.cate] }}
         </template>
       </el-table-column>
 
-      <el-table-column prop="audit_status_str" :label="$t('merchant.table.state')" align="center">
+      <el-table-column prop="audit_status_str" :label="$t('audit.table.status')" align="center">
         <template slot-scope="scope">
-          {{ scope.row.audit_status_str }}
+          {{ status[scope.row.status] }}
         </template>
       </el-table-column>
     </el-table>
@@ -113,6 +113,12 @@
           "bigmerchant": this.$t('merchant.detail.cate.big'),
           "submerchant": this.$t('merchant.detail.cate.sub')
         },
+        status: {
+          '0': this.$t('audit.deny'),
+          '1': this.$t('audit.succ'),
+          '2': this.$t('audit.fail'),
+          '-1': this.$t('audit.going'),
+        },
         merchents: [],
         channels: [],
         channels2: [],
@@ -135,14 +141,14 @@
           }})
           .then((res) => {
             let data = res.data;
-            this.loading = false;
+            this.isLoading = false;
             if (data.respcd === config.code.OK) {
               this.audits = data.data;
             } else {
               this.$message.error(data.respmsg);
             }
           }).catch(() => {
-          this.loading = false;
+          this.isLoading = false;
           this.$message.error(this.$t('common.netError'));
         });
       },
@@ -154,14 +160,14 @@
           }})
           .then((res) => {
             let data = res.data;
-            this.loading = false;
+            this.isLoading = false;
             if (data.respcd === config.code.OK) {
               this.channels = data.data.list;
             } else {
               this.$message.error(data.respmsg);
             }
           }).catch(() => {
-          this.loading = false;
+          this.isLoading = false;
           this.$message.error(this.$t('common.netError'));
         });
       },
@@ -173,14 +179,14 @@
           }})
           .then((res) => {
             let data = res.data;
-            this.loading = false;
+            this.isLoading = false;
             if (data.respcd === config.code.OK) {
               this.channels2 = data.data.list;
             } else {
               this.$message.error(data.respmsg);
             }
           }).catch(() => {
-            this.loading = false;
+            this.isLoading = false;
             this.$message.error(this.$t('common.netError'));
           });
       },
@@ -192,7 +198,8 @@
           shopname: this.formData.shopname,
           userid: this.formData.userid,
           qd_uid: this.formData.qd_uid,
-          audit_status: this.formData.audit_status,
+          status: this.formData.audit_status,
+          type: 'audit',
           qd_name: '',
           page: this.currentPage > 0 ? (this.currentPage - 1) : this.currentPage,
           pagesize: this.pageSize,
@@ -201,19 +208,20 @@
         if(this.formData.qd_uid2) {
           p.qd_uid = this.formData.qd_uid2
         }
+        this.isLoading = true;
         axios.get(`${config.host}/org/mchnt/list`, {
           params: p})
           .then((res) => {
             let data = res.data;
-            this.loading = false;
+            this.isLoading = false;
             if (data.respcd === config.code.OK) {
-              this.merchents = data.data.list
-              this.total = data.data.total
+              this.merchents = data.data.mchnt_infos
+              this.total = data.data.mchnt_cnt
             } else {
               this.$message.error(data.respmsg);
             }
           }).catch(() => {
-          this.loading = false;
+          this.isLoading = false;
           this.$message.error(this.$t('common.netError'));
         });
       },

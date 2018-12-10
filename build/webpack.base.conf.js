@@ -25,12 +25,6 @@ module.exports = {
   entry: {
     app: ["babel-polyfill", "./src/main.js"]
   },
-  plugins: [
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery"
-    })
-  ],
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
@@ -46,7 +40,6 @@ module.exports = {
       'assets': resolve('src/assets'),
       'components': resolve('src/components'),
       'config': resolve('src/config'),
-      '': ''
     }
   },
   module: {

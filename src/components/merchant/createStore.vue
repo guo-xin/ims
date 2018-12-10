@@ -16,7 +16,7 @@
       </el-form-item>
 
       <el-form-item prop="telephone" :label="$t('shop.newStore.model.mobile')">
-        <el-input 
+        <el-input
           v-model.trim="storeModel.telephone"
           :disabled="isUpdate"></el-input>
       </el-form-item>
@@ -57,7 +57,7 @@
                   <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">{{$t('merchant.newMerchant.form.warmgood')}}</div>
+              <!--<div class="image_info">{{$t('merchant.newMerchant.form.warmgood')}}</div>-->
             </el-col>
             <!-- 经营场所外景照片上传-->
             <el-col :span="7" class="up-item">
@@ -88,7 +88,7 @@
                   <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">{{$t('merchant.newMerchant.form.warmshop')}}</div>
+              <!--<div class="image_info">{{$t('merchant.newMerchant.form.warmshop')}}</div>-->
             </el-col>
             <!-- 收银台照片上传-->
             <el-col :span="7" class="up-item">
@@ -119,7 +119,7 @@
                   <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">{{$t('shop.newStore.mustcasher')}}</div>
+              <!--<div class="image_info">{{$t('shop.newStore.mustcasher')}}</div>-->
             </el-col>
             <!-- 补充资料照片上传-->
             <el-col :span="7" class="up-item" style="margin-top:20px;">
@@ -150,7 +150,7 @@
                   <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <div class="image_info">{{$t('shop.newStore.warmother')}}</div>
+              <!--<div class="image_info">{{$t('shop.newStore.warmother')}}</div>-->
             </el-col>
           </div>
         </el-col>
@@ -324,8 +324,8 @@
         return true
       },
       next() {
-        this.$refs['store-form'].validate((valid) => {
-          if (valid && this.checkPhotosIsUpdated()) {
+        this.$refs['store-form'].validate((valid) => { // && this.checkPhotosIsUpdated()
+          if (valid) {
             this.commit()
           }
         })

@@ -49,6 +49,9 @@ const zh = {
     CLOSE: '关闭',
     EDIT: '编辑'
   },
+  home: {
+    title: '首页'
+  },
   authority: {
     crumbs: {
       T1: '用户管理',
@@ -522,8 +525,8 @@ const zh = {
       model: {
         storename: '门店名称',
         storeaddress: '门店地址',
-        mobile: '联系电话',
-        operation: '营业时间'
+        mobile: '门店联系电话',
+        operation: '门店营业时间'
       },
       rule1: '请输入门店名称',
       rule2: '请输入门店地址',
@@ -570,8 +573,23 @@ const zh = {
       audit_state: '审核状态',
       memo: '备注'
     },
+    table: {
+      cate: '商户类型',
+      status: '审核状态'
+    },
+    deny: '审核拒绝',
+    succ: '审核成功',
+    fail: '审核失败',
+    going: '审核中',
     detail: {
       title: '审核记录',
+      storeInfo: {
+        title: '门店证照',
+        storename: '门店名称',
+        storeaddr: '门店地址',
+        storetel: '联系电话',
+        opertime: '营业时间'
+      },
       table: {
         creator: '操作员ID',
         create_date: '审核日期',
@@ -581,7 +599,8 @@ const zh = {
       doit: '审核',
       pass: '通过',
       re: '驳回',
-      msg1: '请输入审核备注。'
+      msg1: '请输入审核备注。',
+      done: '审核完成'
     }
   },
   trade: {

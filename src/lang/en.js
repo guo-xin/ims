@@ -490,8 +490,23 @@ const en = {
       audit_state: '',
       memo: ''
     },
+    table: {
+      cate: '商户类型',
+      status: '审核状态'
+    },
+    deny: '审核拒绝',
+    succ: '审核成功',
+    fail: '审核失败',
+    going: '审核中',
     detail: {
       title: 'Audit Log',
+      storeInfo: {
+        title: '门店证照',
+        storename: '门店名称',
+        storeaddr: '门店地址',
+        storetel: '联系电话',
+        opertime: '营业时间'
+      },
       table: {
         creator: 'Operator ID',
         create_date: 'Audit Date',
@@ -501,7 +516,8 @@ const en = {
       doit: 'Audit',
       pass: 'Pass',
       re: 'Reject',
-      msg1: 'Please input audit notes.'
+      msg1: 'Please input audit notes.',
+      done: 'It is done!'
     }
   },
   batch: {

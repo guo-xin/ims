@@ -9,12 +9,9 @@ switch (env) {
     break;
 
   case 'development':
-    // host = 'https://oasbp.qa.qfpay.net';
-    host = 'api'
-    // host = 'http://172.100.108.171:6500';
+    host = 'https://oasbp.qa.qfpay.net'; //  http://172.100.108.171:6500
     ohost = 'https://o.qa.qfpay.net';
-    imgUpload = 'https://o2.qa.qfpay.net';
-    // imgUpload = 'https://o2.qfpay.com';
+    imgUpload = 'https://o2.qfpay.com';
     break;
 
   default: // 线上正式
