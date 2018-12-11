@@ -4,7 +4,6 @@ import zhLocale from 'qfpay-element-ui/lib/locale/lang/zh-CN'
 const zh = {
   ...zhLocale,
   common: {
-    title: '海外机构服务商业务平台',
     all: '全部',
     create: '创建',
     export: '导出',
@@ -53,6 +52,11 @@ const zh = {
     title: '首页',
     amt: '交易金额',
     cnt: '交易笔数',
+    curamt: '当日交易金额',
+    curcnt: '当日交易笔数',
+    curnewmchnt: '当日新增商户',
+    curnewstore: '当日新增门店',
+    nodata: '没有可用数据',
     curve: {
       title: '交易趋势图',
     },
@@ -711,7 +715,7 @@ const zh = {
     createTime: '创建时间',
   },
   main: {
-    desc: '机构管理系统',
+    desc: '机构商管理系统',
     roles: [
       ''
     ],

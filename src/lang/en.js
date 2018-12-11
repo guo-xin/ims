@@ -5,7 +5,7 @@ import enLocale from 'qfpay-element-ui/lib/locale/lang/en'
 const en = {
   ...enLocale,
   common: {
-    title: 'Overseas agency service business platform',
+    title: 'INSTITUTION MANAGEMENT SYSTEM',
     all: 'All',
     create: 'Create',
     export: 'Export',
@@ -52,6 +52,11 @@ const en = {
       title: '首页',
       amt: '交易金额',
       cnt: '交易笔数',
+      curamt: '当日交易金额',
+      curcnt: '当日交易笔数',
+      curnewmchnt: '当日新增商户',
+      curnewstore: '当日新增门店',
+      nodata: 'No Data Available',
       curve: {
         title: '交易趋势图',
       },

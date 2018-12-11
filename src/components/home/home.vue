@@ -6,28 +6,28 @@
     <el-row type="flex" class="current-data">
       <el-col :span="6" class="item margin0">
         <div class="left-num">
-          <div class="title">当日交易金额</div>
+          <div class="title">{{$t('home.curamt')}}</div>
           <div class="index">HK${{curdata.trade_amt}}</div>
         </div>
         <div class="badge amount"></div>
       </el-col>
       <el-col :span="6" class="item">
         <div class="left-num">
-          <div class="title">当日交易笔数</div>
+          <div class="title">{{$t('home.curcnt')}}</div>
           <div class="index">{{curdata.trade_cnt}}</div>
         </div>
         <div class="badge count"></div>
       </el-col>
       <el-col :span="6" class="item">
         <div class="left-num">
-          <div class="title">当日新增商户</div>
+          <div class="title">{{$t('home.curnewmchnt')}}</div>
           <div class="index">{{curdata.new_mchnt}}</div>
         </div>
         <div class="badge mchnt-num"></div>
       </el-col>
       <el-col :span="6" class="item">
         <div class="left-num">
-          <div class="title">当日新增门店</div>
+          <div class="title">{{$t('home.curnewstore')}}</div>
           <div class="index">{{curdata.new_submchnt}}</div>
         </div>
         <div class="badge store-num"></div>
@@ -84,8 +84,8 @@
   import * as d3 from 'd3';
   import config from 'config'
   import axios from 'axios';
+  require('../../assets/js/zChart.js');
 
-  require('../../assets/js/nv.d3.min.js');
   export default {
     data() {
       return {
@@ -96,45 +96,8 @@
           trade_cnt: 0
         },
         tradeTrends: [],
-        mchntstore: [
-//          {
-//            values: [{x: "3:00", y: 80}, {x: "6:00", y: 137}, {x: "9:00", y: 185}, {x: "12:00", y: 119}, {
-//              x: "15:00",
-//              y: 112
-//            }, {x: "18:00", y: 112}, {x: "21:00", y: 112}],
-//            key: "mchnt"
-//          },
-//          {
-//            values: [{x: "3:00", y: 92}, {x: "6:00", y: 64}, {x: "9:00", y: 137}, {
-//              x: "12:00",
-//              y: 57
-//            }, {x: "15:00", y: 111}, {x: "18:00", y: 46}, {x: "21:00", y: 85}],
-//            key: "submchnt"
-//          }
-        ],
-        channelTrends: [
-//          {
-//            "cnt": "20639",
-//            "name": "微信",
-//            "trade": "weixin"
-//          }, {
-//            "cnt": "36439",
-//            "name": "支付宝",
-//            "trade": "alipay"
-//          }, {
-//            "cnt": "92509",
-//            "name": "微信HK",
-//            "trade": "weixin_hk"
-//          }, {
-//            "cnt": "67429",
-//            "name": "银联",
-//            "trade": "unionpay"
-//          }, {
-//            "cnt": "43788",
-//            "name": "支付宝hk",
-//            "trade": "alipay_hk"
-//          }
-        ],
+        mchntstore: [],
+        channelTrends: [],
         total: {
           total_amt: 0,
           total_cnt: 0,
@@ -145,14 +108,13 @@
       }
     },
     created() {
+    },
+    mounted() {
       this.getCurrentData();
       this.getTradeTrends(); // 交易趋势
       this.getMerchantTradeTrends(); // 商户交易趋势
       this.getChannelTradeAnalysis(); // 通道交易分析
       this.getTotalData()
-    },
-    mounted() {
-
     },
     methods: {
       sinAndCos() {
@@ -186,7 +148,7 @@
               duration: 2000,
               useInteractiveGuideline: true,
               margin: {left: 70},
-              noData: '没有可用数据'
+              noData: this.$t('home.nodata')
             })
           ;
           curveChart.xAxis.staggerLabels(false)
@@ -213,7 +175,7 @@
             .color(['#43B2FF', '#7128B1'])
             .duration(2000)
             .margin({bottom: 53, left: 84})
-            .noData('没有可用数据')
+            .noData(this.$t('home.nodata'))
             .showControls(false)
             .showLegend(true)
             .groupSpacing(0.5)
@@ -260,7 +222,7 @@
             .showLabels(1)
             .labelsOutside(1)
             .labelSunbeamLayout(0)
-            .noData('没有可用数据')
+            .noData(this.$t('home.nodata'))
 //            .legend({width: '70px', position: {right: 20}, align: 'center'})
 
           d3.select("#pie svg")
@@ -279,7 +241,7 @@
           .then((res) => {
             let data = res.data;
             if (data.respcd === config.code.OK) {
-//              this.tradeTrends = data.data
+              this.tradeTrends = data.data
               this.drawCurveChart()
             } else {
               this.$message.error(data.respmsg);
@@ -362,7 +324,7 @@
   }
 </script>
 <style lang="scss">
-  @import "../../../src/assets/css/nv.d3.min.css";
+  @import "../../../src/assets/css/zchart.css";
 
   .home {
     .current-data {

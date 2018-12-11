@@ -20,7 +20,7 @@
             </g>
           </g>
         </svg>
-        <div class="desc">{{$t('main.desc')}}</div>
+        <div class="desc" :style="select==='en-us'? 'line-height:1': ''">{{$t('main.desc')}}</div>
         <div class="sign-in-info">
           <el-row type="flex">
             <el-col :span="16">
@@ -162,8 +162,10 @@
           this.isCollapse = false
         }
       }
+      document.title = this.$t('main.desc')
     },
     created() {
+      console.log(this.select)
       var me = this;
       this.$store.dispatch('getUserPermission').then(() => {
         let navarr = navmap[location.hash.split('/')[2]]
