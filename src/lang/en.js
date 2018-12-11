@@ -48,6 +48,28 @@ const en = {
     SAVE: 'SAVE',
     EDIT: 'EDIT'
   },
+    home: {
+      title: '首页',
+      amt: '交易金额',
+      cnt: '交易笔数',
+      curve: {
+        title: '交易趋势图',
+      },
+      bar: {
+        title: '商户交易趋势图'
+      },
+      pie: {
+        title: '通道交易分析'
+      },
+      cumu: {
+        title: '累计数据分析',
+        totle_mount: '总交易金额',
+        totle_count: '总交易笔数',
+        totle_mchnt_num: '总商户数量',
+        totle_store_num: '总门店数量',
+        totle_agent_num: '总代理商数量'
+      }
+    },
   authority: {
     crumbs: {
       T1: 'Account Management',

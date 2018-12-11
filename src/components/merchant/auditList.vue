@@ -20,14 +20,14 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item :label="$t('merchant.form.audit_state')" prop="audit_status">
+      <el-form-item :label="$t('audit.form.audit_state')" prop="audit_status">
         <el-select v-model="formData.audit_status">
           <el-option :label="item.val" :value="item.key" v-for="item in audits" :key="item.key"></el-option>
         </el-select>
       </el-form-item>
 
       <div class="buttons">
-        <el-button type="primary" @click="getMerchantDataHandler">{{$t('merchant.query')}}</el-button>
+        <el-button type="primary" @click="fetchData('query')">{{$t('merchant.query')}}</el-button>
         <el-button @click="reset">{{$t('merchant.reset')}}</el-button>
       </div>
     </el-form>
@@ -190,10 +190,10 @@
             this.$message.error(this.$t('common.netError'));
           });
       },
-      getMerchantDataHandler() {
-        this.fetchData()
-      },
-      fetchData() {
+      fetchData(query) {
+        if(query) {
+          this.currentPage = 0
+        }
         let p = {
           shopname: this.formData.shopname,
           userid: this.formData.userid,
@@ -228,6 +228,8 @@
       reset() {
         this.$refs['mchnt_list_form'].resetFields();
         this.channels2.length = 0;
+        this.pageSize = 10;
+        this.currentPage = 0;
         this.fetchData();
       },
       selectCurrentRowHandler(currentRow, oldCurrentRow) {

@@ -304,9 +304,6 @@
           memo: ''
         },
         auditRules: {
-          'memo': [
-            {required: true, message: this.$t('audit.detail.msg1')}
-          ]
         }
       }
     },
@@ -349,6 +346,9 @@
           format: 'cors'
         };
         if(context === 'deny') {
+          this.auditRules['memo'] = [
+            {required: true, message: this.$t('audit.detail.msg1')}
+          ]
           this.$refs['memo'].validate((valid) => {
             if (valid) {
               this.isLoading = true;
