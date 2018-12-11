@@ -130,8 +130,8 @@
       <el-radio class="radioType1" v-model="radio" label="1">{{radioType1}}</el-radio>
       <el-radio class="radioType2" v-model="radio" label="2">{{radioType2}}</el-radio>
       <el-form v-if="radio == 1" :model="payMentform_disposable" class="dialog_form" :rules="baseRules" ref="payMentform">
-        <div v-for="item in ratioList" :key="item.type" class="ratioType">
-            <h4>{{item.name}}</h4>
+        <div v-for="item in ratioListOne" :key="item.type" class="ratioType">
+            <h4>{{ Object.keys(item)[0] }}</h4>
             <el-form-item class="form_item" prop="merchantID1" :label="$t('merchant.payment.merchantID1')">
                 <el-input
                   v-model="payMentform_disposable.merchantID1"
@@ -162,8 +162,8 @@
         </el-form-item>
       </el-form>
       <el-form v-if="radio == 2" :model="payMentform_two" class="dialog_form"> 
-        <div v-for="item in ratioList" :key="item.type" class="ratioType">
-            <h4>{{item.name}}</h4>
+        <div v-for="item in ratioListTwo" :key="item.type" class="ratioType">
+            <h4>{{ Object.keys(item)[0] }}</h4>
             <el-form-item class="form_item" prop="merchantID2" :label="$t('merchant.payment.merchantID2')">
                 <el-select v-model="payMentform_two.merchantID2">
                     <el-option v-for="item in merchantID_list" :key="item.val" :label="item.val" :value="item.val"></el-option>
@@ -175,10 +175,6 @@
                 >
                 </el-input>
             </el-form-item>
-            <el-checkbox-group class="checkbox" v-model="item.checkbox">
-              <el-checkbox v-for="fee in item.busicd" :key="fee.trade_type_name" :label="fee.trade_type_name">{{fee.trade_type_name}}
-              </el-checkbox>
-            </el-checkbox-group>
         </div>
         <el-form-item class="dialog_button">
           <el-button type="text" @click="resetForm('payMentform')">{{ $t('common.CLOSE') }}</el-button>
@@ -263,7 +259,8 @@
         paymentEdit: {
             dialogType: true
         },
-        ratioList: [],
+        ratioListOne: [],
+        ratioListTwo: [],
         ratios: [],
         radio: "1",
         radioType1: "一清",
@@ -291,14 +288,21 @@
         let p = {
           format: 'cors',
         }
-        // axios.get(`${config.host}/org/tools/get/ratio`, {
-        axios.get(`/static/a.json`, {
+        axios.get(`${config.host}/org/tools/get/hk/channelinfo`, {
+        // axios.get(`/static/b.json`, {
           params: p
         })
           .then((res) => {
             let data = res.data;
             if (data.respcd === config.code.OK) {
-              this.ratioList = data.data;
+              this.ratioListOne = data.data.one;
+              this.ratioListTwo = data.data.two;
+              console.log(this.ratioListOne[0])
+              let ratio = this.ratioListOne[0];
+              console.log(Object.values(ratio)[0][0], 6666)
+              let mchntnm = Object.values(ratio)[0][0].mchntnm;
+              console.log(mchntnm, 7777)
+
             } else {
               this.$message.error(data.respmsg);
             }
@@ -529,7 +533,7 @@
       .dialog_form {
         margin-left: 15px;
         .form_item {
-          width: 200px;
+          width: 180px;
           height: 40px;
           padding: 0;
           .el-input {

@@ -1,0 +1,48 @@
+{
+    "resperr": "",
+    "respcd": "0000",
+    "respmsg": "",
+    "data": {
+        "two": [
+            {
+                "weixin": [
+                    {
+                        "mchntnm": "wx798f4f90c7384c24",
+                        "tradetype": 8,
+                        "tag2": "HK-Wechat",
+                        "key3": "wx798f4f90c7384c24",
+                        "key1": "b0b453d7b7664474acf0020b5b188e6c",
+                        "mchntid": "1465742402"
+                    }
+                ],
+                "chnlid": 20
+            }
+        ],
+        "one": [
+            {
+                "chnlid": 20,
+                "weixin": [
+                    {
+                        "mchntnm": "wxf677b44e5c4d4fb6",
+                        "tradetype": 8,
+                        "key1": "8e1506abf2844a1880d4a942f55afabb",
+                        "mchntid": "1315135101",
+                        "tag2": "HK-Wechat-Direct"
+                    }
+                ]
+            },
+            {
+                "zhifubao": [
+                    {
+                        "mchntnm": "wxf677b44e5c4d4fb6",
+                        "tradetype": 8,
+                        "key1": "8e1506abf2844a1880d4a942f55afabb",
+                        "mchntid": "1315135101",
+                        "tag2": "HK-Wechat-Direct"
+                    }
+                ],
+                "chnlid": 20
+            }
+        ]
+    }
+}
