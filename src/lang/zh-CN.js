@@ -266,7 +266,7 @@ const zh = {
     },
     detail: {
       up: '启用',
-      down: '禁用',
+      down: '停用',
       audit: '待审核',
       refuse: '驳回',
       redit: '继续编辑',

@@ -91,7 +91,7 @@
       <el-form-item prop="documentNum" :label="$t('merchant.newMerchant.form.doucumentNum')">
         <el-input 
           v-model.trim="formData.documentNum"
-          maxlength='12'
+          maxlength='15'
         ></el-input>
       </el-form-item>
 

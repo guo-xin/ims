@@ -1,89 +1,30 @@
-      
 {
-    "resperr":"",
-    "respcd":"0000",
-    "respmsg":"",
-    "data":[
-        {
-            "busicd":[
+    "resperr": "",
+    "respcd": "0000",
+    "respmsg": "",
+    "data": {
+        "type": "2",
+        "datas":[ {
+            "weixin": [
                 {
-                    "chnl_name":"主扫",
-                    "chnl_id":1016,
-                    "trade_type":"800210",
-                    "ratio":"0.10",
-                    "trade_type_name":"主扫"
-                },
-                {
-                    "chnl_name":"被扫",
-                    "chnl_id":1016,
-                    "trade_type":"800210",
-                    "ratio":"0.10",
-                    "trade_type_name":"被扫"
-                },
-                {
-                    "chnl_name":"微信公众号",
-                    "chnl_id":1016,
-                    "trade_type":"800210",
-                    "ratio":"0.10",
-                    "trade_type_name":"微信公众号"
-                }                
-            ],
-            "name":"微信",
-            "checkbox": []
-        },
-        {
-            "busicd":[
-                {
-                    "chnl_name":"主扫",
-                    "chnl_id":1015,
-                    "trade_type":"800107",
-                    "ratio":"0.10",
-                    "trade_type_name":"主扫"
-                },
-                {
-                    "chnl_name":"被扫",
-                    "chnl_id":1016,
-                    "trade_type":"800210",
-                    "ratio":"0.10",
-                    "trade_type_name":"被扫"
-                },
-                {
-                    "chnl_name":"公众号",
-                    "chnl_id":1016,
-                    "trade_type":"800210",
-                    "ratio":"0.10",
-                    "trade_type_name":"支付宝公众号"
+                    "mchntnm": "wx798f4f90c7384c24",
+                    "memo": "2",
+                    "userid": 21017394,
+                    "termid": "31221",
+                    "id": 6741088,
+                    "mchntid": "1465742402"
                 }
             ],
-            "name":"支付宝",
-            "checkbox": []
-        },
-        {
-            "busicd":[
+            "alipay_hk": [
                 {
-                    "chnl_name":"主扫",
-                    "chnl_id":1015,
-                    "trade_type":"800107",
-                    "ratio":"0.10",
-                    "trade_type_name":"主扫"
-                },
-                {
-                    "chnl_name":"被扫",
-                    "chnl_id":1015,
-                    "trade_type":"800107",
-                    "ratio":"0.10",
-                    "trade_type_name":"被扫"
-                },
-                {
-                    "chnl_name":"公众号",
-                    "chnl_id":1015,
-                    "trade_type":"800107",
-                    "ratio":"0.10",
-                    "trade_type_name":"银联公众号"
+                    "mchntnm": null,
+                    "memo": "2",
+                    "userid": 21017394,
+                    "termid": "21017394",
+                    "id": 6741096,
+                    "mchntid": "2088231070720291"
                 }
-            ],
-            "name":"银联",
-            "checkbox": []
-        }
-    ]
+            ]
+        }]
+    }
 }
