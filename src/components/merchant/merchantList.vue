@@ -495,9 +495,9 @@
           channel_infos: JSON.stringify(channel_infos1),
           format: 'cors'
         }
-        // if (this.paymentEdit.type == 1) {
-        //   params['id'] = this.paymentEdit.id
-        // }
+        if (this.paymentEdit.type == 1) {
+          params['id'] = this.paymentEdit.id
+        }
         axios.post(`${config.host}${url}`, qs.stringify(params), {}).then((res) => {
           this.resetForm('payMentform')
           let data = res.data;
@@ -546,6 +546,7 @@
           }
           item.mchntid = i.buscid[0].mchntid
           item.termid = i.buscid[0].termid
+          item.id = i.buscid[0].id
           channelList.push(item)
         })
         return channelList
