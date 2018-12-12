@@ -288,8 +288,8 @@
         let p = {
           format: 'cors',
         }
-        axios.get(`${config.host}/org/tools/get/hk/channelinfo`, {
-        // axios.get(`/static/b.json`, {
+        // axios.get(`${config.host}/org/tools/get/hk/channelinfo`, {
+        axios.get(`/static/b.json`, {
           params: p
         })
           .then((res) => {
