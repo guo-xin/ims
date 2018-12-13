@@ -50,30 +50,30 @@ const en = {
   },
     home: {
       all: 'All',
-      title: '首页',
-      amt: 'amt',
-      cnt: 'cnt',
-      curamt: '当日交易金额',
-      curcnt: '当日交易笔数',
-      curnewmchnt: '当日新增商户',
-      curnewstore: '当日新增门店',
+      title: 'Homepage',
+      amt: 'Transaction Amount',
+      cnt: 'Total Transactions',
+      curamt: 'Current Transaction Amount',
+      curcnt: 'Current Total Transactions',
+      curnewmchnt: 'Current New Merchants',
+      curnewstore: 'Current New Stores',
       nodata: 'No Data Available',
       curve: {
-        title: '交易趋势图',
+        title: 'Trend Chart of Transaction',
       },
       bar: {
-        title: '商户交易趋势图'
+        title: 'Trend Chart of Merchants Trading'
       },
       pie: {
-        title: '通道交易分析'
+        title: 'Analysis of Channel Trading'
       },
       cumu: {
-        title: '累计数据分析',
-        totle_mount: '总交易金额',
-        totle_count: '总交易笔数',
-        totle_mchnt_num: '总商户数量',
-        totle_store_num: '总门店数量',
-        totle_agent_num: '总代理商数量'
+        title: 'Analysis of The Accumulated Data',
+        totle_mount: 'Total Transaction Amount',
+        totle_count: 'Total Transactions',
+        totle_mchnt_num: 'Total Number of Merchants',
+        totle_store_num: 'Total Number of Stores',
+        totle_agent_num: 'Total Number of Agents'
       }
     },
   authority: {
@@ -492,22 +492,22 @@ const en = {
       edit: 'Edit'
     },
     newStore: {
-      title1: '创建门店',
-      title2: '编辑门店',
+      title1: 'Create Store',
+      title2: 'Edit Store',
       model: {
-        storename: '门店名称',
-        storeaddress: '门店地址',
-        mobile: '联系电话',
-        operation: '营业时间'
+        storename: 'Store Name',
+        storeaddress: 'Store Address',
+        mobile: 'Contact Number',
+        operation: 'Business Hours'
       },
-      rule1: '请输入门店名称',
-      rule2: '请输入门店地址',
-      rule3: '请输入联系电话',
-      rule4: '请输入营业时间',
-      casher: '点击添加收银台照片',
-      warmcasher: '请上传收银台照片',
-      mustcasher: '* 必须上传收银台照片',
-      other: '点击添加补充资料照片',
+      rule1: 'Please input the name of store',
+      rule2: 'Please input the address of store',
+      rule3: 'Please input contact number',
+      rule4: 'Please input the business hours',
+      casher: 'Click to add a photo of the checkout counter',
+      warmcasher: 'Please upload a photo of the checkout counter',
+      mustcasher: '* You must upload a photo of the checkout counter',
+      other: 'Click to add a photo of supplementary information',
       warmother: ''
     }
   },
@@ -515,37 +515,37 @@ const en = {
     title: 'Audit Management',
     form: {
       mchtid: 'Merchant ID',
-      audit_state: '',
-      memo: ''
+      audit_state: 'Audit Status',
+      memo: 'Remark'
     },
     table: {
-      cate: '商户类型',
-      status: '审核状态'
+      cate: 'Type of Merchants',
+      status: 'Audit Status'
     },
-    deny: '审核拒绝',
-    succ: '审核成功',
-    fail: '审核失败',
-    going: '审核中',
+    deny: 'Audit Rejection',
+    succ: 'Audit Success',
+    fail: 'Audit Failure',
+    going: 'In Review',
     detail: {
-      title: 'Audit Log',
+      title: 'Approved Memo',
       storeInfo: {
-        title: '门店证照',
-        storename: '门店名称',
-        storeaddr: '门店地址',
-        storetel: '联系电话',
-        opertime: '营业时间'
+        title: 'License of Store',
+        storename: 'Store Name',
+        storeaddr: 'Store Address',
+        storetel: 'Contact Number',
+        opertime: 'Business Hours'
       },
       table: {
         creator: 'Operator ID',
         create_date: 'Audit Date',
-        result: 'Result',
-        memo: 'Memo'
+        result: 'Audit Result',
+        memo: 'Remark'
       },
       doit: 'Audit',
       pass: 'Pass',
       re: 'Reject',
-      msg1: 'Please input audit notes.',
-      done: 'It is done!'
+      msg1: 'Please input audit comments.',
+      done: 'Audit Completion.'
     }
   },
   batch: {

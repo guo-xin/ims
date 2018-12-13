@@ -123,6 +123,14 @@
               {
                 "y": 0,
                 "x": "18"
+              },
+              {
+                "y": 0,
+                "x": "21"
+              },
+              {
+                "y": 0,
+                "x": "24"
               }
             ],
             "key": "商户"
@@ -152,6 +160,14 @@
               {
                 "y": 0,
                 "x": "18"
+              },
+              {
+                "y": 0,
+                "x": "21"
+              },
+              {
+                "y": 0,
+                "x": "24"
               }
             ],
             "key": "门店"
@@ -218,25 +234,26 @@
           }
         ];
       },
-      drawCurveChart() {
+      drawCurveChart(d) {
         let curveChart, data;
         nv.addGraph(() => {
           curveChart = nv.models.lineChart()
-            .yDomain([0, 1000000])
-//            .xDomain(['0:00', '3:00', '6:00', '9:00', '12:00'])
             .options({
               duration: 2000,
-              useInteractiveGuideline: false,
+              useInteractiveGuideline: true,
               margin: {left: 70},
               noData: this.$t('home.nodata'),
             });
 
           curveChart.xAxis.staggerLabels(false)
             .tickFormat(function(d) {
-              if( (d % 4) === 0) {
+              if( (+d % 3) === 0) {
                 return d + ':00'
               }
           })
+          if(!d.length) {
+            curveChart.yDomain([0, 1000000])
+          }
           curveChart.yAxis.tickFormat(d3.format(',.2f'));
           data = this.sinAndCos();
 
@@ -247,7 +264,7 @@
           nv.utils.windowResize(curveChart.update);
         });
       },
-      drawBarsChart() {
+      drawBarsChart(d) {
         let barchart;
         nv.addGraph(() => {
           barchart = nv.models.multiBarChart()
@@ -255,7 +272,7 @@
               if (d.series == 0) return '#43B2FF';
               return '#7128B1'
             })
-            .yDomain([0, 10000000])
+            .yDomain([0, 1000000])
             .color(['#43B2FF', '#7128B1'])
             .duration(2000)
             .margin({bottom: 53, left: 84})
@@ -267,18 +284,17 @@
             .useInteractiveGuideline(false)
             .reduceXTicks(false).staggerLabels(false);
 
-          this.mchntstore.forEach((d) => {
-               d.values.forEach((item) => {
-                item.x = +item.x + ':00'
-             })
-          })
           barchart.xAxis
             .axisLabelDistance(35)
-            .showMaxMin(false);
+            .tickFormat(function(d) {
+              return d + ':00'
+          }).showMaxMin(false)
           barchart.yAxis
             .axisLabelDistance(-5)
             .tickFormat(d3.format('d'));
-
+//          if(!d.length) {
+//            barchart.yDomain([0, 100000])
+//          }
           d3.select('#bars svg').datum(this.mchntstore).transition().duration(2000).call(barchart);
           nv.utils.windowResize(barchart.update);
         });
@@ -339,7 +355,7 @@
               if(data.data.length) {
                 this.tradeTrends = data.data
               }
-              this.drawCurveChart()
+              this.drawCurveChart(data.data)
             } else {
               this.$message.error(data.respmsg);
             }
@@ -359,7 +375,7 @@
               if(data.data.length) {
                 this.mchntstore = data.data;
               }
-              this.drawBarsChart()
+              this.drawBarsChart(data.data)
             } else {
               this.$message.error(data.respmsg);
             }
@@ -470,7 +486,7 @@
           width: 50px;
           height: 50px;
           border-radius: 6px;
-          margin-left: 20px;
+          margin-left: 10px;
 
         }
         .amount {
