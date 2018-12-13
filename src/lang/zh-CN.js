@@ -587,7 +587,7 @@ const zh = {
     rule1: '请上传商户信息',
     rule2: '请上传照片信息',
     manual1: '1、请点击下载批量上传模板《batch merchants on-boarding.xlsx》，下载后将需要入网的商户信息汇总。',
-    manual2: '2、附件请按照命名规范命名，并放入文件夹压缩后进行上传（店内照命名规范：门店电话号-goodsphoto.jpg,店外照命名规范：门店电话号-shopphoto.jpg）。',
+    manual2: '2、附件请按照命名规范命名，并放入文件夹压缩后进行上传（门店证照命名规范：门店电话-shopphoto.jpg、门店电话-paypoint.jpg、门店电话-otherphoto.jpg、门店电话-idcardfront.jpg、门店电话-licensephoto.jpg和门店电话-goodsphoto.jpg）。',
     manual3: '3、附件中文件夹名称与压缩包名称需保持一致，如需修改名称，请先修改文件夹名称再进行压缩。'
   },
   audit: {

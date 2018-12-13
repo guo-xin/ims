@@ -139,7 +139,7 @@
                 >
                 </el-input>
             </el-form-item>
-            <el-form-item class="form_item" prop="merchChildID1" :label="$t('merchant.payment.merchantID1')">
+            <el-form-item class="form_item" prop="merchChildID1" :label="$t('merchant.payment.merchChildID1')">
                 <el-input
                   v-model="item.buscid[0].termid"
                   :disabled="item.termidSign"
@@ -174,7 +174,7 @@
                     <el-option v-for="buscid in item.buscid" :key="buscid.mchntid" :label="buscid.mchntid" :value="buscid.mchntid"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item class="form_item" :label="$t('merchant.payment.merchantID2')">
+            <el-form-item class="form_item" :label="$t('merchant.payment.merchChildID2')">
                 <el-input
                   v-model="item.mchid"
                   :disabled="paymentEdit.IsTwoTimes"

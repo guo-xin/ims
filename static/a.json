@@ -4,7 +4,7 @@
     "respmsg": "",
     "data": {
         "type": "2",
-        "datas":[ {
+        "datas":{
             "weixin": [
                 {
                     "mchntnm": "wx798f4f90c7384c24",
@@ -25,6 +25,6 @@
                     "mchntid": "2088231070720291"
                 }
             ]
-        }]
+        }
     }
 }
