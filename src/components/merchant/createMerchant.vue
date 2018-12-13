@@ -91,7 +91,7 @@
       <el-form-item prop="documentNum" :label="$t('merchant.newMerchant.form.doucumentNum')">
         <el-input 
           v-model.trim="formData.documentNum"
-          maxlength='12'
+          maxlength='15'
         ></el-input>
       </el-form-item>
 
@@ -136,8 +136,8 @@
       <h3>{{$t('merchant.newMerchant.basic.cap2')}}</h3>
       <div :label="item.name" v-for="item in radioList" :key="item.name" prop="tenpay_ratio">
         <h4>{{item.name}}</h4>
-        <el-form-item :label="fee.trade_type_name" v-for="fee in item.busicd" :key="fee.trade_type_name">
-            <el-input-number v-model.trim="fee.ratio" :precision="2" :step="0.01" :max="5"></el-input-number>
+        <el-form-item :label="fee.trade_type_name" v-for="fee in item.busicd" :error="fee.error" :key="fee.trade_type_name">
+            <el-input-number @change="ratioMinRule($event, fee.ratioMin, fee.trade_type)" v-model.trim="fee.ratio" :precision="2" :step="0.01" :min="0" :max="5"></el-input-number>
         </el-form-item>
       </div>
 
@@ -650,7 +650,7 @@
       }, false);
     },
     methods: {
-      fetchRadio(agentUid) {
+      fetchRadio(agentUid) { // 费率的接口请求
         let p = {
           format: 'cors',
         }
@@ -671,7 +671,19 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      handleNodeClick(node) {
+      ratioMinRule(value, ratioMin, trade_type) { // 费率填写提示信息的处理
+        let errorMessage = value < ratioMin ? `最低费率${ratioMin}` : ''
+        this.radioList.map((radio) => {
+          radio.busicd.map((item) => {
+            if (trade_type === item.trade_type) {
+              this.$set(item, 'error', errorMessage)
+            } else {
+              item.error = ''
+            }
+          })
+        })
+      },
+      handleNodeClick(node) { // 编辑商户的修改业务员部分
         if(node.isLeaf && Object.prototype.toString.call(node.slsm) === "[object Undefined]") {
            this.formData.sls_uid = node.uid;
            this.formData.slsm_name = node.name;
@@ -760,7 +772,7 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      selectChannel2Handler(groupid) {
+      selectChannel2Handler(groupid) { // 选择二级代理商
         this.fetchRadio(groupid)
         this.getSalesPersonList(groupid)
       },
@@ -783,7 +795,7 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      getShopTypes(mcc1) {
+      getShopTypes(mcc1) { 
         axios.get(`${config.host}/org/tools/mcc/list`, {
           params: {
             mcc: mcc1 || '',
@@ -947,7 +959,7 @@
           }
         }
       },
-      create() {
+      create() { // 创建商户的提交
         let form = {
           mchnt: {
             cate: this.formData.cate, // 注册商户的类型

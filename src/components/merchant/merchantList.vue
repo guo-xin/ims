@@ -127,26 +127,29 @@
         class="dialog merchant"
         @close="closeForm"
       >
-      <el-radio class="radioType1" v-model="radio" label="1">{{radioType1}}</el-radio>
-      <el-radio class="radioType2" v-model="radio" label="2">{{radioType2}}</el-radio>
-      <el-form v-if="radio == 1" :model="payMentform_disposable" class="dialog_form" :rules="baseRules" ref="payMentform">
-        <div v-for="item in ratioList" :key="item.type" class="ratioType">
-            <h4>{{item.name}}</h4>
+      <el-radio class="radioType1" :disabled="paymentEdit.Isradio1" v-model="radio" label="1">{{radioType1}}</el-radio>
+      <el-radio class="radioType2" :disabled="paymentEdit.Isradio2" v-model="radio" label="2">{{radioType2}}</el-radio>
+      <el-form v-if="radio == 1" class="dialog_form" ref="payMentform">
+        <div v-for="item in ratioListOne" :key="item.type" class="ratioType">
+            <h4>{{ item.name }}</h4>
             <el-form-item class="form_item" prop="merchantID1" :label="$t('merchant.payment.merchantID1')">
                 <el-input
-                  v-model="payMentform_disposable.merchantID1"
+                  v-model="item.buscid[0].mchntid"
+                  :disabled="item.mchntidSign"
                 >
                 </el-input>
             </el-form-item>
             <el-form-item class="form_item" prop="merchChildID1" :label="$t('merchant.payment.merchantID1')">
                 <el-input
-                  v-model="payMentform_disposable.merchChildID1"
+                  v-model="item.buscid[0].termid"
+                  :disabled="item.termidSign"
                 >
                 </el-input>
             </el-form-item>
             <el-form-item class="form_item" prop="merchantPass1" :label="$t('merchant.payment.merchantPass1')"> 
                 <el-input
-                  v-model="payMentform_disposable.merchantPass1"
+                  v-model="item.buscid[0].mchntnm"
+                  :disabled="item.mchntnmSign"
                 >
                 </el-input>
             </el-form-item>
@@ -157,37 +160,35 @@
         </div>
         <el-form-item class="dialog_button">
           <el-button type="text" @click="resetForm('payMentform')">{{ $t('common.CLOSE') }}</el-button>
-          <el-button v-if="paymentEdit.dialogType" type="text">{{ $t('common.SAVE') }}</el-button>
+          <el-button v-if="paymentEdit.dialogType" type="text" @click="changePayment()">{{ $t('common.SAVE') }}</el-button>
           <el-button v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
         </el-form-item>
       </el-form>
-      <el-form v-if="radio == 2" :model="payMentform_two" class="dialog_form"> 
-        <div v-for="item in ratioList" :key="item.type" class="ratioType">
-            <h4>{{item.name}}</h4>
-            <el-form-item class="form_item" prop="merchantID2" :label="$t('merchant.payment.merchantID2')">
-                <el-select v-model="payMentform_two.merchantID2">
-                    <el-option v-for="item in merchantID_list" :key="item.val" :label="item.val" :value="item.val"></el-option>
+      <el-form v-if="radio == 2" class="dialog_form" ref="payMentform"> 
+        <div v-for="item in ratioListTwo" :key="item.type" class="ratioType">
+            <h4>{{ item.name }}</h4>
+            <el-form-item class="form_item" :label="$t('merchant.payment.merchantID2')">
+                <el-select 
+                    v-model="item.PID"
+                    :disabled="paymentEdit.IsTwoTimes">
+                    <el-option v-for="buscid in item.buscid" :key="buscid.mchntid" :label="buscid.mchntid" :value="buscid.mchntid"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item class="form_item" prop="merchChildID2" :label="$t('merchant.payment.merchantID2')">
+            <el-form-item class="form_item" :label="$t('merchant.payment.merchantID2')">
                 <el-input
-                  v-model="payMentform_two.merchChildID2"
+                  v-model="item.mchid"
+                  :disabled="paymentEdit.IsTwoTimes"
                 >
                 </el-input>
             </el-form-item>
-            <el-checkbox-group class="checkbox" v-model="item.checkbox">
-              <el-checkbox v-for="fee in item.busicd" :key="fee.trade_type_name" :label="fee.trade_type_name">{{fee.trade_type_name}}
-              </el-checkbox>
-            </el-checkbox-group>
         </div>
         <el-form-item class="dialog_button">
           <el-button type="text" @click="resetForm('payMentform')">{{ $t('common.CLOSE') }}</el-button>
-          <el-button v-if="paymentEdit.dialogType" type="text">{{ $t('common.SAVE') }}</el-button>
+          <el-button v-if="paymentEdit.dialogType" type="text" @click="changePayment()">{{ $t('common.SAVE') }}</el-button>
           <el-button v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
         </el-form-item>        
       </el-form>
     </el-dialog>
-
   </div>
 </template>
 <script>
@@ -218,8 +219,8 @@
         statusList: [
           {name: this.$t('merchant.detail.up'), val: 3},
           {name: this.$t('merchant.detail.down'), val: 4},
-          {name: this.$t('merchant.detail.audit'), val: 0},
-          {name: this.$t('merchant.detail.refuse'), val: -1},
+          {name: this.$t('merchant.detail.refuse'), val: 0},
+          {name: this.$t('merchant.detail.audit'), val: -1},
         ],
         isSigned: {
           "3": this.$t('common.enable'),
@@ -250,29 +251,18 @@
             }
           ]
         },
-        payMentform_disposable: {
-            merchantID1: '',
-            merchChildID1: '',
-            merchantPass1: ''
-        },
-        payMentform_two: {
-            merchantID2: '',
-            merchChildID2: '',
-        },
-        PIDlist: [],
         paymentEdit: {
-            dialogType: true
+            dialogType: true,
+            Isradio1: false, // 控制一清的按钮是否可编辑
+            Isradio12: false, // 控制二清的按钮是否可编辑
+            IsTwoTimes: false // 控制二清的select和input框是否可编辑
         },
-        ratioList: [],
+        ratioListOne: [], // 控制一清的表单显示
+        ratioListTwo: [], // 控制二清的表单显示
         ratios: [],
         radio: "1",
         radioType1: "一清",
-        radioType2: "俩清",
-        merchantID_list: [
-          {val: '1232334'},
-          {val: '2234434'},
-          {val: '2324344'}
-        ]
+        radioType2: "二清"
       }
     },
     computed: {
@@ -283,22 +273,21 @@
     created() {
       this.fetchData()
       this.getChannelList()
-      this.fetchSelectData()
-      this.fetchRadio()
     },
     methods: {
       fetchRadio() {
         let p = {
           format: 'cors',
         }
-        // axios.get(`${config.host}/org/tools/get/ratio`, {
-        axios.get(`/static/a.json`, {
+        axios.get(`${config.host}/org/tools/get/hk/channelinfo`, {
+        // axios.get(`/static/b.json`, {
           params: p
         })
           .then((res) => {
             let data = res.data;
             if (data.respcd === config.code.OK) {
-              this.ratioList = data.data;
+              this.ratioListOne = this.changeJson(data.data.one)
+              this.ratioListTwo = this.changeJson(data.data.two)
             } else {
               this.$message.error(data.respmsg);
             }
@@ -425,38 +414,46 @@
         }
         this.fetchData()
       },
-      fetchSelectData() {
-        let p = {
-            type: "weixin",
-            format: 'cors'
-        }
-        axios.get(`${config.host}/org/tools/get/channelinfo`, { // 获取select选项中的字段
-            params: p
-        }).then((res) => {
-          this.PIDlist = res.data.data
-        })
-      },
       paymentConfigure(userid, deploy) { // 支付配置状态查看或改变
           this.paymentEdit.type = deploy
           this.paymentEdit.userid = userid
           this.centerDialogVisible = true 
-          // debugger;
           if(deploy === 0) { // 0表示未配置 edit控制select与input的可编辑状态，这里设置为可编辑，dialogType控制下方按钮的展示，这里设置为保存 
+            this.fetchRadio()
             this.paymentEdit.edit = false    
             this.paymentEdit.dialogType = true   
-            // this.$refs['payMentform'].resetFields()
           }else {
             let p = {
                 userid: userid,
                 format: 'cors'
              }
-            axios.get(`${config.host}/org/mchnt/channel/info`, {
+            axios.get(`${config.host}/org/mchnt/hk/channel/info`, {
+            // axios.get(`/static/a.json`, {
               params: p
             }).then((res) => {
-              let data = res.data.data[0]
-              this.payMentform.termid = data.termid
-              this.payMentform.mchntid = data.mchntid
-              this.paymentEdit.id = data.id
+              let data = res.data.data
+              this.radio = data.type
+              let deployDetails = []
+              let keys = Object.keys(data.datas)
+              let values = Object.values(data.datas)
+              for(let i = 0 ;i < keys.length; i++){
+                let item = {}
+                item.name = keys[i]
+                item.buscid = values[i]
+                item.mchntidSign = true
+                item.termidSign = true
+                item.mchntnmSign = true
+                deployDetails.push(item)
+              }
+              if(data.type == 1) {
+                this.paymentEdit.Isradio2 = true
+                this.ratioListOne = deployDetails
+              } else if(data.type == 2) {
+                this.paymentEdit.Isradio1 = true
+                this.paymentEdit.IsTwoTimes = true
+                this.ratioListTwo = deployDetails
+                this.revalue(this.ratioListTwo, deployDetails)
+              }
               this.paymentEdit.edit = true
               this.paymentEdit.dialogType = false
             })
@@ -465,42 +462,100 @@
       editStatus() { // 将对话框的状态改为可编辑
         this.paymentEdit.edit = false
         this.paymentEdit.dialogType = true
+        if(this.radio == 1) {
+          this.changeStatus(this.ratioListOne)
+        }else {
+          this.paymentEdit.IsTwoTimes = false
+        }
       },
       resetForm(payMentform) {
+          this.paymentEdit.Isradio1 = false
+          this.paymentEdit.Isradio2 = false
+          this.paymentEdit.IsTwoTimes = false
           this.centerDialogVisible = false
       },
       closeForm() {
-          this.payMentform = {
-              mchntid: '',
-              termid: ''
-          }
+          this.paymentEdit.Isradio1 = false
+          this.paymentEdit.Isradio2 = false
+          this.paymentEdit.IsTwoTimes = false
           this.$refs['payMentform'].resetFields()
       },
       changePayment(payMentform) { // 保存用户支付配置的信息
-        this.$refs[payMentform].validate((valid) => {
-            if(valid) {
-                let url = this.paymentEdit.type == 0 ? ('/org/mchnt/channel/bind') : ('/org/mchnt/channel/edit')
-                let params = {
-                  userid: this.paymentEdit.userid,
-                  mchntid: this.payMentform.mchntid,
-                  termid: this.payMentform.termid,
-                  format: 'cors'
-                }
-                if (this.paymentEdit.type == 1) {
-                  params['id'] = this.paymentEdit.id
-                }
-                axios.post(`${config.host}${url}`, qs.stringify(params), {}).then((res) => {
-                  this.resetForm('payMentform')
-                  let data = res.data;
-                  if (data.respcd === config.code.OK) {
-                    this.fetchData();
-                    let messageTip = this.paymentEdit.type == 0 ? this.$t('common.createSuccess') : this.$t('common.updateSuccess');
-                    this.$message.success(messageTip);
-                  } else {
-                    this.$message.error(data.respmsg);
-                  }
-                })
+        // debugger
+        let url = this.paymentEdit.type == 0 ? ('/org/mchnt/hk/channel/bind') : ('/org/mchnt/hk/channel/edit')
+        let channel_infos1 = []
+        if(this.radio == 1) {
+          channel_infos1 = this.channelsValue(this.ratioListOne)
+        }else {
+          channel_infos1 = this.channelsValue(this.ratioListTwo)
+        }
+        let params = {
+          userid: this.paymentEdit.userid,
+          type: this.radio,
+          channel_infos: JSON.stringify(channel_infos1),
+          format: 'cors'
+        }
+        if (this.paymentEdit.type == 1) {
+          params['id'] = this.paymentEdit.id
+        }
+        axios.post(`${config.host}${url}`, qs.stringify(params), {}).then((res) => {
+          this.resetForm('payMentform')
+          let data = res.data;
+          if (data.respcd === config.code.OK) {
+            this.fetchData();
+            let messageTip = this.paymentEdit.type == 0 ? this.$t('common.createSuccess') : this.$t('common.updateSuccess');
+            this.$message.success(messageTip);
+          } else {
+            this.$message.error(data.respmsg);
+          }
+        })
+      },
+      changeJson(jsonA) { // 支付配置的接口数据返回比较难直接用，所以在此做了结构的修改
+        let list = []
+        jsonA.forEach(function(i){
+            let item = {}
+            item.PID = ""
+            item.mchid = ""
+            item.buscid = Object.values(i)[0]
+            item.name = Object.keys(i)[0]
+            item.mchntidSign = Object.values(i)[0][0].mchntid !== ''
+            item.termidSign = Object.values(i)[0][0].termid !== ''
+            item.mchntnmSign = Object.values(i)[0][0].mchntnm !== ''
+            list.push(item)
+        })
+        return list        
+      },
+      revalue(a, b) { // 为支付配置赋值
+          for(let i of a) {
+            for(let j of b) {
+              if(j['name'] === i['name']) {
+                i['PID'] = j['buscid'][0].mchntid;
+                i['mchid'] = j['buscid'][0].termid
+              }
             }
+          }
+      },
+      channelsValue(c) { // 支付配置提交的通道配置信息结构需要进行处理
+        let channelList = []
+        c.forEach(function(i) {
+          let item = {}
+          item.chnl_name = i.name
+          item.chnl_id = i.buscid[0].chnlid
+          if(i.buscid[0].key1) {
+            item.key1 = i.buscid[0].key1
+          }
+          item.mchntid = i.buscid[0].mchntid
+          item.termid = i.buscid[0].termid
+          item.id = i.buscid[0].id
+          channelList.push(item)
+        })
+        return channelList
+      },
+      changeStatus(jsonB) { // 支付配置点击编辑的时候改变input的disabled的状态
+        jsonB.forEach(function(i) {
+           i.mchntidSign = false
+           i.termidSign = false
+           i.mchntnmSign = false
         })
       }
     }
@@ -529,7 +584,7 @@
       .dialog_form {
         margin-left: 15px;
         .form_item {
-          width: 200px;
+          width: 180px;
           height: 40px;
           padding: 0;
           .el-input {
