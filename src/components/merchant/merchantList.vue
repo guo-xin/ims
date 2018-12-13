@@ -102,8 +102,8 @@
 
       <el-table-column :label="$t('merchant.table.payment')" width="150">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.deploy == 1" type="text" @click.stop="paymentConfigure(scope.row.userid,scope.row.deploy)">{{ $t('merchant.payment.configured') }}</el-button>
-          <el-button v-else type="text" @click.stop="paymentConfigure(scope.row.userid,scope.row.deploy)">{{ $t('merchant.payment.nonconfigured') }}</el-button>
+          <el-button :disabled="scope.row.status !== 3" v-if="scope.row.deploy == 1" type="text" @click.stop="paymentConfigure(scope.row.userid,scope.row.deploy)">{{ $t('merchant.payment.configured') }}</el-button>
+          <el-button :disabled="scope.row.status !== 3" v-else type="text" @click.stop="paymentConfigure(scope.row.userid,scope.row.deploy)">{{ $t('merchant.payment.nonconfigured') }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -169,14 +169,14 @@
             <h4>{{ item.name }}</h4>
             <el-form-item class="form_item" :label="$t('merchant.payment.merchantID2')">
                 <el-select 
-                    v-model="item.PID"
+                    v-model="item.buscid[0].mchntid"
                     :disabled="paymentEdit.IsTwoTimes">
                     <el-option v-for="buscid in item.buscid" :key="buscid.mchntid" :label="buscid.mchntid" :value="buscid.mchntid"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item class="form_item" :label="$t('merchant.payment.merchChildID2')">
                 <el-input
-                  v-model="item.mchid"
+                  v-model="item.buscid[0].termid"
                   :disabled="paymentEdit.IsTwoTimes"
                 >
                 </el-input>
@@ -475,10 +475,11 @@
           this.centerDialogVisible = false
       },
       closeForm() {
+          this.radio = 1
           this.paymentEdit.Isradio1 = false
           this.paymentEdit.Isradio2 = false
           this.paymentEdit.IsTwoTimes = false
-          this.$refs['payMentform'].resetFields()
+          // this.$refs['payMentform'].resetFields()
       },
       changePayment(payMentform) { // 保存用户支付配置的信息
         // debugger
@@ -514,8 +515,6 @@
         let list = []
         jsonA.forEach(function(i){
             let item = {}
-            item.PID = ""
-            item.mchid = ""
             item.buscid = Object.values(i)[0]
             item.name = Object.keys(i)[0]
             item.mchntidSign = Object.values(i)[0][0].mchntid !== ''
