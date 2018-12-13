@@ -293,7 +293,6 @@
             .axisLabelDistance(-5)
             .tickFormat(d3.format('d'));
           let flag = false;
-          console.log(d)
           d.forEach((item) => {
              flag = _.every(item.values, {y: 0})
           })
@@ -322,7 +321,7 @@
               return d.cnt
             })
             .height(360)
-            .duration(3000)
+            .duration(1000)
             .margin({top: 0, left: 0})
             .padAngle(0.02)
             .donut(1)
@@ -343,7 +342,7 @@
           }
           d3.select("#pie svg")
             .datum(this.channelTrends)
-            .transition().duration(3000)
+            .transition().duration(1000)
             .call(piechart);
           nv.utils.windowResize(piechart.update)
         });
