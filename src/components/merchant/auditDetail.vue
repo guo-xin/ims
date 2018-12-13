@@ -12,12 +12,34 @@
 
       <el-row>
         <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la1')}}</span>
+          <span class="basic-content">{{form.qdinfo.qd_name}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la2')}}</span>
+          <span class="basic-content">{{form.qdinfo.slsm_name}}</span>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la3')}}</span>
           <span class="basic-content">{{form.userinfo.shopname}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la4')}}</span>
           <span class="basic-content">{{cate[form.userinfo.cate]}}</span>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la5')}}</span>
+          <span class="basic-content">{{form.userinfo.mcc_str}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la6')}}</span>
+          <span class="basic-content">{{isSigned[form.userinfo.status]}}</span>
         </el-col>
       </el-row>
 
@@ -51,8 +73,8 @@
           <span class="basic-content">{{form.userinfo.email}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la5')}}</span>
-          <span class="basic-content">{{form.userinfo.mcc_str}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la12')}}</span>
+          <span class="basic-content">{{form.userinfo.address}}</span>
         </el-col>
       </el-row>
 
@@ -75,13 +97,6 @@
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la16')}}</span>
           <span class="basic-content">{{form.userinfo.ci_expire_time}}</span>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la12')}}</span>
-          <span class="basic-content">{{form.userinfo.address}}</span>
         </el-col>
       </el-row>
     </section>
@@ -245,6 +260,12 @@
         banktype: {
           "1": this.$t('common.privata'),
           "2": this.$t('common.pub')
+        },
+        isSigned: {
+          "3": this.$t('common.enable'),
+          "4": this.$t('common.disable'),
+          "-1": this.$t('common.audit'),
+          "0": this.$t('common.refuse')
         },
         status: {
           '0': this.$t('audit.deny'),

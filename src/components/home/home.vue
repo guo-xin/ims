@@ -84,6 +84,7 @@
   import * as d3 from 'd3';
   import config from 'config'
   import axios from 'axios';
+  import _ from 'lodash';
   require('../../assets/js/zChart.js');
 
   export default {
@@ -252,7 +253,7 @@
               }
           })
           if(!d.length) {
-            curveChart.yDomain([0, 1000000])
+            curveChart.yDomain([0, 100000])
           }
           curveChart.yAxis.tickFormat(d3.format(',.2f'));
           data = this.sinAndCos();
@@ -272,7 +273,6 @@
               if (d.series == 0) return '#43B2FF';
               return '#7128B1'
             })
-            .yDomain([0, 1000000])
             .color(['#43B2FF', '#7128B1'])
             .duration(2000)
             .margin({bottom: 53, left: 84})
@@ -292,9 +292,14 @@
           barchart.yAxis
             .axisLabelDistance(-5)
             .tickFormat(d3.format('d'));
-//          if(!d.length) {
-//            barchart.yDomain([0, 100000])
-//          }
+          let flag = false;
+          console.log(d)
+          d.forEach((item) => {
+             flag = _.every(item.values, {y: 0})
+          })
+          if(flag) {
+            barchart.yDomain([0, 100000])
+          }
           d3.select('#bars svg').datum(this.mchntstore).transition().duration(2000).call(barchart);
           nv.utils.windowResize(barchart.update);
         });
@@ -456,17 +461,19 @@
       .item {
         height: 80px;
         margin-left: 16px;
+        padding-right:10px;
         background: rgba(255, 255, 255, 1);
         box-shadow: 2px 6px 8px 0px rgba(142, 169, 190, 0.1);
         border-radius: 8px;
         align-items: center;
         display: -webkit-flex;
+        justify-content: space-between;
+        -webkit-justify-content: space-between;
         .left-num, .badge {
           display: inline-block;
         }
         .left-num {
-          padding: 10px 0px 10px 20px;
-          width: 174px;
+          padding: 10px 0 10px 20px;
           .title {
             font-size: 14px;
             font-weight: 400;
@@ -523,7 +530,6 @@
     }
     .bars-title,.curve-title,.pie-title {
       position: absolute;
-      width:261px;
       height:24px;
       font-size:24px;
       font-weight:bold;
