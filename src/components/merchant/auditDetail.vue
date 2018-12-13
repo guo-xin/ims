@@ -158,7 +158,7 @@
         <div class="title">{{$t('audit.detail.title')}}</div>
         <div class="divider"></div>
       </div>
-      <el-table :data="audit_logs" stripe v-loading="isLoading">
+      <el-table :data="audit_logs" stripe>
         <el-table-column prop="create_user" :label="$t('audit.detail.table.creator')">
           <template slot-scope="scope">
             {{ scope.row.create_user }}
@@ -245,12 +245,6 @@
         banktype: {
           "1": this.$t('common.privata'),
           "2": this.$t('common.pub')
-        },
-        isSigned: {
-          "3": this.$t('common.enable'),
-          "4": this.$t('common.disable'),
-          "-1": this.$t('common.audit'),
-          "0": this.$t('common.refuse')
         },
         status: {
           '0': this.$t('audit.deny'),

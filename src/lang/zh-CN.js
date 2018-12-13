@@ -49,6 +49,7 @@ const zh = {
     EDIT: '编辑'
   },
   home: {
+    all: '全部',
     title: '首页',
     amt: '交易金额',
     cnt: '交易笔数',
@@ -600,14 +601,14 @@ const zh = {
       cate: '商户类型',
       status: '审核状态'
     },
-    deny: '审核拒绝',
+    deny: '驳回',
     succ: '审核成功',
     fail: '审核失败',
-    going: '审核中',
+    going: '待审核',
     detail: {
       title: '审核记录',
       storeInfo: {
-        title: '门店证照',
+        title: '证照信息',
         storename: '门店名称',
         storeaddr: '门店地址',
         storetel: '联系电话',

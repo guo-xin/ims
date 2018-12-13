@@ -22,7 +22,8 @@
 
       <el-form-item :label="$t('audit.form.audit_state')" prop="audit_status">
         <el-select v-model="formData.audit_status">
-          <el-option :label="item.val" :value="item.key" v-for="item in audits" :key="item.key"></el-option>
+          <el-option label="待审核" :value="-1"></el-option>
+          <el-option label="驳回" :value="0"></el-option>
         </el-select>
       </el-form-item>
 
@@ -32,7 +33,7 @@
       </div>
     </el-form>
 
-    <el-table :data="merchents" stripe  @current-change="selectCurrentRowHandler" v-loading="isLoading">
+    <el-table :data="audits" stripe  @current-change="selectCurrentRowHandler" v-loading="isLoading">
       <el-table-column prop="userid" :label="$t('merchant.table.mchtid')">
         <template slot-scope="scope">
           {{ scope.row.userid }}
@@ -77,13 +78,13 @@
 
       <el-table-column prop="audit_status_str" :label="$t('audit.table.status')" align="center">
         <template slot-scope="scope">
-          {{ status[scope.row.status] }}
+          {{ status[String(scope.row.status)] }}
         </template>
       </el-table-column>
     </el-table>
 
     <el-pagination
-      v-show="merchents.length > 0"
+      v-show="audits.length > 0"
       layout="total, sizes, prev, pager, next, jumper"
       :page-size="pageSize"
       @size-change="handleSizeChange"
@@ -115,11 +116,8 @@
         },
         status: {
           '0': this.$t('audit.deny'),
-          '1': this.$t('audit.succ'),
-          '2': this.$t('audit.fail'),
-          '-1': this.$t('audit.going'),
+          "-1": this.$t('audit.going'),
         },
-        merchents: [],
         channels: [],
         channels2: [],
         audits: [],
@@ -131,27 +129,8 @@
     created() {
       this.fetchData()
       this.getChannelList()
-      this.getAuditList()
     },
     methods: {
-      getAuditList() {
-        axios.get(`${config.host}/org/tools/audit_status_map`, {
-          params: {
-            format: 'cors'
-          }})
-          .then((res) => {
-            let data = res.data;
-            this.isLoading = false;
-            if (data.respcd === config.code.OK) {
-              this.audits = data.data;
-            } else {
-              this.$message.error(data.respmsg);
-            }
-          }).catch(() => {
-          this.isLoading = false;
-          this.$message.error(this.$t('common.netError'));
-        });
-      },
       getChannelList() { // 获取渠道列表
         axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
@@ -215,7 +194,7 @@
             let data = res.data;
             this.isLoading = false;
             if (data.respcd === config.code.OK) {
-              this.merchents = data.data.mchnt_infos
+              this.audits = data.data.mchnt_infos
               this.total = data.data.mchnt_cnt
             } else {
               this.$message.error(data.respmsg);

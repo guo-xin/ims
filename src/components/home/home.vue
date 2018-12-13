@@ -95,9 +95,75 @@
           trade_amt: 0,
           trade_cnt: 0
         },
-        tradeTrends: [],
-        mchntstore: [],
-        channelTrends: [],
+        tradeTrends: [
+        ],
+        mchntstore: [
+          {
+            "values": [
+              {
+                "y": 0,
+                "x": "03"
+              },
+              {
+                "y": 0,
+                "x": "06"
+              },
+              {
+                "y": 0,
+                "x": "09"
+              },
+              {
+                "y": 0,
+                "x": "12"
+              },
+              {
+                "y": 0,
+                "x": "15"
+              },
+              {
+                "y": 0,
+                "x": "18"
+              }
+            ],
+            "key": "商户"
+          },
+          {
+            "values": [
+              {
+                "y": 0,
+                "x": "03"
+              },
+              {
+                "y": 0,
+                "x": "06"
+              },
+              {
+                "y": 0,
+                "x": "09"
+              },
+              {
+                "y": 0,
+                "x": "12"
+              },
+              {
+                "y": 0,
+                "x": "15"
+              },
+              {
+                "y": 0,
+                "x": "18"
+              }
+            ],
+            "key": "门店"
+          }
+        ],
+        channelTrends: [
+          {
+            "cnt": "100",
+            "name": this.$t('home.all'),
+            "trade": "all"
+          }
+        ],
         total: {
           total_amt: 0,
           total_cnt: 0,
@@ -108,6 +174,7 @@
       }
     },
     created() {
+      this.createCurveInitData();
     },
     mounted() {
       this.getCurrentData();
@@ -117,6 +184,17 @@
       this.getTotalData()
     },
     methods: {
+      createCurveInitData() {
+        for(let i = 1; i <= 24; i++ ) {
+          this.tradeTrends.push(
+            {
+              "cnt": 0,
+              "amt": 0,
+              "time": "0" + i
+            }
+          )
+        }
+      },
       sinAndCos() {
         let sin = [], cos = [];
 //        for (var i = 0; i < 100; i++) {
@@ -124,8 +202,8 @@
 //          cos.push({x: i, y: 0.5 * Math.cos(i / 10)});
 //        }
         this.tradeTrends.forEach((v, i) => {
-           sin.push({x: v.time, y: +v.amt})
-           cos.push({x: v.time, y: +v.cnt});
+           sin.push({x: +v.time, y: v.amt})
+           cos.push({x: +v.time, y: v.cnt});
         })
         return [
           {
@@ -144,19 +222,24 @@
         let curveChart, data;
         nv.addGraph(() => {
           curveChart = nv.models.lineChart()
+            .yDomain([0, 1000000])
+//            .xDomain(['0:00', '3:00', '6:00', '9:00', '12:00'])
             .options({
               duration: 2000,
-              useInteractiveGuideline: true,
+              useInteractiveGuideline: false,
               margin: {left: 70},
-              noData: this.$t('home.nodata')
-            })
-          ;
+              noData: this.$t('home.nodata'),
+            });
+
           curveChart.xAxis.staggerLabels(false)
-          ;
-          curveChart.yAxis
-            .tickFormat(d3.format(',.2f'))
-          ;
+            .tickFormat(function(d) {
+              if( (d % 4) === 0) {
+                return d + ':00'
+              }
+          })
+          curveChart.yAxis.tickFormat(d3.format(',.2f'));
           data = this.sinAndCos();
+
           d3.select('#curves svg')
             .datum(data)
             .transition().duration(2000)
@@ -172,6 +255,7 @@
               if (d.series == 0) return '#43B2FF';
               return '#7128B1'
             })
+            .yDomain([0, 10000000])
             .color(['#43B2FF', '#7128B1'])
             .duration(2000)
             .margin({bottom: 53, left: 84})
@@ -180,9 +264,14 @@
             .showLegend(true)
             .groupSpacing(0.5)
             .stacked(false)
-            .useInteractiveGuideline(true)
+            .useInteractiveGuideline(false)
             .reduceXTicks(false).staggerLabels(false);
 
+          this.mchntstore.forEach((d) => {
+               d.values.forEach((item) => {
+                item.x = +item.x + ':00'
+             })
+          })
           barchart.xAxis
             .axisLabelDistance(35)
             .showMaxMin(false);
@@ -212,6 +301,7 @@
               return d.cnt
             })
             .height(360)
+            .duration(3000)
             .margin({top: 0, left: 0})
             .padAngle(0.02)
             .donut(1)
@@ -222,9 +312,14 @@
             .showLabels(1)
             .labelsOutside(1)
             .labelSunbeamLayout(0)
-            .noData(this.$t('home.nodata'))
-//            .legend({width: '70px', position: {right: 20}, align: 'center'})
+            .noData(this.$t('home.nodata'));
 
+          if(this.channelTrends.length === 1) {
+            piechart.color(['gray']);
+            piechart.showLabels(0);
+          }else {
+            piechart.color(['#0D7FF5', '#5C0AA3', '#FF0E4F', '#FFA2BB', '#01C5F1'])
+          }
           d3.select("#pie svg")
             .datum(this.channelTrends)
             .transition().duration(3000)
@@ -241,7 +336,9 @@
           .then((res) => {
             let data = res.data;
             if (data.respcd === config.code.OK) {
-              this.tradeTrends = data.data
+              if(data.data.length) {
+                this.tradeTrends = data.data
+              }
               this.drawCurveChart()
             } else {
               this.$message.error(data.respmsg);
@@ -259,7 +356,9 @@
           .then((res) => {
             let data = res.data;
             if (data.respcd === config.code.OK) {
-              this.mchntstore = data.data;
+              if(data.data.length) {
+                this.mchntstore = data.data;
+              }
               this.drawBarsChart()
             } else {
               this.$message.error(data.respmsg);

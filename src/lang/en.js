@@ -49,9 +49,10 @@ const en = {
     EDIT: 'EDIT'
   },
     home: {
+      all: 'All',
       title: '首页',
-      amt: '交易金额',
-      cnt: '交易笔数',
+      amt: 'amt',
+      cnt: 'cnt',
       curamt: '当日交易金额',
       curcnt: '当日交易笔数',
       curnewmchnt: '当日新增商户',
