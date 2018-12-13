@@ -591,7 +591,7 @@ const zh = {
     manual3: '3、附件中文件夹名称与压缩包名称需保持一致，如需修改名称，请先修改文件夹名称再进行压缩。'
   },
   audit: {
-    title: '审核管理',
+    title: '商户审核',
     form: {
       mchtid: '商户ID',
       audit_state: '审核状态',
