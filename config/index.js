@@ -23,7 +23,9 @@ module.exports = {
       NODE_ENV: '"development"'
     },
     // Various Dev Server settings
-    host: '127.0.0.1', // can be overwritten by process.env.HOST
+    // host: '127.0.0.1', // can be overwritten by process.env.HOST
+    // host: '172.100.108.253',
+    host: '0.0.0.0',
     port: 80, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,

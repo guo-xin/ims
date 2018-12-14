@@ -151,7 +151,7 @@
       </el-form-item>
 
       <el-form-item prop="bankaccount" :label="$t('merchant.newMerchant.form.accountH')">
-        <el-input v-model.trim="formData.bankaccount"></el-input>
+        <el-input v-model.trim="formData.bankaccount" @change="GetRemit"></el-input>
       </el-form-item>
 
       <el-form-item prop="bankProvince" :label="$t('merchant.newMerchant.form.accountAddress')">
@@ -161,6 +161,7 @@
       <el-form-item prop="remit_amt" :label="$t('merchant.newMerchant.form.moneySettment')">
         <el-input 
           v-model.trim="formData.remit_amt"
+          :disabled="IsRemit"
           maxlength='5'></el-input>
       </el-form-item>
     </el-form>
@@ -420,6 +421,7 @@
         shopphotoloading: false,
         isUpdate: false,
         isStatus: false,
+        IsRemit: false,
         active: 0, // 当前步骤,
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
         qd_uid: '', // 所有代理商id
@@ -569,7 +571,7 @@
           ],
           'bankuser': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule15')},
-            {max: 25, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule7'), trigger: 'blur'}
+            {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule7'), trigger: 'blur'}
           ],
           'headbankname': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule16')},
@@ -610,6 +612,9 @@
           'shopnameT': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule20'), trigger: 'blur'},
           ],
+          'addressT': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule21'), trigger: 'blur'},
+          ],
           'telephoneT': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule22'), trigger: 'blur'},
             {
@@ -621,6 +626,9 @@
                 }
               }
             }
+          ],
+          'operatingT': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule23'), trigger: 'blur'},
           ]
         },
         radioList: []
@@ -1112,6 +1120,24 @@
           }
         }
         return e
+      },
+      GetRemit() { // 根据银行账号获得
+        axios.get(`${config.host}/org/tools/remit_amt`, {
+          params: {
+            bankaccount: this.formData.bankaccount,
+            format: 'cors'
+          }
+        }).then((res) => {
+          let data = res.data
+          if(data.respcd === config.code.OK) {
+            this.formData.remit_amt = data.data.remit_amt
+            if(data.data.remit_amt !== "") {
+              this.IsRemit = true
+            }
+          }else {
+            this.$message.error(data.respmsg);
+          }
+        })
       }
     }
   }

@@ -127,29 +127,29 @@
         class="dialog merchant"
         @close="closeForm"
       >
-      <el-radio class="radioType1" :disabled="paymentEdit.Isradio1" v-model="radio" label="1">{{radioType1}}</el-radio>
-      <el-radio class="radioType2" :disabled="paymentEdit.Isradio2" v-model="radio" label="2">{{radioType2}}</el-radio>
+      <el-radio class="radioType1" :disabled="paymentEdit.Isradio1" v-model="radio" label="1">{{$t('merchant.payment.radio1')}}</el-radio>
+      <el-radio class="radioType2" :disabled="paymentEdit.Isradio2" v-model="radio" label="2">{{$t('merchant.payment.radio2')}}</el-radio>
       <el-form v-if="radio == 1" class="dialog_form" ref="payMentform">
         <div v-for="item in ratioListOne" :key="item.type" class="ratioType">
             <h4>{{ item.name }}</h4>
             <el-form-item class="form_item" prop="merchantID1" :label="$t('merchant.payment.merchantID1')">
                 <el-input
                   v-model="item.buscid[0].mchntid"
-                  :disabled="item.mchntidSign"
+                  :disabled="paymentEdit.IsPayment"
                 >
                 </el-input>
             </el-form-item>
             <el-form-item class="form_item" prop="merchChildID1" :label="$t('merchant.payment.merchChildID1')">
                 <el-input
                   v-model="item.buscid[0].termid"
-                  :disabled="item.termidSign"
+                  :disabled="paymentEdit.IsPayment"
                 >
                 </el-input>
             </el-form-item>
             <el-form-item class="form_item" prop="merchantPass1" :label="$t('merchant.payment.merchantPass1')"> 
                 <el-input
                   v-model="item.buscid[0].mchntnm"
-                  :disabled="item.mchntnmSign"
+                  :disabled="paymentEdit.IsPayment"
                 >
                 </el-input>
             </el-form-item>
@@ -255,12 +255,13 @@
             dialogType: true,
             Isradio1: false, // 控制一清的按钮是否可编辑
             Isradio12: false, // 控制二清的按钮是否可编辑
+            IsPayment: false, // 控制一清的输入框是否可编辑
             IsTwoTimes: false // 控制二清的select和input框是否可编辑
         },
         ratioListOne: [], // 控制一清的表单显示
         ratioListTwo: [], // 控制二清的表单显示
         ratios: [],
-        radio: "1",
+        radio: "2",
         radioType1: "一清",
         radioType2: "二清"
       }
@@ -440,12 +441,10 @@
                 let item = {}
                 item.name = keys[i]
                 item.buscid = values[i]
-                item.mchntidSign = true
-                item.termidSign = true
-                item.mchntnmSign = true
                 deployDetails.push(item)
               }
               if(data.type == 1) {
+                this.paymentEdit.IsPayment = true
                 this.paymentEdit.Isradio2 = true
                 this.ratioListOne = deployDetails
               } else if(data.type == 2) {
@@ -463,7 +462,7 @@
         this.paymentEdit.edit = false
         this.paymentEdit.dialogType = true
         if(this.radio == 1) {
-          this.changeStatus(this.ratioListOne)
+          this.paymentEdit.IsPayment = false
         }else {
           this.paymentEdit.IsTwoTimes = false
         }
@@ -471,11 +470,12 @@
       resetForm(payMentform) {
           this.paymentEdit.Isradio1 = false
           this.paymentEdit.Isradio2 = false
+          this.paymentEdit.IsPayment = false
           this.paymentEdit.IsTwoTimes = false
           this.centerDialogVisible = false
       },
       closeForm() {
-          this.radio = 1
+          this.radio = 2
           this.paymentEdit.Isradio1 = false
           this.paymentEdit.Isradio2 = false
           this.paymentEdit.IsTwoTimes = false
@@ -517,9 +517,6 @@
             let item = {}
             item.buscid = Object.values(i)[0]
             item.name = Object.keys(i)[0]
-            item.mchntidSign = Object.values(i)[0][0].mchntid !== ''
-            item.termidSign = Object.values(i)[0][0].termid !== ''
-            item.mchntnmSign = Object.values(i)[0][0].mchntnm !== ''
             list.push(item)
         })
         return list        
@@ -549,13 +546,6 @@
           channelList.push(item)
         })
         return channelList
-      },
-      changeStatus(jsonB) { // 支付配置点击编辑的时候改变input的disabled的状态
-        jsonB.forEach(function(i) {
-           i.mchntidSign = false
-           i.termidSign = false
-           i.mchntnmSign = false
-        })
       }
     }
   }
@@ -581,21 +571,22 @@
         margin-left: 20px;
       }      
       .dialog_form {
-        margin-left: 15px;
+        margin-left: 2%;
         .form_item {
-          width: 180px;
-          height: 40px;
+          width: 29%;
+          height: 11%;
           padding: 0;
+          margin-right: 4%;
           .el-input {
-            width: 200px;
+            width: 100%;
           }
         }
         .checkbox {
           margin-top: 20px;
         }
         .dialog_button {
-          margin-left: 80%;
-          margin-top: 30px;
+          margin-left: 75%;
+          margin-top: 2%;
         }
       }
       h4 {

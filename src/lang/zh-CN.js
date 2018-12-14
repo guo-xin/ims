@@ -245,6 +245,8 @@ const zh = {
       merchantPass1: '商户秘钥',
       merchantID2: '通道商号',
       merchChildID2: '通道子商户号',
+      radio1: '一清',
+      radio2: '二清',
       rule1: "请选择商户号",
       rule2: "请输入子商户号",
       rule3: "请输入商户秘钥"
@@ -377,12 +379,6 @@ const zh = {
         doucumentNum: '证件编号',
         industry: '行业类别',
         addressT: '商户地址',
-        wechatPro: '微信主扫',
-        wechatPas: '微信被扫',
-        wechatPub: '微信公众号',
-        alipayPro: '支付宝主扫',
-        alipayPas: '支付宝被扫',
-        alipaypub: '支付宝公众号',
         accountName: '开户名称',
         accountType: '开户行',
         accountH: '银行账号',
@@ -564,7 +560,7 @@ const zh = {
     }
   },
   batch: {
-    title: '批量创建jiang',
+    title: '批量创建',
     t1: '批量导入',
     tip: {
       txt: '* 请按照固定格式上传商户资料，请参考',

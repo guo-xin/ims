@@ -18,6 +18,8 @@ const en = {
     done: 'Carry out',
     close: 'Close',
     search: 'Search',
+    audit: 'Under Approval',
+    refuse: 'Reject',
     add: 'Add',
     reset: 'Reset',
     loading: 'Loading...',
@@ -238,6 +240,7 @@ const en = {
       audit_state: 'Merchant Status'
     },
     table: {
+      detail: 'Detail',
       mchtid: 'Merchant ID',
       mchtname: 'Merchant Name',
       address: 'Address',
@@ -249,7 +252,7 @@ const en = {
       merstatus: 'Merchant Status',
       state: 'Status',
       store: 'Store',
-      payment: 'Payment setting',
+      payment: 'Payment Setting',
       pid: 'Alipay service provider ID',
       wechatM: 'WeChat official account ID',
       wechatpay: 'WeChat Pay'
@@ -257,13 +260,20 @@ const en = {
     payment: {
       configured: "Configured",
       nonconfigured: "Non-configured",
-      rule1: "Alipay service provider ID is required",
-      rule2: "WeChat official account ID is required",
-      rule3: "Type must be digital"
+      radio1: 'First clean',
+      radio2: 'Second clean',
+      merchantID2: 'Trade Name of Service',
+      merchChildID2: 'Channel Sub-Merchant No.',
+      merchantID1: 'Merchant No.',
+      merchChildID1: 'Sub-Merchant No.',
+      merchantPass1: 'Merchant key'
+      
     },
     detail: {
       up: 'Activate',
       down: 'Deactivate',
+      refuse: 'Reject',
+      audit: 'Under Approval',
       redit: 'Continue To Edit',
       cate: {
         merchant: 'Merchant',
@@ -283,26 +293,29 @@ const en = {
         title: 'Detail Info',
         close: 'Close',
         subtitle: 'Basic Info',
+        paymenttitle: 'Payment Channels Info',
         bd: 'Description:',
-        la1: 'Merchant Category:',
-        la2: 'Industry:',
+        la1: 'Channels Belongs:',
+        la2: 'Agent Name:',
         la3: 'Merchant Name:',
-        la4: 'Agent Name:',
-        la5: 'Address:',
-        la6: 'Sales Rep.:',
+        la4: 'Merchant Category:',
+        la5: 'Industry:',
+        la6: 'Status:',
         la7: 'Contact Name:',
-        la8: 'E-mail Address:',
-        la9: 'Status:',
-        la10: 'Established Date:',
-        la11: 'Company Name:',
+        la8: 'Telephone:',
+        la9: 'Certificate Type:',
+        la10: 'Certificate Number:',
+        la11: 'Post Code:',
         la12: 'Address:',
-        la13: 'Area:',
-        la14: 'Post Code:',
-        la15: 'Agreement Signed (Yes/No):',
-        la16: 'Settlement Period:',
-        la17: 'Sales Contact Number:',
-        la18: 'Contact Number:',
-        la19: 'Business Registration Number (UEN):'
+        la13: 'BR Number:',
+        la14: 'BR Validity:',
+        la15: 'CI Number:',
+        la16: 'CI Validity:',
+        la17: 'Account Name:',
+        la18: 'Bank Name:',
+        la19: 'Bank Account:',
+        la20: 'Bank Address:',
+        la21: 'Starting Point of Settlement Fund:'
       },
       shop: {
         subtitle: 'Shop Info',
@@ -311,6 +324,7 @@ const en = {
         la3: 'Uploaded Photos:'
       },
       rates: {
+        setitle: 'Billing Info',
         subtitle: 'MDR Info',
         wechat: 'MDR:',
         ali: 'Alipay:'
@@ -338,7 +352,9 @@ const en = {
       step3: 'Company Info',
       basic: {
         cap1: 'Basic Info',
-        cap2: 'MDR Info',
+        cap2: 'Payment Channels Info',
+        cap3: 'Billing Info',
+        cap4: 'Store license'
       },
       form: {
         escrow: 'Agent',
@@ -398,6 +414,43 @@ const en = {
         idback: 'Click to add store photo (outdoor).',
         warmfront: '* The photo has to be from inside of the store.', // 必须使用所售商品/经营场所内景照片
         warmback: '* The photo has to be from outside of the store.', // 必须使用经营场所/经营场所外景照片
+        status: 'Status',
+        sub: 'Merchant',
+        big: 'Big Merchant',
+        saleMan: 'Agent Name',
+        channel: '1st-tier Agent',
+        channel2: '2st-tier Agent',
+        mertype: 'Merchant Category',
+        meiname: 'Merchant Name',
+        contact: 'Agent Name',
+        postT: 'Post Code',
+        concatName: 'Contact Name',
+        concatNumber: 'Telephone',
+        documentType: 'Certificate Type',
+        doucumentNum: 'Certificate Number',
+        industry: 'Industry',
+        addressT: 'Address',
+        accountName: 'Account Name',
+        accountType: 'Bank Name',
+        accountH: 'Bank Account',
+        accountAddress: 'Bank Address',
+        moneySettment: 'Starting Point of Settlement Fund',
+        storename: 'Store Name',
+        storeAddress: 'Address',
+        storephone: 'Telephone',
+        storeoperating: 'Store Hours',
+        BRnumber: 'BR Number',
+        BRvality: 'BR Validity',
+        CInumber: 'CI Number',
+        CIvality: 'CI Validity',
+      },
+      picture: {
+        idcardfront: 'Front of ID Card',
+        licensephoto: 'Business license',
+        goodsphoto: 'Inside-view Photos of Business Premises',
+        shopphoto: 'Outdoor Photos of Business Places',
+        paypoint: 'Cashier Photo',
+        otherphoto: 'Other Photos'
       },
       rule1: 'Please select merchant category', // 请选择注册商户
       rule2: 'Please input merchant name', // 请输入商户名称
