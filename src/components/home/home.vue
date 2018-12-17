@@ -100,8 +100,7 @@
           trade_amt: 0,
           trade_cnt: 0
         },
-        tradeTrends: [
-        ],
+        tradeTrends: [],
         mchntstore: [
           {
             "values": [
@@ -199,252 +198,276 @@
       console.log(this.tradeTrends)
     },
     filters: {
-      formatCurrency (number) {
-        if (isNaN(number)) return
-        number = (number / 100).toFixed(2)
-        return number
+      formatCurrency(value) {
+        value = String(value)
+        if (isNaN(value)) return
+        if (!value) return '0.00';
+
+        var intPart = Number(value) | 0; // 获取整数部分
+        var intPartFormat = intPart.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,'); // 将整数部分逢三一断
+
+        var floatPart = ".00"; // 预定义小数部分
+        var value2Array = value.split(".");
+
+        // =2表示数据有小数位
+        if (value2Array.length == 2) {
+          floatPart = value2Array[1].toString(); // 拿到小数部分
+
+          if (floatPart.length == 1) { // 补0,实际上用不着
+            return intPartFormat + "." + floatPart + '0';
+          } else {
+            return intPartFormat + "." + floatPart;
+          }
+
+        } else {
+          return intPartFormat + floatPart;
+        }
       }
     },
-    mounted() {
-      this.getCurrentData();
-      this.getTradeTrends(); // 交易趋势
-      this.getMerchantTradeTrends(); // 商户交易趋势
-      this.getChannelTradeAnalysis(); // 通道交易分析
-      this.getTotalData()
-    },
-    methods: {
-      createCurveInitData() {
-        for(let i = 0; i <= 23; i++ ) {
-          this.tradeTrends.push(
-            {
-              "cnt": 0,
-              "amt": 0,
-              "time": i
-            }
-          )
-        }
+      mounted() {
+        this.getCurrentData();
+        this.getTradeTrends(); // 交易趋势
+        this.getMerchantTradeTrends(); // 商户交易趋势
+        this.getChannelTradeAnalysis(); // 通道交易分析
+        this.getTotalData()
       },
-      sinAndCos() {
-        let sin = [], cos = [];
-        this.tradeTrends.forEach((v, i) => {
-           sin.push({x: +v.time, y: v.amt / 100})
-           cos.push({x: +v.time, y: v.cnt});
-        })
-        console.log('after sin:', this.tradeTrends)
-        return [
-          {
-            values: sin,
-            key: this.$t('home.amt'),
-            color: "#2974FF",
-          },
-          {
-            values: cos,
-            key: this.$t('home.cnt'),
-            color: "#FF5C1F"
-          }
-        ];
-      },
-      drawCurveChart(d) {
-        let curveChart;
-        nv.addGraph(() => {
-          curveChart = nv.models.lineChart()
-            .options({
-              useInteractiveGuideline: true,
-              margin: {left: 70},
-              forceY: [0]
-            });
-
-          curveChart.xAxis
-          .tickFormat(function(d) {
-            return d + ':00'
-          }).showMaxMin(false).staggerLabels(false)
-          if(!d.length) {
-            curveChart.yDomain([0, 100000])
-          }
-
-          d3.select('#curves svg')
-            .datum(this.sinAndCos())
-            .transition().duration(2000)
-            .call(curveChart);
-          nv.utils.windowResize(curveChart.update);
-        });
-      },
-      drawBarsChart(d) {
-        let barchart;
-        nv.addGraph(() => {
-          barchart = nv.models.multiBarChart()
-            .barColor((d, i) => {
-              if (d.series == 0) return '#43B2FF';
-              return '#7128B1'
-            })
-            .color(['#43B2FF', '#7128B1'])
-            .duration(2000)
-            .margin({bottom: 53, left: 84})
-            .noData(this.$t('home.nodata'))
-            .showControls(false)
-            .showLegend(false)
-            .groupSpacing(0.5)
-            .stacked(false)
-            .useInteractiveGuideline(false)
-            .reduceXTicks(false).staggerLabels(false);
-
-          barchart.xAxis
-            .axisLabelDistance(35)
-            .tickFormat(function(d) {
-              return d + ':00'
-          }).showMaxMin(false)
-          barchart.yAxis
-            .axisLabelDistance(-5)
-            .tickFormat(d3.format('d'));
-          let flag = false;
-          d.forEach((item) => {
-             flag = _.every(item.values, {y: 0})
-          })
-          if(flag) {
-            barchart.yDomain([0, 100000])
-          }
-
-          d3.select('#bars svg').datum(this.mchntstore).transition().duration(2000).call(barchart);
-          nv.utils.windowResize(barchart.update);
-        });
-      },
-      drawPieChart(d) {
-        let piechart,
-            arcRadius = [
-          {inner: 0.5, outer: 0.6},
-          {inner: 0.5, outer: 0.6},
-          {inner: 0.5, outer: 0.6},
-          {inner: 0.5, outer: 0.6},
-          {inner: 0.5, outer: 0.6}
-        ];
-        nv.addGraph(() => {
-          piechart = nv.models.pieChart()
-            .x(function (d) { return d.name })
-            .y(function (d) { return Number(d.cnt) })
-            .height(360)
-            .duration(1000)
-            .margin({top: 50, left: 0})
-            .padAngle(0.02)
-            .donut(1)
-            .showTooltipPercent(1)
-            .arcsRadius(arcRadius)
-            .labelType("value")
-            .showLabels(1)
-            .labelsOutside(1)
-            .labelSunbeamLayout(0)
-            .valueFormat(d3.format('d'))
-
-          if(d.length === 0) {
-            piechart.color(['gray']);
-            piechart.showLabels(0);
-          }else {
-            piechart.color(['#0D7FF5', '#5C0AA3', '#FF0E4F', '#FFA2BB', '#01C5F1'])
-          }
-          d3.select("#pie svg")
-            .datum(this.channelTrends)
-            .transition().duration(1000)
-            .call(piechart);
-          nv.utils.windowResize(piechart.update)
-        });
-      },
-      getTradeTrends() {
-        axios.get(`${config.host}/org/stat/td_detail`, { // 曲线图
-          params: {
-            format: 'cors'
-          }
-        })
-          .then((res) => {
-            let data = res.data;
-            if (data.respcd === config.code.OK) {
-              if(data.data.length) {
-                this.tradeTrends = data.data
+      methods: {
+        createCurveInitData() {
+          for (let i = 0; i <= 23; i++) {
+            this.tradeTrends.push(
+              {
+                "cnt": 0,
+                "amt": 0,
+                "time": i
               }
-              this.drawCurveChart(data.data)
-            } else {
-              this.$message.error(data.respmsg);
-            }
-          }).catch(() => {
-          this.$message.error(this.$t('common.netError'));
-        });
-      },
-      getMerchantTradeTrends() { //  柱状图数据，商户交易趋势
-        axios.get(`${config.host}/org/stat/td_mchnt`, {
-          params: {
-            format: 'cors'
+            )
           }
-        })
-          .then((res) => {
-            let data = res.data;
-            if (data.respcd === config.code.OK) {
-              if(data.data.length) {
+        },
+        sinAndCos() {
+          let sin = [], cos = [];
+          this.tradeTrends.forEach((v, i) => {
+            sin.push({x: +v.time, y: v.amt / 100})
+            cos.push({x: +v.time, y: v.cnt});
+          })
+          console.log('after sin:', this.tradeTrends)
+          return [
+            {
+              values: sin,
+              key: this.$t('home.amt'),
+              color: "#2974FF",
+            },
+            {
+              values: cos,
+              key: this.$t('home.cnt'),
+              color: "#FF5C1F"
+            }
+          ];
+        },
+        drawCurveChart(d) {
+          let curveChart;
+          nv.addGraph(() => {
+            curveChart = nv.models.lineChart()
+              .options({
+                useInteractiveGuideline: true,
+                margin: {left: 70},
+                forceY: [0]
+              });
+
+            curveChart.xAxis
+              .tickFormat(function (d) {
+                return d + ':00'
+              }).showMaxMin(false).staggerLabels(false)
+            if (!d.length) {
+              curveChart.yDomain([0, 100000])
+            }
+
+            d3.select('#curves svg')
+              .datum(this.sinAndCos())
+              .transition().duration(2000)
+              .call(curveChart);
+            nv.utils.windowResize(curveChart.update);
+          });
+        },
+        drawBarsChart(d) {
+          let barchart;
+          nv.addGraph(() => {
+            barchart = nv.models.multiBarChart()
+              .barColor((d, i) => {
+                if (d.series == 0) return '#43B2FF';
+                return '#7128B1'
+              })
+              .color(['#43B2FF', '#7128B1'])
+              .duration(2000)
+              .margin({bottom: 53, left: 84})
+              .noData(this.$t('home.nodata'))
+              .showControls(false)
+              .showLegend(false)
+              .groupSpacing(0.5)
+              .stacked(false)
+              .useInteractiveGuideline(false)
+              .reduceXTicks(false).staggerLabels(false);
+
+            barchart.xAxis
+              .axisLabelDistance(35)
+              .tickFormat(function (d) {
+                return d + ':00'
+              }).showMaxMin(false)
+            barchart.yAxis
+              .axisLabelDistance(-5)
+              .tickFormat(d3.format('d'));
+            let flag = false;
+            d.forEach((item) => {
+              flag = _.every(item.values, {y: 0})
+            })
+            if (flag) {
+              barchart.yDomain([0, 100000])
+            }
+
+            d3.select('#bars svg').datum(this.mchntstore).transition().duration(2000).call(barchart);
+            nv.utils.windowResize(barchart.update);
+          });
+        },
+        drawPieChart(d) {
+          let piechart,
+            arcRadius = [
+              {inner: 0.5, outer: 0.6},
+              {inner: 0.5, outer: 0.6},
+              {inner: 0.5, outer: 0.6},
+              {inner: 0.5, outer: 0.6},
+              {inner: 0.5, outer: 0.6}
+            ];
+          nv.addGraph(() => {
+            piechart = nv.models.pieChart()
+              .x(function (d) {
+                return d.name
+              })
+              .y(function (d) {
+                return Number(d.cnt)
+              })
+              .height(360)
+              .duration(1000)
+              .margin({top: 50, left: 0})
+              .padAngle(0.02)
+              .donut(1)
+              .showTooltipPercent(1)
+              .arcsRadius(arcRadius)
+              .labelType("value")
+              .showLabels(1)
+              .labelsOutside(1)
+              .labelSunbeamLayout(0)
+              .valueFormat(d3.format('d'))
+
+            if (d.length === 0) {
+              piechart.color(['gray']);
+              piechart.showLabels(0);
+            } else {
+              piechart.color(['#0D7FF5', '#5C0AA3', '#FF0E4F', '#FFA2BB', '#01C5F1'])
+            }
+            d3.select("#pie svg")
+              .datum(this.channelTrends)
+              .transition().duration(1000)
+              .call(piechart);
+            nv.utils.windowResize(piechart.update)
+          });
+        },
+        getTradeTrends() {
+          axios.get(`${config.host}/org/stat/td_detail`, { // 曲线图
+            params: {
+              format: 'cors'
+            }
+          })
+            .then((res) => {
+              let data = res.data;
+              if (data.respcd === config.code.OK) {
+                if (data.data.length) {
+                  this.tradeTrends = data.data
+                }
+                this.drawCurveChart(data.data)
+              } else {
+                this.$message.error(data.respmsg);
+              }
+            }).catch(() => {
+            this.$message.error(this.$t('common.netError'));
+          });
+        },
+        getMerchantTradeTrends() { //  柱状图数据，商户交易趋势
+          axios.get(`${config.host}/org/stat/td_mchnt`, {
+            params: {
+              format: 'cors'
+            }
+          })
+            .then((res) => {
+              let data = res.data;
+              if (data.respcd === config.code.OK) {
+                if (data.data.length) {
 //                data.data.forEach((d) => {
 //                  d.values.map((v) => {
 //                    v.y = v.y / 100
 //                  })
 //                })
-                this.mchntstore = data.data;
+                  this.mchntstore = data.data;
+                }
+                this.drawBarsChart(data.data)
+              } else {
+                this.$message.error(data.respmsg);
               }
-              this.drawBarsChart(data.data)
-            } else {
-              this.$message.error(data.respmsg);
+            }).catch(() => {
+            this.$message.error(this.$t('common.netError'));
+          });
+        },
+        getChannelTradeAnalysis() { // 饼图 通道交易分析
+          axios.get(`${config.host}/org/stat/td_trade`, {
+            params: {
+              format: 'cors'
             }
-          }).catch(() => {
-          this.$message.error(this.$t('common.netError'));
-        });
-      },
-      getChannelTradeAnalysis() { // 饼图 通道交易分析
-        axios.get(`${config.host}/org/stat/td_trade`, {
-          params: {
-            format: 'cors'
-          }
-        })
-          .then((res) => {
-            let data = res.data;
-            if (data.respcd === config.code.OK) {
-              data.data.length > 0 && (this.channelTrends = data.data)
-              this.drawPieChart(data.data)
-            } else {
-              this.$message.error(data.respmsg);
+          })
+            .then((res) => {
+              let data = res.data;
+              if (data.respcd === config.code.OK) {
+                data.data.length > 0 && (this.channelTrends = data.data)
+                this.drawPieChart(data.data)
+              } else {
+                this.$message.error(data.respmsg);
+              }
+            }).catch(() => {
+            this.$message.error(this.$t('common.netError'));
+          });
+        },
+        getCurrentData() {
+          axios.get(`${config.host}/org/stat/td_data`, {
+            params: {
+              format: 'cors'
             }
-          }).catch(() => {
-          this.$message.error(this.$t('common.netError'));
-        });
-      },
-      getCurrentData() {
-        axios.get(`${config.host}/org/stat/td_data`, {
-          params: {
-            format: 'cors'
-          }
-        })
-          .then((res) => {
-            let data = res.data;
-            if (data.respcd === config.code.OK) {
-              this.curdata = data.data;
-            } else {
-              this.$message.error(data.respmsg);
+          })
+            .then((res) => {
+              let data = res.data;
+              if (data.respcd === config.code.OK) {
+                this.curdata = data.data;
+              } else {
+                this.$message.error(data.respmsg);
+              }
+            }).catch(() => {
+            this.$message.error(this.$t('common.netError'));
+          });
+        },
+        getTotalData() {
+          axios.get(`${config.host}/org/stat/total_data`, {
+            params: {
+              format: 'cors'
             }
-          }).catch(() => {
-          this.$message.error(this.$t('common.netError'));
-        });
-      },
-      getTotalData() {
-        axios.get(`${config.host}/org/stat/total_data`, {
-          params: {
-            format: 'cors'
-          }
-        })
-          .then((res) => {
-            let data = res.data;
-            if (data.respcd === config.code.OK) {
-              this.total = data.data;
-            } else {
-              this.$message.error(data.respmsg);
-            }
-          }).catch(() => {
-          this.$message.error(this.$t('common.netError'));
-        });
+          })
+            .then((res) => {
+              let data = res.data;
+              if (data.respcd === config.code.OK) {
+                this.total = data.data;
+              } else {
+                this.$message.error(data.respmsg);
+              }
+            }).catch(() => {
+            this.$message.error(this.$t('common.netError'));
+          });
+        }
       }
-    }
   }
 </script>
 <style lang="scss">

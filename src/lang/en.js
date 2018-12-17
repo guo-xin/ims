@@ -75,7 +75,7 @@ const en = {
         title: 'Analysis Of Channel Trading'
       },
       cumu: {
-        title: 'Analysis oOff The Accumulated Data',
+        title: 'Analysis Of The Accumulated Data',
         totle_mount: 'Total Transaction Amount',
         totle_count: 'Total Transactions',
         totle_mchnt_num: 'Total Number Of Merchants',
