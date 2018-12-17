@@ -624,7 +624,7 @@ const en = {
       cate: 'Type of Merchants',
       status: 'Audit Status'
     },
-    deny: 'Rejection',
+    deny: 'Reject',
     succ: 'Success',
     fail: 'Failure',
     going: 'Under Approval',
