@@ -7,7 +7,7 @@
       <el-col :span="6" class="item margin0">
         <div class="left-num">
           <div class="title">{{$t('home.curamt')}}</div>
-          <div class="index">HK${{curdata.trade_amt | formatCurrency}}</div>
+          <div class="index">HK${{curdata.trade_amt / 100 | formatCurrency}}</div>
         </div>
         <div class="badge amount"></div>
       </el-col>
@@ -56,7 +56,7 @@
       <el-row type="flex" class="cumu-row">
         <el-col :span="12" class="left">
           <div class="cumu-item-label">{{$t('home.cumu.totle_mount')}}</div>
-          <div class="cumu-item-val">HK${{total.total_amt | formatCurrency}}</div>
+          <div class="cumu-item-val">HK${{total.total_amt / 100 | formatCurrency}}</div>
         </el-col>
         <el-col :span="12" class="right">
           <div class="cumu-item-label">{{$t('home.cumu.totle_count')}}</div>
@@ -233,7 +233,7 @@
       },
       methods: {
         createCurveInitData() {
-          for (let i = 0; i <= 23; i++) {
+          for (let i = 1; i <= 24; i++) {
             this.tradeTrends.push(
               {
                 "cnt": 0,
@@ -246,10 +246,9 @@
         sinAndCos() {
           let sin = [], cos = [];
           this.tradeTrends.forEach((v, i) => {
-            sin.push({x: +v.time, y: v.amt / 100})
+            sin.push({x: +v.time, y: (v.amt / 100).toFixed(2)})
             cos.push({x: +v.time, y: v.cnt});
           })
-          console.log('after sin:', this.tradeTrends)
           return [
             {
               values: sin,
@@ -274,9 +273,11 @@
               });
 
             curveChart.xAxis
-              .tickFormat(function (d) {
-                return d + ':00'
-              }).showMaxMin(false).staggerLabels(false)
+              .tickValues(this.tradeTrends.map( (d) => { return d.time }))
+              .tickFormat((d) => {
+                 return d + ':00'
+              })
+              .showMaxMin(false).staggerLabels(false)
             if (!d.length) {
               curveChart.yDomain([0, 100000])
             }
@@ -400,11 +401,6 @@
               let data = res.data;
               if (data.respcd === config.code.OK) {
                 if (data.data.length) {
-//                data.data.forEach((d) => {
-//                  d.values.map((v) => {
-//                    v.y = v.y / 100
-//                  })
-//                })
                   this.mchntstore = data.data;
                 }
                 this.drawBarsChart(data.data)
