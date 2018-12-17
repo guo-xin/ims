@@ -12,6 +12,7 @@ const en = {
     choose: 'Please choose',
     save: 'Save',
     submit: 'Submit',
+    MINRatio: 'Minimum rate is ',
     edit: 'Edit',
     prev: 'Previous',
     next: 'Next step',
@@ -342,7 +343,10 @@ const en = {
         la9: 'Account Type:',
         la10: 'Uploaded Photos:'
       },
-      edit: 'Edit'
+      edit: 'Edit',
+      document: {
+        doctitle: 'Licence Info'
+      },
     },
     newMerchant: {
       title1: 'Create Merchant',
@@ -443,6 +447,50 @@ const en = {
         BRvality: 'BR Validity',
         CInumber: 'CI Number',
         CIvality: 'CI Validity',
+      },
+      requiredRule: {
+        rule1: 'Please select Agent Name',
+        rule2: 'Please input Merchant Category',
+        rule3: 'Please input Merchant Name',
+        rule4: 'Please input Post Code',
+        rule5: 'Please input Contact Name',
+        rule6: 'Please input Telephone',
+        rule7: 'Please select Certificate Type',
+        rule8: 'Please input Certificate Number',
+        rule9: 'Please select Industry',
+        rule10: 'Please input Merchant Adress',
+        rule11: 'Please input BR Number',
+        rule12: 'Please input BR Validity',
+        rule13: 'Please input CI Number',
+        rule14: 'Please input CI Validity',
+        rule15: 'Please input Bank Name',
+        rule16: 'Please input Account Name',
+        rule17: 'Please input Bank Account',
+        rule18: 'Please input Bank Address',
+        rule19: 'Please input Starting Point of Settlement Fund',
+        rule20: 'Please input Store Name',
+        rule21: 'Please input Store Address',
+        rule22: 'Please input Store Telephone',
+        rule23: 'Please input Store Hours',
+      },
+      lengthRule: {
+        rule1: 'The maxlength is 4',
+        rule2: 'The maxlength is 5',
+        rule3: 'The maxlength is 8',
+        rule4: 'The maxlength is 10',
+        rule5: 'The maxlength is 12',
+        rule6: 'The maxlength is 15',
+        rule7: 'The maxlength is 25',
+        rule8: 'The maxlength is 50'
+      },
+      specialRule: {
+        rule1: 'Incorrect format',
+        rule2: 'Type is required number'
+      },
+      doctype: {
+        type1: 'Passport',
+        type2: 'Hong Kong and Macao pass',
+        type3: 'Hong Kong Resident Card'
       },
       picture: {
         idcardfront: 'Front of ID Card',

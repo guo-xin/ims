@@ -503,7 +503,7 @@
           ],
           'shopname': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule3')},
-            {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule7'), trigger: 'blur'}
+            {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule8'), trigger: 'blur'}
           ],
           'email': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule4'), trigger: 'blur'},
@@ -680,7 +680,7 @@
         });
       },
       ratioMinRule(value, ratioMin, trade_type) { // 费率填写提示信息的处理
-        let errorMessage = value < ratioMin ? `最低费率${ratioMin}` : ''
+        let errorMessage = value < ratioMin ? this.$t('common.MINRatio')+`${ratioMin}` : ''
         this.radioList.map((radio) => {
           radio.busicd.map((item) => {
             if (trade_type === item.trade_type) {

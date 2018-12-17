@@ -9,6 +9,7 @@ const zh = {
     export: '导出',
     choose: '请选择',
     submit: '提交',
+    MINRatio: '最低费率',
     save: '保存',
     edit: '修改',
     prev: '上一步',
