@@ -248,10 +248,10 @@
           "0": this.$t('common.refuse')
         },
         statusList: [
-          {name: this.$t('merchant.detail.up'), val: 3},
-          {name: this.$t('merchant.detail.down'), val: 4},
-          {name: this.$t('merchant.detail.audit'), val: 0},
-          {name: this.$t('merchant.detail.refuse'), val: -1},
+          {name: this.$t('common.enable'), val: 3},
+          {name: this.$t('common.disable'), val: 4},
+          {name: this.$t('common.refuse'), val: 0},
+          {name: this.$t('common.audit'), val: -1},
         ],
         period: {
           month: this.$t('merchant.detail.p.m'),

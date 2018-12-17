@@ -122,7 +122,7 @@
         :title="$t('merchant.table.payment')"
         :visible.sync="centerDialogVisible"
         :show-close="false"
-        width="40%"
+        width="50%"
         left
         class="dialog merchant"
         @close="closeForm"
@@ -160,21 +160,21 @@
         </div>
         <el-form-item class="dialog_button">
           <el-button type="text" @click="resetForm('payMentform')">{{ $t('common.CLOSE') }}</el-button>
-          <el-button v-if="paymentEdit.dialogType" type="text" @click="changePayment()">{{ $t('common.SAVE') }}</el-button>
-          <el-button v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
+          <el-button class="right" v-if="paymentEdit.dialogType" type="text" @click="changePayment()">{{ $t('common.SAVE') }}</el-button>
+          <el-button class="right" v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
         </el-form-item>
       </el-form>
       <el-form v-if="radio == 2" class="dialog_form" ref="payMentform"> 
         <div v-for="item in ratioListTwo" :key="item.type" class="ratioType">
             <h4>{{ item.name }}</h4>
-            <el-form-item class="form_item" :label="$t('merchant.payment.merchantID2')">
+            <el-form-item class="form_item2" :label="$t('merchant.payment.merchantID2')">
                 <el-select 
                     v-model="item.buscid[0].mchntid"
                     :disabled="paymentEdit.IsTwoTimes">
                     <el-option v-for="buscid in item.buscid" :key="buscid.mchntid" :label="buscid.mchntid" :value="buscid.mchntid"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item class="form_item" :label="$t('merchant.payment.merchChildID2')">
+            <el-form-item class="form_item2" :label="$t('merchant.payment.merchChildID2')">
                 <el-input
                   v-model="item.buscid[0].termid"
                   :disabled="paymentEdit.IsTwoTimes"
@@ -184,8 +184,8 @@
         </div>
         <el-form-item class="dialog_button">
           <el-button type="text" @click="resetForm('payMentform')">{{ $t('common.CLOSE') }}</el-button>
-          <el-button v-if="paymentEdit.dialogType" type="text" @click="changePayment()">{{ $t('common.SAVE') }}</el-button>
-          <el-button v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
+          <el-button class="right" v-if="paymentEdit.dialogType" type="text" @click="changePayment()">{{ $t('common.SAVE') }}</el-button>
+          <el-button class="right" v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
         </el-form-item>        
       </el-form>
     </el-dialog>
@@ -217,10 +217,10 @@
         channels: [],
         channels2: [],
         statusList: [
-          {name: this.$t('merchant.detail.up'), val: 3},
-          {name: this.$t('merchant.detail.down'), val: 4},
-          {name: this.$t('merchant.detail.refuse'), val: 0},
-          {name: this.$t('merchant.detail.audit'), val: -1},
+          {name: this.$t('common.enable'), val: 3},
+          {name: this.$t('common.disable'), val: 4},
+          {name: this.$t('common.refuse'), val: 0},
+          {name: this.$t('common.audit'), val: -1},
         ],
         isSigned: {
           "3": this.$t('common.enable'),
@@ -571,9 +571,18 @@
         margin-left: 20px;
       }      
       .dialog_form {
-        margin-left: 2%;
+        margin-left: 1%;
         .form_item {
           width: 29%;
+          height: 11%;
+          padding: 0;
+          margin-right: 4%;
+          .el-input {
+            width: 100%;
+          }
+        }
+        .form_item2 {
+          width: 40%;
           height: 11%;
           padding: 0;
           margin-right: 4%;
@@ -585,8 +594,11 @@
           margin-top: 20px;
         }
         .dialog_button {
-          margin-left: 75%;
+          margin-left: 30%;
           margin-top: 2%;
+          .right {
+            margin-left: 30%;
+          } 
         }
       }
       h4 {

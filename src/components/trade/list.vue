@@ -53,7 +53,7 @@
           @blur="mchntNameHandleBlur"
         ></el-autocomplete>
       </el-form-item>
-      <el-form-item :label="$t('trade.common.firstAgent')">
+      <!-- <el-form-item :label="$t('trade.common.firstAgent')">
         <el-autocomplete
           v-model="formData.primary_agent"
           :fetch-suggestions="getPrimaryAgent"
@@ -73,7 +73,7 @@
           @select="secondaryAgentHandleSelect"
           @blur="secondaryAgentHandleBlur"
         ></el-autocomplete>
-      </el-form-item>
+      </el-form-item> -->
       <div class="buttons">
         <el-button type="primary" @click="search()">{{$t('common.search')}}</el-button>
         <el-button @click="reset()">{{$t('common.reset')}}</el-button>

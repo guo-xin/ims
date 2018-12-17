@@ -14,7 +14,7 @@
       <el-form-item prop="name" :label="$t('agent.agentName')">
         <el-input v-model="baseform.name" @blur="updateAgency('name', $event)"></el-input>
       </el-form-item>
-      <el-form-item :prop="baseform.levelcode >= 2 ? 'parent_uid' : 'levelcode'" :label="$t('agent.agentLevel')" style="width:446px">
+      <el-form-item :prop="baseform.levelcode >= 2 ? 'parent_uid' : 'levelcode'" :label="$t('agent.agentLevel')" style="width:446px" ref="levelcode">
         <el-select v-model="baseform.levelcode" @change="selectLevel">
           <el-option v-for="level in levels" :label="level.text" :value="level.code" :key="level.code"></el-option>
         </el-select>
@@ -26,13 +26,13 @@
       <el-form-item prop="short_name" :label="$t('agent.agentNickname')">
         <el-input v-model="baseform.short_name" @blur="updateAgency('short_name', $event)"></el-input>
       </el-form-item>
-      <el-form-item prop="auth_province" :label="$t('agent.agentArea')" style="width:446px">
-        <el-select ref="province" v-model="baseform.auth_province" @change="selectProvince">
-          <el-option v-for="province in areas" :label="province.areaname" :value="province.areaid" :key="province.areaid"></el-option>
+      <el-form-item prop="auth_province" :label="$t('agent.agentArea')" style="width:446px" ref="province">
+        <el-select v-model="baseform.auth_province" @change="selectProvince">
+          <el-option v-for="province in areas" :label="province.areaname" :value="province.areaname" :key="province.areaid"></el-option>
         </el-select>
-        <el-select style="margin-left:10px;" ref="city" v-model="baseform.auth_city" @change="selectCity">
+        <!-- <el-select style="margin-left:10px;" ref="city" v-model="baseform.auth_city" @change="selectCity">
           <el-option v-for="city in citys" :label="city.cityname" :value="city.cityid" :key="city.cityid"></el-option>
-        </el-select>
+        </el-select> -->
       </el-form-item>
       <hr/>
       <el-form-item prop="address" :label="$t('agent.address')">
@@ -98,8 +98,8 @@
       <h3>{{$t('agent.payRate')}}</h3>
       <div :label="item.name" v-for="item in payfee" :key="item.name">
         <h4>{{item.name}}</h4>
-        <el-form-item :label="fee.trade_type_name" v-for="fee in item.busicd" :key="fee.trade_type_name">
-            <el-input-number v-model.trim="fee.ratio" :disabled="isUpdate" :precision="2" :step="0.01" :max="5"></el-input-number>
+        <el-form-item :label="fee.trade_type_name" v-for="fee in item.busicd" :error="fee.error" :key="fee.trade_type_name">
+            <el-input-number v-model.trim="fee.ratio" :disabled="isUpdate" :precision="2" :step="0.01" :max="5" @change="ratioMinRule($event, fee.ratioMin, fee.trade_type)"></el-input-number>
         </el-form-item>
       </div>
     </el-form>
@@ -138,7 +138,7 @@
           parent_uid: '',
           slsm_userid: '',
           auth_province: '',
-          auth_city: '',
+          // auth_city: '',
           password: ''
         },
         bankinfo: {
@@ -152,7 +152,7 @@
         levels: [], // 代理商级别
         allAgencys: [], // 所属代理
         areas: [], // 所有省份和城市
-        citys: [], // 当前省的所有城市
+        // citys: [], // 当前省的所有城市
         sales: [], // 业务员 列表
         isRegisterLoading: false,
         isRegistered: true, // 已注册
@@ -281,6 +281,18 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
+      ratioMinRule(value, ratioMin, trade_type) { // 费率填写提示信息的处理
+        let errorMessage = value < ratioMin ? this.$t('common.MINRatio')+`${ratioMin}` : ''
+        this.payfee.map((radio) => {
+          radio.busicd.map((item) => {
+            if (trade_type === item.trade_type) {
+              this.$set(item, 'error', errorMessage)
+            } else {
+              item.error = ''
+            }
+          })
+        })
+      },
       goback() {
         this.$router.push({name: 'agencyDetail'})
       },
@@ -311,8 +323,9 @@
         if (this.active-- <= 0) this.active = 0
       },
       resetStep1() {
-        this.baseform = {}
         this.$refs['baseform'].resetFields()
+        this.$refs['levelcode'].clearValidate()
+        this.$refs['province'].clearValidate()
       },
       selectLevel(value) {
         this.levels.map((level, index) => {
@@ -340,28 +353,22 @@
       },
       selectProvince(value, cityId) {
         this.areas.map((area, index) => {
-          if (area.areaid === value) {
-            this.citys = area.cities
+          if (area.areaname === value) {
             if (this.isUpdate) {
               this.updateAgency('updateProvince', area.areaname)
             }
           }
         })
-        if (cityId) {
-          this.baseform.auth_city = cityId
-        } else {
-          this.baseform.auth_city = ''
-        }
       },
-      selectCity(value) {
-        if (this.isUpdate) {
-          this.citys.map((city, index) => {
-            if (city.cityid === value) {
-              this.updateAgency('updateProvinceCity', city.cityname)
-            }
-          })
-        }
-      },
+      // selectCity(value) {
+      //   if (this.isUpdate) {
+      //     this.citys.map((city, index) => {
+      //       if (city.cityid === value) {
+      //         this.updateAgency('updateProvinceCity', city.cityname)
+      //       }
+      //     })
+      //   }
+      // },
       fetchAgencyLevel() {
         this.$http(`${config.host}/org/tools/level?format=cors`)
         .then((res) => {
@@ -395,16 +402,17 @@
           let data = res.data
           if (data.respcd === '0000') {
             this.areas = data.data.records
-            if (this.baseform.auth_city) {
-              this.selectProvince(this.baseform.auth_province, this.baseform.auth_city)
-            }
-            if (this.isUpdate) {
-              this.areas.map((area, index) => {
-                if (area.areaname === this.baseform.auth_province) {
-                  this.citys = area.cities
-                }
-              })
-            }
+            this.selectProvince(this.baseform.auth_province, this.baseform.auth_city)
+            // if (this.baseform.auth_city) {
+            //   this.selectProvince(this.baseform.auth_province, this.baseform.auth_city)
+            // }
+            // if (this.isUpdate) {
+            //   this.areas.map((area, index) => {
+            //     if (area.areaname === this.baseform.auth_province) {
+            //       this.citys = area.cities
+            //     }
+            //   })
+            // }
           } else {
             this.$message.error(data.resperr)
           }
@@ -440,10 +448,11 @@
       create() {
         // 接口传参需要 label，省市
         let paramsBase = JSON.parse(JSON.stringify(this.baseform))
-        paramsBase.auth_province = this.$refs.province.selected.label || ''
-        paramsBase.auth_city = this.$refs.city.selected.label || ''
-        
+        // paramsBase.auth_province = this.$refs.province.selected.label || ''
+        // paramsBase.auth_city = this.$refs.city.selected.label || ''
+        paramsBase.auth_province = this.baseform.auth_province
         this.payfeeT = this.refee(this.payfee)
+        console.log(paramsBase)
         this.$http({
           method: 'post',
           url: `${config.host}/org/agent/create`,
@@ -510,7 +519,6 @@
           this.fetchRadio(this.baseform.parent_uid)
         } else if (key === 'updateProvince') {
           params['auth_province'] = value
-          params['auth_city'] = ''
         } else if (key === 'updateProvinceCity') {
           params['auth_province'] = this.$refs.province.selected.label || this.baseform.auth_province
           params['auth_city'] = value

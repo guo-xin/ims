@@ -22,8 +22,8 @@
 
       <el-form-item :label="$t('audit.form.audit_state')" prop="audit_status">
         <el-select v-model="formData.audit_status">
-          <el-option label="待审核" :value="-1"></el-option>
-          <el-option label="驳回" :value="0"></el-option>
+          <el-option :label="$t('common.audit')" :value="-1"></el-option>
+          <el-option :label="$t('common.refuse')" :value="0"></el-option>
         </el-select>
       </el-form-item>
 

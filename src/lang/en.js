@@ -19,6 +19,8 @@ const en = {
     done: 'Carry out',
     close: 'Close',
     search: 'Search',
+    enable: 'Enable',
+    disable: 'Disable',
     audit: 'Under Approval',
     refuse: 'Reject',
     add: 'Add',
@@ -37,8 +39,6 @@ const en = {
     cancel: 'Cancel',
     tip: 'Prompt',
     status: 'Status',
-    enable: 'Enable',
-    disable: 'Disable',
     startTime: 'Starting time',
     endTime: 'End time',
     privata: 'Private',
@@ -265,9 +265,9 @@ const en = {
     payment: {
       configured: "Configured",
       nonconfigured: "Non-configured",
-      radio1: 'First clean',
-      radio2: 'Second clean',
-      merchantID2: 'Trade Name of Service',
+      radio1: 'First Clean',
+      radio2: 'Second Clean',
+      merchantID2: 'Channel Merchant No.',
       merchChildID2: 'Channel Sub-Merchant No.',
       merchantID1: 'Merchant No.',
       merchChildID1: 'Sub-Merchant No.',
@@ -280,6 +280,7 @@ const en = {
       refuse: 'Reject',
       audit: 'Under Approval',
       redit: 'Continue To Edit',
+      createShop: 'CreateShop',
       cate: {
         merchant: 'Merchant',
         big: 'Chain Merchant',
@@ -310,7 +311,7 @@ const en = {
         la8: 'Telephone:',
         la9: 'Certificate Type:',
         la10: 'Certificate Number:',
-        la11: 'Post Code:',
+        la11: 'Email:',
         la12: 'Address:',
         la13: 'BR Number:',
         la14: 'BR Validity:',
@@ -427,7 +428,7 @@ const en = {
         mertype: 'Merchant Category',
         meiname: 'Merchant Name',
         contact: 'Agent Name',
-        postT: 'Post Code',
+        postT: 'Email',
         concatName: 'Contact Name',
         concatNumber: 'Telephone',
         documentType: 'Certificate Type',
@@ -439,8 +440,10 @@ const en = {
         accountH: 'Bank Account',
         accountAddress: 'Bank Address',
         moneySettment: 'Starting Point of Settlement Fund',
-        storeAddress: 'Address',
         storephone: 'Store Contact Number',
+        storename: 'Store Name',
+        storeAddress: 'Store Address',
+        storeoperating: 'Business Hours',
         BRnumber: 'BR Number',
         BRvality: 'BR Validity',
         CInumber: 'CI Number',
@@ -450,13 +453,13 @@ const en = {
         rule1: 'Please select Agent Name',
         rule2: 'Please input Merchant Category',
         rule3: 'Please input Merchant Name',
-        rule4: 'Please input Post Code',
+        rule4: 'Please input Email',
         rule5: 'Please input Contact Name',
         rule6: 'Please input Telephone',
         rule7: 'Please select Certificate Type',
         rule8: 'Please input Certificate Number',
         rule9: 'Please select Industry',
-        rule10: 'Please input Merchant Adress',
+        rule10: 'Please input Address',
         rule11: 'Please input BR Number',
         rule12: 'Please input BR Validity',
         rule13: 'Please input CI Number',
@@ -468,8 +471,8 @@ const en = {
         rule19: 'Please input Starting Point of Settlement Fund',
         rule20: 'Please input Store Name',
         rule21: 'Please input Store Address',
-        rule22: 'Please input Store Telephone',
-        rule23: 'Please input Store Hours',
+        rule22: 'Please input Store Contact Number',
+        rule23: 'Please input Business Hours',
       },
       lengthRule: {
         rule1: 'The maxlength is 4',
@@ -522,7 +525,7 @@ const en = {
       rule22: 'Please input store contact number', // 请输入店铺联系电话
       rule23: 'Please select area', // 请选择店铺所属地区
       rule24: 'Please input store address', // 请输入店铺地址
-      rule25: 'Please input post code', // 请输入店铺邮编
+      rule25: 'Please input Email', // 请输入店铺邮编
       rule26: 'Please input store services', // 请输入店铺附加服务
       rule27: 'Please input business hours', // 请输入店铺营业时间
       rule28: 'Please upload photos from inside of store', // 请上传所售商品/经营场所内景照片
