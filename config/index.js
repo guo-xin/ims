@@ -11,8 +11,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
+        // target: 'https://oasbp.qa.qfpay.net',
         target: 'https://oasbp.qa.qfpay.net',
-        // target: 'http://172.100.108.75:6600',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/'
@@ -23,9 +23,7 @@ module.exports = {
       NODE_ENV: '"development"'
     },
     // Various Dev Server settings
-    // host: '127.0.0.1', // can be overwritten by process.env.HOST
-    // host: '172.100.108.253',
-    host: '0.0.0.0',
+    host: '127.0.0.1', // can be overwritten by process.env.HOST
     port: 80, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,

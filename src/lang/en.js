@@ -62,21 +62,25 @@ const en = {
       curnewstore: 'Current New Stores',
       nodata: 'No Data Available',
       curve: {
-        title: 'Trend Chart of Transaction',
+        title: 'Trend Chart Of Transaction',
       },
       bar: {
-        title: 'Trend Chart of Merchants Trading'
+        title: 'Trend Chart Of Merchants Trading',
+        legend: {
+          mer: 'merchant',
+          submer: 'submerchant'
+        }
       },
       pie: {
-        title: 'Analysis of Channel Trading'
+        title: 'Analysis Of Channel Trading'
       },
       cumu: {
-        title: 'Analysis of The Accumulated Data',
+        title: 'Analysis oOff The Accumulated Data',
         totle_mount: 'Total Transaction Amount',
         totle_count: 'Total Transactions',
-        totle_mchnt_num: 'Total Number of Merchants',
-        totle_store_num: 'Total Number of Stores',
-        totle_agent_num: 'Total Number of Agents'
+        totle_mchnt_num: 'Total Number Of Merchants',
+        totle_store_num: 'Total Number Of Stores',
+        totle_agent_num: 'Total Number Of Agents'
       }
     },
   authority: {
@@ -268,7 +272,7 @@ const en = {
       merchantID1: 'Merchant No.',
       merchChildID1: 'Sub-Merchant No.',
       merchantPass1: 'Merchant key'
-      
+
     },
     detail: {
       up: 'Activate',
@@ -384,15 +388,11 @@ const en = {
         type1: 'Industry',
         type2: 'Merchant Status',
         bd: 'Description',
-        sub: 'Merchant',
-        big: 'Chain Merchant',
         chain: 'Branch Store',
         micro: 'Small and micro enterprises',
         geti: 'Individual Company',
         ent: 'Enterprises',
         main: 'Main Store UID',
-        contact: 'Sales Rep.',
-        storephone: 'Store Contact Number',
         storelocation: 'Store Area',
         storeaddress: 'Store Address',
         storepost: 'Store Post Code',
@@ -439,10 +439,8 @@ const en = {
         accountH: 'Bank Account',
         accountAddress: 'Bank Address',
         moneySettment: 'Starting Point of Settlement Fund',
-        storename: 'Store Name',
         storeAddress: 'Address',
-        storephone: 'Telephone',
-        storeoperating: 'Store Hours',
+        storephone: 'Store Contact Number',
         BRnumber: 'BR Number',
         BRvality: 'BR Validity',
         CInumber: 'CI Number',
@@ -623,10 +621,10 @@ const en = {
       cate: 'Type of Merchants',
       status: 'Audit Status'
     },
-    deny: 'Audit Rejection',
-    succ: 'Audit Success',
-    fail: 'Audit Failure',
-    going: 'In Review',
+    deny: 'Rejection',
+    succ: 'Success',
+    fail: 'Failure',
+    going: 'Under Approval',
     detail: {
       title: 'Approved Memo',
       storeInfo: {

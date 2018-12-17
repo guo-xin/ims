@@ -67,7 +67,7 @@
         <el-row type="flex" align="bottom">
           <el-col :span="8" class="head">
             <span>{{$t('trade.common.tradeAmount')}}</span>
-            <strong>S${{payTotal.total_txamt | formatCurrency}}</strong>
+            <strong>HK${{payTotal.total_txamt | formatCurrency}}</strong>
           </el-col>
           <el-col :span="8">
             <span>{{$t('trade.common.tradeCount')}}</span>
@@ -75,7 +75,7 @@
           </el-col>
           <el-col :span="8">
             <span>{{$t('trade.common.fee')}}</span>
-            <strong>S${{payTotal.total_settlefee | formatCurrency}}</strong>
+            <strong>HK${{payTotal.total_settlefee | formatCurrency}}</strong>
           </el-col>
         </el-row>
       </el-col>
@@ -83,7 +83,7 @@
         <el-row type="flex" align="bottom">
           <el-col :span="8" class="head">
             <span>{{$t('trade.common.refundAmount')}}</span>
-            <strong>S${{refundTotal.total_txamt | formatCurrency}}</strong>
+            <strong>HK${{refundTotal.total_txamt | formatCurrency}}</strong>
           </el-col>
           <el-col :span="8">
             <span>{{$t('trade.common.refundCount')}}</span>
@@ -91,7 +91,7 @@
           </el-col>
           <el-col :span="8">
             <span>{{$t('trade.common.fee')}}</span>
-            <strong>S${{refundTotal.total_settlefee | formatCurrency}}</strong>
+            <strong>HK${{refundTotal.total_settlefee | formatCurrency}}</strong>
           </el-col>
         </el-row>
       </el-col>
@@ -259,7 +259,7 @@
           let data = res.data
           if (data.respcd === '0000') {
             if (data.data.length > 0) {
-              this.noMatch = false
+              this.noMatch = false;
               cb(data.data)
             } else {
               this.noMatch = true

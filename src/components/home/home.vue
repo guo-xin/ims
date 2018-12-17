@@ -7,7 +7,7 @@
       <el-col :span="6" class="item margin0">
         <div class="left-num">
           <div class="title">{{$t('home.curamt')}}</div>
-          <div class="index">HK${{curdata.trade_amt}}</div>
+          <div class="index">HK${{curdata.trade_amt | formatCurrency}}</div>
         </div>
         <div class="badge amount"></div>
       </el-col>
@@ -40,6 +40,10 @@
     <el-row type="flex" class="with-3d-shadow with-transitions second-row">
       <el-col :span="15" class="" id="bars">
         <div class="bars-title">{{$t('home.bar.title')}}</div>
+        <div class="bars-legend">
+          <div class="mer"><span class="mer-icon"></span>{{$t('home.bar.legend.mer')}}</div>
+          <div class="submer"><span class="submer-icon"></span>{{$t('home.bar.legend.submer')}}</div>
+        </div>
         <svg></svg>
       </el-col>
       <el-col :span="9" class="" id="pie">
@@ -52,7 +56,7 @@
       <el-row type="flex" class="cumu-row">
         <el-col :span="12" class="left">
           <div class="cumu-item-label">{{$t('home.cumu.totle_mount')}}</div>
-          <div class="cumu-item-val">HK${{total.total_amt}}</div>
+          <div class="cumu-item-val">HK${{total.total_amt | formatCurrency}}</div>
         </el-col>
         <el-col :span="12" class="right">
           <div class="cumu-item-label">{{$t('home.cumu.totle_count')}}</div>
@@ -192,6 +196,14 @@
     },
     created() {
       this.createCurveInitData();
+      console.log(this.tradeTrends)
+    },
+    filters: {
+      formatCurrency (number) {
+        if (isNaN(number)) return
+        number = (number / 100).toFixed(2)
+        return number
+      }
     },
     mounted() {
       this.getCurrentData();
@@ -202,26 +214,23 @@
     },
     methods: {
       createCurveInitData() {
-        for(let i = 1; i <= 24; i++ ) {
+        for(let i = 0; i <= 23; i++ ) {
           this.tradeTrends.push(
             {
               "cnt": 0,
               "amt": 0,
-              "time": "0" + i
+              "time": i
             }
           )
         }
       },
       sinAndCos() {
         let sin = [], cos = [];
-//        for (var i = 0; i < 100; i++) {
-//          sin.push({x: i, y: i % 10 == 5 ? null : Math.sin(i / 10)});
-//          cos.push({x: i, y: 0.5 * Math.cos(i / 10)});
-//        }
         this.tradeTrends.forEach((v, i) => {
-           sin.push({x: +v.time, y: v.amt})
+           sin.push({x: +v.time, y: v.amt / 100})
            cos.push({x: +v.time, y: v.cnt});
         })
+        console.log('after sin:', this.tradeTrends)
         return [
           {
             values: sin,
@@ -236,30 +245,25 @@
         ];
       },
       drawCurveChart(d) {
-        let curveChart, data;
+        let curveChart;
         nv.addGraph(() => {
           curveChart = nv.models.lineChart()
             .options({
-              duration: 2000,
               useInteractiveGuideline: true,
               margin: {left: 70},
-              noData: this.$t('home.nodata'),
+              forceY: [0]
             });
 
-          curveChart.xAxis.staggerLabels(false)
-            .tickFormat(function(d) {
-              if( (+d % 3) === 0) {
-                return d + ':00'
-              }
-          })
+          curveChart.xAxis
+          .tickFormat(function(d) {
+            return d + ':00'
+          }).showMaxMin(false).staggerLabels(false)
           if(!d.length) {
             curveChart.yDomain([0, 100000])
           }
-          curveChart.yAxis.tickFormat(d3.format(',.2f'));
-          data = this.sinAndCos();
 
           d3.select('#curves svg')
-            .datum(data)
+            .datum(this.sinAndCos())
             .transition().duration(2000)
             .call(curveChart);
           nv.utils.windowResize(curveChart.update);
@@ -278,7 +282,7 @@
             .margin({bottom: 53, left: 84})
             .noData(this.$t('home.nodata'))
             .showControls(false)
-            .showLegend(true)
+            .showLegend(false)
             .groupSpacing(0.5)
             .stacked(false)
             .useInteractiveGuideline(false)
@@ -299,11 +303,12 @@
           if(flag) {
             barchart.yDomain([0, 100000])
           }
+
           d3.select('#bars svg').datum(this.mchntstore).transition().duration(2000).call(barchart);
           nv.utils.windowResize(barchart.update);
         });
       },
-      drawPieChart() {
+      drawPieChart(d) {
         let piechart,
             arcRadius = [
           {inner: 0.5, outer: 0.6},
@@ -314,27 +319,22 @@
         ];
         nv.addGraph(() => {
           piechart = nv.models.pieChart()
-            .x(function (d) {
-              return d.name
-            })
-            .y(function (d) {
-              return d.cnt
-            })
+            .x(function (d) { return d.name })
+            .y(function (d) { return Number(d.cnt) })
             .height(360)
             .duration(1000)
-            .margin({top: 0, left: 0})
+            .margin({top: 50, left: 0})
             .padAngle(0.02)
             .donut(1)
-            .donutRatio(0.75)
             .showTooltipPercent(1)
             .arcsRadius(arcRadius)
-            .labelType("key")
+            .labelType("value")
             .showLabels(1)
             .labelsOutside(1)
             .labelSunbeamLayout(0)
-            .noData(this.$t('home.nodata'));
+            .valueFormat(d3.format('d'))
 
-          if(this.channelTrends.length === 1) {
+          if(d.length === 0) {
             piechart.color(['gray']);
             piechart.showLabels(0);
           }else {
@@ -377,6 +377,11 @@
             let data = res.data;
             if (data.respcd === config.code.OK) {
               if(data.data.length) {
+//                data.data.forEach((d) => {
+//                  d.values.map((v) => {
+//                    v.y = v.y / 100
+//                  })
+//                })
                 this.mchntstore = data.data;
               }
               this.drawBarsChart(data.data)
@@ -397,7 +402,7 @@
             let data = res.data;
             if (data.respcd === config.code.OK) {
               data.data.length > 0 && (this.channelTrends = data.data)
-              this.drawPieChart()
+              this.drawPieChart(data.data)
             } else {
               this.$message.error(data.respmsg);
             }
@@ -414,7 +419,7 @@
           .then((res) => {
             let data = res.data;
             if (data.respcd === config.code.OK) {
-              this.curdata = data.data
+              this.curdata = data.data;
             } else {
               this.$message.error(data.respmsg);
             }
@@ -431,7 +436,7 @@
           .then((res) => {
             let data = res.data;
             if (data.respcd === config.code.OK) {
-              this.total = data.data
+              this.total = data.data;
             } else {
               this.$message.error(data.respmsg);
             }
@@ -535,6 +540,32 @@
       color:rgba(29,29,36,1);
       line-height:24px;
       top: 20px;left:30px;
+    }
+    .bars-legend {
+      font-size:  12px;
+      position: absolute;
+      right: 40px;
+      top: 40px;
+      display: -webkit-flex;
+      align-items: center;
+      width: 160px;
+      .mer,.submer {
+        margin-right: 30px;
+        .mer-icon {
+          display:inline-block;
+          width:10px;height:10px;
+          border-radius: 50%;
+          background-color: rgb(67, 178, 255);
+          margin-right:5px;
+        }
+        .submer-icon {
+          display:inline-block;
+          width:10px;height:10px;
+          border-radius: 50%;
+          background-color: rgb(79, 28, 123);
+          margin-right:5px;
+        }
+      }
     }
     .second-row {
       margin-top: 30px;

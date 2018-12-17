@@ -18,6 +18,7 @@
       <el-form-item prop="telephone" :label="$t('shop.newStore.model.mobile')">
         <el-input
           v-model.trim="storeModel.telephone"
+          maxlength="8"
           :disabled="isUpdate"></el-input>
       </el-form-item>
 

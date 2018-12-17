@@ -165,7 +165,6 @@
       document.title = this.$t('main.desc')
     },
     created() {
-      console.log(this.select)
       var me = this;
       this.$store.dispatch('getUserPermission').then(() => {
         let navarr = navmap[location.hash.split('/')[2]]

@@ -63,7 +63,11 @@ const zh = {
       title: '交易趋势图',
     },
     bar: {
-      title: '商户交易趋势图'
+      title: '商户交易趋势图',
+      legend: {
+        mer: '商户',
+        submer: '门店'
+      }
     },
     pie: {
       title: '通道交易分析'
