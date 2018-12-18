@@ -261,7 +261,7 @@
             }
           ];
         },
-        drawCurveChart(d) {
+        drawCurveChart(data) {
           let curveChart;
           nv.addGraph(() => {
             curveChart = nv.models.lineChart()
@@ -274,12 +274,16 @@
             curveChart.xAxis
               .tickValues(this.tradeTrends.map((d) => { return d.time }))
               .tickFormat((d) => {
-                 if(d % 3 === 0) {
-                   return d + ':00'
-                 }
+                if(!data.length) {
+                  if(d % 3 === 0) {
+                    return d + ':00'
+                  }
+                }else {
+                  return d + ':00'
+                }
               })
               .showMaxMin(false).staggerLabels(false)
-            if (!d.length) {
+            if (!data.length) {
               curveChart.yDomain([0, 4000])
             }
 
@@ -291,7 +295,7 @@
           });
         },
         drawBarsChart() {
-          let barchart;
+          let barchart, flag1 = 0, flag2 = 0;
           nv.addGraph(() => {
             barchart = nv.models.multiBarChart()
               .barColor((d, i) => {
@@ -317,7 +321,7 @@
             barchart.yAxis
               .axisLabelDistance(-5)
               .tickFormat(d3.format('d'));
-            let flag1 = 0, flag2 = 0;
+
             this.mchntstore.forEach((item, i) => {
               if(i === 0) {
                 flag1 = _.every(item.values, {y: 0})
