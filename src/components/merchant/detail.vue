@@ -259,8 +259,8 @@
           date: this.$t('merchant.detail.p.d'),
         },
         status: {
-            0: this.$t('merchant.detail.up'),
-            1: this.$t('merchant.detail.down')
+            0: this.$t('common.enable'),
+            1: this.$t('common.disable')
          },
         auditresult: {
           '0': this.$t('audit.deny'),

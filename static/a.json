@@ -7,22 +7,22 @@
         "datas":{
             "weixin": [
                 {
-                    "mchntnm": "wx798f4f90c7384c24",
+                    "mchntnm": "123",
                     "memo": "2",
                     "userid": 21017394,
                     "termid": "31221",
                     "id": 6741088,
-                    "mchntid": "1465742402"
+                    "mchntid": "123"
                 }
             ],
             "alipay_hk": [
                 {
-                    "mchntnm": null,
+                    "mchntnm": "123",
                     "memo": "2",
                     "userid": 21017394,
-                    "termid": "21017394",
+                    "termid": "3333",
                     "id": 6741096,
-                    "mchntid": "2088231070720291"
+                    "mchntid": "122111"
                 }
             ]
         }

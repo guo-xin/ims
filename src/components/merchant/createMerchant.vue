@@ -477,8 +477,8 @@
           {value: 'date', name: this.$t('merchant.detail.p.d')},
         ],
         statusList: [
-          {name: this.$t('merchant.detail.up'), val: 3},
-          {name: this.$t('merchant.detail.down'), val: 4}
+          {name: this.$t('common.enable'), val: 3},
+          {name: this.$t('common.disable'), val: 4}
         ],
         voucherInfo: {
           idcardfront_url: '',
@@ -904,6 +904,8 @@
             let data = res.data;
             this.isLoading = false;
             if (data.respcd === config.code.OK) {
+              this.IsRemit = true
+
               let uinfo = data.data.userinfo;
               let fee = data.data.fee_ratios
               let qdinfo = data.data.qdinfo;
@@ -1133,6 +1135,8 @@
             this.formData.remit_amt = data.data.remit_amt
             if(data.data.remit_amt !== "") {
               this.IsRemit = true
+            }else {
+              this.IsRemit = false
             }
           }else {
             this.$message.error(data.respmsg);
