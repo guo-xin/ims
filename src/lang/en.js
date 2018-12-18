@@ -599,7 +599,7 @@ const en = {
       model: {
         storename: 'Store Name',
         storeaddress: 'Store Address',
-        mobile: 'Contact Number',
+        mobile: 'Store Contact Number',
         operation: 'Business Hours'
       },
       rule1: 'Please input the name of store',

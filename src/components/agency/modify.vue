@@ -94,7 +94,7 @@
       </el-form-item>
     </el-form>
 
-    <el-form v-show="active === 1" ref="payfeeform" :rules="payfeeFormRules">
+    <el-form v-show="active === 1" ref="payfeeform">
       <h3>{{$t('agent.payRate')}}</h3>
       <div :label="item.name" v-for="item in payfee" :key="item.name">
         <h4>{{item.name}}</h4>
@@ -208,14 +208,6 @@
           'bankcode': [
             {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.bankcode')}
           ]
-        },
-        payfeeFormRules: {
-          'wechat_fee': [
-            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.wechatRate')}
-          ],
-          'alipay_fee': [
-            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.alipayRate')}
-          ]
         }
       }
     },
@@ -323,9 +315,9 @@
         if (this.active-- <= 0) this.active = 0
       },
       resetStep1() {
+        this.baseFormRules.parent_uid && (this.baseFormRules.parent_uid = []);
+        this.baseFormRules.levelcode && (this.baseFormRules.levelcode = [])
         this.$refs['baseform'].resetFields()
-        this.$refs['levelcode'].clearValidate()
-        this.$refs['province'].clearValidate()
       },
       selectLevel(value) {
         this.levels.map((level, index) => {
@@ -351,7 +343,7 @@
         }
         this.baseform.parent_uid = ''
       },
-      selectProvince(value, cityId) {
+      selectProvince(value) {
         this.areas.map((area, index) => {
           if (area.areaname === value) {
             if (this.isUpdate) {
@@ -360,15 +352,6 @@
           }
         })
       },
-      // selectCity(value) {
-      //   if (this.isUpdate) {
-      //     this.citys.map((city, index) => {
-      //       if (city.cityid === value) {
-      //         this.updateAgency('updateProvinceCity', city.cityname)
-      //       }
-      //     })
-      //   }
-      // },
       fetchAgencyLevel() {
         this.$http(`${config.host}/org/tools/level?format=cors`)
         .then((res) => {
@@ -402,17 +385,6 @@
           let data = res.data
           if (data.respcd === '0000') {
             this.areas = data.data.records
-            this.selectProvince(this.baseform.auth_province, this.baseform.auth_city)
-            // if (this.baseform.auth_city) {
-            //   this.selectProvince(this.baseform.auth_province, this.baseform.auth_city)
-            // }
-            // if (this.isUpdate) {
-            //   this.areas.map((area, index) => {
-            //     if (area.areaname === this.baseform.auth_province) {
-            //       this.citys = area.cities
-            //     }
-            //   })
-            // }
           } else {
             this.$message.error(data.resperr)
           }
@@ -452,7 +424,6 @@
         // paramsBase.auth_city = this.$refs.city.selected.label || ''
         paramsBase.auth_province = this.baseform.auth_province
         this.payfeeT = this.refee(this.payfee)
-        console.log(paramsBase)
         this.$http({
           method: 'post',
           url: `${config.host}/org/agent/create`,

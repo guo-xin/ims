@@ -28,7 +28,7 @@
           @blur="mchntNameHandleBlur"
         ></el-autocomplete>
       </el-form-item>
-      <el-form-item :label="$t('trade.common.firstAgent')">
+      <!-- <el-form-item :label="$t('trade.common.firstAgent')">
         <el-autocomplete
           v-model="formData.primary_agent"
           :fetch-suggestions="getPrimaryAgent"
@@ -48,7 +48,7 @@
           @select="secondaryAgentHandleSelect"
           @blur="secondaryAgentHandleBlur"
         ></el-autocomplete>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item :label="$t('trade.common.payPass')">
         <el-select v-model="formData.paytypes">
           <el-option :label="$t('common.all')" value=""></el-option>

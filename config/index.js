@@ -13,7 +13,7 @@ module.exports = {
       '/api': {
         // target: 'https://oasbp.qa.qfpay.net',
         // target: 'https://oasbp.qa.qfpay.net',
-        target: 'https://172.100.108.234:6500',
+        target: 'http://172.100.108.234:6500',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/'
@@ -24,7 +24,7 @@ module.exports = {
       NODE_ENV: '"development"'
     },
     // Various Dev Server settings
-    host: '0.0.0.0', // can be overwritten by process.env.HOST
+    host: 'localhost', // can be overwritten by process.env.HOST
     port: 80, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,

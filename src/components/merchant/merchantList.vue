@@ -100,7 +100,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('merchant.table.payment')" width="150">
+      <el-table-column :label="$t('merchant.table.payment')">
         <template slot-scope="scope">
           <el-button :disabled="scope.row.status !== 3" v-if="scope.row.deploy == 1" type="text" @click.stop="paymentConfigure(scope.row.userid,scope.row.deploy)">{{ $t('merchant.payment.configured') }}</el-button>
           <el-button :disabled="scope.row.status !== 3" v-else type="text" @click.stop="paymentConfigure(scope.row.userid,scope.row.deploy)">{{ $t('merchant.payment.nonconfigured') }}</el-button>
@@ -461,7 +461,7 @@
       editStatus() { // 将对话框的状态改为可编辑
         this.paymentEdit.edit = false
         this.paymentEdit.dialogType = true
-        if(this.radio == 1) {
+        if(this.radio === "1") {
           this.paymentEdit.IsPayment = false
         }else {
           this.paymentEdit.IsTwoTimes = false
@@ -475,7 +475,7 @@
           this.centerDialogVisible = false
       },
       closeForm() {
-          this.radio = 2
+          this.radio = "2"
           this.paymentEdit.Isradio1 = false
           this.paymentEdit.Isradio2 = false
           this.paymentEdit.IsTwoTimes = false
@@ -485,7 +485,7 @@
         // debugger
         let url = this.paymentEdit.type == 0 ? ('/org/mchnt/hk/channel/bind') : ('/org/mchnt/hk/channel/edit')
         let channel_infos1 = []
-        if(this.radio == 1) {
+        if(this.radio === "1") {
           channel_infos1 = this.channelsValue(this.ratioListOne)
         }else {
           channel_infos1 = this.channelsValue(this.ratioListTwo)
@@ -537,8 +537,8 @@
           let item = {}
           item.chnl_name = i.name
           item.chnl_id = i.buscid[0].chnlid
-          if(i.buscid[0].key1) {
-            item.key1 = i.buscid[0].key1
+          if(i.buscid[0].mchntnm) {
+            item.key1 = i.buscid[0].mchntnm
           }
           item.mchntid = i.buscid[0].mchntid
           item.termid = i.buscid[0].termid
