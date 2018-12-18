@@ -1,0 +1,119 @@
+{
+    "resperr": "",
+    "respcd": "0000",
+    "respmsg": "",
+    "data": {
+        "two": [
+            {
+                "weixin": [
+                    {
+                        "mchntnm": "wx798f4f90c7384c24",
+                        "tradetype": 8,
+                        "tag2": "HK-Wechat",
+                        "key3": "wx798f4f90c7384c24",
+                        "key1": "b0b453d7b7664474acf0020b5b188e6c",
+                        "mchntid": "1465742402",
+                        "termid": "",
+                        "chnlid": 20
+                    },
+                    {
+                        "mchntnm": "wx798f4f90c7384c24",
+                        "tradetype": 8,
+                        "tag2": "HK-Wechat",
+                        "key3": "wx798f4f90c7384c24",
+                        "key1": "b0b453d7b7664474acf0020b5b188e6c",
+                        "mchntid": "2465742402",
+                        "termid": "",
+                        "chnlid": 30
+                    }
+                ]
+            },
+            {
+                "zhifubao": [
+                    {
+                        "mchntnm": "wx798f4f90c7384c24",
+                        "tradetype": 8,
+                        "tag2": "HK-Wechat",
+                        "key3": "wx798f4f90c7384c24",
+                        "key1": "b0b453d7b7664474acf0020b5b188e6c",
+                        "mchntid": "3465742402",
+                        "termid": "",
+                        "chnlid": 20
+                    },
+                    {
+                        "mchntnm": "wx798f4f90c7384c24",
+                        "tradetype": 8,
+                        "tag2": "HK-Wechat",
+                        "key3": "wx798f4f90c7384c24",
+                        "key1": "b0b453d7b7664474acf0020b5b188e6c",
+                        "mchntid": "4465742402",
+                        "termid": "",
+                        "chnlid": 30
+                    }
+                ]
+            },
+            {
+                "alipay_hk": [
+                    {
+                        "mchntnm": "wx798f4f90c7384c24",
+                        "tradetype": 8,
+                        "tag2": "HK-Wechat",
+                        "key3": "wx798f4f90c7384c24",
+                        "key1": "b0b453d7b7664474acf0020b5b188e6c",
+                        "termid": "",
+                        "mchntid": "3465742402",
+                        "chnlid": 20
+                    },
+                    {
+                        "mchntnm": "wx798f4f90c7384c24",
+                        "tradetype": 8,
+                        "tag2": "HK-Wechat",
+                        "key3": "wx798f4f90c7384c24",
+                        "key1": "b0b453d7b7664474acf0020b5b188e6c",
+                        "mchntid": "4465742402",
+                        "termid": "",
+                        "chnlid": 30
+                    }
+                ]
+            }
+        ],
+        "one": [
+            {
+                "weixin": [
+                    {
+                        "chnlid": 20,
+                        "mchntnm": "",
+                        "tradetype": 8,
+                        "key1": "", 
+                        "mchntid": "", 
+                        "tag2": "HK-Wechat-Direct"
+                    }
+                ]
+            },
+            {
+                "zhifubao": [
+                    {
+                        "chnlid": 30,
+                        "mchntnm": "",
+                        "tradetype": 8,
+                        "key1": "",
+                        "mchntid": "",
+                        "tag2": "HK-Wechat-Direct"
+                    }
+                ]
+            },
+            {
+                "yinlian": [
+                    {
+                        "chnlid": 30,
+                        "mchntnm": "",
+                        "tradetype": 8,
+                        "key1": "",
+                        "mchntid": "",
+                        "tag2": "HK-Wechat-Direct"
+                    }
+                ]
+            }
+        ]
+    }
+}

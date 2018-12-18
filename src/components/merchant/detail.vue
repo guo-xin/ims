@@ -12,22 +12,33 @@
       <el-row>
         <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la1')}}</span>
-          <span class="basic-content">{{cate[form.userinfo.cate]}}</span>
+          <span class="basic-content">{{form.qdinfo.qd_name}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la2')}}</span>
-          <span class="basic-content">{{form.userinfo.audit_status_str}}</span>
+          <span class="basic-content">{{form.qdinfo.slsm_name}}</span>
         </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la3')}}</span>
+          <span class="basic-content">{{form.userinfo.shopname}}</span>
+        </el-col>
+        <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la4')}}</span>
-          <span class="basic-content">{{form.qdinfo.qd_name}}</span>
+          <span class="basic-content">{{cate[form.userinfo.cate]}}</span>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la5')}}</span>
+          <span class="basic-content">{{form.userinfo.mcc_str}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la6')}}</span>
-          <span class="basic-content">{{form.qdinfo.slsm_name}}</span>
+          <span class="basic-content">{{isSigned[form.userinfo.status]}}</span>
         </el-col>
       </el-row>
 
@@ -38,128 +49,169 @@
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la8')}}</span>
-          <span class="basic-content">{{form.bankinfo.bankmobile}}</span>
+          <span class="basic-content">{{form.userinfo.telephone}}</span>
         </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la9')}}</span>
-          <span class="basic-content">{{form.userinfo.email}}</span>
+          <span v-if="form.userinfo.eep" class="basic-content">{{$t('merchant.newMerchant.doctype.type1')}}</span>
+          <span v-else-if="form.userinfo.passport" class="basic-content">{{$t('merchant.newMerchant.doctype.type2')}}</span>
+          <span v-else-if="form.userinfo.idnumber" class="basic-content">{{$t('merchant.newMerchant.doctype.type3')}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la10')}}</span>
-          <span class="basic-content">{{form.userinfo.jointime}}</span>
+          <span class="basic-content">{{form.number}}</span>
         </el-col>
       </el-row>
-    </section>
-    <section class="shop">
-      <div class="banner">
-        <div class="title">{{$t('merchant.detail.shop.subtitle')}}</div>
-        <div class="divider"></div>
-      </div>
+
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.shop.la1')}}</span>
-          <span class="basic-content">{{form.userinfo.shopname}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la11')}}</span>
+          <span class="basic-content">{{form.userinfo.email}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.shop.la2')}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la12')}}</span>
           <span class="basic-content">{{form.userinfo.address}}</span>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la13')}}</span>
+          <span class="basic-content">{{form.userinfo.br}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la14')}}</span>
+          <span class="basic-content">{{form.userinfo.br_expire_time}}</span>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la15')}}</span>
+          <span class="basic-content">{{form.userinfo.ci}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la16')}}</span>
+          <span class="basic-content">{{form.userinfo.ci_expire_time}}</span>
         </el-col>
       </el-row>
     </section>
 
     <section class="rates">
       <div class="banner">
-        <div class="title">{{$t('merchant.detail.rates.subtitle')}}</div>
+        <div class="title">{{$t('merchant.detail.basic.paymenttitle')}}</div>
         <div class="divider"></div>
       </div>
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.rates.wechat')}}</span>
-          <span class="basic-content">{{form.fee_ratios.tenpay_ratio}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.rates.ali')}}</span>
-          <span class="basic-content">{{form.fee_ratios.alipay_ratio}}</span>
-        </el-col>
-      </el-row>
+
+      <div v-for="item in form.fee_ratios" :key="item.name">
+        <h3>{{item.name}}</h3>
+        <el-row v-for="fee in item.busicd" :key="fee.trade_type_name">
+          <el-col :span="8">
+            <span class="basic-label">{{fee.trade_type_name}}:</span>
+            <span class="basic-content">{{fee.ratio}}</span>
+          </el-col>
+        </el-row>
+      </div>
     </section>
 
-    <section class="payment">
+    <section class="rates">
       <div class="banner">
-        <div class="title">{{$t('merchant.detail.pay.subtitle')}}</div>
+        <div class="title">{{$t('merchant.detail.rates.setitle')}}</div>
         <div class="divider"></div>
       </div>
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.pay.la1')}}</span>
-          <span class="basic-content">{{form.bankinfo.bankuser}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.pay.la2')}}</span>
-          <span class="basic-content">{{form.bankinfo.bankaccount}}</span>
-        </el-col>
-      </el-row>
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.pay.la3')}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la17')}}</span>
           <span class="basic-content">{{form.bankinfo.headbankname}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.pay.la4')}}</span>
-          <span class="basic-content">{{form.bankinfo.bankname}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la18')}}</span>
+          <span class="basic-content">{{form.bankinfo.bankuser}}</span>
         </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.pay.la5')}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la19')}}</span>
+          <span class="basic-content">{{form.bankinfo.bankaccount}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la20')}}</span>
           <span class="basic-content">{{form.bankinfo.bankProvince}}</span>
         </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.pay.la6')}}</span>
-          <span class="basic-content">{{form.bankinfo.bankcode}}</span>
-        </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.pay.la7')}}</span>
-          <span class="basic-content">{{form.bankinfo.bankCity}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.pay.la8')}}</span>
-          <span class="basic-content">{{form.bankinfo.bankmobile}}</span>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.pay.la9')}}</span>
-          <span class="basic-content">{{banktype[form.bankinfo.banktype]}}</span>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="4">
-          <span class="basic-label">{{$t('merchant.detail.pay.la10')}}</span>
-        </el-col>
-        <el-col :span="20">
-          <img :src="item.url" v-for="(item,idx) in form.vouchers" class="voucher_photo" :key="idx"/>
+          <span class="basic-label">{{$t('merchant.detail.basic.la21')}}</span>
+          <span class="basic-content">{{form.userinfo.remit_amt}}</span>
         </el-col>
       </el-row>
     </section>
-    <footer v-if="isEditable">
-      <el-button @click="editHandler">{{$t('merchant.detail.edit')}}</el-button>
+
+    <section v-if="pictures.length>0">
+      <div class="banner">
+        <div class="title">{{$t('merchant.detail.document.doctitle')}}</div>
+        <div class="divider"></div>
+        <el-row>
+         <el-col :span="24">
+           <span class="basic-content-p">
+             <img :src="item.url" v-for="(item,url) in pictures" class="voucher_photo" :key="url"/>
+          </span>
+         </el-col>
+       </el-row>
+      </div>
+    </section>
+
+    <section class="audit-log" v-if="form.userinfo.status==0">
+      <div class="banner">
+        <div class="title">{{$t('audit.detail.title')}}</div>
+        <div class="divider"></div>
+      </div>
+      <el-table :data="audit_logs" stripe v-loading="isLoading">
+        <el-table-column prop="create_user" :label="$t('audit.detail.table.creator')">
+          <template slot-scope="scope">
+            {{ scope.row.create_user }}
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="create_date" :label="$t('audit.detail.table.create_date')">
+          <template slot-scope="scope">
+            {{ scope.row.create_date }}
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="result"  :label="$t('audit.detail.table.result')">
+          <template slot-scope="scope">
+            {{ auditresult[scope.row.result] }}
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="memo"  :label="$t('audit.detail.table.memo')">
+          <template slot-scope="scope">
+            {{ scope.row.memo }}
+          </template>
+        </el-table-column>
+      </el-table>
+    </section>
+    <footer>
+      <el-button v-if="isEditable&&!isReEditable" @click="editHandler">{{$t('merchant.detail.edit')}}</el-button>
+      <el-button v-if="isCreateShop&&!isReEditable" @click="createShop">{{$t('merchant.detail.createShop')}}</el-button>
+    </footer>
+    <footer v-if="isReEditable">
+      <el-button @click="editHandler">{{$t('merchant.detail.redit')}}</el-button>
+      <el-button @click="cancel">{{$t('merchant.detail.basic.close')}}</el-button>
     </footer>
   </div>
 </template>
 <script>
   import config from 'config'
   import axios from 'axios';
+  import { formatDate } from '../../common/js/util'
   const getParams = (key) => {
     // 获取参数
     let url = window.location.hash.split('?')[1] || '';
@@ -175,7 +227,11 @@
       return {
         isLoading: false,
         isEditable: false,
+        isReEditable: false,
+        isCreateShop: false,
+        license: '',
         temp: [],
+        audit_logs: [],
         cate: {
           "merchant": this.$t('merchant.detail.cate.merchant'),
           "bigmerchant": this.$t('merchant.detail.cate.big'),
@@ -185,58 +241,106 @@
           "1": this.$t('common.privata'),
           "2": this.$t('common.pub')
         },
+        isSigned: {
+          "3": this.$t('common.enable'),
+          "4": this.$t('common.disable'),
+          "-1": this.$t('common.audit'),
+          "0": this.$t('common.refuse')
+        },
+        statusList: [
+          {name: this.$t('common.enable'), val: 3},
+          {name: this.$t('common.disable'), val: 4},
+          {name: this.$t('common.refuse'), val: 0},
+          {name: this.$t('common.audit'), val: -1},
+        ],
+        period: {
+          month: this.$t('merchant.detail.p.m'),
+          week: this.$t('merchant.detail.p.w'),
+          date: this.$t('merchant.detail.p.d'),
+        },
+        status: {
+            0: this.$t('common.enable'),
+            1: this.$t('common.disable')
+         },
+        auditresult: {
+          '0': this.$t('audit.deny'),
+          '1': this.$t('audit.succ'),
+          '2': this.$t('audit.fail'),
+          '-1': this.$t('audit.going'),
+        },
         form: {
+          number: '',
           userinfo: {
-            userid: this.$route.query.userid || getParams('userid'),
+            userid: this.$route.query.userid || getParams('userid'), // 商户ID
             user_type: '',
             groupid: '',
             cate: '',
-            address: '',
+            address: '', // 公司地址
             provice: '',
             city: '',
             email: '',
             mobile: '',
-            legalperson: '',
-            shopname: '',
+            remit_amt: '',
+            legalperson: '', // 公司联系人
+            shopname: '', // 商户名称
             name: '', // 公司名称
-            audit_status: '',
             audit_status_str: '',
             jointime: '',
             mcc: '', // 店铺类型编码，仅可以填数字
-            mcc_str: ''
-          },
-          fee_ratios: {
-            tenpay_ratio: '',
-            alipay_ratio: '',
+            mcc_str: '' // 商户类型名称
           },
           qdinfo: {
-            qd_name: '',
-            slsm_name: ''
+            qd_name: '', // 所属代理商名称
+            qd_uid: '', //  所属代理商ID
+            slsm_name: '', // 业务员名称
+            slsm_uid: '', //  业务员ID
+            slsm_mobile: '' // 业务员手机号
           },
           bankinfo: {
-            bankmobile: '',
-            jointime: ''
+            headbankname: '',
+            bankuser: '',
+            bankaccount: '',
+            bankProvince: ''
           }
-        }
+        },
+        pictures: []
       }
     },
     created() {
-      console.log(this.$route.query)
       this.isEditable = this.$route.query.from === 'old'
+      this.isReEditable = this.$route.query.from === 'edit'
       this.fetchDetailData()
     },
     methods: {
+      getAuditResult() {
+        axios.get(`${config.host}/org/tools/audit_logs_list`, {
+          params: {
+            userid: this.form.userinfo.userid,
+            format: 'cors'
+          }})
+          .then((res) => {
+            let data = res.data;
+            if (data.respcd === '0000') {
+              this.audit_logs = data.data;
+            } else {
+              this.$message.error(data.respmsg);
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      },
       cancel() {
         this.$router.push({name: 'mchnt_manage_list'})
       },
       editHandler() {
-        this.$router.push({name: 'mchntCreate', params: {command: 'edit', userid: this.form.userinfo.userid}})
+        this.$router.push({name: 'mchntCreate', query: {command: 'edit', userid: this.form.userinfo.userid}})
       },
       fetchDetailData() {
         axios.get(`${config.host}/org/mchnt/info`, {
           params: {
             userid: this.form.userinfo.userid,
-            mode: 'info',
+            type: 'bigmerchant',
             format: 'cors'
           }})
           .then((res) => {
@@ -244,13 +348,15 @@
             this.isLoading = false;
             if (data.respcd === config.code.OK) {
                 this.form = data.data
-//                for (let key of Object.keys(data.data.fee_ratios)) {
-//                  if(key !== 'userid') {
-//                    tempArr.push({key: key, value: data.data.fee_ratios[key] || ' '})
-//                  }
-//                }
-//                this.form.fee_ratios = tempArr
-//                this.temp = tempArr.concat([]);
+                this.picturesSelect(this.pictures, this.form.vouchers)
+                this.form.userinfo.ci_expire_time = formatDate(this.form.userinfo.ci_expire_time, 'dd/MM/yyyy')
+                this.form.userinfo.br_expire_time = formatDate(this.form.userinfo.br_expire_time, 'dd/MM/yyyy')
+                this.form.number = this.form.userinfo['idnumber'] || this.form.userinfo['passport'] || this.form.userinfo['eep']
+                this.isCreateShop = this.form.userinfo.cate === 'bigmerchant' ? 1 : 0
+                this.isEditable = this.form.userinfo.status !== -1 ? 1 : 0
+              if(data.data.userinfo.status == 0) {
+                this.getAuditResult()
+              }
             } else {
               this.$message.error(data.respmsg);
             }
@@ -258,6 +364,16 @@
           this.isLoading = false;
           this.$message.error(this.$t('common.netError'));
         });
+      },
+      createShop() {
+        this.$router.push({name: 'createStore', query: {big_uid: this.form.userinfo.userid}})
+      },
+      picturesSelect(a, b) {
+        for(let i of b) {
+          if(i['name'] === "idcardfront" || i['name'] === 'licensephoto') {
+             a.push(i)
+          }
+        }
       }
     }
   }
@@ -303,13 +419,12 @@
         }
       }
     }
-    .payment {
-      .voucher_photo {
-        width:200px;
-        height:150px;
-        display:inline-block;
-        margin-left:$smGap;
-      }
+    .voucher_photo {
+      width:300px;
+      height:200px;
+      display:inline-block;
+      margin-left:$smGap;
+      margin-top:$smGap;
     }
   }
 </style>

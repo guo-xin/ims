@@ -7,7 +7,7 @@ import axios from 'axios'
 import store from './store'
 import config from 'src/config'
 import router from './router'
-import { Autocomplete, Container, Header, Aside, Main, Upload, Select, Option, TableColumn, Table, Button, Pagination, Dropdown, DropdownItem, DropdownMenu, Loading, DatePicker, Input, Message, MessageBox, Form, FormItem, Radio, RadioGroup, RadioButton, Dialog, Col, Row, CheckboxGroup, Checkbox, Rate, Tooltip, Menu, Submenu, MenuItem, MenuItemGroup, Steps, Step, InputNumber } from 'qfpay-element-ui';
+import { Tree, Autocomplete, Container, Header, Aside, Main, Upload, Select, Option, TableColumn, Table, Button, Pagination, Dropdown, DropdownItem, DropdownMenu, Loading, DatePicker, Input, Message, MessageBox, Form, FormItem, Radio, RadioGroup, RadioButton, Dialog, Col, Row, CheckboxGroup, Checkbox, Rate, Tooltip, Menu, Submenu, MenuItem, MenuItemGroup, Steps, Step, InputNumber } from 'qfpay-element-ui';
 import VueI18n from 'vue-i18n'
 import 'assets/scss/common.scss'
 import locale from 'qfpay-element-ui/lib/locale';
@@ -16,6 +16,7 @@ let switchlang = sessionStorage.getItem("oasbp_lang") || 'en-us';
 
 Vue.use(VueI18n)
 
+Vue.use(Tree)
 Vue.use(Autocomplete)
 Vue.use(Container)
 Vue.use(Header)
@@ -54,6 +55,7 @@ Vue.use(MenuItemGroup)
 Vue.use(Step)
 Vue.use(Steps)
 Vue.use(InputNumber)
+// Vue.use(TimePicker)
 
 // Create VueI18n instance with options
 const i18n = new VueI18n({
@@ -71,6 +73,7 @@ Vue.prototype.$http = axios
 axios.defaults.withCredentials = true; // 允许跨域请求携带cookie
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.headers.common['lang'] = switchlang;
+axios.defaults.headers.common['region'] = config.region;
 
 axios.interceptors.response.use((res) => {
   if (config.env === 'development') {
@@ -78,9 +81,6 @@ axios.interceptors.response.use((res) => {
   }
   let data = res.data;
   if (data.respcd == config.code.SESSIONERR || data.respcd == config.code.LOGINERR) {
-    // 清除本地cookie
-    (new Image()).src = `${config.ohost}/mchnt/set_cookie?sessionid=`;
-
     localStorage.clear();
     location.replace(`${location.pathname}#/login`);
   } else {

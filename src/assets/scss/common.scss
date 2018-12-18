@@ -254,6 +254,7 @@ form.el-form {
     }
   }
 }
+
 .el-table {
   &::before {
     height: 0 !important;
@@ -266,14 +267,21 @@ form.el-form {
     }
   }
 }
+.el-table tr {
+  cursor: pointer;
+}
 .el-table .cell {
   line-height: 18px;
+  word-break: keep-all;
+  text-overflow: inherit;
+  overflow: inherit;
 }
 .el-table thead th {
   padding: 24px 0;
 }
 .el-table th > .cell {
-  word-break: break-word;
+  word-break: keep-all;
+  text-overflow: initial !important;
 }
 .tradeTotal {
   .el-table thead.is-group th {

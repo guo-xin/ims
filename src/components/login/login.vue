@@ -3,14 +3,13 @@
       <div class="login-wrap">
         <img class="logo" src="../../assets/common_img/logo.png"/>
         <div class="cap">
-          {{$t('login.cap1')}} <br/>
-          {{$t('login.cap2')}}
+          {{$t('login.cap1')}}<br v-if="type != 'zh-cn'"/>{{$t('login.cap2')}}
         </div>
-        <div class="desc">
+        <div class="desc" v-show="false">
           {{$t('login.desc')}}
         </div>
         <el-form ref="form-login"  :model="form" label-width="0px" class="form-login" :rules="rules" :autocomplete="false">
-          <el-form-item label="Phone Number or E-mail" prop="username">
+          <el-form-item :label="$t('login.nameph')" prop="username">
             <el-input type="text" v-model.trim="form.username" :clearable="true" @focus="addNameBorder" @blur="removeNameBorder"></el-input>
           </el-form-item>
 
@@ -43,17 +42,6 @@
   import qs from 'qs';
   import config from 'config';
 
-  const getCookie = (sName) => {
-    var aCookie = document.cookie.split(';')
-
-    for (let sCookie of aCookie) {
-      var aCrumb = sCookie.split('=')
-      if (sName == aCrumb[0].replace(/(^\s*)|(\s*$)/g, '')) {
-        return (aCrumb[1])
-      }
-    }
-    return null
-  }
   export default {
     components: {
       ElButton,
@@ -65,6 +53,7 @@
           password: '',
           checked: true
         },
+        type: '',
         isNameBorder: false,
         isPassBorder: false,
         loading: false,
@@ -82,10 +71,7 @@
 
     },
     created() {
-      // 已登录直接跳到首页
-//      if (getCookie('sessionid')) {
-//        this.$router.push('/main')
-//      }
+      this.type = this.$i18n.locale
     },
     methods: {
       changeCheckboxHandler(e) {
@@ -172,7 +158,7 @@
         margin-bottom:40px;
       }
       .cap {
-        width:519px;font-size:32px;line-height: 1;padding-bottom: 14px;font-weight: 600;
+        width:519px;font-size:32px;line-height: 1;padding-bottom: 44px;font-weight: 600;
       }
       .desc {
         width:355px;

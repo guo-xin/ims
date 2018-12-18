@@ -28,10 +28,12 @@
       <li><em>{{$t('agent.bankcode')}}：</em><span>{{bankinfo.bankcode}}</span></li>
     </ul>
     <h3>{{$t('agent.payRate')}}</h3>
-    <ul>
-      <li><em>{{$t('agent.wechat')}}：</em><span>{{payfee.wechat_fee}}%</span></li>
-      <li><em>{{$t('agent.alipay')}}：</em><span>{{payfee.alipay_fee}}%</span></li>
-    </ul>
+    <div v-for="item in payfee" :key="item.name">
+        <h4>{{item.name}}</h4>
+        <ul v-for="fee in item.busicd" :key="fee.trade_type_name">
+          <li><em>{{fee.trade_type_name}}: </em><span>{{fee.ratio}}</span></li>
+        </ul>
+    </div>
     <el-button size="large" @click="cancel()">{{$t('common.close')}}</el-button>
     <el-button v-if="hasEditPerm" size="large" type="primary" @click="editAgency()">{{$t('common.edit')}}</el-button>
   </div>

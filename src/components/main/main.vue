@@ -20,15 +20,15 @@
             </g>
           </g>
         </svg>
-        <div class="desc">{{$t('main.desc')}}</div>
+        <div class="desc" :style="select==='en-us'? 'line-height:1': ''">{{$t('main.desc')}}</div>
         <div class="sign-in-info">
           <el-row type="flex">
             <el-col :span="16">
-              <div class="outer-link-wrap">
-                <a href="javascript:void(0)" class="outer-link">&nbsp;Authorit</a>
-                <a href="javascript:void(0)" class="outer-link">&nbsp;Settlement /</a>
-                <a href="javascript:void(0)" class="outer-link">&nbsp;Agent / </a>
-              </div>
+              <!--<div class="outer-link-wrap">-->
+                <!--<a href="javascript:void(0)" class="outer-link">&nbsp;Authorit</a>-->
+                <!--<a href="javascript:void(0)" class="outer-link">&nbsp;Settlement /</a>-->
+                <!--<a href="javascript:void(0)" class="outer-link">&nbsp;Agent / </a>-->
+              <!--</div>-->
             </el-col>
             <el-col :span="6" class="lang-change">
               <el-select v-model="select" @change="selectChange">
@@ -162,6 +162,7 @@
           this.isCollapse = false
         }
       }
+      document.title = this.$t('main.desc')
     },
     created() {
       var me = this;
@@ -183,11 +184,10 @@
         this.$i18n.locale = val;
         sessionStorage.setItem("oasbp_lang", val)
         // 初始化页面及接口数据
-        this.$router.go(0);
+        location.reload();
       },
 
       subMenuSelectedHandler(index, indexPath) {
-//        console.log(index, indexPath)
       },
       router(router) {
         return `/${router}`;
@@ -245,7 +245,7 @@
         margin-left:30px;
         padding:0 15px;
         color:rgba(29,29,36,1);
-        line-height:1;
+        line-height:34px;
       }
       .sign-in-info {
         flex:1;height:100%;

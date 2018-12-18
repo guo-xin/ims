@@ -14,7 +14,7 @@
       <el-form-item prop="name" :label="$t('agent.agentName')">
         <el-input v-model="baseform.name" @blur="updateAgency('name', $event)"></el-input>
       </el-form-item>
-      <el-form-item :prop="baseform.levelcode >= 2 ? 'parent_uid' : 'levelcode'" :label="$t('agent.agentLevel')" style="width:446px">
+      <el-form-item :prop="baseform.levelcode >= 2 ? 'parent_uid' : 'levelcode'" :label="$t('agent.agentLevel')" style="width:446px" ref="levelcode">
         <el-select v-model="baseform.levelcode" @change="selectLevel">
           <el-option v-for="level in levels" :label="level.text" :value="level.code" :key="level.code"></el-option>
         </el-select>
@@ -26,13 +26,13 @@
       <el-form-item prop="short_name" :label="$t('agent.agentNickname')">
         <el-input v-model="baseform.short_name" @blur="updateAgency('short_name', $event)"></el-input>
       </el-form-item>
-      <el-form-item prop="auth_province" :label="$t('agent.agentArea')" style="width:446px">
-        <el-select ref="province" v-model="baseform.auth_province" @change="selectProvince">
-          <el-option v-for="province in areas" :label="province.areaname" :value="province.areaid" :key="province.areaid"></el-option>
+      <el-form-item prop="auth_province" :label="$t('agent.agentArea')" style="width:446px" ref="province">
+        <el-select v-model="baseform.auth_province" @change="selectProvince">
+          <el-option v-for="province in areas" :label="province.areaname" :value="province.areaname" :key="province.areaid"></el-option>
         </el-select>
-        <el-select style="margin-left:10px;" ref="city" v-model="baseform.auth_city" @change="selectCity">
+        <!-- <el-select style="margin-left:10px;" ref="city" v-model="baseform.auth_city" @change="selectCity">
           <el-option v-for="city in citys" :label="city.cityname" :value="city.cityid" :key="city.cityid"></el-option>
-        </el-select>
+        </el-select> -->
       </el-form-item>
       <hr/>
       <el-form-item prop="address" :label="$t('agent.address')">
@@ -93,19 +93,17 @@
         <el-input v-model="bankinfo.bankcode" @blur="updateAgency('bankcode', $event)"></el-input>
       </el-form-item>
     </el-form>
-    <el-form v-show="active === 1" ref="payfeeform" :rules="payfeeFormRules" :model="payfee">
+
+    <el-form v-show="active === 1" ref="payfeeform">
       <h3>{{$t('agent.payRate')}}</h3>
-      <el-form-item prop="wechat_fee" :label="$t('agent.wechat')">
-        <el-input-number v-model="payfee.wechat_fee" :controls="false" :precision="2" :disabled="isUpdate">
-           <template slot="append">%</template>
-        </el-input-number>
-      </el-form-item>
-      <el-form-item prop="alipay_fee" :label="$t('agent.alipay')">
-        <el-input-number v-model="payfee.alipay_fee" :controls="false" :precision="2" :disabled="isUpdate">
-          <template slot="append">%</template>
-        </el-input-number>
-      </el-form-item>
+      <div :label="item.name" v-for="item in payfee" :key="item.name">
+        <h4>{{item.name}}</h4>
+        <el-form-item :label="fee.trade_type_name" v-for="fee in item.busicd" :error="fee.error" :key="fee.trade_type_name">
+            <el-input-number v-model.trim="fee.ratio" :disabled="isUpdate" :precision="2" :step="0.01" :max="5" @change="ratioMinRule($event, fee.ratioMin, fee.trade_type)"></el-input-number>
+        </el-form-item>
+      </div>
     </el-form>
+
     <footer v-if="isUpdate">
       <el-button v-show="active === 1" type="primary" @click="goback">{{$t('common.done')}}</el-button>
       <el-button v-show="active === 0" type="primary" @click="next">{{$t('common.next')}}</el-button>
@@ -123,6 +121,7 @@
 
 <script>
   import qs from 'qs'
+  import axios from 'axios'
   import config from 'config'
   export default {
     data() {
@@ -139,7 +138,7 @@
           parent_uid: '',
           slsm_userid: '',
           auth_province: '',
-          auth_city: '',
+          // auth_city: '',
           password: ''
         },
         bankinfo: {
@@ -149,14 +148,11 @@
           bankname: '', // 支行名称
           bankcode: '' // 网点联行号
         },
-        payfee: {
-          wechat_fee: 0, // 微信费率
-          alipay_fee: 0 // 支付宝费率
-        },
+        payfee: [],
         levels: [], // 代理商级别
         allAgencys: [], // 所属代理
         areas: [], // 所有省份和城市
-        citys: [], // 当前省的所有城市
+        // citys: [], // 当前省的所有城市
         sales: [], // 业务员 列表
         isRegisterLoading: false,
         isRegistered: true, // 已注册
@@ -212,19 +208,12 @@
           'bankcode': [
             {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.bankcode')}
           ]
-        },
-        payfeeFormRules: {
-          'wechat_fee': [
-            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.wechatRate')}
-          ],
-          'alipay_fee': [
-            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.alipayRate')}
-          ]
         }
       }
     },
     created() {
       this.isUpdate = this.$route.name === 'agencyEdit'
+      !this.isUpdate && this.fetchRadio()
       // 编辑页面，刷新回详情页
       if (this.isUpdate && localStorage.getItem('hasEdit') === '1') {
         this.$router.push({name: 'agencyDetail'})
@@ -237,6 +226,7 @@
         base = localStorage.getItem('baseEdit')
         bankinfo = localStorage.getItem('bankinfoEdit')
         payfee = localStorage.getItem('payfeeEdit')
+        this.payfee = payfee
       } else {
         base = localStorage.getItem('base')
         bankinfo = localStorage.getItem('bankinfo')
@@ -262,6 +252,39 @@
       this.fetchCity()
     },
     methods: {
+      fetchRadio(agentUid) {
+        let p = {
+          format: 'cors',
+        }
+        if (agentUid) {
+          p.agent_uid = agentUid
+        }
+        axios.get(`${config.host}/org/tools/get/ratio`, {
+          params: p
+        })
+          .then((res) => {
+            let data = res.data;
+            if (data.respcd === config.code.OK) {
+              this.payfee = data.data;
+            } else {
+              this.$message.error(data.respmsg);
+            }
+          }).catch(() => {
+          this.$message.error(this.$t('common.netError'));
+        });
+      },
+      ratioMinRule(value, ratioMin, trade_type) { // 费率填写提示信息的处理
+        let errorMessage = value < ratioMin ? this.$t('common.MINRatio')+`${ratioMin}` : ''
+        this.payfee.map((radio) => {
+          radio.busicd.map((item) => {
+            if (trade_type === item.trade_type) {
+              this.$set(item, 'error', errorMessage)
+            } else {
+              item.error = ''
+            }
+          })
+        })
+      },
       goback() {
         this.$router.push({name: 'agencyDetail'})
       },
@@ -292,7 +315,8 @@
         if (this.active-- <= 0) this.active = 0
       },
       resetStep1() {
-        this.baseform = {}
+        this.baseFormRules.parent_uid && (this.baseFormRules.parent_uid = []);
+        this.baseFormRules.levelcode && (this.baseFormRules.levelcode = [])
         this.$refs['baseform'].resetFields()
       },
       selectLevel(value) {
@@ -319,32 +343,17 @@
         }
         this.baseform.parent_uid = ''
       },
-      selectProvince(value, cityId) {
+      selectProvince(value) {
         this.areas.map((area, index) => {
-          if (area.areaid === value) {
-            this.citys = area.cities
+          if (area.areaname === value) {
             if (this.isUpdate) {
               this.updateAgency('updateProvince', area.areaname)
             }
           }
         })
-        if (cityId) {
-          this.baseform.auth_city = cityId
-        } else {
-          this.baseform.auth_city = ''
-        }
-      },
-      selectCity(value) {
-        if (this.isUpdate) {
-          this.citys.map((city, index) => {
-            if (city.cityid === value) {
-              this.updateAgency('updateProvinceCity', city.cityname)
-            }
-          })
-        }
       },
       fetchAgencyLevel() {
-        this.$http(`${config.host}/org/tools/level`)
+        this.$http(`${config.host}/org/tools/level?format=cors`)
         .then((res) => {
           let data = res.data
           if (data.respcd === '0000') {
@@ -358,7 +367,7 @@
         })
       },
       fetchSalesman() {
-        this.$http(`${config.host}/org/tools/slsm`)
+        this.$http(`${config.host}/org/tools/slsm?format=cors`)
         .then((res) => {
           let data = res.data
           if (data.respcd === '0000') {
@@ -370,22 +379,12 @@
       },
       fetchCity() {
         this.isLoading = true
-        this.$http(`${config.host}/org/tools/areacities`)
+        this.$http(`${config.host}/org/tools/areacities?format=cors`)
         .then((res) => {
           this.isLoading = false
           let data = res.data
           if (data.respcd === '0000') {
             this.areas = data.data.records
-            if (this.baseform.auth_city) {
-              this.selectProvince(this.baseform.auth_province, this.baseform.auth_city)
-            }
-            if (this.isUpdate) {
-              this.areas.map((area, index) => {
-                if (area.areaname === this.baseform.auth_province) {
-                  this.citys = area.cities
-                }
-              })
-            }
           } else {
             this.$message.error(data.resperr)
           }
@@ -401,7 +400,7 @@
           return false
         }
         this.isRegisterLoading = true
-        this.$http(`${config.host}/org/agent/check?username=${username}`)
+        this.$http(`${config.host}/org/agent/check?username=${username}&format=cors`)
         .then((res) => {
           this.isRegisterLoading = false
           let data = res.data
@@ -421,15 +420,18 @@
       create() {
         // 接口传参需要 label，省市
         let paramsBase = JSON.parse(JSON.stringify(this.baseform))
-        paramsBase.auth_province = this.$refs.province.selected.label || ''
-        paramsBase.auth_city = this.$refs.city.selected.label || ''
+        // paramsBase.auth_province = this.$refs.province.selected.label || ''
+        // paramsBase.auth_city = this.$refs.city.selected.label || ''
+        paramsBase.auth_province = this.baseform.auth_province
+        this.payfeeT = this.refee(this.payfee)
         this.$http({
           method: 'post',
           url: `${config.host}/org/agent/create`,
           data: qs.stringify({
             base: JSON.stringify(paramsBase),
             bankinfo: JSON.stringify(this.bankinfo),
-            payfee: JSON.stringify(this.payfee)
+            payfee: JSON.stringify(this.payfeeT),
+            format: 'cors'
           })
         })
         .then((res) => {
@@ -485,9 +487,9 @@
         if (key === 'secondAgency') {
           params['levelcode'] = 2
           params['parent_uid'] = value
+          this.fetchRadio(this.baseform.parent_uid)
         } else if (key === 'updateProvince') {
           params['auth_province'] = value
-          params['auth_city'] = ''
         } else if (key === 'updateProvinceCity') {
           params['auth_province'] = this.$refs.province.selected.label || this.baseform.auth_province
           params['auth_city'] = value
@@ -520,6 +522,24 @@
       },
       cancel() {
         this.$router.push({name: 'agencyList'})
+      },
+      revalue(a, b) { // 为支付方式赋值
+          for(let i of a) {
+            for(let j of b) {
+              if(j['name'] === i['name']) {
+                i['busicd'] = j['busicd'];
+              }
+            }
+          }
+      },
+      refee(f) { // 注册及编辑的费率结构修改
+        let e = []
+        for(let i of f) {
+          for(let j of i.busicd) {
+            e.push(j)
+          }
+        }
+        return e
       }
     }
   }
@@ -549,6 +569,13 @@
       height: 2px;
       background-color: #232629;
     }
+  }
+  h4 {
+    position: relative;
+    padding: 12px 0;
+    margin: 0 0 20px;
+    font-size: 18px;
+    color: $titleColor;
   }
 }
 .el-form-item {

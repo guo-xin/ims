@@ -13,10 +13,12 @@ import userList from 'components/authority/userList'
 import forgetPassword from 'components/forgetPassword'
 import bussinessList from 'components/merchant/bussinessList'
 import merchantList from 'components/merchant/merchantList'
+import batchImport from 'components/merchant/batchImport'
 import auditList from 'components/merchant/auditList'
 import mchntDetail from 'components/merchant/detail'
 import auditDetail from 'components/merchant/auditDetail'
 import createMerchant from 'components/merchant/createMerchant'
+import createStore from 'components/merchant/createStore'
 import settleDetail from 'components/settlement/settleDetail'
 import settleMode from 'components/settlement/settleMode'
 import settleTotal from 'components/settlement/settleTotal'
@@ -24,6 +26,7 @@ import settleSet from 'components/settlement/settleSet'
 import modCreate from 'components/settlement/modCreate'
 import modDetail from 'components/settlement/modDetail'
 import home from 'components/home/home'
+import shopDetail from 'components/merchant/bussDetail'
 
 Vue.use(Router)
 
@@ -58,6 +61,16 @@ export default new Router({
           component: bussinessList
         },
         {
+          path: 'shop_manage_list/shop_detail',
+          name: 'shopDetail',
+          component: shopDetail
+        },
+        {
+          path: 'shop_manage_list/shop_create',
+          name: 'createStore',
+          component: createStore
+        },
+        {
           path: 'mchnt_manage_list',
           name: 'mchnt_manage_list',
           component: merchantList
@@ -66,6 +79,11 @@ export default new Router({
           path: 'mchnt_manage_list/mchnt_create',
           name: 'mchntCreate',
           component: createMerchant
+        },
+        {
+          path: 'mchnt_manage_list/batch_import',
+          name: 'batchImport',
+          component: batchImport
         },
         {
           path: 'mchnt_manage_list/mchnt_detail',

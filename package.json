@@ -8,11 +8,13 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "build_test": "node build/build.js test",
     "build": "node build/build.js production",
+    "build_sg": "node build/build.js Singapore",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
+    "d3": "^3.5.17",
     "event-source-polyfill": "0.0.12",
     "qfpay-element-ui": "^2.0.4",
     "vue": "^2.5.2",

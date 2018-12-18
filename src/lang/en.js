@@ -5,19 +5,24 @@ import enLocale from 'qfpay-element-ui/lib/locale/lang/en'
 const en = {
   ...enLocale,
   common: {
-    title: 'Overseas agency service business platform',
+    title: 'INSTITUTION MANAGEMENT SYSTEM',
     all: 'All',
     create: 'Create',
     export: 'Export',
     choose: 'Please choose',
     save: 'Save',
     submit: 'Submit',
+    MINRatio: 'Minimum rate is ',
     edit: 'Edit',
     prev: 'Previous',
     next: 'Next step',
     done: 'Carry out',
     close: 'Close',
     search: 'Search',
+    enable: 'Enable',
+    disable: 'Disable',
+    audit: 'Under Approval',
+    refuse: 'Reject',
     add: 'Add',
     reset: 'Reset',
     loading: 'Loading...',
@@ -26,7 +31,7 @@ const en = {
     updateSuccess: 'Successfully modified',
     opSucc: 'Successful operation',
     opFailed: 'Operation failed',
-    operate: 'operation',
+    operate: 'Operation',
     delete: 'Delete',
     look: 'View',
     range: 'Select date range',
@@ -34,8 +39,6 @@ const en = {
     cancel: 'Cancel',
     tip: 'Prompt',
     status: 'Status',
-    enable: 'Enable',
-    disable: 'Disable',
     startTime: 'Starting time',
     endTime: 'End time',
     privata: 'Private',
@@ -43,16 +46,51 @@ const en = {
     reupload: 'Re-Upload',
     format: 'Support JPG / PNG format',
     uploadSucc: 'Upload success',
-    uploadFailed: 'Upload failure'
+    uploadFailed: 'Upload failure',
+    CLOSE: 'CLOSE',
+    SAVE: 'SAVE',
+    EDIT: 'EDIT'
   },
+    home: {
+      all: 'All',
+      title: 'Homepage',
+      amt: 'Transaction Amount',
+      cnt: 'Total Transactions',
+      curamt: 'Current Transaction Amount',
+      curcnt: 'Current Total Transactions',
+      curnewmchnt: 'Current New Merchants',
+      curnewstore: 'Current New Stores',
+      nodata: 'No Data Available',
+      curve: {
+        title: 'Trend Chart Of Transaction',
+      },
+      bar: {
+        title: 'Trend Chart Of Merchants Trading',
+        legend: {
+          mer: 'merchant',
+          submer: 'submerchant'
+        }
+      },
+      pie: {
+        title: 'Analysis Of Channel Trading'
+      },
+      cumu: {
+        title: 'Analysis Of The Accumulated Data',
+        totle_mount: 'Total Transaction Amount',
+        totle_count: 'Total Transactions',
+        totle_mchnt_num: 'Total Number Of Merchants',
+        totle_store_num: 'Total Number Of Stores',
+        totle_agent_num: 'Total Number Of Agents'
+      }
+    },
   authority: {
     crumbs: {
-      T1: 'User management',
-      T2: 'Authority management'
+      T1: 'Account Management',
+      T2: 'Authority Management'
     },
     panel: {
-      userName: 'User name',
-      roleName: 'Role name',
+      userName: 'User Name',
+      roleName: 'Role Name',
       state: 'Status',
       open: 'Enable',
       close: 'Disable'
@@ -60,11 +98,11 @@ const en = {
     table: {
       role: 'Role',
       account: 'Account',
-      rTime: 'Registration time'
+      rTime: 'Registration Time'
     },
     dialog: {
-      title1: 'New users',
-      title2: 'User details',
+      title1: 'New Users',
+      title2: 'User Details',
       pwd: 'Password',
       tp1: 'Please enter a username',
       tp2: 'Please enter a role name',
@@ -76,10 +114,10 @@ const en = {
   },
   settleMent: {
     crumbs: {
-      T1: 'Clearing details',
-      T2: 'Clearing summary',
-      T3: 'Clearing template',
-      T4: 'Clearing configuration',
+      T1: 'Clearing Detail',
+      T2: 'Clearing Summary',
+      T3: 'Clearing Template',
+      T4: 'Clearing Tonfiguration',
       T5: 'Add a clearing template',
       T6: 'Edit clearing template',
       T7: 'Clear template details',
@@ -89,58 +127,58 @@ const en = {
       set: 'Configuration'
     },
     panel: {
-      orderNo: 'Order number',
-      tradeTime: 'Date of transaction',
-      settleType: 'Settlement type',
-      settleName: 'Settlement party',
+      orderNo: 'Order Number',
+      tradeTime: 'Transaction Date',
+      settleType: 'Settlement Type',
+      settleName: 'Settlement Party',
       payType: 'Payment Types',
-      settleDetail: 'Settlement account',
-      settlePass: 'Settlement channel',
+      settleDetail: 'Settlement Account',
+      settlePass: 'Settlement Channel',
       modeName: 'Template Name',
-      createTime: 'Creation time',
-      agentName: 'Agency name',
-      payPass: 'Payment channel',
-      effectTime: 'Effective date',
-      passCost: 'Channel cost',
-      staticAmount: 'Fixed amount',
+      createTime: 'Creation Time',
+      agentName: 'Agency Name',
+      payPass: 'Payment Channel',
+      effectTime: 'Effective Date',
+      passCost: 'Channel Cost',
+      staticAmount: 'Fixed Amount',
       percent: 'Percentage',
       noEffect: 'Not enabled',
-      day: 'Day knot',
-      week: 'Zhou Jie',
+      day: 'Daily',
+      week: 'Weekly',
       month: 'Monthly',
-      singleAmount: 'Single amount',
-      settleCircle: 'Billing cycle',
-      floorType: 'Ladder type',
-      floorCount: 'Ladder type',
+      singleAmount: 'Single Amount',
+      settleCircle: 'Billing Cycle',
+      floorType: 'Ladder Type',
+      floorCount: 'Ladder Type',
       yes: 'Yes',
       no: 'No'
     },
     table: {
-      sNum: 'Serial number',
-      merName: 'Business name',
-      shopName: 'Store name',
-      tradeAmount: 'Trans amount',
-      settlePercent: 'Clearing ratio',
-      settleAmount: 'Clearing amount',
+      sNum: 'Serial Number',
+      merName: 'Business Name',
+      shopName: 'Store Name',
+      tradeAmount: 'Trans Amount',
+      settlePercent: 'Clearing Ratio',
+      settleAmount: 'Clearing Amount',
       count: 'Entries',
       order: 'Seq',
-      passName: 'Channel name',
-      tradeNum: 'Number of transactions',
-      lastTime: 'Last update time',
-      isMode: 'Default template',
+      passName: 'Channel Name',
+      tradeNum: 'Number Of Transactions',
+      lastTime: 'Last Update Time',
+      isMode: 'Default Template',
       province: 'Province',
       city: 'City',
       address: 'Address',
-      phone: 'Telephone number',
-      countRules: 'Calculation formula',
-      isSettle: 'Yes / no settlement',
+      phone: 'Telephone Number',
+      countRules: 'Calculation Formula',
+      isSettle: 'Yes / No Settlement',
       agent: 'Mechanism',
-      firstAgent: 'Primary agent',
-      secondAgent: 'Secondary agent',
+      firstAgent: 'Primary Agent',
+      secondAgent: 'Secondary Agent',
       income: 'Income',
       expend: 'Expenditure',
-      merchantRate: 'Merchant rate',
-      headCost: 'Headquarters cost',
+      merchantRate: 'Merchant Rate',
+      headCost: 'Headquarters Cost',
       firstCost: 'First Level Agent Rate',
       secondCost: 'Second Level Agent Rate',
       startVal: 'Initial Value',
@@ -153,8 +191,8 @@ const en = {
       close: 'Disable'
     },
     dialog: {
-      date: 'Configuration date',
-      mode: 'Clearing template'
+      date: 'Configuration Date',
+      mode: 'Clearing Template'
     },
     msg: {
       t1: 'Please enter a template name',
@@ -178,10 +216,10 @@ const en = {
     }
   },
   login: {
-    nameph: 'Enter your phone number or E-mail',
+    nameph: 'UserName Or E-mail',
     passph: 'Password',
     desc: 'We handle billions of dollars every year for forward-thinking businesses in the world',
-    cap1: 'MOBILE PAYMENT',
+    cap1: 'INSTITUTION',
     cap2: ' MANAGEMENT SYSTEM',
     checkbox: 'Remember the password',
     btn: 'Login',
@@ -193,168 +231,453 @@ const en = {
     }
   },
   merchant: {
-    title: 'Business Management',
+    title: 'Merchant Management',
     create: 'Create',
     query: 'Query',
     reset: 'Reset',
-    patchImport: 'Batch Creation',
+    patchImport: 'Batch Create',
     form: {
       mchtid: 'Merchant ID',
       mchtname: 'Merchant Name',
-      agent1: 'Agent L1',
-      agent2: 'Agent L2',
-      ph: 'Please choose the L1 agent first.',
-      audit_state: 'Audit State'
+      agent1: '1st-tier Agent',
+      agent2: '2nd-tier Agent',
+      ph: 'Please select 1st-tier agent first.',
+      audit_state: 'Merchant Status'
     },
     table: {
+      detail: 'Detail',
       mchtid: 'Merchant ID',
       mchtname: 'Merchant Name',
       address: 'Address',
-      mobile: 'Mobile',
-      agent1: 'Agent L1',
-      agent2: 'Agent L2',
-      account: 'User Name',
-      cate_code: 'Category',
-      state: 'State'
+      mobile: 'Contact Number',
+      agent1: 'Agent Name',
+      agent2: '2nd-tier Agent',
+      account: 'Account Name',
+      industry: 'Industry',
+      merstatus: 'Merchant Status',
+      state: 'Status',
+      store: 'Store',
+      payment: 'Payment Setting',
+      pid: 'Alipay service provider ID',
+      wechatM: 'WeChat official account ID',
+      wechatpay: 'WeChat Pay'
+    },
+    payment: {
+      configured: "Configured",
+      nonconfigured: "Non-configured",
+      radio1: 'First Clean',
+      radio2: 'Second Clean',
+      merchantID2: 'Channel Merchant No.',
+      merchChildID2: 'Channel Sub-Merchant No.',
+      merchantID1: 'Merchant No.',
+      merchChildID1: 'Sub-Merchant No.',
+      merchantPass1: 'Merchant key'
+
     },
     detail: {
+      up: 'Activate',
+      down: 'Deactivate',
+      refuse: 'Reject',
+      audit: 'Under Approval',
+      redit: 'Continue To Edit',
+      createShop: 'CreateShop',
       cate: {
         merchant: 'Merchant',
-        big: 'Big-merchant',
+        big: 'Chain Merchant',
         sub: 'Sub-merchant'
+      },
+      signed: {
+        yes: 'Yes',
+        no: 'No'
+      },
+      p: {
+        m: 'Monthly',
+        w: 'Weekly',
+        d: 'Daily'
       },
       basic: {
         title: 'Detail Info',
         close: 'Close',
-        subtitle: 'Basic Information',
-        la1: 'Merchant Category:',
-        la2: 'Audit Status:',
-        la3: 'Name of Merchant:',
-        la4: 'Agent:',
-        la5: 'Address:',
-        la6: 'Contacts:',
-        la7: 'Legal Person:',
-        la8: 'Contact Telephone:',
-        la9: 'Email:',
-        la10: 'Engage Time:'
+        subtitle: 'Basic Info',
+        paymenttitle: 'Payment Channels Info',
+        bd: 'Description:',
+        la1: 'Channels Belongs:',
+        la2: 'Agent Name:',
+        la3: 'Merchant Name:',
+        la4: 'Merchant Category:',
+        la5: 'Industry:',
+        la6: 'Status:',
+        la7: 'Contact Name:',
+        la8: 'Telephone:',
+        la9: 'Certificate Type:',
+        la10: 'Certificate Number:',
+        la11: 'Email:',
+        la12: 'Address:',
+        la13: 'BR Number:',
+        la14: 'BR Validity:',
+        la15: 'CI Number:',
+        la16: 'CI Validity:',
+        la17: 'Account Name:',
+        la18: 'Bank Name:',
+        la19: 'Bank Account:',
+        la20: 'Bank Address:',
+        la21: 'Starting Point of Settlement Fund:'
       },
       shop: {
         subtitle: 'Shop Info',
-        la1: 'Name of Shop:',
+        la1: 'Merchant Name:',
         la2: 'Address:',
-        la3: 'Photograph:'
+        la3: 'Uploaded Photos:'
       },
       rates: {
-        subtitle: 'Rates Info',
-        wechat: 'WeChat Pay:',
+        setitle: 'Billing Info',
+        subtitle: 'MDR Info',
+        wechat: 'MDR:',
         ali: 'Alipay:'
       },
       pay: {
-        subtitle: 'Payment Info',
-        la1: 'Account Name:',
-        la2: 'Bank Account:',
-        la3: 'Head Bank:',
-        la4: 'Branch Bank:',
+        subtitle: 'Company Info',
+        la1: 'Bank Account Name:',
+        la2: 'Bank Account Number:',
+        la3: 'Bank Name:',
+        la4: 'Branch Name:',
         la5: 'Province Bank:',
-        la6: 'Bank Code:',
+        la6: 'Swift Code:',
         la7: 'City Bank:',
-        la8: 'Mobile:',
-        la9: 'Bank Type:',
-        la10: 'Photograph:'
+        la8: 'Contact Number:',
+        la9: 'Account Type:',
+        la10: 'Uploaded Photos:'
       },
-      edit: 'Edit'
+      edit: 'Edit',
+      document: {
+        doctitle: 'Licence Info'
+      },
     },
     newMerchant: {
-      title1: 'Create A Merchant',
+      title1: 'Create Merchant',
       title2: 'Modify Merchant',
       step1: 'Basic Info',
-      step2: 'Rates Info',
-      step3: 'Settlement Info',
+      step2: 'MDR Info',
+      step3: 'Company Info',
       basic: {
         cap1: 'Basic Info',
-        cap2: 'Rates Info',
+        cap2: 'Payment Channels Info',
+        cap3: 'Billing Info',
+        cap4: 'Store license'
       },
       form: {
+        escrow: 'Agent',
+        address: 'Address',
+        timeformat: 'HH:MM - HH:MM',
+        is_contract: 'Agreement Signed (Yes/No)',
+        cf: 'Please confirm',
+        period: 'Settlement Period',
+        ratio: 'MDR',
         account: 'Account',
-        shopname: 'Store Name',
-        name: 'Merchant Name',
-        legal: 'Enterprise Legal Person',
+        shopname: 'Merchant Name',
+        name: 'Company Name',
+        licensenumber: 'Business Registration Number',
+        legal: 'Contact Name',
+        location: 'Area',
+        loc1: 'Singapore',
+        loc2: 'Malaysia',
         storeaddr: 'Store Address',
-        email: 'Contact Email Address',
-        cate: 'Merchant Type',
-        scale: 'Merchant Scale',
-        type: 'Industry',
-        sub: 'Sub Merchant',
-        big: 'Big Merchant',
-        chain: 'Chain Store',
+        email: 'E-mail Address',
+        post: 'Post Code',
+        cate: 'Merchant Category',
+        scale: 'Store Type',
+        type1: 'Industry',
+        type2: 'Merchant Status',
+        bd: 'Description',
+        chain: 'Branch Store',
         micro: 'Small and micro enterprises',
         geti: 'Individual Company',
         ent: 'Enterprises',
         main: 'Main Store UID',
-        contact: 'Contact Name',
+        storelocation: 'Store Area',
+        storeaddress: 'Store Address',
+        storepost: 'Store Post Code',
+        storename: 'Store Name',
+        addition: 'Additional Services',
+        storeoperating: 'Business Hours',
+        website: 'Website',
         cell: 'Contact Number',
         wei: 'WeChat Pay:',
         ali: 'Alipay:',
-        rate: 'Merchant Rate',
-        bankuser: 'User Account Name',
-        bankaccount: 'Bank Account',
+        rate: 'MDR',
+        bankuser: 'Bank Account Name',
+        bankaccount: 'Bank Account Number',
         hbank: 'Bank Name',
-        bbank: 'Bank Branch Name',
+        bbank: 'Branch Name',
         bankProvice: 'Provice',
         bankCity: 'City',
         code: 'Swift Code',
         mobile: 'Mobile Number',
         banktype: 'Account Type',
-        doc: 'Documents', // 上传凭证，
-        idfront: 'Click to add a legal person id card frontage.',
-        idback: 'Click to add a legal person id card backside.',
-        oper: 'Click to add business license photos.', // 点击添加营业执照照片
-        lic: 'Click to add license photos.', // 点击添加开户许可照片
-        org: 'Click to add organization photos.', // 点击添加组织机构照片
-        protocol: 'Click Add merchant agreement photos', // 点击添加商户协议照片
-        warmfront: '* Second-generation ID cards must be used within the validity period. ID card numbers and avatars are clearly visible and full ID cards are photographed.', // 必须使用有效期内的二代身份证，身份证号码及头像清晰可见，完整身份证正面照
-        warmback: '* It is necessary to use the two generation ID card within the validity period. The validity period is clearly visible. The reverse of the complete identity card is used.', // 必须使用有效期内的二代身份证，有效期清晰可见，完整身份证反面照
-        warmoper: '* It is necessary to use the business license within the validity period. The documents need to be complete and clearly visible.', // 必须使用有效期之内的营业执照，需要证件完整且文字清晰可见
-        warmlic: '* Please upload valid license photos to ensure that the picture is clear and content is complete.', // 请上传有效的开户许可证照片，保证画面清晰，内容完整
-        warmorg: '* Please upload valid organization photos to ensure that the picture is clear and content is complete.', // 请上传有效的组织机构照片，保证画面清晰，内容完整
-        warmproto: '* Please upload valid business agreement photos to ensure that the picture is clear and content is complete.', // 请上传有效的商户协议照片，保证画面清晰，内容完整
+        doc: 'Store Info', // 店铺信息
+        idfront: 'Click to add store photo (indoor).',
+        idback: 'Click to add store photo (outdoor).',
+        warmfront: '* The photo has to be from inside of the store.', // 必须使用所售商品/经营场所内景照片
+        warmback: '* The photo has to be from outside of the store.', // 必须使用经营场所/经营场所外景照片
+        status: 'Status',
+        sub: 'Merchant',
+        big: 'Big Merchant',
+        saleMan: 'Agent Name',
+        channel: '1st-tier Agent',
+        channel2: '2st-tier Agent',
+        mertype: 'Merchant Category',
+        meiname: 'Merchant Name',
+        contact: 'Agent Name',
+        postT: 'Email',
+        concatName: 'Contact Name',
+        concatNumber: 'Telephone',
+        documentType: 'Certificate Type',
+        doucumentNum: 'Certificate Number',
+        industry: 'Industry',
+        addressT: 'Address',
+        accountName: 'Account Name',
+        accountType: 'Bank Name',
+        accountH: 'Bank Account',
+        accountAddress: 'Bank Address',
+        moneySettment: 'Starting Point of Settlement Fund',
+        storephone: 'Store Contact Number',
+        storeAddress: 'Store Address',
+        BRnumber: 'BR Number',
+        BRvality: 'BR Validity',
+        CInumber: 'CI Number',
+        CIvality: 'CI Validity',
       },
-      rule1: 'Please choose registered merchants.', // 请选择注册商户
-      rule2: 'Please enter the name of the merchant.', // 请输入商户名称
-      rule3: 'Please enter company name.', // 请输入公司名称
-      rule4: 'Please input the correct email address.', // 请输入正确的邮箱地址
-      rule5: 'Bank card accounts must be number.', // 银行卡账户必须是数字
-      rule6: 'Phone numbers must be number.', // 手机号必须是数字
-      rule7: 'Please enter business account.', // 请输入业务员账号
-      rule8: 'Uploading file must be JPG/PNG format', // 上传凭证必须是jpg、png格式
-      rule9: 'Please enter chain store UID', // 请输入连锁店总店UID
-      rule10: 'Only 60 characters can be entered at most.'
+      requiredRule: {
+        rule1: 'Please select agent name',
+        rule2: 'Please input merchant category',
+        rule3: 'Please input merchant name',
+        rule4: 'Please input email',
+        rule5: 'Please input contact name',
+        rule6: 'Please input telephone',
+        rule7: 'Please select certificate type',
+        rule8: 'Please input certificate number',
+        rule9: 'Please select industry',
+        rule10: 'Please input address',
+        rule11: 'Please input br number',
+        rule12: 'Please input br validity',
+        rule13: 'Please input ci number',
+        rule14: 'Please input ci validity',
+        rule15: 'Please input bank name',
+        rule16: 'Please input account name',
+        rule17: 'Please input bank account',
+        rule18: 'Please input bank address',
+        rule19: 'Please input starting point of settlement fund',
+        rule20: 'Please input store name',
+        rule21: 'Please input store address',
+        rule22: 'Please input store contact number',
+        rule23: 'Please input business hours',
+      },
+      lengthRule: {
+        rule1: 'The maxlength is 4',
+        rule2: 'The maxlength is 5',
+        rule3: 'The maxlength is 8',
+        rule4: 'The maxlength is 10',
+        rule5: 'The maxlength is 12',
+        rule6: 'The maxlength is 15',
+        rule7: 'The maxlength is 25',
+        rule8: 'The maxlength is 50'
+      },
+      specialRule: {
+        rule1: 'Incorrect format',
+        rule2: 'Type is required number'
+      },
+      doctype: {
+        type1: 'Passport',
+        type2: 'Hong Kong and Macao pass',
+        type3: 'Hong Kong Resident Card'
+      },
+      picture: {
+        idcardfront: 'Front of ID Card',
+        licensephoto: 'Business license',
+        goodsphoto: 'Inside-view Photos of Business Premises',
+        shopphoto: 'Outdoor Photos of Business Places',
+        paypoint: 'Cashier Photo',
+        otherphoto: 'Other Photos'
+      },
+      rule1: 'Please select merchant category', // 请选择注册商户
+      rule2: 'Please input merchant name', // 请输入商户名称
+      rule3: 'Please input company name', // 请输入公司名称
+      rule4: 'Please input a valid e-mail address', // 请输入正确的邮箱地址
+      rule5: 'Numbers only for bank account', // 银行卡账户必须是数字
+      rule6: 'Numbers only for mobile number', // 手机号必须是数字
+      rule7: 'Please input sales rep. account', // 请输入业务员账号
+      rule8: 'Uploaded files should be JPG/PNG format', // 上传凭证必须是jpg、png格式
+      rule9: 'Please input master merchant UID', // 请输入连锁店总店UID
+      rule10: 'Please input 60 characters at most.', // 最多输入60个字符
+      rule11: 'Please select sales rep', // 请选择业务员
+      rule12: 'Please input account', // 请输入账号
+      rule13: 'MDR should be larger than ',
+      rule14: 'Please input business registration number', // 请输入营业执照号
+      rule15: 'Please select area', // 请选择公司所属地区
+      rule16: 'Please input company address', // 请输入公司地址
+      rule17: 'Please input company contact name', // 请输入公司联系人
+      rule18: 'Please input bank name', // 请输入总行名称
+      rule19: 'Please input SWIFT code', // 请输入SWIFT代码
+      rule20: 'Please input bank account name', // 请输入银行帐户名称
+      rule21: 'Please input store name', // 请输入店铺名称
+      rule22: 'Please input store contact number', // 请输入店铺联系电话
+      rule23: 'Please select area', // 请选择店铺所属地区
+      rule24: 'Please input store address', // 请输入店铺地址
+      rule25: 'Please input Email', // 请输入店铺邮编
+      rule26: 'Please input store services', // 请输入店铺附加服务
+      rule27: 'Please input business hours', // 请输入店铺营业时间
+      rule28: 'Please upload photos from inside of store', // 请上传所售商品/经营场所内景照片
+      rule29: 'Please upload photos from outside of store', // 请上传经营场所/经营场所外景照片
+      rule30: 'Please input e-mail address', // 请输入邮箱
+      rule31: 'Uploaded file must be Excel format',
+      rule32: 'Please input bank account number',
+      rule33: 'Uploaded file must be ZIP package',
+      rule34: 'Please input description',
+      rule35: 'Please input contact number',
+      rule36: 'Please input postal code',
+      rule37: 'Please input branch bank name',
+      rule38: 'Please select industry',
+      rule39: 'Please confirm whether the agreement was signed',
+      rule40: 'Please select settlement period',
+      rule41: 'Please input website',
+      rule42: 'Please input a valid website',
+      rule43: 'Please select salesperson'
+    }
+  },
+  shop: {
+    title: 'Store Management',
+    create: 'Create',
+    query: 'Query',
+    reset: 'Reset',
+    patchImport: 'Batch Creation',
+    form: {
+      mchntid: 'Merchant ID',
+      mchntname: 'Merchant Name',
+      submchntid: 'Store ID',
+      sunmchntname: 'Store Name'
+    },
+    table: {
+      submchntid: 'Store ID',
+      sunmchntname: 'Store Name',
+      mchntid: 'Merchant ID',
+      mchntname: 'Merchant Name',
+      address: 'Address',
+      telephone: 'Contact Number',
+      location: 'Area',
+      post: 'Store Post Code',
+      operating: 'Business Hours'
+    },
+    detail: {
+      cate: {
+        merchant: 'Merchant',
+        big: 'Chain Merchant',
+        sub: 'Branch Merchant'
+      },
+      basic: {
+        title: 'Store Detail',
+        close: 'Close',
+        subtitle: 'Basic Info',
+        la1: 'Merchant Name:',
+        la2: 'Account Number:',
+        la3: 'Store Name:',
+        la4: 'Store Contact Number:',
+        la5: 'Store Area:',
+        la6: 'Store Address:',
+        la7: 'Store Post Code:',
+        la8: 'Business Hours:',
+        la9: 'Additional Services:',
+        la10: 'Website:',
+        la11: 'Photograph:'
+      },
+      edit: 'Edit'
+    },
+    newStore: {
+      title1: 'Create Store',
+      title2: 'Edit Store',
+      model: {
+        storename: 'Store Name',
+        storeaddress: 'Store Address',
+        mobile: 'Store Contact Number',
+        operation: 'Business Hours'
+      },
+      rule1: 'Please input store name',
+      rule2: 'Please input store address',
+      rule3: 'Please input store contact number',
+      rule4: 'Please input business hours',
+      casher: 'Click to add a photo of the checkout counter',
+      warmcasher: 'Please upload a photo of the checkout counter',
+      mustcasher: '* You must upload a photo of the checkout counter',
+      other: 'Click to add a photo of supplementary information',
+      warmother: ''
     }
   },
   audit: {
     title: 'Audit Management',
     form: {
       mchtid: 'Merchant ID',
-      audit_state: '',
-      memo: ''
+      audit_state: 'Audit Status',
+      memo: 'Remark'
     },
+    table: {
+      cate: 'Type of Merchants',
+      status: 'Audit Status'
+    },
+    deny: 'Reject',
+    succ: 'Success',
+    fail: 'Failure',
+    going: 'Under Approval',
     detail: {
-      title: 'Audit Log',
+      title: 'Approved Memo',
+      storeInfo: {
+        title: 'License of Store',
+        storename: 'Store Name',
+        storeaddr: 'Store Address',
+        storetel: 'Contact Number',
+        opertime: 'Business Hours'
+      },
       table: {
         creator: 'Operator ID',
         create_date: 'Audit Date',
-        result: 'Result',
-        memo: 'Memo'
+        result: 'Audit Result',
+        memo: 'Remark'
       },
       doit: 'Audit',
       pass: 'Pass',
       re: 'Reject',
-      msg1: 'Please input audit notes.'
+      msg1: 'Please input audit comments.',
+      done: 'Audit Completion.'
     }
   },
+  batch: {
+    title: 'Batch Creation',
+    t1: 'Batch Creation',
+    tip: {
+      txt: '* Please follow up the template to upload merchants data to take',
+      ins: '《batch registration procedure》',
+      template: '《batch merchants on-boarding.xlsx》',
+      and: 'and',
+      title: 'Tip',
+      close: 'Close'
+    },
+    cap: 'Batch Creation',
+    input: {
+      cap1: 'Merchant\'s Data',
+      cap2: 'Merchant\'s Photo'
+    },
+    up: {
+      excel: 'Upload Excel',
+      zip: 'Upload Photo Zip'
+    },
+    commit: 'Commit',
+    rule1: 'Please upload merchant\'s data.',
+    rule2: 'Please upload merchant\'s photo.',
+    manual1: '1. Please download template《batch merchants on-boarding.xlsx》and fill in all necessary infos of on-boarding merchants.',
+    manual2: '2. Attachments should be named according to naming criteria and uploaded after folder compression. (Naming criteria for store licenses: store telephone-shopphoto.jpg、store telephone-paypoint.jpg、store telephone-otherphoto.jpg、store telephone-idcardfront.jpg、store telephone-licensephoto.jpg、store telephone-goodsphoto.jpg)',
+    manual3: '3. The folder naming should be the same as before and after compression, please revise the folder naming after then compress again if it is necessary to revise the compressed file name.'
+  },
   trade: {
-    detail: 'Transaction details',
-    total: 'Transaction statistics',
+    detail: 'Transaction Detail',
+    total: 'Transaction Summary',
     common: {
       tradeDate: 'Trans Date',
       tradeTime: 'Transaction Time',
@@ -365,7 +688,7 @@ const en = {
       merchantName: 'Merchant Name',
       firstAgent: 'First Level Agent',
       secondAgent: 'Second Level Agent',
-      wechat: 'WeChat pay',
+      wechat: 'WeChat Pay',
       alipay: 'Alipay',
       pay: 'Payment',
       refund: 'Refund',
@@ -389,10 +712,10 @@ const en = {
     agentId: 'Agent ID',
     agentLevel: 'Agent Level',
     level: 'Level',
-    level1: 'Class A',
-    level2: 'Second level',
-    agentLevel1: 'First level agent',
-    agentLevel2: 'Two level agent',
+    level1: '1st-tier Agent',
+    level2: '2nd-tier Agent',
+    agentLevel1: '1st-tier Agent',
+    agentLevel2: '2nd-tier Agent',
     leaderAgent: 'Superior Agent Name',
     registerTime: 'Registration Time',
     agentNickname: 'Enterprise Abbreviation',
@@ -401,10 +724,10 @@ const en = {
     contact: 'Business Contact',
     legal: 'Enterprise Legal Person',
     contactMobile: 'Contact Number',
-    legalMobile: 'Legal person phone',
+    legalMobile: 'Legal Person Phone',
     saleMan: 'Salesman',
     belongSaleMan: 'Salesman',
-    username: 'Login account',
+    username: 'Login Account',
     canuse: 'Can be registered',
     password: 'Login password',
     bankuser: 'Bank Account Name',
@@ -420,28 +743,28 @@ const en = {
     payRate: 'Payment rate',
     wechatRate: 'WeChat rate',
     alipayRate: 'Alipay rates',
-    agentList: 'List of agents',
-    agentAdd: 'Add agent',
-    agentEdit: 'Modifying agents',
-    agentBelong: 'Subordinate agent',
+    agentList: 'Agent List',
+    agentAdd: 'Add Agent',
+    agentEdit: 'Modifying Agents',
+    agentBelong: 'Subordinate Agent',
     pleaseEnter: 'Please Enter ',
-    pleaseSelect: 'Please choose ',
+    pleaseSelect: 'Please Choose ',
     onlyLetterNumber: 'Numeric and alphabet only',
     isRegistered: 'This account has been registered'
   },
   role: {
     role: 'Permission',
-    roleManage: 'Role management',
-    createRole: 'New role',
-    editRole: 'Modify role',
-    roleDetail: 'Role details',
+    roleManage: 'Label Management',
+    createRole: 'New Role',
+    editRole: 'Modify Role',
+    roleDetail: 'Role Details',
     roleName: 'Role Name',
-    roleStatus: 'Role status',
+    roleStatus: 'Role Status',
     pleaseEnter: 'please enter',
-    createTime: 'Creation time',
+    createTime: 'Creation Time',
   },
   main: {
-    desc: 'MOBILE PAYMENT MANAGEMENT SYSTEM',
+    desc: 'INSTITUTION MANAGEMENT SYSTEM',
     roles: [
       ''
     ],

@@ -1,28 +1,31 @@
-const test = process.env.NODE_ENV === 'test';
-const dev = process.env.NODE_ENV === 'development';
+const env = process.env.NODE_ENV
+let host, ohost, region = 'HK', imgUpload = '';
 
-// 生产配置
-let host = 'https://oasbp.qfpay.com';
-let ohost = 'https://o.qfpay.com';
-let imgUpload = 'https://o2.qfpay.com';
+switch (env) {
+  case 'test': // 线上测试
+    host = 'https://oasbp.qa.qfpay.net';
+    ohost = 'https://o.qa.qfpay.net';
+    imgUpload = 'https://o2.qa.qfpay.net';
+    break;
 
-// 测试配置
-if (test) {
-  host = ''
-  ohost = 'https://o.qa.qfpay.net';
-  imgUpload = 'https://o2.qa.qfpay.net';
-}
-// 本地配置
-if (dev) {
-  host = 'api';
-  ohost = 'https://o.qa.qfpay.net';
-  imgUpload = 'http://172.100.111.45:8198';
+  case "development":
+    // host = 'https://oasbp.qa.qfpay.net'; //  http://172.100.108.171:6500
+    host = 'api'
+    ohost = 'https://o.qa.qfpay.net';
+    imgUpload = 'https://o2.qfpay.com';
+    break;
+
+  default: // 线上正式
+     host = 'https://ims-hk.qfapi.com';
+     ohost = 'https://o.qfpay.com';
+     imgUpload = 'https://o2-hk.qfapi.com';
 }
 
 export default {
   host,
   ohost,
   imgUpload,
+  region,
   code: {
     OK: '0000', // 成功
     DBERR: '2000', // 数据库查询错误

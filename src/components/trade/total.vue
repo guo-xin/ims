@@ -28,7 +28,7 @@
           @blur="mchntNameHandleBlur"
         ></el-autocomplete>
       </el-form-item>
-      <el-form-item :label="$t('trade.common.firstAgent')">
+      <!-- <el-form-item :label="$t('trade.common.firstAgent')">
         <el-autocomplete
           v-model="formData.primary_agent"
           :fetch-suggestions="getPrimaryAgent"
@@ -48,7 +48,7 @@
           @select="secondaryAgentHandleSelect"
           @blur="secondaryAgentHandleBlur"
         ></el-autocomplete>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item :label="$t('trade.common.payPass')">
         <el-select v-model="formData.paytypes">
           <el-option :label="$t('common.all')" value=""></el-option>
@@ -67,7 +67,7 @@
         <el-row type="flex" align="bottom">
           <el-col :span="8" class="head">
             <span>{{$t('trade.common.tradeAmount')}}</span>
-            <strong>￥{{payTotal.total_txamt | formatCurrency}}</strong>
+            <strong>HK${{payTotal.total_txamt | formatCurrency}}</strong>
           </el-col>
           <el-col :span="8">
             <span>{{$t('trade.common.tradeCount')}}</span>
@@ -75,7 +75,7 @@
           </el-col>
           <el-col :span="8">
             <span>{{$t('trade.common.fee')}}</span>
-            <strong>￥{{payTotal.total_settlefee | formatCurrency}}</strong>
+            <strong>HK${{payTotal.total_settlefee | formatCurrency}}</strong>
           </el-col>
         </el-row>
       </el-col>
@@ -83,7 +83,7 @@
         <el-row type="flex" align="bottom">
           <el-col :span="8" class="head">
             <span>{{$t('trade.common.refundAmount')}}</span>
-            <strong>￥{{refundTotal.total_txamt | formatCurrency}}</strong>
+            <strong>HK${{refundTotal.total_txamt | formatCurrency}}</strong>
           </el-col>
           <el-col :span="8">
             <span>{{$t('trade.common.refundCount')}}</span>
@@ -91,14 +91,14 @@
           </el-col>
           <el-col :span="8">
             <span>{{$t('trade.common.fee')}}</span>
-            <strong>￥{{refundTotal.total_settlefee | formatCurrency}}</strong>
+            <strong>HK${{refundTotal.total_settlefee | formatCurrency}}</strong>
           </el-col>
         </el-row>
       </el-col>
     </el-row>
 
     <el-table :data="trades" stripe>
-      <el-table-column prop="base.sysdtm" :label="$t('trade.common.tradeDate')"></el-table-column>
+      <el-table-column prop="base.sysdtm" :label="$t('trade.common.tradeDate')" width="115"></el-table-column>
       <el-table-column prop="base.shopname" :label="$t('trade.common.merchantName')"></el-table-column>
       <el-table-column prop="base.primary" :label="$t('trade.common.firstAgent')"></el-table-column>
       <el-table-column prop="base.secondary" :label="$t('trade.common.secondAgent')"></el-table-column>
@@ -259,7 +259,7 @@
           let data = res.data
           if (data.respcd === '0000') {
             if (data.data.length > 0) {
-              this.noMatch = false
+              this.noMatch = false;
               cb(data.data)
             } else {
               this.noMatch = true
