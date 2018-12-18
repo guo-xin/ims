@@ -195,7 +195,6 @@
     },
     created() {
       this.createCurveInitData();
-      console.log(this.tradeTrends)
     },
     filters: {
       formatCurrency(value) {
@@ -273,9 +272,11 @@
               });
 
             curveChart.xAxis
-              .tickValues(this.tradeTrends.map( (d) => { return d.time }))
+              .tickValues(this.tradeTrends.map((d) => { return d.time }))
               .tickFormat((d) => {
-                 return d + ':00'
+                 if(d % 3 === 0) {
+                   return d + ':00'
+                 }
               })
               .showMaxMin(false).staggerLabels(false)
             if (!d.length) {
@@ -567,7 +568,6 @@
       top: 40px;
       display: -webkit-flex;
       align-items: center;
-      width: 160px;
       .mer,.submer {
         margin-right: 30px;
         .mer-icon {
