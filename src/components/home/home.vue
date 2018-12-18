@@ -280,7 +280,7 @@
               })
               .showMaxMin(false).staggerLabels(false)
             if (!d.length) {
-              curveChart.yDomain([0, 100000])
+              curveChart.yDomain([0, 4000])
             }
 
             d3.select('#curves svg')
@@ -290,7 +290,7 @@
             nv.utils.windowResize(curveChart.update);
           });
         },
-        drawBarsChart(d) {
+        drawBarsChart() {
           let barchart;
           nv.addGraph(() => {
             barchart = nv.models.multiBarChart()
@@ -317,14 +317,20 @@
             barchart.yAxis
               .axisLabelDistance(-5)
               .tickFormat(d3.format('d'));
-            let flag = false;
-            d.forEach((item) => {
-              flag = _.every(item.values, {y: 0})
+            let flag1 = 0, flag2 = 0;
+            this.mchntstore.forEach((item, i) => {
+              if(i === 0) {
+                flag1 = _.every(item.values, {y: 0})
+              }else if(i === 1) {
+                flag2 = _.every(item.values, {y: 0})
+              }
             })
-            if (flag) {
-              barchart.yDomain([0, 100000])
+            if (flag1 && flag2) {
+              barchart.yDomain([0, 4000])
             }
-
+//            barchart.legend.dispatch.on('legendClick', (l, e) => {
+//              console.log(l, e);
+//            })
             d3.select('#bars svg').datum(this.mchntstore).transition().duration(2000).call(barchart);
             nv.utils.windowResize(barchart.update);
           });
@@ -353,7 +359,7 @@
               .donut(1)
               .showTooltipPercent(1)
               .arcsRadius(arcRadius)
-              .labelType("value")
+              .labelType("key")
               .showLabels(1)
               .labelsOutside(1)
               .labelSunbeamLayout(0)
@@ -404,7 +410,7 @@
                 if (data.data.length) {
                   this.mchntstore = data.data;
                 }
-                this.drawBarsChart(data.data)
+                this.drawBarsChart()
               } else {
                 this.$message.error(data.respmsg);
               }
