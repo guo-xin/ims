@@ -24,11 +24,11 @@
         <div class="sign-in-info">
           <el-row type="flex">
             <el-col :span="16">
-              <div class="outer-link-wrap">
-                <a href="javascript:void(0)" class="outer-link">&nbsp;Authorit</a>
-                <a href="javascript:void(0)" class="outer-link">&nbsp;Settlement /</a>
-                <a href="javascript:void(0)" class="outer-link">&nbsp;Agent / </a>
-              </div>
+              <!--<div class="outer-link-wrap">-->
+                <!--<a href="javascript:void(0)" class="outer-link">&nbsp;Authorit</a>-->
+                <!--<a href="javascript:void(0)" class="outer-link">&nbsp;Settlement /</a>-->
+                <!--<a href="javascript:void(0)" class="outer-link">&nbsp;Agent / </a>-->
+              <!--</div>-->
             </el-col>
             <el-col :span="6" class="lang-change">
               <el-select v-model="select" @change="selectChange">
