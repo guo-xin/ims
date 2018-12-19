@@ -283,7 +283,7 @@
                 }
               })
               .showMaxMin(false).staggerLabels(false)
-            if (!data.length) {
+            if (!data.length || _.every(data, {cnt: 0})) {
               curveChart.yDomain([0, 4000])
             }
 
@@ -339,7 +339,7 @@
             nv.utils.windowResize(barchart.update);
           });
         },
-        drawPieChart(d) {
+        drawPieChart(data) {
           let piechart,
             arcRadius = [
               {inner: 0.5, outer: 0.6},
@@ -369,7 +369,7 @@
               .labelSunbeamLayout(0)
               .valueFormat(d3.format('d'))
 
-            if (d.length === 0) {
+            if (data.length === 0 || _.every(data, {cnt: '0'})) {
               piechart.color(['gray']);
               piechart.showLabels(0);
             } else {
@@ -431,7 +431,7 @@
             .then((res) => {
               let data = res.data;
               if (data.respcd === config.code.OK) {
-                data.data.length > 0 && (this.channelTrends = data.data)
+                data.data.length > 0 && !_.every(data.data, {cnt: '0'}) && (this.channelTrends = data.data)
                 this.drawPieChart(data.data)
               } else {
                 this.$message.error(data.respmsg);
