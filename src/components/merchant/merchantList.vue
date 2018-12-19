@@ -582,10 +582,10 @@
       },
       channelsValue(key, c) { // 支付配置提交的通道配置信息结构需要进行处理
         let channelList = []
-        console.log(c)
+        // console.log(c)
         c.forEach(function(i) {
           if(key === 1) {
-            if(i.buscid[0].mchntid && i.buscid[0].key1 && i.buscid[0].termid) {
+            // if(i.buscid[0].mchntid && i.buscid[0].key1 && i.buscid[0].termid) {
               let item = {}
               item.chnl_name = i.name
               item.chnl_id = i.buscid[0].chnlid
@@ -594,9 +594,10 @@
               item.termid = i.buscid[0].termid
               item.id = i.buscid[0].id
               channelList.push(item)
-            }
+            // }
+            
           } else if(key === 2) {
-            if(i.buscid[0].mchntid && i.buscid[0].termid) {
+            // if(i.buscid[0].mchntid && i.buscid[0].termid) {
               let item = {}
               item.chnl_name = i.name
               item.chnl_id = i.buscid[0].chnlid
@@ -604,10 +605,10 @@
               item.termid = i.buscid[0].termid
               item.id = i.buscid[0].id
               channelList.push(item)
-            }
+            // }
            }
         })
-        console.log(channelList)
+        // console.log(channelList)
         return channelList
       }
     }

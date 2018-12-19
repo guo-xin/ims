@@ -1002,7 +1002,7 @@
         let params = {}
         form.mchnt[this.formData.documentType] = this.formData.documentNum
         let radioListValue = this.refee(this.radioList)
-        console.log(radioListValue, 4444)
+        // console.log(radioListValue, 4444)
         for(let i in radioListValue) {
             if(i['ratio'] === '') {
               delete radioListValue[i]

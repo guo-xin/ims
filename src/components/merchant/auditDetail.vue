@@ -343,7 +343,7 @@
             }
           })
           .catch((e) => {
-            console.log(e);
+            // console.log(e);
           });
       },
       picturesSelect(a, b) {
@@ -441,7 +441,7 @@
           })
           .catch((e) => {
           this.isLoading = false;
-          console.log(e);
+          // console.log(e);
         });
       }
     }
