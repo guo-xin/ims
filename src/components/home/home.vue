@@ -364,14 +364,14 @@
               .showTooltipPercent(1)
               .arcsRadius(arcRadius)
               .labelType("key")
-              .showLabels(1)
-              .labelsOutside(1)
+              .showLabels(true)
+              .labelsOutside(true)
               .labelSunbeamLayout(0)
               .valueFormat(d3.format('d'))
 
             if (data.length === 0 || _.every(data, {cnt: '0'})) {
               piechart.color(['gray']);
-              piechart.showLabels(0);
+              piechart.labelFormat(function(d) { return d.cnt }).showLabels(false)
             } else {
               piechart.color(['#0D7FF5', '#5C0AA3', '#FF0E4F', '#FFA2BB', '#01C5F1'])
             }
