@@ -359,7 +359,7 @@
               .height(360)
               .duration(1000)
               .margin({top: 50, left: 0})
-              .padAngle(0.02)
+              .padAngle(0)
               .donut(1)
               .showTooltipPercent(1)
               .arcsRadius(arcRadius)
