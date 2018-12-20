@@ -251,6 +251,11 @@
       this.fetchAgencyLevel()
       this.fetchCity()
     },
+    watch: {
+      "baseform.parent_uid"() {
+        this.fetchRadio(this.baseform.parent_uid)
+      }
+    },
     methods: {
       fetchRadio(agentUid) {
         let p = {
@@ -278,6 +283,9 @@
         this.payfee.map((radio) => {
           radio.busicd.map((item) => {
             if (trade_type === item.trade_type) {
+              if(value === undefined) {
+                item.ratio = 0
+              }
               this.$set(item, 'error', errorMessage)
             } else {
               item.error = ''
@@ -487,7 +495,7 @@
         if (key === 'secondAgency') {
           params['levelcode'] = 2
           params['parent_uid'] = value
-          this.fetchRadio(this.baseform.parent_uid)
+          this.fetchRadio(value)
         } else if (key === 'updateProvince') {
           params['auth_province'] = value
         } else if (key === 'updateProvinceCity') {

@@ -76,7 +76,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="audit_status_str" :label="$t('audit.table.status')" align="center">
+      <el-table-column prop="audit_status_str" :label="$t('audit.table.status')" align="center" width="140">
         <template slot-scope="scope">
           {{ status[String(scope.row.status)] }}
         </template>

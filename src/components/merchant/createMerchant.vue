@@ -634,7 +634,6 @@
         radioList: []
       }
     },
-
     created() {
       if (this.$route.query) {
         this.isUpdate = this.$route.query.command === 'edit' || getParams('command') === 'edit'
@@ -656,6 +655,12 @@
           _self.showTreeComponent(evt);
         }
       }, false);
+    },
+    watch: {
+      "formData.secondary_uid"() {
+        this.fetchRadio(this.formData.secondary_uid)
+      }
+
     },
     methods: {
       fetchRadio(agentUid) { // 费率的接口请求
@@ -684,6 +689,9 @@
         this.radioList.map((radio) => {
           radio.busicd.map((item) => {
             if (trade_type === item.trade_type) {
+              if(value === undefined) {
+                item.ratio = 0
+              }
               this.$set(item, 'error', errorMessage)
             } else {
               item.error = ''
@@ -761,6 +769,7 @@
         });
       },
       selectChannelHandler(groupid) { // 获取二级渠道列表数据
+        this.formData.secondary_uid = ''
         axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
             groupid: groupid,

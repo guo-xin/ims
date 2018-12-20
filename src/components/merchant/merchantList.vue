@@ -94,13 +94,13 @@
         </template>
       </el-table-column>
 
-       <el-table-column prop="cate" :label="$t('merchant.table.merstatus')">
+       <el-table-column prop="cate" :label="$t('merchant.table.merstatus')" width="140">
         <template slot-scope="scope">
           {{ isSigned[scope.row.status] }}
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('merchant.table.payment')" width="150">
+      <el-table-column :label="$t('merchant.table.payment')" width="140">
         <template slot-scope="scope">
           <el-button :disabled="scope.row.status !== 3" v-if="scope.row.deploy == 1" type="text" @click.stop="paymentConfigure(scope.row.userid,scope.row.deploy)">{{ $t('merchant.payment.configured') }}</el-button>
           <el-button :disabled="scope.row.status !== 3" v-else type="text" @click.stop="paymentConfigure(scope.row.userid,scope.row.deploy)">{{ $t('merchant.payment.nonconfigured') }}</el-button>
