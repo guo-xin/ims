@@ -50,10 +50,10 @@
       </el-form-item>
 
       <el-form-item prop="shopname" :label="$t('merchant.newMerchant.form.meiname')">
-        <el-input 
+        <el-input
           v-model.trim="formData.shopname"></el-input>
       </el-form-item>
- 
+
       <el-form-item :label="$t('merchant.newMerchant.form.mertype')" prop="cate">
         <el-select v-model="formData.cate" ref="cate" :disabled="isUpdate">
           <el-option :label="$t('merchant.newMerchant.form.sub')" value="merchant"></el-option>
@@ -62,7 +62,7 @@
       </el-form-item>
 
       <el-form-item prop="email" :label="$t('merchant.newMerchant.form.postT')">
-        <el-input 
+        <el-input
           v-model.trim="formData.email"
           :disabled="isUpdate"></el-input>
       </el-form-item>
@@ -72,14 +72,14 @@
       </el-form-item>
 
       <el-form-item prop="telephone" :label="$t('merchant.newMerchant.form.concatNumber')">
-        <el-input 
+        <el-input
           v-model.trim="formData.telephone"
           :disabled="isUpdate"
           maxlength='8'></el-input>
       </el-form-item>
 
       <el-form-item prop="documentType" :label="$t('merchant.newMerchant.form.documentType')">
-        <el-select 
+        <el-select
             v-model="formData.documentType"
             :disabled="isUpdate">
           <el-option :label="$t('merchant.newMerchant.doctype.type2')" value="passport"></el-option>
@@ -89,7 +89,7 @@
       </el-form-item>
 
       <el-form-item prop="documentNum" :label="$t('merchant.newMerchant.form.doucumentNum')">
-        <el-input 
+        <el-input
           v-model.trim="formData.documentNum"
           maxlength='15'
         ></el-input>
@@ -108,7 +108,7 @@
       <el-form-item prop="br" :label="$t('merchant.newMerchant.form.BRnumber')">
         <el-input v-model.trim="formData.br"></el-input>
       </el-form-item>
-    
+
       <el-form-item prop="br_expire_time" :label="$t('merchant.newMerchant.form.BRvality')">
         <el-date-picker
           v-model.trim="formData.br_expire_time"
@@ -159,7 +159,7 @@
       </el-form-item>
 
       <el-form-item prop="remit_amt" :label="$t('merchant.newMerchant.form.moneySettment')">
-        <el-input 
+        <el-input
           v-model.trim="formData.remit_amt"
           :disabled="IsRemit"
           maxlength='5'></el-input>
@@ -174,14 +174,14 @@
         </el-form-item>
 
         <el-form-item prop="addressT" :label="$t('merchant.newMerchant.form.storeAddress')">
-          <el-input 
+          <el-input
             v-model.trim="formData.addressT"
             maxlength='50'
           ></el-input>
         </el-form-item>
 
         <el-form-item prop="telephoneT" :label="$t('merchant.newMerchant.form.storephone')">
-          <el-input 
+          <el-input
             v-model.trim="formData.telephoneT"
             maxlength='8'
           ></el-input>
@@ -605,7 +605,7 @@
                 }
               }
             }
-            // {max: 5, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule2')}          
+            // {max: 5, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule2')}
           ]
         },
         bankRules: {
@@ -812,7 +812,7 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      getShopTypes(mcc1) { 
+      getShopTypes(mcc1) {
         axios.get(`${config.host}/org/tools/mcc/list`, {
           params: {
             mcc: mcc1 || '',
@@ -920,7 +920,7 @@
               let qdinfo = data.data.qdinfo;
               let vouchers = data.data.vouchers
               let bankinfo = data.data.bankinfo
-              
+
               this.formData.status = uinfo.status
               this.formData.sls_uid = qdinfo.sls_uid
               this.formData.vouchers = vouchers
@@ -937,8 +937,8 @@
               this.formData.ci = uinfo.ci; // ci编号
               this.formData.ci_expire_time = uinfo.ci_expire_time; // ci有效期
               this.formData.headbankname = bankinfo.headbankname //
-              this.formData.bankProvince = bankinfo.bankProvince // 
-              this.formData.bankuser = bankinfo.bankuser // 
+              this.formData.bankProvince = bankinfo.bankProvince //
+              this.formData.bankuser = bankinfo.bankuser //
               this.formData.bankaccount = bankinfo.bankaccount //
               this.formData.remit_amt = uinfo.remit_amt
 
@@ -1205,10 +1205,10 @@
 
       h3 {
         position: relative;
-        padding: 30px 0;
+        padding: 12px 0;
         margin: 0 0 20px;
         font-size: 20px;
-        color: $titleColor;
+        color: #1D1D24;
         &:after {
           content: '';
           position: absolute;

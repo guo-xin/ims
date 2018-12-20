@@ -27,6 +27,9 @@ import modCreate from 'components/settlement/modCreate'
 import modDetail from 'components/settlement/modDetail'
 import home from 'components/home/home'
 import shopDetail from 'components/merchant/bussDetail'
+import salesList from 'components/salesman/salesList'
+import createSalesman from 'components/salesman/createSalesman'
+import salesDetail from 'components/salesman/salesDetail'
 
 Vue.use(Router)
 
@@ -180,6 +183,21 @@ export default new Router({
           path: 'clearing_summary_list',
           name: 'settleTotal',
           component: settleTotal
+        },
+        {
+          path: 'salesman_list',
+          name: 'salesList',
+          component: salesList
+        },
+        {
+          path: 'salesman_list/sales_create',
+          name: 'salesCreate',
+          component: createSalesman
+        },
+        {
+          path: 'salesman_list/sales_detail',
+          name: 'salesDetail',
+          component: salesDetail
         }
       ]
     }

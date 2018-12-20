@@ -722,6 +722,64 @@ const zh = {
       ''
     ],
     logout: '注销'
+  },
+  salesman: {
+    title: '业务员管理',
+    engaged: '在职',
+    retired: '离职',
+    form: {
+      slsm_uid: '业务员ID:',
+      salesname: '业务员名称:',
+      mobile: '手机号码:',
+      status: '业务员状态:',
+      email: '邮箱:',
+      idnumber: '证件号码:',
+      date: '注册日期:',
+      password: '密码:'
+    },
+    table: {
+      email: '邮箱',
+      idnumber: '证件号码',
+      date: '注册日期',
+      password: '密码'
+    },
+    detail: {
+      title: '业务员详情',
+      subtitle: '基本信息',
+      picture: '证照信息'
+    },
+    newsale: {
+      title1: '创建业务员',
+      title2: '编辑业务员',
+      cap1: '基本信息',
+      cap2: '证照信息',
+      model: {
+        salesname: '业务员名称',
+        mobile: '手机号码',
+        status: '业务员状态',
+        email: '邮箱',
+        password: '密码',
+        confirm_password: '确认密码',
+        idnumber: '证件号码',
+        idcardfront: ''
+      },
+      rule1: '请输入业务员名称',
+      rule2: '最多输入20个字符',
+      rule3: '请输入邮箱',
+      rule11: '请输入合法邮箱',
+      rule4: '请输入密码',
+      rule5: '密码最多输入18个字符',
+      rule6: '请输入确认密码',
+      rule7: '确认密码最多输入18个字符',
+      rule8: '请输入手机号码',
+      rule9: '手机号码最多输入11位数字',
+      rule10: '手机号码必须是数字',
+      rule12: '请输入证件号码',
+      rule13: '证件号码最多输入20个字符',
+      pic1: '证件正面照片',
+      pic1warn: '* 必须上传证件照正面照片',
+      tip: '请上传证件正面照'
+    }
   }
 }
 export default zh;
