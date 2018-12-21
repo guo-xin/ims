@@ -191,7 +191,8 @@
               this.salesModel.ctime = data.data.ctime;
               this.salesModel.userid = data.data.userid
               this.voucherInfo.idcardfront_url = data.data.idcardfront
-              
+              this.voucherInfo.idcardfront_name = data.data.idcardfront.substring(data.data.idcardfront.lastIndexOf('/') + 1)
+
             } else {
               this.$message.error(data.respmsg);
             }
@@ -233,6 +234,10 @@
         return true
       },
       next() {
+        if(this.isUpdate) {
+          this.salesRules.password = [];
+          this.salesRules.confirm_password = [];
+        }
         this.$refs['sales-form'].validate((valid) => {
           if (valid  && this.checkPhotosIsUpdated()) {
             this.commit()
@@ -247,11 +252,13 @@
           params.userid = this.salesModel.userid;
           delete params.mobile;
           delete params.email;
+          delete params.password;
+          delete params.confirm_password;
         }else {
           delete params.status
         }
 
-        params.idcardfront = this.voucherInfo.idcardfront_url
+        params.idcardfront = this.voucherInfo.idcardfront_name
         this.isLoading = true;
         axios.post(url, qs.stringify(params), {
           headers: {
