@@ -9,7 +9,7 @@ const en = {
     all: 'All',
     create: 'Create',
     export: 'Export',
-    choose: 'Please choose',
+    choose: 'Please choose ',
     save: 'Save',
     submit: 'Submit',
     MINRatio: 'Minimum rate is ',
@@ -703,7 +703,7 @@ const en = {
       refundCount: 'Entries',
       amount: 'Total Amount',
       count: 'Entries',
-      pleaseSelect: 'Please choose',
+      pleaseSelect: 'Please choose ',
       noData: 'No data'
     }
   },

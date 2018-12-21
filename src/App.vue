@@ -5,7 +5,7 @@
 <script>
   export default {
     created() {
-      document.title = this.$t('common.title');
+      document.title = this.$t('main.desc');
     }
   }
 </script>

@@ -664,24 +664,47 @@
       }
     },
     methods: {
-      fetchRadio(agentUid) { // 费率的接口请求
-        let p = {
-          format: 'cors',
+      // 费率的接口请求
+      fetchRadio(agentUid, fees = []) {  // fee 更新ratio
+        let params = {
+          format: 'cors'
         }
         if (agentUid) {
-          p.agent_uid = agentUid
+          params.agent_uid = agentUid
+        }
+        if (agentUid && fees.length === 0) { // 切换业务员
+          fees = [...this.radioList]
         }
         axios.get(`${config.host}/org/tools/get/ratio`, {
-          params: p
-        })
-          .then((res) => {
-            let data = res.data;
-            if (data.respcd === config.code.OK) {
-              this.radioList = data.data;
-            } else {
-              this.$message.error(data.respmsg);
+          params
+        }).then((res) => {
+          let data = res.data;
+          if (data.respcd === config.code.OK) {
+            let ratios = data.data;
+            if (fees.length > 0) {
+              ratios.map((ratio, index) => {
+                fees.map((fee, fIndex) => {
+                  if (ratio.name === fee.name) {
+                    ratio.busicd.map((item) => {
+                      fee.busicd.map((fitem) => {
+                        if (item.trade_type === fitem.trade_type) {
+                          if (agentUid && fees.length === 0) {
+                            item.ratioMin = fitem.ratioMin
+                          } else {
+                            item.ratio = fitem.ratio
+                          }
+                        }
+                      })
+                    })
+                  }
+                })
+              })
             }
-          }).catch(() => {
+            this.radioList = ratios;
+          } else {
+            this.$message.error(data.respmsg);
+          }
+        }).catch(() => {
           this.$message.error(this.$t('common.netError'));
         });
       },
@@ -708,6 +731,7 @@
            this.formData.slsm_name = data.name;
            this.isShowTree = false;
            this.fetchRadio(node.parent.data.uid)
+          //  this.revalue(this.radioList, this.radioListInfo)
         }
       },
       showTreeComponent(e) {
@@ -920,7 +944,7 @@
               this.IsRemit = true
 
               let uinfo = data.data.userinfo;
-              let fee = data.data.fee_ratios
+              let fees = data.data.fee_ratios
               let qdinfo = data.data.qdinfo;
               let vouchers = data.data.vouchers
               let bankinfo = data.data.bankinfo
@@ -945,6 +969,7 @@
               this.formData.bankuser = bankinfo.bankuser //
               this.formData.bankaccount = bankinfo.bankaccount //
               this.formData.remit_amt = uinfo.remit_amt
+              // this.radioList = fee
 
               this.isStatus = this.formData.status == 3 || this.formData.status == 4
 
@@ -955,10 +980,10 @@
               } else {
                 this.formData.documentType = "eep"
               }
-              this.revalue(this.radioList, fee)
+              this.fetchRadio(qdinfo.qd_uid, fees)
+              // this.revalue(this.radioList, this.radioListInfo)
               this.repicture(this.voucherInfo, vouchers)
               this.getSalesPersonName(this.salesperson); // 匹配树形结构的销售员name
-              this.fetchRadio(qdinfo.qd_uid)
             } else {
               this.$message.error(data.respmsg);
             }
@@ -1104,15 +1129,6 @@
       cancelHandler() {
         this.$router.push({name: 'mchnt_manage_list'})
       },
-      revalue(a,b) { // 为支付方式赋值
-          for(let i of a) {
-            for(let j of b) {
-              if(j['name'] === i['name']) {
-                i['busicd'][0].ratio = j['busicd'][0].ratio;
-              }
-            }
-          }
-      },
       repicture(c,d) { // 编辑显示俩张图片
         for(let i of d) {
           if(i['name'] === 'idcardfront') {
@@ -1235,7 +1251,7 @@
         }
       }
       .el-form-item {
-        /*width: 300px;*/
+        width: 300px;
         display: inline-block;
         vertical-align: top;
         margin-right: 80px;

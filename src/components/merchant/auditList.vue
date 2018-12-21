@@ -151,6 +151,7 @@
         });
       },
       selectChannelHandler(groupid) {
+        this.formData.qd_uid2 = ''
         groupid && axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
             groupid: groupid,
