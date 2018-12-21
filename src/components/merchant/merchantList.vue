@@ -336,6 +336,7 @@
         });
       },
       selectChannelHandler(groupid) { // 获取渠道列表数据
+        this.formData.qd_uid2 = ''
         groupid && axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
             groupid: groupid,

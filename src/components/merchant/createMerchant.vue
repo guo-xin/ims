@@ -44,8 +44,10 @@
                 readonly
                 class="sub-account-item-info"><template slot="append"><i class="el-icon-arrow-down tree-indic" @click.stop="showTreeComponent"></i></template>
           </el-input>
-          <el-tree id="op-type-tree" :data="salesperson" :props="defaultProps" @node-click="handleNodeClick"
+          <el-tree id="op-type-tree" :data="salesperson" :props="defaultProps"        @node-click="handleNodeClick"
                 v-show="isShowTree"
+                node-key="uid"
+                ref="tree"
                 style="position:absolute;top:38px;z-index:9;width:299px;overflow-y:auto;height:320px;"></el-tree>
       </el-form-item>
 
@@ -639,7 +641,7 @@
         this.isUpdate = this.$route.query.command === 'edit' || getParams('command') === 'edit'
         !this.isUpdate && this.getChannelList()
         !this.isUpdate && this.getSalesPersonList();
-        this.fetchRadio()
+        !this.isUpdate && this.fetchRadio()
         !this.isUpdate && this.getShopTypes()
         this.isUpdate && this.getAllSalesperson();
       }
@@ -693,7 +695,6 @@
         this.radioList.map((radio) => {
           radio.busicd.map((item) => {
             if (trade_type === item.trade_type) {
-              
               this.$set(item, 'error', errorMessage)
             } else {
               item.error = ''
@@ -701,11 +702,12 @@
           })
         })
       },
-      handleNodeClick(node) { // 编辑商户的修改业务员部分
-        if(node.isLeaf && Object.prototype.toString.call(node.slsm) === "[object Undefined]") {
-           this.formData.sls_uid = node.uid;
-           this.formData.slsm_name = node.name;
+      handleNodeClick(data, node) { // 编辑商户的修改业务员部分
+        if(data.isLeaf && Object.prototype.toString.call(data.slsm) === "[object Undefined]") {
+           this.formData.sls_uid = data.uid;
+           this.formData.slsm_name = data.name;
            this.isShowTree = false;
+           this.fetchRadio(node.parent.data.uid)
         }
       },
       showTreeComponent(e) {
@@ -956,6 +958,7 @@
               this.revalue(this.radioList, fee)
               this.repicture(this.voucherInfo, vouchers)
               this.getSalesPersonName(this.salesperson); // 匹配树形结构的销售员name
+              this.fetchRadio(qdinfo.qd_uid)
             } else {
               this.$message.error(data.respmsg);
             }
@@ -1014,8 +1017,6 @@
         form.mchnt[this.formData.documentType] = this.formData.documentNum
         let radioListValue = this.refee(this.radioList)
         // console.log(radioListValue, 4444)
-        
-        console.log(radioListValue, 5555)
         params.mchnt = JSON.stringify(form.mchnt)
         params.store = JSON.stringify(form.store)
         params.mchnt_ratios = JSON.stringify(radioListValue)
@@ -1107,7 +1108,7 @@
           for(let i of a) {
             for(let j of b) {
               if(j['name'] === i['name']) {
-                i['busicd'] = j['busicd'];
+                i['busicd'][0].ratio = j['busicd'][0].ratio;
               }
             }
           }
