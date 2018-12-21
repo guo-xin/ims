@@ -134,10 +134,10 @@
       </el-form-item>
 
       <h3>{{$t('merchant.newMerchant.basic.cap2')}}</h3>
-      <div :label="item.name" v-for="item in radioList" :key="item.name" prop="tenpay_ratio">
+      <div :label="item.name" v-for="(item, index0) in radioList" :key="item.name" prop="tenpay_ratio">
         <h4>{{item.name}}</h4>
-        <el-form-item :label="fee.trade_type_name" v-for="fee in item.busicd" :error="fee.error" :key="fee.trade_type_name">
-            <el-input-number @change="ratioMinRule($event, fee.ratioMin, fee.trade_type)" v-model.trim="fee.ratio" :precision="2" :step="0.01" :min="0" :max="5"></el-input-number>
+        <el-form-item :label="fee.trade_type_name" v-for="(fee, index) in item.busicd" :error="fee.error" :key="fee.trade_type_name">
+            <el-input-number @change="ratioMinRule($event, fee.ratioMin, fee.trade_type, index, index0)" v-model="fee.ratio" :precision="2" :step="0.01" :min="0" :max="5"></el-input-number>
         </el-form-item>
       </div>
 
@@ -660,7 +660,6 @@
       "formData.secondary_uid"() {
         this.fetchRadio(this.formData.secondary_uid)
       }
-
     },
     methods: {
       fetchRadio(agentUid) { // 费率的接口请求
@@ -684,14 +683,17 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      ratioMinRule(value, ratioMin, trade_type) { // 费率填写提示信息的处理
+      ratioMinRule(value, ratioMin, trade_type, index, index0) { // 费率填写提示信息的处理
+        if(value === undefined ) {
+          setTimeout(() => {
+          this.radioList[index0]['busicd'][index]['ratio'] = 0;
+          }, 0)
+        }
         let errorMessage = value < ratioMin ? this.$t('common.MINRatio')+`${ratioMin}` : ''
         this.radioList.map((radio) => {
           radio.busicd.map((item) => {
             if (trade_type === item.trade_type) {
-              if(value === undefined) {
-                item.ratio = 0
-              }
+              
               this.$set(item, 'error', errorMessage)
             } else {
               item.error = ''
@@ -1012,11 +1014,7 @@
         form.mchnt[this.formData.documentType] = this.formData.documentNum
         let radioListValue = this.refee(this.radioList)
         // console.log(radioListValue, 4444)
-        for(let i in radioListValue) {
-            if(i['ratio'] === '') {
-              delete radioListValue[i]
-            }
-        }
+        
         console.log(radioListValue, 5555)
         params.mchnt = JSON.stringify(form.mchnt)
         params.store = JSON.stringify(form.store)

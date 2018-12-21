@@ -12,7 +12,12 @@ module.exports = {
     proxyTable: {
       '/api': {
         // target: 'https://oasbp.qa.qfpay.net',
+<<<<<<< Updated upstream
         target: 'http://172.100.108.35:6500',
+=======
+        // target: 'https://oasbp.qa.qfpay.net',
+        target: 'http://172.100.108.27:6500',
+>>>>>>> Stashed changes
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/'
