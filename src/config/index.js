@@ -11,7 +11,7 @@ switch (env) {
   case "development":
     host = 'api'
     ohost = 'https://o.qa.qfpay.net';
-    imgUpload = 'https://o2.qfpay.com';
+    imgUpload = 'https://ims-hk.qfapi.com';
     break;
 
   default: // 线上正式
