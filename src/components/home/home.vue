@@ -354,17 +354,18 @@
                 return d.name
               })
               .y(function (d) {
-                return Number(d.cnt)
+                return d.cnt
               })
               .height(360)
               .duration(1000)
-              .margin({top: 50, left: 0})
+              .margin({top: 0, left: 0})
               .padAngle(0)
               .donut(1)
               .showTooltipPercent(1)
               .arcsRadius(arcRadius)
               .labelType("key")
               .showLabels(true)
+              .showLegend(true)
               .labelsOutside(true)
               .labelSunbeamLayout(0)
               .valueFormat(d3.format('d'))
