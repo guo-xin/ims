@@ -110,7 +110,7 @@
       <el-button v-show="active === 1" @click="pre">{{$t('common.prev')}}</el-button>
     </footer>
     <footer v-else>
-      <el-button type="primary" @click="next">
+      <el-button type="primary" @click="next" :disabled="disabled">
         {{active === 1 ? $t('common.done') : $t('common.next')}}
       </el-button>
       <el-button v-show="active !== 0" @click="pre">{{$t('common.prev')}}</el-button>
@@ -132,6 +132,7 @@
         isInputing: false, // 正在输入密码
         editPassword: '******',
         oldPassword: '',
+        disabled: true,
         baseform: {
           name: '',
           levelcode: '',
@@ -186,7 +187,18 @@
             {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.legalMobile')}
           ],
           'username': [
-            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.username')}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.username'), trigger: 'blur'},
+            {
+              validator: (rule, val, cb) => {
+                if (!/^[0-9a-zA-Z]*$/.test(val) && val != '') {
+                  cb(new Error(this.$t('agent.onlyLetterNumber')));
+                  this.disabled = true
+                } else {
+                  cb();
+                  this.disabled = false;
+                }
+              }
+            }
           ],
           'password': [
             {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.password')}
@@ -298,7 +310,7 @@
       },
       next() {
         if (this.active === 0) {
-          if (this.usernameErrorMessage) {
+          if (this.usernameErrorMessage && this.isRegistered) {
             return false
           }
           this.$refs['baseform'].validate((valid) => {
@@ -413,6 +425,7 @@
           this.isRegisterLoading = false
           let data = res.data
           if (data.respcd === '0000') {
+            this.disabled = false;
             this.isRegistered = false
             this.usernameErrorMessage = ''
             this.updateAgency('username', username)
@@ -420,7 +433,7 @@
             this.isRegistered = true
             this.usernameErrorMessage = this.$t('agent.isRegistered')
           } else if (data.respcd === '2101') {
-            this.isRegistered = true
+//            this.isRegistered = true
             this.usernameErrorMessage = data.resperr
           }
         })
@@ -430,6 +443,7 @@
         let paramsBase = JSON.parse(JSON.stringify(this.baseform))
         // paramsBase.auth_province = this.$refs.province.selected.label || ''
         // paramsBase.auth_city = this.$refs.city.selected.label || ''
+        console.log(paramsBase)
         paramsBase.auth_province = this.baseform.auth_province
         this.payfeeT = this.refee(this.payfee)
         this.$http({
