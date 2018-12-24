@@ -57,11 +57,13 @@
         <div class="title">{{$t('salesman.detail.picture')}}</div>
         <div class="divider"></div>
       </div>
-      <el-col :span="24">
-        <div class="basic-content-p">
-             <img :src="form.userinfo.idcardfront"  class="voucher_photo" />
-        </div>
-      </el-col>
+      <el-row>
+        <el-col :span="24">
+          <div class="basic-content-p">
+            <img :src="form.userinfo.idcardfront"  class="voucher_photo" />
+          </div>
+        </el-col>
+      </el-row>
     </section>
 
     <footer v-if="isEditable">
@@ -193,8 +195,8 @@
           color:#717283;
           line-height:$baseSize;
           .voucher_photo {
-            width:200px;
-            height:150px;
+            width:300px;
+            height:216px;
             display:inline-block;
             margin-left:$smGap;
           }

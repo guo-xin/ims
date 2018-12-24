@@ -185,17 +185,17 @@ export default new Router({
           component: settleTotal
         },
         {
-          path: 'salesman_list',
+          path: 'salesman_manage_list',
           name: 'salesList',
           component: salesList
         },
         {
-          path: 'salesman_list/sales_create',
+          path: 'salesman_manage_list/sales_create',
           name: 'salesCreate',
           component: createSalesman
         },
         {
-          path: 'salesman_list/sales_detail',
+          path: 'salesman_manage_list/sales_detail',
           name: 'salesDetail',
           component: salesDetail
         }
