@@ -771,42 +771,42 @@ const en = {
     logout: 'Logout'
   },
   salesman: {
-    title: '业务员管理',
-    engaged: '在职',
-    retired: '离职',
+    title: 'BD Management',
+    engaged: 'Active',
+    retired: 'Inactive',
     form: {
-      slsm_uid: '业务员ID:',
-      salesname: '业务员名称:',
-      mobile: '手机号码:',
-      status: '业务员状态:',
-      email: '邮箱:',
-      idnumber: '证件号码:',
-      date: '注册日期:',
-      password: '密码:'
+      slsm_uid: 'BD ID:',
+      salesname: 'BD Name:',
+      mobile: 'Contact Number:',
+      status: 'Status:',
+      email: 'Email:',
+      idnumber: 'ID:',
+      date: 'Registration Date:',
+      password: 'Password:'
     },
     table: {
-      email: '邮箱',
-      idnumber: '证件号码',
-      date: '注册日期',
-      password: '密码'
+      email: 'Email',
+      idnumber: 'ID',
+      date: 'Registration Date',
+      password: 'Password'
     },
     detail: {
-      title: '业务员详情',
-      subtitle: '基本信息',
-      picture: '证照信息'
+      title: 'BD Detail Info',
+      subtitle: 'Base Info',
+      picture: 'Certificate Info'
     },
     newsale: {
-      title1: '创建业务员',
-      title2: '编辑业务员',
-      cap1: '基本信息',
-      cap2: '证照信息',
+      title1: 'Create BD',
+      title2: 'Edit BD',
+      cap1: 'Base Info',
+      cap2: 'Certificate Info',
       model: {
-        salesname: '业务员名称',
-        mobile: '手机号码',
-        status: '业务员状态',
-        email: '邮箱',
-        password: '密码',
-        confirm_password: '确认密码',
+        salesname: 'BD Name',
+        mobile: 'Contact Number',
+        status: 'Status',
+        email: 'Email',
+        password: 'Password',
+        confirm_password: 'Confirm Password',
         idnumber: '证件号码',
         idcardfront: ''
       },

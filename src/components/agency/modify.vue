@@ -94,7 +94,7 @@
       </el-form-item>
     </el-form>
 
-    <el-form v-show="active === 1" ref="payfeeform">
+    <el-form v-show="active === 1 && !isUpdate" ref="payfeeform" >
       <h3>{{$t('agent.payRate')}}</h3>
       <div :label="item.name" v-for="item in payfee" :key="item.name">
         <h4>{{item.name}}</h4>
