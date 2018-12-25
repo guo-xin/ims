@@ -105,7 +105,7 @@
       clearing_template_list: ["5", "5-5"], // 清分模板
       perm_user_list: ["6", "6-1"], // 用户管理
       perm_role_list: ["6", "6-2"], // 角色管理
-      salesman_manage: ["7", "7-1"]
+      salesman_manage_list: ["7", "7-1"]
     }
   export default {
     data() {
