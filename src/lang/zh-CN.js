@@ -728,14 +728,14 @@ const zh = {
     engaged: '在职',
     retired: '离职',
     form: {
-      slsm_uid: '业务员ID:',
-      salesname: '业务员名称:',
-      mobile: '手机号码:',
-      status: '业务员状态:',
-      email: '邮箱:',
-      idnumber: '证件号码:',
-      date: '注册日期:',
-      password: '密码:'
+      slsm_uid: '业务员ID',
+      salesname: '业务员名称',
+      mobile: '手机号码',
+      status: '业务员状态',
+      email: '邮箱',
+      idnumber: '证件号码',
+      date: '注册日期',
+      password: '密码'
     },
     table: {
       email: '邮箱',
@@ -746,7 +746,15 @@ const zh = {
     detail: {
       title: '业务员详情',
       subtitle: '基本信息',
-      picture: '证照信息'
+      picture: '证照信息',
+      slsm_uid: '业务员ID:',
+      salesname: '业务员名称:',
+      mobile: '手机号码:',
+      status: '业务员状态:',
+      email: '邮箱:',
+      idnumber: '证件号码:',
+      password: '密码:',
+      date: '注册日期:'
     },
     newsale: {
       title1: '创建业务员',

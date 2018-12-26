@@ -139,7 +139,7 @@
             icon: 'auth-icon'
           },
           salesman_manage: {
-            icon: 'auth-icon'
+            icon: 'sales-icon'
           }
         }
       }
@@ -369,6 +369,10 @@
             background:url(../../assets/common_img/auth_light.png) 0 0 no-repeat transparent;
             background-size: contain;
           }
+          .sales-icon {
+            background:url(../../assets/common_img/sales_light.png) 0 0 no-repeat transparent;
+            background-size: contain;
+          }
         }
 
         .el-submenu .el-menu-item.is-active {
@@ -409,6 +413,10 @@
         }
         .auth-icon {
           background:url(../../assets/common_img/auth.png) 0 0 no-repeat transparent;
+          background-size: contain;
+        }
+        .sales-icon {
+          background:url(../../assets/common_img/sales.png) 0 0 no-repeat transparent;
           background-size: contain;
         }
       }

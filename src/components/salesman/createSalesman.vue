@@ -252,8 +252,6 @@
           params.userid = this.salesModel.userid;
           delete params.mobile;
           delete params.email;
-          delete params.password;
-          delete params.confirm_password;
         }else {
           delete params.status
         }

@@ -771,29 +771,37 @@ const en = {
     logout: 'Logout'
   },
   salesman: {
-    title: 'BD Management',
+    title: 'Salesman Management',
     engaged: 'Active',
     retired: 'Inactive',
     form: {
-      slsm_uid: 'BD ID:',
-      salesname: 'BD Name:',
-      mobile: 'Contact Number:',
-      status: 'Status:',
-      email: 'Email:',
-      idnumber: 'ID:',
-      date: 'Registration Date:',
-      password: 'Password:'
+      slsm_uid: 'BD ID',
+      salesname: 'BD Name',
+      mobile: 'Contact Number',
+      status: 'Status',
+      email: 'Email',
+      idnumber: 'Certificate Number',
+      date: 'Registration Date',
+      password: 'Password'
     },
     table: {
       email: 'Email',
-      idnumber: 'ID',
+      idnumber: 'Certificate Number',
       date: 'Registration Date',
       password: 'Password'
     },
     detail: {
       title: 'BD Detail Info',
       subtitle: 'Base Info',
-      picture: 'Certificate Info'
+      picture: 'Certificate Info',
+      slsm_uid: 'BD ID:',
+      salesname: 'BD Name:',
+      mobile: 'Contact Number:',
+      status: 'Status:',
+      email: 'Email:',
+      idnumber: 'Certificate Number:',
+      password: 'Password:',
+      date: 'Registration Date:'
     },
     newsale: {
       title1: 'Create BD',
@@ -806,11 +814,11 @@ const en = {
         status: 'Status',
         email: 'Email',
         password: 'Password',
-        confirm_password: 'Confirm Password',
+        confirm_password: 'Confirm-Password',
         idnumber: 'ID',
         idcardfront: ''
       },
-      rule1: "Please enter BD's full name",
+      rule1: "Please enter BD's name",
       rule2: 'The maximum input allowed is 20 characters',
       rule3: 'Please input email',
       rule11: 'Please input a valid email',
@@ -818,14 +826,14 @@ const en = {
       rule5: 'The maximum password length is 18 characters',
       rule6: 'Please input confirm-password for validation',
       rule7: 'The maximum confirm-password length is 18 characters',
-      rule8: 'Please input mobile number',
+      rule8: 'Please input contact number',
       rule9: 'Mobile number cannot exceed 11 digits',
       rule10: 'Mobile number must be numbers',
       rule12: 'Please input ID number',
       rule13: 'The maximum ID length is 20 characters',
       pic1: 'Certificate front side',
-      pic1warn: '* Must upload Certificate with front side',
-      tip: 'Please upload Certificate with front side'
+      pic1warn: '* Must upload certificate photo with front side',
+      tip: 'Please upload certificate photo with front side'
     }
   }
 }

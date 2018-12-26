@@ -12,44 +12,44 @@
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('salesman.form.slsm_uid')}}</span>
+          <span class="basic-label">{{$t('salesman.detail.slsm_uid')}}</span>
           <span class="basic-content">{{form.userinfo.userid}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('salesman.form.status')}}</span>
+          <span class="basic-label">{{$t('salesman.detail.status')}}</span>
           <span class="basic-content">{{status[form.userinfo.status]}}</span>
         </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('salesman.form.salesname')}}</span>
+          <span class="basic-label">{{$t('salesman.detail.salesname')}}</span>
           <span class="basic-content">{{form.userinfo.salesname}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('salesman.form.mobile')}}</span>
+          <span class="basic-label">{{$t('salesman.detail.mobile')}}</span>
           <span class="basic-content">{{form.userinfo.mobile}}</span>
         </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('salesman.form.email')}}</span>
+          <span class="basic-label">{{$t('salesman.detail.email')}}</span>
           <span class="basic-content">{{form.userinfo.email}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('salesman.form.idnumber')}}</span>
+          <span class="basic-label">{{$t('salesman.detail.idnumber')}}</span>
           <span class="basic-content">{{form.userinfo.idnumber}}</span>
         </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('salesman.form.date')}}</span>
+          <span class="basic-label">{{$t('salesman.detail.date')}}</span>
           <span class="basic-content">{{form.userinfo.ctime}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('salesman.form.password')}}</span>
+          <span class="basic-label">{{$t('salesman.detail.password')}}</span>
           <span class="basic-content">{{form.userinfo.password}}</span>
         </el-col>
       </el-row>
