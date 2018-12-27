@@ -9,7 +9,7 @@ switch (env) {
     break;
 
   case "development":
-    host = 'api'
+    host = 'https://oasbp.qa.qfpay.net'
     ohost = 'https://o.qa.qfpay.net';
     imgUpload = 'https://o2.qa.qfpay.net';
     break;

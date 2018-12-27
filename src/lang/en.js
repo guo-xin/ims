@@ -815,7 +815,7 @@ const en = {
         email: 'Email',
         password: 'Password',
         confirm_password: 'Confirm-Password',
-        idnumber: 'ID',
+        idnumber: 'Certificate Number',
         idcardfront: ''
       },
       rule1: "Please enter BD's name",
@@ -827,10 +827,10 @@ const en = {
       rule6: 'Please input confirm-password for validation',
       rule7: 'The maximum confirm-password length is 18 characters',
       rule8: 'Please input contact number',
-      rule9: 'Mobile number cannot exceed 11 digits',
-      rule10: 'Mobile number must be numbers',
-      rule12: 'Please input ID number',
-      rule13: 'The maximum ID length is 20 characters',
+      rule9: 'Contact number cannot exceed 11 digits',
+      rule10: 'Contact number must be numbers',
+      rule12: 'Please input certificate number',
+      rule13: 'The maximum certificate number length is 20 characters',
       pic1: 'Certificate front side',
       pic1warn: '* Must upload certificate photo with front side',
       tip: 'Please upload certificate photo with front side'
