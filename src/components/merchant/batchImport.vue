@@ -135,12 +135,14 @@
 //           return;
 //         }
         this.isLoading = true;
-        axios.post(`${config.host}/org/mchnt/hk/mchnt_batch_create`,qs.stringify({
+        let param = {
           fileid: this.form.fileid,
           dir_name: this.form.dir_name,
           file_name_new: this.form.file_name_new,
           format: 'cors'
-        }), {
+        };
+        console.log('commit param:', param)
+        axios.post(`${config.host}/org/mchnt/hk/mchnt_batch_create`,qs.stringify(param), {
         }).then((res) => {
           let data = res.data;
           if (data.respcd === config.code.OK) {
@@ -195,6 +197,7 @@
               this.form.dir_name = data.data.dir_name;
               this.form.file_name_new = data.data.file_name_new;
             }
+            console.log('upload done:', this.form)
           }else {
             this.$message.error(data.respmsg)
           }
