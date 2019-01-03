@@ -15,7 +15,7 @@
         <el-input v-model="baseform.name" @blur="updateAgency('name', $event)"></el-input>
       </el-form-item>
       <el-form-item :prop="baseform.levelcode >= 2 ? 'parent_uid' : 'levelcode'" :label="$t('agent.agentLevel')" style="width:446px" ref="levelcode">
-        <el-select v-model="baseform.levelcode" @change="selectLevel">
+        <el-select v-model="baseform.levelcode" @change="selectLevel" :disabled="Boolean(baseform.levelcode)">
           <el-option v-for="level in levels" :label="level.text" :value="level.code" :key="level.code"></el-option>
         </el-select>
         <el-select style="margin-left:10px;" :disabled="baseform.levelcode === 1" v-model="baseform.parent_uid" :placeholder="$t('agent.agentBelong')" @change="updateAgency('secondAgency', $event)">
