@@ -797,7 +797,6 @@
         });
       },
       selectChannelHandler(groupid) { // 获取二级渠道列表数据
-        this.formData.secondary_uid = ''
         axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
             groupid: groupid,
@@ -807,7 +806,8 @@
           .then((res) => {
             let data = res.data;
             if (data.respcd === config.code.OK) {
-              this.channels2 = data.data.list;
+              this.channels2 = (groupid ? data.data.list: []);
+              this.formData.secondary_uid = ''
               this.fetchRadio(groupid)
               this.getSalesPersonList(groupid)
             } else {
