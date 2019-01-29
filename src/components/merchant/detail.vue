@@ -126,11 +126,11 @@
       <el-row>
         <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la17')}}</span>
-          <span class="basic-content">{{form.bankinfo.headbankname}}</span>
+          <span class="basic-content">{{form.bankinfo.bankuser}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la18')}}</span>
-          <span class="basic-content">{{form.bankinfo.bankuser}}</span>
+          <span class="basic-content">{{form.bankinfo.headbankname}}</span>
         </el-col>
       </el-row>
 

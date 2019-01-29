@@ -145,11 +145,11 @@
 
       <h3>{{$t('merchant.newMerchant.basic.cap3')}}</h3>
       <el-form-item prop="headbankname" :label="$t('merchant.newMerchant.form.accountName')">
-        <el-input v-model.trim="formData.headbankname"></el-input>
+        <el-input v-model.trim="formData.bankuser"></el-input>
       </el-form-item>
 
       <el-form-item prop="bankuser" :label="$t('merchant.newMerchant.form.accountType')">
-        <el-input v-model.trim="formData.bankuser"></el-input>
+        <el-input v-model.trim="formData.headbankname"></el-input>
       </el-form-item>
 
       <el-form-item prop="bankaccount" :label="$t('merchant.newMerchant.form.accountH')">
