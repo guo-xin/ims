@@ -47,7 +47,8 @@ const zh = {
     uploadFailed: '上传失败',
     SAVE: '保存',
     CLOSE: '关闭',
-    EDIT: '编辑'
+    EDIT: '编辑',
+    SWIFT: 'SWIFT'
   },
   home: {
     all: '全部',
@@ -428,6 +429,7 @@ const zh = {
         rule21: '请输入门店地址',
         rule22: '请输入联系电话',
         rule23: '请输入营业时间',
+        rule24: '请输入SWIFT码',
       },
       lengthRule: {
         rule1: '最多输入4个字符',
@@ -541,7 +543,9 @@ const zh = {
         la8: '门店营业时间:',
         la9: '门店附加服务:',
         la10: '门店网址:',
-        la11: '图片展示:'
+        la11: '图片展示:',
+        la12: '子商户号(mchid):',
+        la13: 'SWIFT:'
       }
     },
     newStore: {
@@ -639,6 +643,7 @@ const zh = {
       tradeType: '交易类型',
       payPass: '支付通道',
       merchantName: '商户名称',
+      shopName: '门店名称',
       firstAgent: '一级代理',
       secondAgent: '二级代理',
       wechat: '微信支付',

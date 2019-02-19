@@ -16,26 +16,70 @@
           <span class="basic-content">{{form.userinfo.shopname}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('shop.detail.basic.la6')}}</span>
-          <span class="basic-content">{{form.userinfo.address}}</span>
+          <span class="basic-label">{{$t('shop.detail.basic.la12')}}</span>
+          <span class="basic-content">{{form.userinfo.mchid}}</span>
         </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
+          <span class="basic-label">{{$t('shop.detail.basic.la6')}}</span>
+          <span class="basic-content">{{form.userinfo.address}}</span>
+        </el-col>
+        <el-col :span="14">
           <span class="basic-label">{{$t('shop.detail.basic.la4')}}</span>
           <span class="basic-content">{{form.userinfo.telephone}}</span>
         </el-col>
-        <el-col :span="14">
+      </el-row>
+      <el-row>
+        <el-col :span="10">
           <span class="basic-label">{{$t('shop.detail.basic.la8')}}</span>
           <span class="basic-content">{{form.userinfo.operating}}</span>
+        </el-col>
+      </el-row>
+    </section>
+
+    <section class="rates">
+      <div class="banner">
+        <div class="title">{{$t('merchant.detail.rates.setitle')}}</div>
+        <div class="divider"></div>
+      </div>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la17')}}</span>
+          <span class="basic-content">{{form.bankinfo.bankuser}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la18')}}</span>
+          <span class="basic-content">{{form.bankinfo.headbankname}}</span>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la19')}}</span>
+          <span class="basic-content">{{form.bankinfo.bankaccount}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la20')}}</span>
+          <span class="basic-content">{{form.bankinfo.bankProvince}}</span>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('shop.detail.basic.la13')}}</span>
+          <span class="basic-content">{{form.bankinfo.bankcode}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la21')}}</span>
+          <span class="basic-content">{{form.userinfo.remit_amt}}</span>
         </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="24" v-if="form.vouchers.length>0">
           <span class="basic-label">{{$t('shop.detail.basic.la11')}}</span>
-           <span class="basic-content-p">
+          <span class="basic-content-p">
              <img :src="item.url" v-for="(item,url) in form.vouchers" class="voucher_photo" :key="url"/>
           </span>
         </el-col>
@@ -83,7 +127,11 @@
             post: '',
             operating: '',
             additional: '',
-            website: ''
+            website: '',
+            remit_amt: ''
+          },
+          bankinfo: {
+
           },
           vouchers: []
         }
@@ -113,6 +161,7 @@
             this.isLoading = false;
             if (data.respcd === config.code.OK) {
                 this.form.userinfo = data.data.userinfo;
+                this.form.bankinfo = data.data.bankinfo;
                 this.form.vouchers = _.filter(data.data.vouchers, (item) => {
                   return ~'goodsphoto|shopphoto|paypoint|otherphoto'.indexOf(item.name)
                 })

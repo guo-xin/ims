@@ -7,6 +7,8 @@
       </el-button>
     </header>
     <el-form :model="storeModel" :rules="storeRules" ref="store-form">
+      <h3>{{$t('shop.detail.basic.subtitle')}}</h3>
+
       <el-form-item prop="shopname" :label="$t('shop.newStore.model.storename')">
         <el-input v-model.trim="storeModel.shopname"></el-input>
       </el-form-item>
@@ -26,6 +28,36 @@
         <el-input v-model.trim="storeModel.operating"></el-input>
       </el-form-item>
 
+      <h3>{{$t('merchant.detail.rates.setitle')}}</h3>
+
+      <el-form-item prop="bankuser" :label="$t('merchant.newMerchant.form.accountName')">
+        <el-input v-model.trim="storeModel.bankuser"></el-input>
+      </el-form-item>
+
+      <el-form-item prop="headbankname" :label="$t('merchant.newMerchant.form.accountType')">
+        <el-input v-model.trim="storeModel.headbankname"></el-input>
+      </el-form-item>
+
+      <el-form-item prop="bankaccount" :label="$t('merchant.newMerchant.form.accountH')">
+        <el-input v-model.trim="storeModel.bankaccount" @change="GetRemit"></el-input>
+      </el-form-item>
+
+      <el-form-item prop="bankProvince" :label="$t('merchant.newMerchant.form.accountAddress')">
+        <el-input v-model.trim="storeModel.bankProvince"></el-input>
+      </el-form-item>
+
+      <el-form-item prop="bankcode" :label="$t('common.SWIFT')">
+        <el-input v-model.trim="storeModel.bankcode"></el-input>
+      </el-form-item>
+
+      <el-form-item prop="remit_amt" :label="$t('merchant.newMerchant.form.moneySettment')">
+        <el-input
+          v-model.trim="storeModel.remit_amt"
+          :disabled="IsRemit"
+          maxlength='5'></el-input>
+      </el-form-item>
+
+      <h3>{{$t('merchant.detail.document.doctitle')}}</h3>
       <el-row>
         <el-col :span="24">
           <div class="uploader-wrap">
@@ -183,6 +215,7 @@
       return {
         isUpdate: false,
         isLoading: false,
+        IsRemit: false,
         goodsphotoloading: false,
         shopphotoloading: false,
         paypointloading: false,
@@ -194,6 +227,12 @@
           address: '',
           telephone: '',
           operating: '',
+          headbankname: '', // 开户行名称
+          bankuser: '', // 开户行
+          bankaccount: '', // 银行账号
+          bankProvince: '', // 银行地址
+          bankcode: '', // SWIFT码
+          remit_amt: null, // 结算资金起点
           vouchers: []
         },
         voucherInfo: {
@@ -229,6 +268,47 @@
               }
             }
           ],
+          'bankuser': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule15')},
+            {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule7'), trigger: 'blur'}
+          ],
+          'headbankname': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule16')},
+            {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule8'), trigger: 'blur'}
+          ],
+          'bankaccount': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule17')},
+            {
+              validator: (rule, val, cb) => {
+                if (!/^[0-9]*$/.test(val) && val != '') {
+                  cb(new Error(this.$t('merchant.newMerchant.specialRule.rule1')));
+                } else {
+                  cb();
+                }
+              }
+            },
+            {max: 15, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule6'), trigger: 'blur'}
+          ],
+          'bankProvince': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule18')},
+            {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule8'), trigger: 'blur'}
+          ],
+          'bankcode': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule24')}
+          ],
+          'remit_amt': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule19')},
+            {
+              validator: (rule, val, cb) => {
+                if (!/^[0-9]*$/.test(val) && val != '') {
+                  cb(new Error(this.$t('merchant.newMerchant.specialRule.rule1')));
+                } else {
+                  cb();
+                }
+              }
+            }
+            // {max: 5, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule2')}
+          ]
         }
       }
     },
@@ -250,11 +330,23 @@
           .then((res) => {
             let data = res.data;
             if (data.respcd === config.code.OK) {
-              this.storeModel.shopname = data.data.userinfo.shopname;
-              this.storeModel.address = data.data.userinfo.address;
-              this.storeModel.telephone = data.data.userinfo.telephone;
-              this.storeModel.operating = data.data.userinfo.operating;
-              data.data.vouchers.forEach((item) =>{
+              this.IsRemit = true;
+
+              let da =  data.data;
+              Object.assign(this.storeModel, {
+                shopname: da.userinfo.shopname,
+                address: da.userinfo.address,
+                telephone: da.userinfo.telephone,
+                operating: da.userinfo.operating,
+                headbankname: da.bankinfo.headbankname, // 开户行名称
+                bankuser: da.bankinfo.bankuser, // 开户行
+                bankaccount: da.bankinfo.bankaccount, // 银行账号
+                bankProvince: da.bankinfo.bankProvince, // 银行地址
+                bankcode: da.bankinfo.bankcode, // SWIFT码
+                remit_amt: da.userinfo.remit_amt, // 结算资金起点
+              });
+
+              da.vouchers.forEach((item) =>{
                 if(~'goodsphoto|shopphoto|paypoint|otherphoto'.indexOf(item.name)) {
                   this.storeModel.vouchers.push(item)
                   this.voucherInfo[item.name + '_url'] = item.url
@@ -268,6 +360,28 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
+
+      GetRemit() { // 根据银行账号获得
+        axios.get(`${config.host}/org/tools/remit_amt`, {
+          params: {
+            bankaccount: this.storeModel.bankaccount,
+            format: 'cors'
+          }
+        }).then((res) => {
+          let data = res.data
+          if(data.respcd === config.code.OK) {
+            this.storeModel.remit_amt = data.data.remit_amt;
+            if(data.data.remit_amt !== "") {
+              this.IsRemit = true
+            }else {
+              this.IsRemit = false
+            }
+          }else {
+            this.$message.error(data.respmsg);
+          }
+        })
+      },
+
       cancelHandler() {
         this.$router.push({name: 'shop_manage_list'})
       },
@@ -386,6 +500,22 @@
       padding: 30px;
       .el-loading-mask {
         width: 300px;
+      }
+      h3 {
+        position: relative;
+        padding: 12px 0;
+        margin: 0 0 20px;
+        font-size: 20px;
+        color: #1D1D24;
+        &:after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 50px;
+          height: 2px;
+          background-color: #232629;
+        }
       }
       .sub-account-item-info {
         position: relative;

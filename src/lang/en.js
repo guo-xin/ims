@@ -49,9 +49,10 @@ const en = {
     uploadFailed: 'Upload Failed',
     CLOSE: 'CLOSE',
     SAVE: 'SAVE',
-    EDIT: 'EDIT'
+    EDIT: 'EDIT',
+    SWIFT: 'SWIFT'
   },
-    home: {
+  home: {
       all: 'All',
       title: 'Homepage',
       amt: 'Transaction Amount',
@@ -471,6 +472,7 @@ const en = {
         rule21: 'Please input store address',
         rule22: 'Please input store contact number',
         rule23: 'Please input business hours',
+        rule24: 'Please enter the SWIFT code',
       },
       lengthRule: {
         rule1: 'The maxlength is 4',
@@ -587,7 +589,9 @@ const en = {
         la8: 'Business Hours:',
         la9: 'Additional Services:',
         la10: 'Website:',
-        la11: 'Photograph:'
+        la11: 'Photograph:',
+        la12: 'Sub-business account number:',
+        la13: 'SWIFT:'
       },
       edit: 'Edit'
     },
@@ -686,6 +690,7 @@ const en = {
       tradeType: 'Transaction Type',
       payPass: 'Payment Gateway',
       merchantName: 'Merchant Name',
+      shopName: 'Store name',
       firstAgent: 'First Level Agent',
       secondAgent: 'Second Level Agent',
       wechat: 'WeChat Pay',

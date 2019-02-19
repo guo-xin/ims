@@ -147,6 +147,10 @@
 
       <el-row>
         <el-col :span="10">
+          <span class="basic-label">{{$t('shop.detail.basic.la13')}}</span>
+          <span class="basic-content">{{form.bankinfo.bankcode}}</span>
+        </el-col>
+        <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la21')}}</span>
           <span class="basic-content">{{form.userinfo.remit_amt}}</span>
         </el-col>

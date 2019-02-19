@@ -160,6 +160,10 @@
         <el-input v-model.trim="formData.bankProvince"></el-input>
       </el-form-item>
 
+      <el-form-item prop="bankcode" :label="$t('common.SWIFT')">
+        <el-input v-model.trim="formData.bankcode"></el-input>
+      </el-form-item>
+
       <el-form-item prop="remit_amt" :label="$t('merchant.newMerchant.form.moneySettment')">
         <el-input
           v-model.trim="formData.remit_amt"
@@ -442,6 +446,7 @@
           bankuser: '', // 开户行
           bankaccount: '', // 银行账号
           bankProvince: '', // 银行地址
+          bankcode: '', // SWIFT码
           remit_amt: '', // 结算资金起点
           ci: '', // ci编号
           ci_expire_time: '', // ci有效期
@@ -494,7 +499,7 @@
           paypoint_url: '',
           paypoint_name: '',
           otherphoto_url: '',
-          otherphoto_url: ''
+          otherphoto_name: ''
         },
         baseRules: {
           'sls_uid': [
@@ -595,6 +600,9 @@
           'bankProvince': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule18')},
             {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule8'), trigger: 'blur'}
+          ],
+          'bankcode': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule24')}
           ],
           'remit_amt': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule19')},
@@ -968,6 +976,7 @@
               this.formData.bankProvince = bankinfo.bankProvince //
               this.formData.bankuser = bankinfo.bankuser //
               this.formData.bankaccount = bankinfo.bankaccount //
+              this.formData.bankcode = bankinfo.bankcode //
               this.formData.remit_amt = uinfo.remit_amt
               // this.radioList = fee
 
@@ -1023,6 +1032,7 @@
             bankuser: this.formData.bankuser, // 银行账户名称
             bankaccount: this.formData.bankaccount, // 银行账号
             bankProvince: this.formData.bankProvince, // 银行地址
+            bankcode: this.formData.bankcode, // SWIFT码
             remit_amt: this.formData.remit_amt, // 结算资金起点
             ci: this.formData.ci, // ci编号
             ci_expire_time: this.formData.ci_expire_time, // ci有效期
@@ -1156,7 +1166,7 @@
         }).then((res) => {
           let data = res.data
           if(data.respcd === config.code.OK) {
-            this.formData.remit_amt = data.data.remit_amt
+            this.formData.remit_amt = data.data.remit_amt;
             if(data.data.remit_amt !== "") {
               this.IsRemit = true
             }else {
