@@ -95,6 +95,7 @@
       mchnt_manage_list: ["2", "2-1"], // 商户列表
       shop_manage_list: ["2", "2-2"], // 门店列表
       mchnt_audit_list: ["2", "2-3"], // 商户审核
+      api_manage_list: ["2", "2-4"], // API管理
       trade_detail_list: ["3", "3-1"], // 交易明细
       trade_summary_list: ["3", "3-2"], // 交易汇总
       agent_manage_list: ["4", "4-1"],

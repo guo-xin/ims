@@ -19,6 +19,7 @@ import mchntDetail from 'components/merchant/detail'
 import auditDetail from 'components/merchant/auditDetail'
 import createMerchant from 'components/merchant/createMerchant'
 import createStore from 'components/merchant/createStore'
+import apiList from 'components/merchant/apiList'
 import settleDetail from 'components/settlement/settleDetail'
 import settleMode from 'components/settlement/settleMode'
 import settleTotal from 'components/settlement/settleTotal'
@@ -102,6 +103,11 @@ export default new Router({
           path: 'mchnt_audit_list/audit_detail',
           name: 'auditDetail',
           component: auditDetail
+        },
+        {
+          path: 'api_manage_list',
+          name: 'apiList',
+          component: apiList
         },
 
         {

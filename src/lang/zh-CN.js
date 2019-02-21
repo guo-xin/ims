@@ -28,6 +28,7 @@ const zh = {
     operate: '操作',
     delete: '删除',
     look: '查看',
+    detail: '详情',
     range: '选择时间范围',
     confirm: '确定',
     cancel: '取消',
@@ -504,6 +505,22 @@ const zh = {
       rule44: '请上传身份证正面/法人身份证正面',
       rule45: '请上传营业执照',
       rule46: '请上传收银台照片'
+    },
+    api: {
+      title: 'API管理',
+      userId: '用户ID',
+      userType: '用户类型',
+      merchant: '商户',
+      agent: '代理商',
+      id: 'ID',
+      userName: '用户名称',
+      code: 'Code',
+      key: 'KEY',
+      remark: '备注',
+      userInfo: '用户信息',
+      address1: '通知地址',
+      address2: '返回地址',
+      tip1: '请输入用户ID',
     }
   },
   shop: {

@@ -182,7 +182,7 @@
           type: 'audit',
           qd_name: '',
           page: this.currentPage > 0 ? (this.currentPage - 1) : this.currentPage,
-          pagesize: this.pageSize,
+          page_size: this.pageSize,
           format: 'cors'
         }
         if(this.formData.qd_uid2) {

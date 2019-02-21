@@ -34,6 +34,7 @@ const en = {
     operate: 'Operation',
     delete: 'Delete',
     look: 'View',
+    detail: 'Detail',
     range: 'Select Date Range',
     confirm: 'Determine',
     cancel: 'Cancel',
@@ -544,6 +545,22 @@ const en = {
       rule41: 'Please input website',
       rule42: 'Please input a valid website',
       rule43: 'Please select salesperson'
+    },
+    api: {
+      title: 'API管理',
+      userId: 'User ID',
+      userType: 'User type',
+      merchant: 'Merchant',
+      agent: 'Agent',
+      id: 'ID',
+      userName: 'User name',
+      code: 'Code',
+      key: 'KEY',
+      remark: 'Remark',
+      userInfo: 'User information',
+      address1: 'Notification address',
+      address2: 'Return address',
+      tip1: 'Please enter a user ID',
     }
   },
   shop: {
