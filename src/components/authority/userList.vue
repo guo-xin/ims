@@ -83,6 +83,7 @@
               <el-option :label="$t('authority.panel.close')" value=9></el-option>
             </el-select>
           </el-form-item>
+          <el-form-item></el-form-item>
         </div>
       </el-form>
       <div class="divider"></div>

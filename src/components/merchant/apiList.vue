@@ -86,7 +86,7 @@
           <el-form-item prop="memo" :label="$t('merchant.api.remark')">
             <el-input v-model="formUser.memo" type="text"></el-input>
           </el-form-item>
-
+          <el-form-item></el-form-item>
         </div>
       </el-form>
       <div class="divider"></div>
@@ -221,6 +221,13 @@
       },
 
       handleClose() {
+        this.formUser = {
+          userid: '',
+          userName: '',
+          notify_url: '',
+          return_url: '',
+          memo: ''
+        };
         this.$refs['formUser'].resetFields();
       },
 
