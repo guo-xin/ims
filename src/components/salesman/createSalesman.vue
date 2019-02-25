@@ -8,6 +8,23 @@
     </header>
     <el-form :model="salesModel" :rules="salesRules" ref="sales-form">
       <h3>{{$t('salesman.newsale.cap1')}}</h3>
+
+      <el-form-item :label="$t('merchant.newMerchant.form.channel')" prop="salesModel" v-if="!isUpdate">
+        <el-select v-model="salesModel.primary_uid" @change="getChannelList(salesModel.primary_uid, true)">
+          <el-option v-for="item in channels1" :label="item.name" :value="item.qd_uid"  :key="item.qd_uid"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item :label="$t('merchant.newMerchant.form.channel2')" prop="secondary_uid" v-if="!isUpdate">
+        <el-select v-model="salesModel.secondary_uid" :placeholder="$t('merchant.form.ph')">
+          <el-option v-for="item in channels2" :label="item.name" :value="item.qd_uid"  :key="item.qd_uid"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item prop="qd_name" :label="$t('merchant.detail.basic.la1')" v-if="isUpdate">
+        <el-input v-model.trim="salesModel.qd_name" disabled></el-input>
+      </el-form-item>
+
       <el-form-item prop="salesname" :label="$t('salesman.newsale.model.salesname')">
         <el-input v-model.trim="salesModel.salesname"></el-input>
       </el-form-item>
@@ -106,8 +123,13 @@
         isUpdate: false,
         isLoading: false,
         idcardfrontloading: false,
+        channels1: [],
+        channels2: [],
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
         salesModel: {
+          qd_name: '',
+          primary_uid: '',
+          secondary_uid: '',
           salesname: '',
           mobile: '',
           email: '',
@@ -169,10 +191,46 @@
     created() {
       if (this.$route.query) {
         this.isUpdate = this.$route.query.command === 'edit' || getParams('command') === 'edit';
-        this.isUpdate && this.getSalesInfo()
+        if(this.isUpdate) {
+          this.getSalesInfo();
+        } else {
+          this.getChannelList();
+        }
       }
     },
     methods: {
+      // 获取1,2级渠道列表
+      getChannelList(val, flag) {
+        if(flag && !val) {
+          this.channels2 = [];
+          this.salesModel.secondary_uid = ''
+        } else {
+          axios.get(`${config.host}/org/tools/qudao/list`, {
+            params: {
+              groupid: val,
+              format: 'cors'
+            }
+          })
+            .then((res) => {
+              let data = res.data;
+              if (data.respcd === config.code.OK) {
+                if(flag) {
+                  this.channels2 = data.data.list;
+                  this.salesModel.secondary_uid = ''
+                }else {
+                  this.channels1 = data.data.list;
+                }
+
+              } else {
+                this.$message.error(data.respmsg);
+              }
+            }).catch(() => {
+            this.$message.error(this.$t('common.netError'));
+          });
+        }
+
+      },
+
       getSalesInfo() {
         axios.get(`${config.host}/org/salesman/info`, {
           params: {
@@ -182,6 +240,7 @@
           .then((res) => {
             let data = res.data;
             if (data.respcd === config.code.OK) {
+              this.salesModel.qd_name = data.data.qd_name;
               this.salesModel.salesname = data.data.salesname;
               this.salesModel.mobile = data.data.mobile;
               this.salesModel.email = data.data.email;
@@ -244,17 +303,27 @@
           }
         })
       },
+
+      // 提交
       commit() {
         let params = Object.assign({}, this.salesModel)
         let url = this.isUpdate ? `${config.host}/org/salesman/edit` : `${config.host}/org/salesman/signup`
-        params.format = 'cors'
+        params.format = 'cors';
+
         if (this.isUpdate) {
           params.userid = this.salesModel.userid;
           delete params.mobile;
           delete params.email;
         }else {
-          delete params.status
+          delete params.status;
+
+          params.qd_uid = params.secondary_uid || params.primary_uid;
+
         }
+
+        delete params.qd_name;
+        delete params.primary_uid;
+        delete  params.secondary_uid;
 
         params.idcardfront = this.voucherInfo.idcardfront_name
         this.isLoading = true;

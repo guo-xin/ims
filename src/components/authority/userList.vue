@@ -275,7 +275,7 @@
           account: '',
           pwd: '',
           state: ''
-        }
+        };
         this.$refs['formUser'].resetFields();
         this.pwdChange = false;
       },

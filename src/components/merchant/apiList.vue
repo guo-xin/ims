@@ -28,19 +28,19 @@
     </el-form>
 
     <el-table :data="apiList.infos" stripe v-loading="loading" class="table-hover">
-      <el-table-column prop="id" :label="$t('merchant.api.id')" min-width="160"></el-table-column>
-      <el-table-column prop="user_name" :label="$t('merchant.api.userName')" min-width="100"></el-table-column>
+      <el-table-column prop="id" :label="$t('merchant.api.id')" min-width="150"></el-table-column>
+      <el-table-column prop="user_name" :label="$t('merchant.api.userName')" min-width="90"></el-table-column>
       <el-table-column :label="$t('merchant.api.userType')" min-width="80">
         <template slot-scope="scope">
-          <span>{{ scope.row.type === 1 ? $t('merchant.api.merchant') : $t('merchant.api.agent') }}</span>
+          <span>{{ scope.row.type === '1' ? $t('merchant.api.merchant') : $t('merchant.api.agent') }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="userid" :label="$t('merchant.api.userId')" min-width="80"></el-table-column>
       <el-table-column prop="code" :label="$t('merchant.api.code')" min-width="140"></el-table-column>
       <el-table-column prop="key" :label="$t('merchant.api.key')" min-width="140"></el-table-column>
-      <el-table-column prop="remark" :label="$t('merchant.api.remark')" min-width="80"></el-table-column>
+      <el-table-column prop="memo" :label="$t('merchant.api.remark')" min-width="80"></el-table-column>
 
-      <el-table-column :label="$t('common.operate')" width="80">
+      <el-table-column :label="$t('common.operate')" min-width="80">
         <template slot-scope="scope">
           <el-button type="text" @click="detail(scope.row)">{{ $t('common.detail') }}</el-button>
         </template>

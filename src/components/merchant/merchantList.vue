@@ -146,7 +146,7 @@
                 >
                 </el-input>
             </el-form-item>
-            <el-form-item class="form_item" prop="merchantPass1" :label="$t('merchant.payment.merchantPass1')"> 
+            <el-form-item class="form_item" prop="merchantPass1" :label="$t('merchant.payment.merchantPass1')">
                 <el-input
                   v-model="item.buscid[0].key1"
                   :disabled="paymentEdit.IsPayment"
@@ -164,11 +164,11 @@
           <el-button class="right" v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
         </el-form-item>
       </el-form>
-      <el-form v-if="radio == 2" class="dialog_form" ref="payMentform"> 
+      <el-form v-if="radio == 2" class="dialog_form" ref="payMentform">
         <div v-for="item in ratioListTwo" :key="item.type" class="ratioType">
             <h4>{{ item.name }}</h4>
             <el-form-item class="form_item2" :label="$t('merchant.payment.merchantID2')">
-                <el-select 
+                <el-select
                     v-model="item.buscid[0].mchntid"
                     :disabled="paymentEdit.IsTwoTimes">
                     <el-option v-for="buscid in item.buscid" :key="buscid.mchntid" :label="buscid.mchntid" :value="buscid.mchntid"></el-option>
@@ -186,7 +186,7 @@
           <el-button type="text" @click="resetForm('payMentform')">{{ $t('common.CLOSE') }}</el-button>
           <el-button class="right" v-if="paymentEdit.dialogType" type="text" @click="changePayment()">{{ $t('common.SAVE') }}</el-button>
           <el-button class="right" v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
-        </el-form-item>        
+        </el-form-item>
       </el-form>
     </el-dialog>
   </div>
@@ -322,6 +322,7 @@
         axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
             groupid: '',
+            status: 3,
             format: 'cors'
           }})
           .then((res) => {
@@ -419,11 +420,11 @@
       paymentConfigure(userid, deploy) { // 支付配置状态查看或改变
           this.paymentEdit.type = deploy
           this.paymentEdit.userid = userid
-          this.centerDialogVisible = true 
-          if(deploy === 0) { // 0表示未配置 edit控制select与input的可编辑状态，这里设置为可编辑，dialogType控制下方按钮的展示，这里设置为保存 
+          this.centerDialogVisible = true
+          if(deploy === 0) { // 0表示未配置 edit控制select与input的可编辑状态，这里设置为可编辑，dialogType控制下方按钮的展示，这里设置为保存
             this.fetchRadio()
-            this.paymentEdit.edit = false    
-            this.paymentEdit.dialogType = true   
+            this.paymentEdit.edit = false
+            this.paymentEdit.dialogType = true
           }else {
             let p = {
                 userid: userid,
@@ -457,7 +458,7 @@
               this.paymentEdit.edit = true
               this.paymentEdit.dialogType = false
             })
-          }  
+          }
       },
       editStatus() { // 将对话框的状态改为可编辑
         let that = this
@@ -542,7 +543,7 @@
             item.name = Object.keys(i)[0]
             list.push(item)
         })
-        return list        
+        return list
       },
       revalue(a, b) { // 为二清的支付配置赋值
           for(let i of a) {
@@ -596,7 +597,7 @@
               item.id = i.buscid[0].id
               channelList.push(item)
             // }
-            
+
           } else if(key === 2) {
             // if(i.buscid[0].mchntid && i.buscid[0].termid) {
               let item = {}
@@ -634,7 +635,7 @@
       }
       .radioType1 {
         margin-left: 20px;
-      }      
+      }
       .dialog_form {
         margin-left: 1%;
         .form_item {
@@ -663,7 +664,7 @@
           margin-top: 2%;
           .right {
             margin-left: 30%;
-          } 
+          }
         }
       }
       h4 {

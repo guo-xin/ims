@@ -12,45 +12,52 @@
 
       <el-row>
         <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la1')}}</span>
+          <span class="basic-content">{{userInfo.qd_name}}</span>
+        </el-col>
+
+        <el-col :span="14">
           <span class="basic-label">{{$t('salesman.detail.slsm_uid')}}</span>
-          <span class="basic-content">{{form.userinfo.userid}}</span>
+          <span class="basic-content">{{userInfo.userid}}</span>
         </el-col>
-        <el-col :span="14">
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
           <span class="basic-label">{{$t('salesman.detail.status')}}</span>
-          <span class="basic-content">{{status[form.userinfo.status]}}</span>
+          <span class="basic-content">{{status[userInfo.status]}}</span>
         </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
+        <el-col :span="14">
           <span class="basic-label">{{$t('salesman.detail.salesname')}}</span>
-          <span class="basic-content">{{form.userinfo.salesname}}</span>
+          <span class="basic-content">{{userInfo.salesname}}</span>
         </el-col>
-        <el-col :span="14">
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
           <span class="basic-label">{{$t('salesman.detail.mobile')}}</span>
-          <span class="basic-content">{{form.userinfo.mobile}}</span>
+          <span class="basic-content">{{userInfo.mobile}}</span>
         </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
+        <el-col :span="14">
           <span class="basic-label">{{$t('salesman.detail.email')}}</span>
-          <span class="basic-content">{{form.userinfo.email}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('salesman.detail.idnumber')}}</span>
-          <span class="basic-content">{{form.userinfo.idnumber}}</span>
+          <span class="basic-content">{{userInfo.email}}</span>
         </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('salesman.detail.date')}}</span>
-          <span class="basic-content">{{form.userinfo.ctime}}</span>
+          <span class="basic-label">{{$t('salesman.detail.idnumber')}}</span>
+          <span class="basic-content">{{userInfo.idnumber}}</span>
         </el-col>
         <el-col :span="14">
+          <span class="basic-label">{{$t('salesman.detail.date')}}</span>
+          <span class="basic-content">{{userInfo.ctime}}</span>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="10">
           <span class="basic-label">{{$t('salesman.detail.password')}}</span>
-          <span class="basic-content">{{form.userinfo.password}}</span>
+          <span class="basic-content">{{userInfo.password}}</span>
         </el-col>
       </el-row>
       <div class="banner">
@@ -60,7 +67,7 @@
       <el-row>
         <el-col :span="24">
           <div class="basic-content-p">
-            <img :src="form.userinfo.idcardfront"  class="voucher_photo" />
+            <img :src="userInfo.idcardfront"  class="voucher_photo" />
           </div>
         </el-col>
       </el-row>
@@ -99,17 +106,16 @@
           0: this.$t('salesman.engaged'),
           1: this.$t('salesman.retired'),
         },
-        form: {
-          userinfo: {
-            userid: this.$route.query.userid || getParams('userid'),
-            salesname: '',
-            mobile: '',
-            idnumber:'',
-            idcardfront: '', // 上传的照片
-            status: '',
-            email: '',
-            ctime:''
-          }
+        userInfo: {
+          qd_name: '',
+          userid: this.$route.query.userid || getParams('userid'),
+          salesname: '',
+          mobile: '',
+          idnumber: '',
+          idcardfront: '', // 上传的照片
+          status: '',
+          email: '',
+          ctime: ''
         }
       }
     },
@@ -123,20 +129,20 @@
         this.$router.push({name: 'salesList'})
       },
       editHandler() {
-        this.$router.push({name: 'salesCreate', query: {command: 'edit', userid: this.form.userinfo.userid}})
+        this.$router.push({name: 'salesCreate', query: {command: 'edit', userid: this.userInfo.userid}})
       },
       fetchDetailData() {
         axios.get(`${config.host}/org/salesman/info`, {
           params: {
-            userid: this.form.userinfo.userid,
+            userid: this.userInfo.userid,
             format: 'cors'
           }})
           .then((res) => {
             let data = res.data;
             this.isLoading = false;
             if (data.respcd === config.code.OK) {
-              this.form.userinfo = data.data;
-              this.form.userinfo.password = '********';
+              this.userInfo = data.data;
+              this.userInfo.password = '********';
             } else {
               this.$message.error(data.respmsg);
             }

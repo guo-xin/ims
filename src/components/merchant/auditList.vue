@@ -135,6 +135,7 @@
         axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
             groupid: '',
+            status: 3,
             format: 'cors'
           }})
           .then((res) => {
