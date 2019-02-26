@@ -148,6 +148,10 @@
       save() {
         this.$refs['formUser'].validate((valid) => {
           if (valid && !this.iconLoading) {
+            if(!this.formUser.userName) {
+              this.$message.error(this.$t('merchant.api.tip2'));
+              return;
+            }
             this.iconLoading = true;
             let [params, url] = [];
             let form = this.formUser;
@@ -205,7 +209,7 @@
       },
 
       detail(row) {
-        if(this.basicAuth.includes('api_manage_create')) {
+        if(this.basicAuth.includes('api_manage_edit')) {
           this.isCreat = false;
           this.showConfirm = true;
 

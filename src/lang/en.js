@@ -282,7 +282,7 @@ const en = {
       refuse: 'Reject',
       audit: 'Under Approval',
       redit: 'Continue To Edit',
-      createShop: 'CreateShop',
+      createShop: 'Create Store',
       cate: {
         merchant: 'Merchant',
         big: 'Chain Merchant',
@@ -561,6 +561,7 @@ const en = {
       address1: 'Notification address',
       address2: 'Return address',
       tip1: 'Please enter a user ID',
+      tip2: 'Please Enter  Correct User-ID',
     }
   },
   shop: {

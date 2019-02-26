@@ -521,6 +521,7 @@ const zh = {
       address1: '通知地址',
       address2: '返回地址',
       tip1: '请输入用户ID',
+      tip2: '请输入正确的用户ID',
     }
   },
   shop: {
