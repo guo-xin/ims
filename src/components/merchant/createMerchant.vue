@@ -668,7 +668,7 @@
     },
     watch: {
       "formData.secondary_uid"() {
-        this.fetchRadio(this.formData.secondary_uid)
+        this.fetchRadio(this.formData.secondary_uid || this.formData.primary_uid)
       }
     },
     methods: {
@@ -825,8 +825,8 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      selectChannel2Handler(groupid) { // 选择二级代理商
-        this.fetchRadio(groupid)
+      selectChannel2Handler() { // 选择二级代理商
+        // this.fetchRadio(groupid || this.formData.primary_uid)
         this.getSalesPersonList()
       },
       getSalesPersonList() {
