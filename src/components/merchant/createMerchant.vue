@@ -817,7 +817,7 @@
               this.channels2 = (groupid ? data.data.list: []);
               this.formData.secondary_uid = ''
               this.fetchRadio(groupid)
-              this.getSalesPersonList(groupid)
+              this.getSalesPersonList()
             } else {
               this.$message.error(data.respmsg);
             }
@@ -827,12 +827,12 @@
       },
       selectChannel2Handler(groupid) { // 选择二级代理商
         this.fetchRadio(groupid)
-        this.getSalesPersonList(groupid)
+        this.getSalesPersonList()
       },
-      getSalesPersonList(uid) {
+      getSalesPersonList() {
         axios.get(`${config.host}/org/tools/slsm`, {
           params: {
-            agent_uid: uid || this.qd_uid || '',
+            agent_uid: this.formData.secondary_uid || this.formData.primary_uid,
             format: 'cors'
           }
         })
