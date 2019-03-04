@@ -89,8 +89,8 @@
       <div class="divider"></div>
       <div slot="footer" class="dialog-footer">
         <el-button type="text" class="text-button" @click="showConfirm = false">{{ $t('common.close') }}</el-button>
-        <el-button type="text" :loading="iconLoading" class="text-button" @click="save">{{ $t('common.save') }}</el-button>
-        </div>
+        <el-button type="text" :loading="iconLoading" class="text-button" @click="confirm">{{ $t('common.save') }}</el-button>
+      </div>
     </el-dialog>
 
   </div>
@@ -160,6 +160,24 @@
       this.getRole();
     },
     methods: {
+      confirm() {
+        this.$refs['formUser'].validate((valid) => {
+          if (valid && !this.iconLoading) {
+            if (this.isCreat) {
+              this.save()
+            } else {
+              this.$confirm(this.$t('common.sure'), this.$t('common.tip'), {
+                confirmButtonText: this.$t('common.confirm'),
+                cancelButtonText: this.$t('common.cancel'),
+                type: 'warning'
+              }).then(() => {
+                this.save()
+              }).catch(() => {
+              })
+            }
+          }
+        })
+      },
       // 保存
       save() {
         this.$refs['formUser'].validate((valid) => {

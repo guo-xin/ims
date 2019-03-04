@@ -293,17 +293,30 @@
         return true
       },
       next() {
-        if(this.isUpdate) {
+        if (this.isUpdate) {
           this.salesRules.password = [];
           this.salesRules.confirm_password = [];
         }
         this.$refs['sales-form'].validate((valid) => {
-          if (valid  && this.checkPhotosIsUpdated()) {
-            this.commit()
+          if (valid && this.checkPhotosIsUpdated()) {
+            if (this.isUpdate) {
+              this.confirm()
+            } else {
+              this.commit()
+            }
           }
         })
       },
-
+      confirm() {
+        this.$confirm(this.$t('common.sure'), this.$t('common.tip'), {
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.cancel'),
+          type: 'warning'
+        }).then(() => {
+          this.commit()
+        }).catch(() => {
+        })
+      },
       // 提交
       commit() {
         let params = Object.assign({}, this.salesModel)
@@ -529,4 +542,3 @@
     }
   }
 </style>
-

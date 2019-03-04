@@ -179,7 +179,7 @@
     </el-form>
     <footer>
       <el-button size="large" @click="close" v-if="!isCreat">{{ $t('common.close') }}</el-button>
-      <el-button size="large" :loading="iconLoading" type="primary" @click="save">{{ $t('common.save') }}</el-button>
+      <el-button size="large" :loading="iconLoading" type="primary" @click="confirm">{{ $t('common.save') }}</el-button>
       <el-button size="large" @click="reset" v-if="isCreat">{{ $t('common.reset') }}</el-button>
     </footer>
   </div>
@@ -470,82 +470,96 @@
       this.getList();
     },
     methods: {
-      // 保存
-      save() {
+      confirm() {
         this.$refs['form'].validate((valid) => {
           if (valid && !this.iconLoading) {
-            this.iconLoading = true;
-            let form = this.form;
-            let time = new Date(form.effect_time);
-            time.setHours(0);
-            time.setMinutes(0);
-            time.setSeconds(0);
-
-            let [params, url] = [];
-            params = {
-              name: form.name,
-              effect_time: formatDate(time, 'yyyy-MM-dd HH:mm:ss'),
-              enable_value: form.enable_value,
-              enable_condition: form.enable_condition,
-              chnlid: form.chnlcode,
-              settlement_cycle: form.settlement_cycle,
-              chnlcost_type: form.chnlcost_type,
-              chnlcost: form.chnlcost,
-              type: form.type,
-              use_ladder: form.use_ladder,
-              is_default: form.is_default,
-              status: form.status,
-              format: 'cors',
-              settlement_conf: JSON.stringify(
-                [
-                  {in: form.income0, out: form.expend0},
-                  {in: form.income1, out: form.expend1},
-                  {in: form.income2, out: form.expend2},
-                ]
-              )
-            }
-            if(form.type !== '1' ) {
-              let list = this.ruleList.map((val, index) => {
-                return ({
-                  start: form['start' + index],
-                  end: form['end' + index],
-                  chnlcost: form['chnlcost' + index],
-                  one: form['one' + index],
-                  two: form['two' + index]
-                });
-              })
-              Object.assign(params, {
-                ladder_conf: JSON.stringify(list),
-                chnlcost: 0
+            if (this.isCreat) {
+              this.save()
+            } else {
+              this.$confirm(this.$t('common.sure'), this.$t('common.tip'), {
+                confirmButtonText: this.$t('common.confirm'),
+                cancelButtonText: this.$t('common.cancel'),
+                type: 'warning'
+              }).then(() => {
+                this.save()
+              }).catch(() => {
               })
             }
-            if(this.isCreat) {
-              url = 'org/clearing/temp';
-            }else {
-              Object.assign(params, {
-                temp_id: this.$route.query.id
-              })
-              url = 'org/clearing/temp/info';
-            }
-            axios.post(`${config.host}/${url}`, qs.stringify(params)).then((res) => {
-              this.iconLoading = false;
-              let data = res.data;
-              if(data.respcd === config.code.OK) {
-                this.$message({
-                  type: 'success',
-                  message: this.$t('common.opSucc')
-                });
-                this.$router.push({name: 'settleMode'});
-              }else {
-
-                this.$message.error(data.resperr);
-              }
-            }).catch(() => {
-              this.iconLoading = false;
-              this.$message.error(this.$t('common.netError'));
-            })
           }
-        });
+        })
+      },
+      // 保存
+      save() {
+        this.iconLoading = true;
+        let form = this.form;
+        let time = new Date(form.effect_time);
+        time.setHours(0);
+        time.setMinutes(0);
+        time.setSeconds(0);
+
+        let [params, url] = [];
+        params = {
+          name: form.name,
+          effect_time: formatDate(time, 'yyyy-MM-dd HH:mm:ss'),
+          enable_value: form.enable_value,
+          enable_condition: form.enable_condition,
+          chnlid: form.chnlcode,
+          settlement_cycle: form.settlement_cycle,
+          chnlcost_type: form.chnlcost_type,
+          chnlcost: form.chnlcost,
+          type: form.type,
+          use_ladder: form.use_ladder,
+          is_default: form.is_default,
+          status: form.status,
+          format: 'cors',
+          settlement_conf: JSON.stringify(
+            [
+              {in: form.income0, out: form.expend0},
+              {in: form.income1, out: form.expend1},
+              {in: form.income2, out: form.expend2},
+            ]
+          )
+        }
+        if(form.type !== '1' ) {
+          let list = this.ruleList.map((val, index) => {
+            return ({
+              start: form['start' + index],
+              end: form['end' + index],
+              chnlcost: form['chnlcost' + index],
+              one: form['one' + index],
+              two: form['two' + index]
+            });
+          })
+          Object.assign(params, {
+            ladder_conf: JSON.stringify(list),
+            chnlcost: 0
+          })
+        }
+        if(this.isCreat) {
+          url = 'org/clearing/temp';
+        }else {
+          Object.assign(params, {
+            temp_id: this.$route.query.id
+          })
+          url = 'org/clearing/temp/info';
+        }
+        axios.post(`${config.host}/${url}`, qs.stringify(params)).then((res) => {
+          this.iconLoading = false;
+          let data = res.data;
+          if(data.respcd === config.code.OK) {
+            this.$message({
+              type: 'success',
+              message: this.$t('common.opSucc')
+            });
+            this.$router.push({name: 'settleMode'});
+          }else {
+
+            this.$message.error(data.resperr);
+          }
+        }).catch(() => {
+          this.iconLoading = false;
+          this.$message.error(this.$t('common.netError'));
+        })
       },
 
       // 重置

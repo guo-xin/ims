@@ -92,7 +92,7 @@
       <div class="divider"></div>
       <div slot="footer" class="dialog-footer">
         <el-button type="text" class="text-button" @click="showConfirm = false">{{ $t('common.close') }}</el-button>
-        <el-button type="text" :loading="iconLoading" class="text-button" @click="save">{{ $t('common.save') }}</el-button>
+        <el-button type="text" :loading="iconLoading" class="text-button" @click="confirm">{{ $t('common.save') }}</el-button>
       </div>
     </el-dialog>
 
@@ -144,58 +144,74 @@
       this.getData();
     },
     methods: {
-      // 保存
-      save() {
+      confirm() {
         this.$refs['formUser'].validate((valid) => {
           if (valid && !this.iconLoading) {
             if(!this.formUser.userName) {
               this.$message.error(this.$t('merchant.api.tip2'));
               return;
             }
-            this.iconLoading = true;
-            let [params, url] = [];
-            let form = this.formUser;
 
-            if(this.isCreat) {
-              params = {
-                userid: form.userid,
-                notify_url: form.notify_url,
-                return_url: form.return_url,
-                memo: form.memo
-              };
-              url = 'org/mchnt/api/create';
-            }else {
-              params = {
-                id: this.id,
-                notify_url: form.notify_url,
-                return_url: form.return_url,
-                memo: form.memo
-              };
-              url = 'org/mchnt/api/edit';
+            if (this.isCreat) {
+              this.save()
+            } else {
+              this.$confirm(this.$t('common.sure'), this.$t('common.tip'), {
+                confirmButtonText: this.$t('common.confirm'),
+                cancelButtonText: this.$t('common.cancel'),
+                type: 'warning'
+              }).then(() => {
+                this.save()
+              }).catch(() => {
+              })
             }
-            axios.post(`${config.host}/${url}`, qs.stringify(params)).then((res) => {
-              this.iconLoading = false;
-              let data = res.data;
-              if(data.respcd === config.code.OK) {
-                this.showConfirm = false;
-                this.$message({
-                  type: 'success',
-                  message: this.$t('common.opSucc')
-                });
-
-                this.handleSizeChange();
-
-              } else {
-                this.showConfirm = false;
-                this.$message.error(data.resperr);
-              }
-            }).catch(() => {
-              this.iconLoading = false;
-              this.showConfirm = false;
-              this.$message.error(this.$t('common.netError'));
-            })
           }
-        });
+        })
+      },
+      // 保存
+      save() {
+        this.iconLoading = true;
+        let [params, url] = [];
+        let form = this.formUser;
+
+        if (this.isCreat) {
+          params = {
+            userid: form.userid,
+            notify_url: form.notify_url,
+            return_url: form.return_url,
+            memo: form.memo
+          };
+          url = 'org/mchnt/api/create';
+        } else {
+          params = {
+            id: this.id,
+            notify_url: form.notify_url,
+            return_url: form.return_url,
+            memo: form.memo
+          };
+          url = 'org/mchnt/api/edit';
+        }
+        axios.post(`${config.host}/${url}`, qs.stringify(params))
+        .then((res) => {
+          this.iconLoading = false;
+          let data = res.data;
+          if(data.respcd === config.code.OK) {
+            this.showConfirm = false;
+            this.$message({
+              type: 'success',
+              message: this.$t('common.opSucc')
+            });
+
+            this.handleSizeChange();
+
+          } else {
+            this.showConfirm = false;
+            this.$message.error(data.resperr);
+          }
+        }).catch(() => {
+          this.iconLoading = false;
+          this.showConfirm = false;
+          this.$message.error(this.$t('common.netError'));
+        })
       },
 
       // 查找

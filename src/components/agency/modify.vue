@@ -293,7 +293,7 @@
         this.IsRemit = true
         this.bankinfo = JSON.parse(bankinfo)
         if (this.isUpdate) {
-          this.oldBankinfo = JSON.parse(base)
+          this.oldBankinfo = JSON.parse(bankinfo)
         }
       }
       if (payfee) {
@@ -542,6 +542,20 @@
         if (this.oldBaseform[key] === value) {
           return false
         } else if (this.oldBankinfo[key] === value) {
+          return false
+        }
+        let isConfirm = false
+        this.$confirm(this.$t('common.sure'), this.$t('common.tip'), {
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.cancel'),
+          type: 'warning'
+        }).then(() => {
+          isConfirm = true
+        }).catch(() => {
+          isConfirm = false
+        })
+        // 二次确认，不确认不提交修改
+        if (!isConfirm) {
           return false
         }
         let agentId = this.$route.params.id

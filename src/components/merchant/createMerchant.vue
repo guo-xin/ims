@@ -1017,6 +1017,16 @@
           }
         }
       },
+      confirm() {
+        this.$confirm(this.$t('common.sure'), this.$t('common.tip'), {
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.cancel'),
+          type: 'warning'
+        }).then(() => {
+          this.create()
+        }).catch(() => {
+        })
+      },
       create() { // 创建商户的提交
         let form = {
           mchnt: {
@@ -1131,7 +1141,11 @@
           this.$refs['bankinfos'].validate((valid) => {
             if (valid) {
               this.isLoading = true
-              this.create()
+              if (this.isUpdate) {
+                this.confirm()
+              } else {
+                this.create()
+              }
             }
           })
         }

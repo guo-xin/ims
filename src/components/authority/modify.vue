@@ -27,7 +27,7 @@
       <el-button v-if="isUpdate" size="large" @click="cancel">{{$t('common.close')}}</el-button>
       <el-button v-else size="large" @click="reset">{{$t('common.reset')}}</el-button>
       <el-button v-if="isUpdate" v-show="hasRoleEditPerm" type="primary" size="large" @click="update">{{isEdit ? $t('common.save') : $t('common.edit')}}</el-button>
-      <el-button v-else type="primary" size="large" @click="modify">{{$t('common.submit')}}</el-button>
+      <el-button v-else type="primary" size="large" @click="confirm">{{$t('common.submit')}}</el-button>
     </footer>
   </div>
 </template>
@@ -113,19 +113,32 @@
         perm.checkAll = checkedCount === perm.codes.length
         perm.isIndeterminate = checkedCount > 0 && checkedCount < perm.codes.length
       },
+      confirm() {
+        this.$refs['form'].validate((valid) => {
+          if (valid) {
+            if (this.isUpdate) {
+              this.$confirm(this.$t('common.sure'), this.$t('common.tip'), {
+                confirmButtonText: this.$t('common.confirm'),
+                cancelButtonText: this.$t('common.cancel'),
+                type: 'warning'
+              }).then(() => {
+                this.modify()
+              }).catch(() => {
+              })
+            } else {
+              this.modify()
+            }
+          }
+        })
+      },
       update() {
         if (!this.isEdit) {
           this.isEdit = true
         } else {
-          this.modify()
+          this.confirm()
         }
       },
       modify() {
-        this.$refs['form'].validate((valid) => {
-          if (!valid) {
-            return false
-          }
-        })
         let allCheckedOptions = []
         this.formData.perms.map((item) => {
           allCheckedOptions = allCheckedOptions.concat(item.checkedOptions)

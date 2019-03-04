@@ -227,8 +227,10 @@
         </el-col>
       </el-row>
       <el-row type="flex" class="row-bg" justify="space-around">
-        <el-button type="primary" @click="judgeHandler('pass', $event)" ref="passed" name="1">{{$t('audit.detail.pass')}}</el-button>
-        <el-button type="primary" @click="judgeHandler('deny', $event)" ref="rejected" name="0">{{$t('audit.detail.re')}}</el-button>
+        <el-button type="primary" @click="confirm('pass')">{{$t('audit.detail.pass')}}</el-button>
+        <el-button type="primary" @click="confirm('deny')">{{$t('audit.detail.re')}}</el-button>
+        <!-- <el-button type="primary" @click="judgeHandler('pass', $event)" ref="passed" name="1">{{$t('audit.detail.pass')}}</el-button>
+        <el-button type="primary" @click="judgeHandler('deny', $event)" ref="rejected" name="0">{{$t('audit.detail.re')}}</el-button> -->
       </el-row>
     </section>
   </div>
@@ -357,65 +359,56 @@
           }
         }
       },
-      judgeHandler(context, e) {
-        let params = {
-          userid: this.form.userinfo.userid,
-          audit_status: e.currentTarget.name,
-          memo: this.memo.memo,
-          format: 'cors'
-        };
-        if(context === 'deny') {
+      confirm(status) {
+        if (status === 'deny') {
           this.auditRules['memo'] = [
             {required: true, message: this.$t('audit.detail.msg1')}
           ]
-          this.$refs['memo'].validate((valid) => {
-            if (valid) {
-              this.isLoading = true;
-              axios.post(`${config.host}/org/mchnt/audit`, qs.stringify(params), {
-                headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded'
-                }
-              })
-                .then((res) => {
-                  let data = res.data;
-                  this.isLoading = false;
-                  if (data.respcd === config.code.OK) {
-                    this.$message.success(this.$t('audit.detail.done'))
-                    this.$router.push({
-                      name: 'mchnt_audit_list'
-                    })
-                  } else {
-                    this.$message.error(data.respmsg);
-                  }
-                }).catch(() => {
-                this.isLoading = false;
-                this.$message.error(this.$t('common.netError'));
-              });
-            }
-          })
-        }else {
-          this.isLoading = true;
-          axios.post(`${config.host}/org/mchnt/audit`, qs.stringify(params), {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            }
-          })
-            .then((res) => {
-              let data = res.data;
-              this.isLoading = false;
-              if (data.respcd === config.code.OK) {
-                this.$message.success(this.$t('audit.detail.done'))
-                this.$router.push({
-                  name: 'mchnt_audit_list'
-                })
-              } else {
-                this.$message.error(data.respmsg);
-              }
-            }).catch(() => {
-            this.isLoading = false;
-            this.$message.error(this.$t('common.netError'));
-          });
+        } else {
+          this.auditRules['memo'] = []
+          this.$refs['memo'].clearValidate('memo')
         }
+        this.$refs['memo'].validate((valid) => {
+          if (valid) {
+            this.$confirm(this.$t('common.sure'), this.$t('common.tip'), {
+              confirmButtonText: this.$t('common.confirm'),
+              cancelButtonText: this.$t('common.cancel'),
+              type: 'warning'
+            }).then(() => {
+              this.judgeHandler(status)
+            }).catch(() => {
+            })
+          }
+        })
+      },
+      judgeHandler(status) {
+        this.isLoading = true;
+        let params = {
+          userid: this.form.userinfo.userid,
+          audit_status: status === 'pass' ? 1 : 0,
+          memo: this.memo.memo,
+          format: 'cors'
+        };
+        axios.post(`${config.host}/org/mchnt/audit`, qs.stringify(params), {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        })
+        .then((res) => {
+          let data = res.data;
+          this.isLoading = false;
+          if (data.respcd === config.code.OK) {
+            this.$message.success(this.$t('audit.detail.done'))
+            this.$router.push({
+              name: 'mchnt_audit_list'
+            })
+          } else {
+            this.$message.error(data.respmsg);
+          }
+        }).catch(() => {
+          this.isLoading = false;
+          this.$message.error(this.$t('common.netError'));
+        });
       },
       cancel() {
         this.$router.push({name: 'mchnt_audit_list'})

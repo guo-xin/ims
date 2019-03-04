@@ -441,8 +441,22 @@
       next() {
         this.$refs['store-form'].validate((valid) => { // && this.checkPhotosIsUpdated()
           if (valid) {
-            this.commit()
+            if (this.isUpdate) {
+              this.confirm()
+            } else {
+              this.commit()
+            }
           }
+        })
+      },
+      confirm() {
+        this.$confirm(this.$t('common.sure'), this.$t('common.tip'), {
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.cancel'),
+          type: 'warning'
+        }).then(() => {
+          this.commit()
+        }).catch(() => {
         })
       },
       commit() {
