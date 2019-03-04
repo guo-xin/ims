@@ -65,11 +65,11 @@
     <el-row class="trade-total" :gutter="10">
       <el-col :span="12">
         <el-row type="flex" align="bottom">
-          <el-col :span="8" class="head">
+          <el-col :span="11" class="head">
             <span>{{$t('trade.common.tradeAmount')}}</span>
             <strong>HK${{payTotal.total_txamt | formatCurrency}}</strong>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="5">
             <span>{{$t('trade.common.tradeCount')}}</span>
             <strong>{{payTotal.total_num}}</strong>
           </el-col>
@@ -81,11 +81,11 @@
       </el-col>
       <el-col :span="12">
         <el-row type="flex" align="bottom">
-          <el-col :span="8" class="head">
+          <el-col :span="11" class="head">
             <span>{{$t('trade.common.refundAmount')}}</span>
             <strong>HK${{refundTotal.total_txamt | formatCurrency}}</strong>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="5">
             <span>{{$t('trade.common.refundCount')}}</span>
             <strong>{{refundTotal.total_num}}</strong>
           </el-col>
@@ -390,7 +390,7 @@
         font-size: 14px;
       }
       strong {
-        font-size: 38px;
+        font-size: 24px;
       }
     }
     span {

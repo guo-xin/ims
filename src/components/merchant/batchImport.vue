@@ -8,7 +8,7 @@
       <div class="note">
         {{$t('batch.tip.txt')}}
         <el-button type="text" @click="dialogVisible = true">{{$t('batch.tip.ins')}}</el-button>&nbsp;{{$t('batch.tip.and')}}
-        <a class="download-temp" href="https://near.qfpay.com.cn/op_upload/845622/1542801777434.xlsx" target="_self">{{$t('batch.tip.template')}}</a>
+        <a class="download-temp" href="static/excel/batch_template.xlsx" target="_self">{{$t('batch.tip.template')}}</a>
         <el-dialog
           :title="$t('batch.tip.title')"
           :visible.sync="dialogVisible"
@@ -130,17 +130,19 @@
           this.$message.error(this.$t('batch.rule1'))
           return;
         }
-        // if(!this.form.file_name_new) {
-        //   this.$message.error(this.$t('batch.rule2'))
-        //   return;
-        // }
+//         if(!this.form.file_name_new) {
+//           this.$message.error(this.$t('batch.rule2'))
+//           return;
+//         }
         this.isLoading = true;
-        axios.post(`${config.host}/org/mchnt/hk/mchnt_batch_create`,qs.stringify({
+        let param = {
           fileid: this.form.fileid,
           dir_name: this.form.dir_name,
           file_name_new: this.form.file_name_new,
           format: 'cors'
-        }), {
+        };
+        console.log('commit param:', param)
+        axios.post(`${config.host}/org/mchnt/hk/mchnt_batch_create`,qs.stringify(param), {
         }).then((res) => {
           let data = res.data;
           if (data.respcd === config.code.OK) {
@@ -195,6 +197,7 @@
               this.form.dir_name = data.data.dir_name;
               this.form.file_name_new = data.data.file_name_new;
             }
+            console.log('upload done:', this.form)
           }else {
             this.$message.error(data.respmsg)
           }

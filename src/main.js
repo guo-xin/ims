@@ -83,9 +83,9 @@ axios.interceptors.response.use((res) => {
   if (data.respcd == config.code.SESSIONERR || data.respcd == config.code.LOGINERR) {
     localStorage.clear();
     location.replace(`${location.pathname}#/login`);
-  } else {
-    return res
   }
+
+  return res
 }, (err) => {
   // Do something with response error
   console.log(err)

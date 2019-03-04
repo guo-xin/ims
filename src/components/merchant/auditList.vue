@@ -76,7 +76,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="audit_status_str" :label="$t('audit.table.status')" align="center">
+      <el-table-column prop="audit_status_str" :label="$t('audit.table.status')" align="center" width="140">
         <template slot-scope="scope">
           {{ status[String(scope.row.status)] }}
         </template>
@@ -135,6 +135,7 @@
         axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
             groupid: '',
+            status: 3,
             format: 'cors'
           }})
           .then((res) => {
@@ -151,9 +152,11 @@
         });
       },
       selectChannelHandler(groupid) {
+        this.formData.qd_uid2 = ''
         groupid && axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
             groupid: groupid,
+            status: 3,
             format: 'cors'
           }})
           .then((res) => {
@@ -181,7 +184,7 @@
           type: 'audit',
           qd_name: '',
           page: this.currentPage > 0 ? (this.currentPage - 1) : this.currentPage,
-          pagesize: this.pageSize,
+          page_size: this.pageSize,
           format: 'cors'
         }
         if(this.formData.qd_uid2) {

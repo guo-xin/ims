@@ -44,16 +44,18 @@
                 readonly
                 class="sub-account-item-info"><template slot="append"><i class="el-icon-arrow-down tree-indic" @click.stop="showTreeComponent"></i></template>
           </el-input>
-          <el-tree id="op-type-tree" :data="salesperson" :props="defaultProps" @node-click="handleNodeClick"
+          <el-tree id="op-type-tree" :data="salesperson" :props="defaultProps"        @node-click="handleNodeClick"
                 v-show="isShowTree"
+                node-key="uid"
+                ref="tree"
                 style="position:absolute;top:38px;z-index:9;width:299px;overflow-y:auto;height:320px;"></el-tree>
       </el-form-item>
 
       <el-form-item prop="shopname" :label="$t('merchant.newMerchant.form.meiname')">
-        <el-input 
+        <el-input
           v-model.trim="formData.shopname"></el-input>
       </el-form-item>
- 
+
       <el-form-item :label="$t('merchant.newMerchant.form.mertype')" prop="cate">
         <el-select v-model="formData.cate" ref="cate" :disabled="isUpdate">
           <el-option :label="$t('merchant.newMerchant.form.sub')" value="merchant"></el-option>
@@ -62,7 +64,7 @@
       </el-form-item>
 
       <el-form-item prop="email" :label="$t('merchant.newMerchant.form.postT')">
-        <el-input 
+        <el-input
           v-model.trim="formData.email"
           :disabled="isUpdate"></el-input>
       </el-form-item>
@@ -72,14 +74,14 @@
       </el-form-item>
 
       <el-form-item prop="telephone" :label="$t('merchant.newMerchant.form.concatNumber')">
-        <el-input 
+        <el-input
           v-model.trim="formData.telephone"
           :disabled="isUpdate"
           maxlength='8'></el-input>
       </el-form-item>
 
       <el-form-item prop="documentType" :label="$t('merchant.newMerchant.form.documentType')">
-        <el-select 
+        <el-select
             v-model="formData.documentType"
             :disabled="isUpdate">
           <el-option :label="$t('merchant.newMerchant.doctype.type2')" value="passport"></el-option>
@@ -89,7 +91,7 @@
       </el-form-item>
 
       <el-form-item prop="documentNum" :label="$t('merchant.newMerchant.form.doucumentNum')">
-        <el-input 
+        <el-input
           v-model.trim="formData.documentNum"
           maxlength='15'
         ></el-input>
@@ -108,7 +110,7 @@
       <el-form-item prop="br" :label="$t('merchant.newMerchant.form.BRnumber')">
         <el-input v-model.trim="formData.br"></el-input>
       </el-form-item>
-    
+
       <el-form-item prop="br_expire_time" :label="$t('merchant.newMerchant.form.BRvality')">
         <el-date-picker
           v-model.trim="formData.br_expire_time"
@@ -134,20 +136,20 @@
       </el-form-item>
 
       <h3>{{$t('merchant.newMerchant.basic.cap2')}}</h3>
-      <div :label="item.name" v-for="item in radioList" :key="item.name" prop="tenpay_ratio">
+      <div :label="item.name" v-for="(item, index0) in radioList" :key="item.name" prop="tenpay_ratio">
         <h4>{{item.name}}</h4>
-        <el-form-item :label="fee.trade_type_name" v-for="fee in item.busicd" :error="fee.error" :key="fee.trade_type_name">
-            <el-input-number @change="ratioMinRule($event, fee.ratioMin, fee.trade_type)" v-model.trim="fee.ratio" :precision="2" :step="0.01" :min="0" :max="5"></el-input-number>
+        <el-form-item :label="fee.trade_type_name" v-for="(fee, index) in item.busicd" :error="fee.error" :key="fee.trade_type_name">
+            <el-input-number @change="ratioMinRule($event, fee.ratioMin, fee.trade_type, index, index0)" v-model="fee.ratio" :precision="2" :step="0.01" :min="0" :max="5"></el-input-number>
         </el-form-item>
       </div>
 
       <h3>{{$t('merchant.newMerchant.basic.cap3')}}</h3>
-      <el-form-item prop="headbankname" :label="$t('merchant.newMerchant.form.accountName')">
-        <el-input v-model.trim="formData.headbankname"></el-input>
+      <el-form-item prop="bankuser" :label="$t('merchant.newMerchant.form.accountName')">
+        <el-input v-model.trim="formData.bankuser"></el-input>
       </el-form-item>
 
-      <el-form-item prop="bankuser" :label="$t('merchant.newMerchant.form.accountType')">
-        <el-input v-model.trim="formData.bankuser"></el-input>
+      <el-form-item prop="headbankname" :label="$t('merchant.newMerchant.form.accountType')">
+        <el-input v-model.trim="formData.headbankname"></el-input>
       </el-form-item>
 
       <el-form-item prop="bankaccount" :label="$t('merchant.newMerchant.form.accountH')">
@@ -158,8 +160,12 @@
         <el-input v-model.trim="formData.bankProvince"></el-input>
       </el-form-item>
 
+      <el-form-item prop="bankcode" :label="$t('common.SWIFT')">
+        <el-input v-model.trim="formData.bankcode"></el-input>
+      </el-form-item>
+
       <el-form-item prop="remit_amt" :label="$t('merchant.newMerchant.form.moneySettment')">
-        <el-input 
+        <el-input
           v-model.trim="formData.remit_amt"
           :disabled="IsRemit"
           maxlength='5'></el-input>
@@ -174,14 +180,14 @@
         </el-form-item>
 
         <el-form-item prop="addressT" :label="$t('merchant.newMerchant.form.storeAddress')">
-          <el-input 
+          <el-input
             v-model.trim="formData.addressT"
             maxlength='50'
           ></el-input>
         </el-form-item>
 
         <el-form-item prop="telephoneT" :label="$t('merchant.newMerchant.form.storephone')">
-          <el-input 
+          <el-input
             v-model.trim="formData.telephoneT"
             maxlength='8'
           ></el-input>
@@ -440,6 +446,7 @@
           bankuser: '', // 开户行
           bankaccount: '', // 银行账号
           bankProvince: '', // 银行地址
+          bankcode: '', // SWIFT码
           remit_amt: '', // 结算资金起点
           ci: '', // ci编号
           ci_expire_time: '', // ci有效期
@@ -492,7 +499,7 @@
           paypoint_url: '',
           paypoint_name: '',
           otherphoto_url: '',
-          otherphoto_url: ''
+          otherphoto_name: ''
         },
         baseRules: {
           'sls_uid': [
@@ -594,6 +601,9 @@
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule18')},
             {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule8'), trigger: 'blur'}
           ],
+          'bankcode': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule24')}
+          ],
           'remit_amt': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule19')},
             {
@@ -605,7 +615,7 @@
                 }
               }
             }
-            // {max: 5, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule2')}          
+            // {max: 5, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule2')}
           ]
         },
         bankRules: {
@@ -634,13 +644,12 @@
         radioList: []
       }
     },
-
     created() {
       if (this.$route.query) {
         this.isUpdate = this.$route.query.command === 'edit' || getParams('command') === 'edit'
         !this.isUpdate && this.getChannelList()
         !this.isUpdate && this.getSalesPersonList();
-        this.fetchRadio()
+        !this.isUpdate && this.fetchRadio()
         !this.isUpdate && this.getShopTypes()
         this.isUpdate && this.getAllSalesperson();
       }
@@ -657,29 +666,62 @@
         }
       }, false);
     },
+    watch: {
+      "formData.secondary_uid"() {
+        this.fetchRadio(this.formData.secondary_uid || this.formData.primary_uid)
+      }
+    },
     methods: {
-      fetchRadio(agentUid) { // 费率的接口请求
-        let p = {
-          format: 'cors',
+      // 费率的接口请求
+      fetchRadio(agentUid, fees = []) {  // fee 更新ratio
+        let params = {
+          format: 'cors'
         }
         if (agentUid) {
-          p.agent_uid = agentUid
+          params.agent_uid = agentUid
+        }
+        if (agentUid && fees.length === 0) { // 切换业务员
+          fees = [...this.radioList]
         }
         axios.get(`${config.host}/org/tools/get/ratio`, {
-          params: p
-        })
-          .then((res) => {
-            let data = res.data;
-            if (data.respcd === config.code.OK) {
-              this.radioList = data.data;
-            } else {
-              this.$message.error(data.respmsg);
+          params
+        }).then((res) => {
+          let data = res.data;
+          if (data.respcd === config.code.OK) {
+            let ratios = data.data;
+            if (fees.length > 0) {
+              ratios.map((ratio, index) => {
+                fees.map((fee, fIndex) => {
+                  if (ratio.name === fee.name) {
+                    ratio.busicd.map((item) => {
+                      fee.busicd.map((fitem) => {
+                        if (item.trade_type === fitem.trade_type) {
+                          if (agentUid && fees.length === 0) {
+                            item.ratioMin = fitem.ratioMin
+                          } else {
+                            item.ratio = fitem.ratio
+                          }
+                        }
+                      })
+                    })
+                  }
+                })
+              })
             }
-          }).catch(() => {
+            this.radioList = ratios;
+          } else {
+            this.$message.error(data.respmsg);
+          }
+        }).catch(() => {
           this.$message.error(this.$t('common.netError'));
         });
       },
-      ratioMinRule(value, ratioMin, trade_type) { // 费率填写提示信息的处理
+      ratioMinRule(value, ratioMin, trade_type, index, index0) { // 费率填写提示信息的处理
+        if(value === undefined ) {
+          setTimeout(() => {
+          this.radioList[index0]['busicd'][index]['ratio'] = 0;
+          }, 0)
+        }
         let errorMessage = value < ratioMin ? this.$t('common.MINRatio')+`${ratioMin}` : ''
         this.radioList.map((radio) => {
           radio.busicd.map((item) => {
@@ -691,11 +733,13 @@
           })
         })
       },
-      handleNodeClick(node) { // 编辑商户的修改业务员部分
-        if(node.isLeaf && Object.prototype.toString.call(node.slsm) === "[object Undefined]") {
-           this.formData.sls_uid = node.uid;
-           this.formData.slsm_name = node.name;
+      handleNodeClick(data, node) { // 编辑商户的修改业务员部分
+        if(data.isLeaf && Object.prototype.toString.call(data.slsm) === "[object Undefined]") {
+           this.formData.sls_uid = data.uid;
+           this.formData.slsm_name = data.name;
            this.isShowTree = false;
+           this.fetchRadio(node.parent.data.uid)
+          //  this.revalue(this.radioList, this.radioListInfo)
         }
       },
       showTreeComponent(e) {
@@ -770,9 +814,10 @@
           .then((res) => {
             let data = res.data;
             if (data.respcd === config.code.OK) {
-              this.channels2 = data.data.list;
+              this.channels2 = (groupid ? data.data.list: []);
+              this.formData.secondary_uid = ''
               this.fetchRadio(groupid)
-              this.getSalesPersonList(groupid)
+              this.getSalesPersonList()
             } else {
               this.$message.error(data.respmsg);
             }
@@ -780,14 +825,14 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      selectChannel2Handler(groupid) { // 选择二级代理商
-        this.fetchRadio(groupid)
-        this.getSalesPersonList(groupid)
+      selectChannel2Handler() { // 选择二级代理商
+        // this.fetchRadio(groupid || this.formData.primary_uid)
+        this.getSalesPersonList()
       },
-      getSalesPersonList(uid) {
+      getSalesPersonList() {
         axios.get(`${config.host}/org/tools/slsm`, {
           params: {
-            agent_uid: uid || this.qd_uid || '',
+            agent_uid: this.formData.secondary_uid || this.formData.primary_uid,
             format: 'cors'
           }
         })
@@ -803,7 +848,7 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      getShopTypes(mcc1) { 
+      getShopTypes(mcc1) {
         axios.get(`${config.host}/org/tools/mcc/list`, {
           params: {
             mcc: mcc1 || '',
@@ -907,11 +952,11 @@
               this.IsRemit = true
 
               let uinfo = data.data.userinfo;
-              let fee = data.data.fee_ratios
+              let fees = data.data.fee_ratios
               let qdinfo = data.data.qdinfo;
               let vouchers = data.data.vouchers
               let bankinfo = data.data.bankinfo
-              
+
               this.formData.status = uinfo.status
               this.formData.sls_uid = qdinfo.sls_uid
               this.formData.vouchers = vouchers
@@ -928,10 +973,12 @@
               this.formData.ci = uinfo.ci; // ci编号
               this.formData.ci_expire_time = uinfo.ci_expire_time; // ci有效期
               this.formData.headbankname = bankinfo.headbankname //
-              this.formData.bankProvince = bankinfo.bankProvince // 
-              this.formData.bankuser = bankinfo.bankuser // 
+              this.formData.bankProvince = bankinfo.bankProvince //
+              this.formData.bankuser = bankinfo.bankuser //
               this.formData.bankaccount = bankinfo.bankaccount //
+              this.formData.bankcode = bankinfo.bankcode //
               this.formData.remit_amt = uinfo.remit_amt
+              // this.radioList = fee
 
               this.isStatus = this.formData.status == 3 || this.formData.status == 4
 
@@ -942,7 +989,8 @@
               } else {
                 this.formData.documentType = "eep"
               }
-              this.revalue(this.radioList, fee)
+              this.fetchRadio(qdinfo.qd_uid, fees)
+              // this.revalue(this.radioList, this.radioListInfo)
               this.repicture(this.voucherInfo, vouchers)
               this.getSalesPersonName(this.salesperson); // 匹配树形结构的销售员name
             } else {
@@ -984,6 +1032,7 @@
             bankuser: this.formData.bankuser, // 银行账户名称
             bankaccount: this.formData.bankaccount, // 银行账号
             bankProvince: this.formData.bankProvince, // 银行地址
+            bankcode: this.formData.bankcode, // SWIFT码
             remit_amt: this.formData.remit_amt, // 结算资金起点
             ci: this.formData.ci, // ci编号
             ci_expire_time: this.formData.ci_expire_time, // ci有效期
@@ -1002,13 +1051,7 @@
         let params = {}
         form.mchnt[this.formData.documentType] = this.formData.documentNum
         let radioListValue = this.refee(this.radioList)
-        console.log(radioListValue, 4444)
-        for(let i in radioListValue) {
-            if(i['ratio'] === '') {
-              delete radioListValue[i]
-            }
-        }
-        console.log(radioListValue, 5555)
+        // console.log(radioListValue, 4444)
         params.mchnt = JSON.stringify(form.mchnt)
         params.store = JSON.stringify(form.store)
         params.mchnt_ratios = JSON.stringify(radioListValue)
@@ -1096,15 +1139,6 @@
       cancelHandler() {
         this.$router.push({name: 'mchnt_manage_list'})
       },
-      revalue(a,b) { // 为支付方式赋值
-          for(let i of a) {
-            for(let j of b) {
-              if(j['name'] === i['name']) {
-                i['busicd'] = j['busicd'];
-              }
-            }
-          }
-      },
       repicture(c,d) { // 编辑显示俩张图片
         for(let i of d) {
           if(i['name'] === 'idcardfront') {
@@ -1132,7 +1166,7 @@
         }).then((res) => {
           let data = res.data
           if(data.respcd === config.code.OK) {
-            this.formData.remit_amt = data.data.remit_amt
+            this.formData.remit_amt = data.data.remit_amt;
             if(data.data.remit_amt !== "") {
               this.IsRemit = true
             }else {
@@ -1196,10 +1230,10 @@
 
       h3 {
         position: relative;
-        padding: 30px 0;
+        padding: 12px 0;
         margin: 0 0 20px;
         font-size: 20px;
-        color: $titleColor;
+        color: #1D1D24;
         &:after {
           content: '';
           position: absolute;
@@ -1227,7 +1261,7 @@
         }
       }
       .el-form-item {
-        /*width: 300px;*/
+        width: 300px;
         display: inline-block;
         vertical-align: top;
         margin-right: 80px;

@@ -21,11 +21,12 @@
     </ul>
     <h3>{{$t('agent.settleInfo')}}</h3>
     <ul>
-      <li><em>{{$t('agent.bankuser')}}：</em><span>{{bankinfo.bankuser}}</span></li>
-      <li><em>{{$t('agent.bankaccount')}}：</em><span>{{bankinfo.bankaccount}}</span></li>
-      <li><em>{{$t('agent.headbankname')}}：</em><span>{{bankinfo.headbankname}}</span></li>
-      <li><em>{{$t('agent.bankname')}}：</em><span>{{bankinfo.bankname}}</span></li>
-      <li><em>{{$t('agent.bankcode')}}：</em><span>{{bankinfo.bankcode}}</span></li>
+      <li><em>{{$t('merchant.detail.basic.la17')}}</em>&nbsp;&nbsp;<span>{{bankinfo.bankuser}}</span></li>
+      <li><em>{{$t('merchant.detail.basic.la18')}}</em>&nbsp;&nbsp;<span>{{bankinfo.headbankname}}</span></li>
+      <li><em>{{$t('merchant.detail.basic.la19')}}</em>&nbsp;&nbsp;<span>{{bankinfo.bankaccount}}</span></li>
+      <li><em>{{$t('merchant.detail.basic.la20')}}</em>&nbsp;&nbsp;<span>{{bankinfo.bankCity}}</span></li>
+      <li><em>{{$t('shop.detail.basic.la13')}}</em>&nbsp;&nbsp;<span>{{bankinfo.bankcode}}</span></li>
+      <li><em>{{$t('merchant.detail.basic.la21')}}</em>&nbsp;&nbsp;<span>{{bankinfo.remit_amt}}</span></li>
     </ul>
     <h3>{{$t('agent.payRate')}}</h3>
     <div v-for="item in payfee" :key="item.name">

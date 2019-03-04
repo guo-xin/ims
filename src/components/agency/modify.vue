@@ -15,7 +15,7 @@
         <el-input v-model="baseform.name" @blur="updateAgency('name', $event)"></el-input>
       </el-form-item>
       <el-form-item :prop="baseform.levelcode >= 2 ? 'parent_uid' : 'levelcode'" :label="$t('agent.agentLevel')" style="width:446px" ref="levelcode">
-        <el-select v-model="baseform.levelcode" @change="selectLevel">
+        <el-select v-model="baseform.levelcode" @change="selectLevel" :disabled="Boolean(baseform.levelcode) && isUpdate">
           <el-option v-for="level in levels" :label="level.text" :value="level.code" :key="level.code"></el-option>
         </el-select>
         <el-select style="margin-left:10px;" :disabled="baseform.levelcode === 1" v-model="baseform.parent_uid" :placeholder="$t('agent.agentBelong')" @change="updateAgency('secondAgency', $event)">
@@ -76,25 +76,36 @@
 
     <el-form v-show="active === 1" ref="bankinfoform" :rules="bankinfoFormRules" :model="bankinfo">
       <h3>{{$t('agent.settleInfo')}}</h3>
-      <el-form-item prop="bankuser" :label="$t('agent.bankuser')">
-        <el-input v-model="bankinfo.bankuser" @blur="updateAgency('bankuser', $event)"></el-input>
+      <el-form-item prop="bankuser" :label="$t('merchant.newMerchant.form.accountName')">
+        <el-input v-model.trim="bankinfo.bankuser" @blur="updateAgency('bankuser', $event)"></el-input>
       </el-form-item>
-      <el-form-item prop="bankaccount" :label="$t('agent.bankaccount')">
-        <el-input v-model="bankinfo.bankaccount" @blur="updateAgency('bankaccount', $event)"></el-input>
+
+      <el-form-item prop="headbankname" :label="$t('merchant.newMerchant.form.accountType')">
+        <el-input v-model.trim="bankinfo.headbankname" @blur="updateAgency('headbankname', $event)"></el-input>
       </el-form-item>
-      <el-form-item prop="headbankname" :label="$t('agent.headbankname')">
-        <el-input v-model="bankinfo.headbankname" @blur="updateAgency('headbankname', $event)"></el-input>
+
+      <el-form-item prop="bankaccount" :label="$t('merchant.newMerchant.form.accountH')">
+        <el-input v-model.trim="bankinfo.bankaccount" @change="GetRemit" @blur="updateAgency('bankaccount', $event)"></el-input>
       </el-form-item>
-      <hr/>
-      <el-form-item prop="bankname" :label="$t('agent.bankname')">
-        <el-input v-model="bankinfo.bankname" @blur="updateAgency('bankname', $event)"></el-input>
+
+      <el-form-item prop="bankCity" :label="$t('merchant.newMerchant.form.accountAddress')">
+        <el-input v-model.trim="bankinfo.bankCity" @blur="updateAgency('bankCity', $event)"></el-input>
       </el-form-item>
-      <el-form-item prop="bankcode" :label="$t('agent.bankcode')">
-        <el-input v-model="bankinfo.bankcode" @blur="updateAgency('bankcode', $event)"></el-input>
+
+      <el-form-item prop="bankcode" :label="$t('common.SWIFT')">
+        <el-input v-model.trim="bankinfo.bankcode" @blur="updateAgency('bankcode', $event)"></el-input>
+      </el-form-item>
+
+      <el-form-item prop="remit_amt" :label="$t('merchant.newMerchant.form.moneySettment')">
+        <el-input
+          v-model.trim="bankinfo.remit_amt"
+          :disabled="IsRemit"
+          maxlength='5'
+          @blur="updateAgency('remit_amt', $event)"></el-input>
       </el-form-item>
     </el-form>
 
-    <el-form v-show="active === 1" ref="payfeeform">
+    <el-form v-show="active === 1 && !isUpdate" ref="payfeeform" >
       <h3>{{$t('agent.payRate')}}</h3>
       <div :label="item.name" v-for="item in payfee" :key="item.name">
         <h4>{{item.name}}</h4>
@@ -110,7 +121,7 @@
       <el-button v-show="active === 1" @click="pre">{{$t('common.prev')}}</el-button>
     </footer>
     <footer v-else>
-      <el-button type="primary" @click="next">
+      <el-button type="primary" @click="next" :disabled="disabled">
         {{active === 1 ? $t('common.done') : $t('common.next')}}
       </el-button>
       <el-button v-show="active !== 0" @click="pre">{{$t('common.prev')}}</el-button>
@@ -128,10 +139,12 @@
       return {
         isUpdate: false,
         isLoading: false,
+        IsRemit: false,
         active: 0, // 当前步骤
         isInputing: false, // 正在输入密码
         editPassword: '******',
         oldPassword: '',
+        disabled: true,
         baseform: {
           name: '',
           levelcode: '',
@@ -142,11 +155,12 @@
           password: ''
         },
         bankinfo: {
-          bankuser: '', // 账户名称
-          bankaccount: '', // 结算账号
-          headbankname: '', // 总行名称
-          bankname: '', // 支行名称
-          bankcode: '' // 网点联行号
+          headbankname: '', // 开户行名称
+          bankuser: '', // 开户行
+          bankaccount: '', // 银行账号
+          bankCity: '', // 银行地址
+          bankcode: '', // SWIFT码
+          remit_amt: '', // 结算资金起点
         },
         payfee: [],
         levels: [], // 代理商级别
@@ -186,7 +200,18 @@
             {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.legalMobile')}
           ],
           'username': [
-            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.username')}
+            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.username'), trigger: 'blur'},
+            {
+              validator: (rule, val, cb) => {
+                if (!/^[0-9a-zA-Z]*$/.test(val) && val != '') {
+                  cb(new Error(this.$t('agent.onlyLetterNumber')));
+                  this.disabled = true
+                } else {
+                  cb();
+                  this.disabled = false;
+                }
+              }
+            }
           ],
           'password': [
             {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.password')}
@@ -194,19 +219,45 @@
         },
         bankinfoFormRules: {
           'bankuser': [
-            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.bankuser')}
-          ],
-          'bankaccount': [
-            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.bankaccount')}
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule15')},
+            {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule7'), trigger: 'blur'}
           ],
           'headbankname': [
-            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.headbankname')}
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule16')},
+            {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule8'), trigger: 'blur'}
           ],
-          'bankname': [
-            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.bankname')}
+          'bankaccount': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule17')},
+            {
+              validator: (rule, val, cb) => {
+                if (!/^[0-9]*$/.test(val) && val != '') {
+                  cb(new Error(this.$t('merchant.newMerchant.specialRule.rule1')));
+                } else {
+                  cb();
+                }
+              }
+            },
+            {max: 15, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule6'), trigger: 'blur'}
+          ],
+          'bankCity': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule18')},
+            {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule8'), trigger: 'blur'}
           ],
           'bankcode': [
-            {required: true, message: this.$t('agent.pleaseEnter') + this.$t('agent.bankcode')}
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule24')}
+          ],
+          'remit_amt': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule19')},
+            {
+              validator: (rule, val, cb) => {
+                if (!/^[0-9]*$/.test(val) && val != '') {
+                  cb(new Error(this.$t('merchant.newMerchant.specialRule.rule1')));
+                } else {
+                  cb();
+                }
+              }
+            }
+            // {max: 5, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule2')}
           ]
         }
       }
@@ -239,6 +290,7 @@
         }
       }
       if (bankinfo) {
+        this.IsRemit = true
         this.bankinfo = JSON.parse(bankinfo)
         if (this.isUpdate) {
           this.oldBankinfo = JSON.parse(base)
@@ -250,6 +302,11 @@
       this.fetchSalesman()
       this.fetchAgencyLevel()
       this.fetchCity()
+    },
+    watch: {
+      "baseform.parent_uid"() {
+        this.fetchRadio(this.baseform.parent_uid)
+      }
     },
     methods: {
       fetchRadio(agentUid) {
@@ -273,11 +330,14 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      ratioMinRule(value, ratioMin, trade_type) { // 费率填写提示信息的处理
-        let errorMessage = value < ratioMin ? this.$t('common.MINRatio')+`${ratioMin}` : ''
+      ratioMinRule(value, ratioMin, tradeType) { // 费率填写提示信息的处理
+        let errorMessage = value < ratioMin ? this.$t('common.MINRatio') + `${ratioMin}` : ''
         this.payfee.map((radio) => {
           radio.busicd.map((item) => {
-            if (trade_type === item.trade_type) {
+            if (tradeType === item.trade_type) {
+              if(value === undefined) {
+                item.ratio = 0
+              }
               this.$set(item, 'error', errorMessage)
             } else {
               item.error = ''
@@ -290,7 +350,7 @@
       },
       next() {
         if (this.active === 0) {
-          if (this.usernameErrorMessage) {
+          if (this.usernameErrorMessage && this.isRegistered) {
             return false
           }
           this.$refs['baseform'].validate((valid) => {
@@ -405,6 +465,7 @@
           this.isRegisterLoading = false
           let data = res.data
           if (data.respcd === '0000') {
+            this.disabled = false;
             this.isRegistered = false
             this.usernameErrorMessage = ''
             this.updateAgency('username', username)
@@ -412,7 +473,7 @@
             this.isRegistered = true
             this.usernameErrorMessage = this.$t('agent.isRegistered')
           } else if (data.respcd === '2101') {
-            this.isRegistered = true
+//            this.isRegistered = true
             this.usernameErrorMessage = data.resperr
           }
         })
@@ -422,6 +483,7 @@
         let paramsBase = JSON.parse(JSON.stringify(this.baseform))
         // paramsBase.auth_province = this.$refs.province.selected.label || ''
         // paramsBase.auth_city = this.$refs.city.selected.label || ''
+        console.log(paramsBase)
         paramsBase.auth_province = this.baseform.auth_province
         this.payfeeT = this.refee(this.payfee)
         this.$http({
@@ -487,7 +549,7 @@
         if (key === 'secondAgency') {
           params['levelcode'] = 2
           params['parent_uid'] = value
-          this.fetchRadio(this.baseform.parent_uid)
+          this.fetchRadio(value)
         } else if (key === 'updateProvince') {
           params['auth_province'] = value
         } else if (key === 'updateProvinceCity') {
@@ -532,7 +594,9 @@
             }
           }
       },
-      refee(f) { // 注册及编辑的费率结构修改
+
+      // 注册及编辑的费率结构修改
+      refee(f) {
         let e = []
         for(let i of f) {
           for(let j of i.busicd) {
@@ -540,6 +604,28 @@
           }
         }
         return e
+      },
+
+      // 根据银行账号获得
+      GetRemit() {
+        axios.get(`${config.host}/org/tools/remit_amt`, {
+          params: {
+            bankaccount: this.bankinfo.bankaccount,
+            format: 'cors'
+          }
+        }).then((res) => {
+          let data = res.data
+          if(data.respcd === config.code.OK) {
+            this.bankinfo.remit_amt = data.data.remit_amt;
+            if(data.data.remit_amt !== "") {
+              this.IsRemit = true
+            }else {
+              this.IsRemit = false
+            }
+          }else {
+            this.$message.error(data.respmsg);
+          }
+        })
       }
     }
   }

@@ -28,6 +28,7 @@ const zh = {
     operate: '操作',
     delete: '删除',
     look: '查看',
+    detail: '详情',
     range: '选择时间范围',
     confirm: '确定',
     cancel: '取消',
@@ -47,7 +48,8 @@ const zh = {
     uploadFailed: '上传失败',
     SAVE: '保存',
     CLOSE: '关闭',
-    EDIT: '编辑'
+    EDIT: '编辑',
+    SWIFT: 'SWIFT'
   },
   home: {
     all: '全部',
@@ -371,8 +373,8 @@ const zh = {
         status: '商户状态',
         sub: '单店',
         big: '连锁店',
-        channel: '一级代理',
-        channel2: '二级代理',
+        channel: '所属一级代理',
+        channel2: '所属二级代理',
         saleMan: '业务员',
         mertype: '商户类型',
         meiname: '商户名称',
@@ -419,8 +421,8 @@ const zh = {
         rule12: '请输入BR有效期',
         rule13: '请输入CI编号',
         rule14: '请输入CI有效期',
-        rule15: '请输入开户行',
-        rule16: '请输入开户名称',
+        rule15: '请输入开户名称',
+        rule16: '请输入开户行',
         rule17: '请输入银行账号',
         rule18: '请输入银行地址',
         rule19: '请输入资金结算起点',
@@ -428,6 +430,7 @@ const zh = {
         rule21: '请输入门店地址',
         rule22: '请输入联系电话',
         rule23: '请输入营业时间',
+        rule24: '请输入SWIFT码',
       },
       lengthRule: {
         rule1: '最多输入4个字符',
@@ -502,6 +505,23 @@ const zh = {
       rule44: '请上传身份证正面/法人身份证正面',
       rule45: '请上传营业执照',
       rule46: '请上传收银台照片'
+    },
+    api: {
+      title: 'API管理',
+      userId: '用户ID',
+      userType: '用户类型',
+      merchant: '商户',
+      agent: '代理商',
+      id: 'ID',
+      userName: '用户名称',
+      code: 'CODE',
+      key: 'KEY',
+      remark: '备注',
+      userInfo: '用户信息',
+      address1: '通知地址',
+      address2: '返回地址',
+      tip1: '请输入用户ID',
+      tip2: '请输入正确的用户ID',
     }
   },
   shop: {
@@ -541,7 +561,9 @@ const zh = {
         la8: '门店营业时间:',
         la9: '门店附加服务:',
         la10: '门店网址:',
-        la11: '图片展示:'
+        la11: '图片展示:',
+        la12: '子商户号(mchid):',
+        la13: 'SWIFT:'
       }
     },
     newStore: {
@@ -639,6 +661,7 @@ const zh = {
       tradeType: '交易类型',
       payPass: '支付通道',
       merchantName: '商户名称',
+      shopName: '门店名称',
       firstAgent: '一级代理',
       secondAgent: '二级代理',
       wechat: '微信支付',
@@ -722,6 +745,72 @@ const zh = {
       ''
     ],
     logout: '注销'
+  },
+  salesman: {
+    title: '业务员管理',
+    engaged: '在职',
+    retired: '离职',
+    form: {
+      slsm_uid: '业务员ID',
+      salesname: '业务员名称',
+      mobile: '手机号码',
+      status: '业务员状态',
+      email: '邮箱',
+      idnumber: '证件号码',
+      date: '注册日期',
+      password: '密码'
+    },
+    table: {
+      email: '邮箱',
+      idnumber: '证件号码',
+      date: '注册日期',
+      password: '密码'
+    },
+    detail: {
+      title: '业务员详情',
+      subtitle: '基本信息',
+      picture: '证照信息',
+      slsm_uid: '业务员ID:',
+      salesname: '业务员名称:',
+      mobile: '手机号码:',
+      status: '业务员状态:',
+      email: '邮箱:',
+      idnumber: '证件号码:',
+      password: '密码:',
+      date: '注册日期:'
+    },
+    newsale: {
+      title1: '创建业务员',
+      title2: '编辑业务员',
+      cap1: '基本信息',
+      cap2: '证照信息',
+      model: {
+        salesname: '业务员名称',
+        mobile: '手机号码',
+        status: '业务员状态',
+        email: '邮箱',
+        password: '密码',
+        confirm_password: '确认密码',
+        idnumber: '证件号码',
+        idcardfront: ''
+      },
+      rule1: '请输入业务员名称',
+      rule2: '最多输入20个字符',
+      rule3: '请输入邮箱',
+      rule11: '请输入合法邮箱',
+      rule4: '请输入密码',
+      rule5: '密码最多输入18个字符',
+      rule6: '请输入确认密码',
+      rule7: '确认密码最多输入18个字符',
+      rule8: '请输入手机号码',
+      rule9: '手机号码最多输入11位数字',
+      rule10: '手机号码必须是数字',
+      rule12: '请输入证件号码',
+      rule13: '证件号码最多输入20个字符',
+      pic1: '证件正面照片',
+      pic1warn: '* 必须上传证件照正面照片',
+      tip: '请上传证件正面照'
+    }
   }
 }
 export default zh;

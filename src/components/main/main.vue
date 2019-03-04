@@ -95,6 +95,7 @@
       mchnt_manage_list: ["2", "2-1"], // 商户列表
       shop_manage_list: ["2", "2-2"], // 门店列表
       mchnt_audit_list: ["2", "2-3"], // 商户审核
+      api_manage_list: ["2", "2-4"], // API管理
       trade_detail_list: ["3", "3-1"], // 交易明细
       trade_summary_list: ["3", "3-2"], // 交易汇总
       agent_manage_list: ["4", "4-1"],
@@ -104,7 +105,8 @@
       payment_report_list: ["5", "5-4"], // 应付报表
       clearing_template_list: ["5", "5-5"], // 清分模板
       perm_user_list: ["6", "6-1"], // 用户管理
-      perm_role_list: ["6", "6-2"] // 角色管理
+      perm_role_list: ["6", "6-2"], // 角色管理
+      salesman_manage_list: ["7", "7-1"]
     }
   export default {
     data() {
@@ -136,6 +138,9 @@
           },
           perm_manage: { // 权限管理
             icon: 'auth-icon'
+          },
+          salesman_manage: {
+            icon: 'sales-icon'
           }
         }
       }
@@ -365,6 +370,10 @@
             background:url(../../assets/common_img/auth_light.png) 0 0 no-repeat transparent;
             background-size: contain;
           }
+          .sales-icon {
+            background:url(../../assets/common_img/sales_light.png) 0 0 no-repeat transparent;
+            background-size: contain;
+          }
         }
 
         .el-submenu .el-menu-item.is-active {
@@ -405,6 +414,10 @@
         }
         .auth-icon {
           background:url(../../assets/common_img/auth.png) 0 0 no-repeat transparent;
+          background-size: contain;
+        }
+        .sales-icon {
+          background:url(../../assets/common_img/sales.png) 0 0 no-repeat transparent;
           background-size: contain;
         }
       }

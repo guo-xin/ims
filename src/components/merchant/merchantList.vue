@@ -94,13 +94,13 @@
         </template>
       </el-table-column>
 
-       <el-table-column prop="cate" :label="$t('merchant.table.merstatus')">
+       <el-table-column prop="cate" :label="$t('merchant.table.merstatus')" width="140">
         <template slot-scope="scope">
           {{ isSigned[scope.row.status] }}
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('merchant.table.payment')" width="150">
+      <el-table-column :label="$t('merchant.table.payment')" width="140">
         <template slot-scope="scope">
           <el-button :disabled="scope.row.status !== 3" v-if="scope.row.deploy == 1" type="text" @click.stop="paymentConfigure(scope.row.userid,scope.row.deploy)">{{ $t('merchant.payment.configured') }}</el-button>
           <el-button :disabled="scope.row.status !== 3" v-else type="text" @click.stop="paymentConfigure(scope.row.userid,scope.row.deploy)">{{ $t('merchant.payment.nonconfigured') }}</el-button>
@@ -146,7 +146,7 @@
                 >
                 </el-input>
             </el-form-item>
-            <el-form-item class="form_item" prop="merchantPass1" :label="$t('merchant.payment.merchantPass1')"> 
+            <el-form-item class="form_item" prop="merchantPass1" :label="$t('merchant.payment.merchantPass1')">
                 <el-input
                   v-model="item.buscid[0].key1"
                   :disabled="paymentEdit.IsPayment"
@@ -164,11 +164,11 @@
           <el-button class="right" v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
         </el-form-item>
       </el-form>
-      <el-form v-if="radio == 2" class="dialog_form" ref="payMentform"> 
+      <el-form v-if="radio == 2" class="dialog_form" ref="payMentform">
         <div v-for="item in ratioListTwo" :key="item.type" class="ratioType">
             <h4>{{ item.name }}</h4>
             <el-form-item class="form_item2" :label="$t('merchant.payment.merchantID2')">
-                <el-select 
+                <el-select
                     v-model="item.buscid[0].mchntid"
                     :disabled="paymentEdit.IsTwoTimes">
                     <el-option v-for="buscid in item.buscid" :key="buscid.mchntid" :label="buscid.mchntid" :value="buscid.mchntid"></el-option>
@@ -186,7 +186,7 @@
           <el-button type="text" @click="resetForm('payMentform')">{{ $t('common.CLOSE') }}</el-button>
           <el-button class="right" v-if="paymentEdit.dialogType" type="text" @click="changePayment()">{{ $t('common.SAVE') }}</el-button>
           <el-button class="right" v-else type="text" @click="editStatus()">{{ $t('common.EDIT') }}</el-button>
-        </el-form-item>        
+        </el-form-item>
       </el-form>
     </el-dialog>
   </div>
@@ -322,6 +322,7 @@
         axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
             groupid: '',
+            status: 3,
             format: 'cors'
           }})
           .then((res) => {
@@ -336,9 +337,11 @@
         });
       },
       selectChannelHandler(groupid) { // 获取渠道列表数据
+        this.formData.qd_uid2 = ''
         groupid && axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
             groupid: groupid,
+            status: 3,
             format: 'cors'
           }})
           .then((res) => {
@@ -418,11 +421,11 @@
       paymentConfigure(userid, deploy) { // 支付配置状态查看或改变
           this.paymentEdit.type = deploy
           this.paymentEdit.userid = userid
-          this.centerDialogVisible = true 
-          if(deploy === 0) { // 0表示未配置 edit控制select与input的可编辑状态，这里设置为可编辑，dialogType控制下方按钮的展示，这里设置为保存 
+          this.centerDialogVisible = true
+          if(deploy === 0) { // 0表示未配置 edit控制select与input的可编辑状态，这里设置为可编辑，dialogType控制下方按钮的展示，这里设置为保存
             this.fetchRadio()
-            this.paymentEdit.edit = false    
-            this.paymentEdit.dialogType = true   
+            this.paymentEdit.edit = false
+            this.paymentEdit.dialogType = true
           }else {
             let p = {
                 userid: userid,
@@ -456,7 +459,7 @@
               this.paymentEdit.edit = true
               this.paymentEdit.dialogType = false
             })
-          }  
+          }
       },
       editStatus() { // 将对话框的状态改为可编辑
         let that = this
@@ -541,7 +544,7 @@
             item.name = Object.keys(i)[0]
             list.push(item)
         })
-        return list        
+        return list
       },
       revalue(a, b) { // 为二清的支付配置赋值
           for(let i of a) {
@@ -582,10 +585,10 @@
       },
       channelsValue(key, c) { // 支付配置提交的通道配置信息结构需要进行处理
         let channelList = []
-        console.log(c)
+        // console.log(c)
         c.forEach(function(i) {
           if(key === 1) {
-            if(i.buscid[0].mchntid && i.buscid[0].key1 && i.buscid[0].termid) {
+            // if(i.buscid[0].mchntid && i.buscid[0].key1 && i.buscid[0].termid) {
               let item = {}
               item.chnl_name = i.name
               item.chnl_id = i.buscid[0].chnlid
@@ -594,9 +597,10 @@
               item.termid = i.buscid[0].termid
               item.id = i.buscid[0].id
               channelList.push(item)
-            }
+            // }
+
           } else if(key === 2) {
-            if(i.buscid[0].mchntid && i.buscid[0].termid) {
+            // if(i.buscid[0].mchntid && i.buscid[0].termid) {
               let item = {}
               item.chnl_name = i.name
               item.chnl_id = i.buscid[0].chnlid
@@ -604,10 +608,10 @@
               item.termid = i.buscid[0].termid
               item.id = i.buscid[0].id
               channelList.push(item)
-            }
+            // }
            }
         })
-        console.log(channelList)
+        // console.log(channelList)
         return channelList
       }
     }
@@ -632,7 +636,7 @@
       }
       .radioType1 {
         margin-left: 20px;
-      }      
+      }
       .dialog_form {
         margin-left: 1%;
         .form_item {
@@ -661,7 +665,7 @@
           margin-top: 2%;
           .right {
             margin-left: 30%;
-          } 
+          }
         }
       }
       h4 {

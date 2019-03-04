@@ -126,11 +126,11 @@
       <el-row>
         <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la17')}}</span>
-          <span class="basic-content">{{form.bankinfo.headbankname}}</span>
+          <span class="basic-content">{{form.bankinfo.bankuser}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la18')}}</span>
-          <span class="basic-content">{{form.bankinfo.bankuser}}</span>
+          <span class="basic-content">{{form.bankinfo.headbankname}}</span>
         </el-col>
       </el-row>
 
@@ -147,6 +147,10 @@
 
       <el-row>
         <el-col :span="10">
+          <span class="basic-label">{{$t('shop.detail.basic.la13')}}</span>
+          <span class="basic-content">{{form.bankinfo.bankcode}}</span>
+        </el-col>
+        <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la21')}}</span>
           <span class="basic-content">{{form.userinfo.remit_amt}}</span>
         </el-col>
@@ -327,7 +331,7 @@
             }
           })
           .catch((e) => {
-            console.log(e);
+            // console.log(e);
           });
       },
       cancel() {

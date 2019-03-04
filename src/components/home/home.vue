@@ -283,7 +283,7 @@
                 }
               })
               .showMaxMin(false).staggerLabels(false)
-            if (!data.length) {
+            if (!data.length || _.every(data, {cnt: 0})) {
               curveChart.yDomain([0, 4000])
             }
 
@@ -339,7 +339,7 @@
             nv.utils.windowResize(barchart.update);
           });
         },
-        drawPieChart(d) {
+        drawPieChart(data) {
           let piechart,
             arcRadius = [
               {inner: 0.5, outer: 0.6},
@@ -354,24 +354,25 @@
                 return d.name
               })
               .y(function (d) {
-                return Number(d.cnt)
+                return d.cnt
               })
               .height(360)
               .duration(1000)
-              .margin({top: 50, left: 0})
-              .padAngle(0.02)
+              .margin({top: 0, left: 0})
+              .padAngle(0)
               .donut(1)
               .showTooltipPercent(1)
               .arcsRadius(arcRadius)
               .labelType("key")
-              .showLabels(1)
-              .labelsOutside(1)
+              .showLabels(true)
+              .showLegend(true)
+              .labelsOutside(true)
               .labelSunbeamLayout(0)
               .valueFormat(d3.format('d'))
 
-            if (d.length === 0) {
+            if (data.length === 0 || _.every(data, {cnt: '0'})) {
               piechart.color(['gray']);
-              piechart.showLabels(0);
+              piechart.valueFormat(function(d) { return d.cnt }).showLabels(false)
             } else {
               piechart.color(['#0D7FF5', '#5C0AA3', '#FF0E4F', '#FFA2BB', '#01C5F1'])
             }
@@ -431,7 +432,7 @@
             .then((res) => {
               let data = res.data;
               if (data.respcd === config.code.OK) {
-                data.data.length > 0 && (this.channelTrends = data.data)
+                data.data.length > 0 && !_.every(data.data, {cnt: '0'}) && (this.channelTrends = data.data)
                 this.drawPieChart(data.data)
               } else {
                 this.$message.error(data.respmsg);

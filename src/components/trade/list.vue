@@ -83,7 +83,8 @@
     <el-table :data="trades" v-loading="isLoading" stripe>
       <el-table-column prop="sysdtm" :label="$t('trade.common.tradeTime')" width="170"></el-table-column>
       <el-table-column prop="syssn" :label="$t('trade.common.sNum')"></el-table-column>
-      <el-table-column prop="shopname" :label="$t('trade.common.merchantName')"></el-table-column>
+      <el-table-column prop="name" :label="$t('trade.common.merchantName')"></el-table-column>
+      <el-table-column prop="shopname" :label="$t('trade.common.shopName')"></el-table-column>
       <el-table-column prop="busicd_info" :label="$t('trade.common.payPass')"></el-table-column>
       <el-table-column prop="txamt" :formatter="formatYuan" :label="$t('trade.common.tradeAmount')"></el-table-column>
       <el-table-column prop="settlefee" :formatter="formatYuan" :label="$t('trade.common.fee')"></el-table-column>
