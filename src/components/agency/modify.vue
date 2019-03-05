@@ -483,7 +483,6 @@
         let paramsBase = JSON.parse(JSON.stringify(this.baseform))
         // paramsBase.auth_province = this.$refs.province.selected.label || ''
         // paramsBase.auth_city = this.$refs.city.selected.label || ''
-        console.log(paramsBase)
         paramsBase.auth_province = this.baseform.auth_province
         this.payfeeT = this.refee(this.payfee)
         this.$http({
@@ -544,56 +543,51 @@
         } else if (this.oldBankinfo[key] === value) {
           return false
         }
-        let isConfirm = false
         this.$confirm(this.$t('common.sure'), this.$t('common.tip'), {
           confirmButtonText: this.$t('common.confirm'),
           cancelButtonText: this.$t('common.cancel'),
           type: 'warning'
         }).then(() => {
-          isConfirm = true
-        }).catch(() => {
-          isConfirm = false
-        })
-        // 二次确认，不确认不提交修改
-        if (!isConfirm) {
-          return false
-        }
-        let agentId = this.$route.params.id
-        let params = {}
-        if (key === 'secondAgency') {
-          params['levelcode'] = 2
-          params['parent_uid'] = value
-          this.fetchRadio(value)
-        } else if (key === 'updateProvince') {
-          params['auth_province'] = value
-        } else if (key === 'updateProvinceCity') {
-          params['auth_province'] = this.$refs.province.selected.label || this.baseform.auth_province
-          params['auth_city'] = value
-        } else if (key === 'selectSaleMan') {
-          params['levelcode'] = 1
-          params['slsm_userid'] = value
-        } else if (key === 'status') {
-          params['status'] = value
-        } else if (value) {
-          params[key] = value
-        } else {
-          return false
-        }
-        this.$http({
-          method: 'post',
-          url: `${config.host}/org/agent/${agentId}/edit`,
-          data: qs.stringify(params)
-        })
-        .then((res) => {
-          let data = res.data
-          if (data.respcd === '0000') {
-            this.$refs['baseform'].clearValidate()
-            this.$refs['bankinfoform'].clearValidate()
-            localStorage.setItem('hasEdit', '1')
-            this.$message.success(this.$t('common.updateSuccess'))
-          } else {
-            this.$message.error(data.resperr)
+          let agentId = this.$route.params.id
+          let params = {
+            agent_id: agentId
           }
+          if (key === 'secondAgency') {
+            params['levelcode'] = 2
+            params['parent_uid'] = value
+            this.fetchRadio(value)
+          } else if (key === 'updateProvince') {
+            params['auth_province'] = value
+          } else if (key === 'updateProvinceCity') {
+            params['auth_province'] = this.$refs.province.selected.label || this.baseform.auth_province
+            params['auth_city'] = value
+          } else if (key === 'selectSaleMan') {
+            params['levelcode'] = 1
+            params['slsm_userid'] = value
+          } else if (key === 'status') {
+            params['status'] = value
+          } else if (value) {
+            params[key] = value
+          } else {
+            return false
+          }
+          this.$http({
+            method: 'post',
+            url: `${config.host}/org/agent/edit`,
+            data: qs.stringify(params)
+          })
+          .then((res) => {
+            let data = res.data
+            if (data.respcd === '0000') {
+              this.$refs['baseform'].clearValidate()
+              this.$refs['bankinfoform'].clearValidate()
+              localStorage.setItem('hasEdit', '1')
+              this.$message.success(this.$t('common.updateSuccess'))
+            } else {
+              this.$message.error(data.resperr)
+            }
+          })
+        }).catch(() => {
         })
       },
       cancel() {

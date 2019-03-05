@@ -541,7 +541,7 @@
           Object.assign(params, {
             temp_id: this.$route.query.id
           })
-          url = 'org/clearing/temp/info';
+          url = 'org/clearing/temp/edit';
         }
         axios.post(`${config.host}/${url}`, qs.stringify(params)).then((res) => {
           this.iconLoading = false;

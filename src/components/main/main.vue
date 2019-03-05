@@ -106,7 +106,8 @@
       clearing_template_list: ["5", "5-5"], // 清分模板
       perm_user_list: ["6", "6-1"], // 用户管理
       perm_role_list: ["6", "6-2"], // 角色管理
-      salesman_manage_list: ["7", "7-1"]
+      salesman_manage_list: ["7", "7-1"],
+      operation_logs_list: ["8", "8-1"]
     }
   export default {
     data() {
@@ -141,6 +142,9 @@
           },
           salesman_manage: {
             icon: 'sales-icon'
+          },
+          system_settings: {
+            icon: 'system-icon'
           }
         }
       }
@@ -374,6 +378,10 @@
             background:url(../../assets/common_img/sales_light.png) 0 0 no-repeat transparent;
             background-size: contain;
           }
+          .system-icon {
+            background:url(../../assets/common_img/settings_light.png) 0 0 no-repeat transparent;
+            background-size: contain;
+          }
         }
 
         .el-submenu .el-menu-item.is-active {
@@ -418,6 +426,10 @@
         }
         .sales-icon {
           background:url(../../assets/common_img/sales.png) 0 0 no-repeat transparent;
+          background-size: contain;
+        }
+        .system-icon {
+          background:url(../../assets/common_img/settings.png) 0 0 no-repeat transparent;
           background-size: contain;
         }
       }

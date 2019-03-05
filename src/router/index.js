@@ -31,6 +31,7 @@ import shopDetail from 'components/merchant/bussDetail'
 import salesList from 'components/salesman/salesList'
 import createSalesman from 'components/salesman/createSalesman'
 import salesDetail from 'components/salesman/salesDetail'
+import logList from 'components/system/logList'
 
 Vue.use(Router)
 
@@ -204,6 +205,11 @@ export default new Router({
           path: 'salesman_manage_list/sales_detail',
           name: 'salesDetail',
           component: salesDetail
+        },
+        {
+          path: 'operation_logs_list',
+          name: 'logList',
+          component: logList
         }
       ]
     }

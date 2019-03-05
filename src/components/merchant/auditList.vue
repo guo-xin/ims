@@ -191,7 +191,7 @@
           p.qd_uid = this.formData.qd_uid2
         }
         this.isLoading = true;
-        axios.get(`${config.host}/org/mchnt/list`, {
+        axios.get(`${config.host}/org/mchnt/audit/list`, {
           params: p})
           .then((res) => {
             let data = res.data;

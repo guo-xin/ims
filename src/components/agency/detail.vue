@@ -63,7 +63,7 @@
     methods: {
       fetchData(agencyId) {
         this.isLoading = true
-        this.$http(`${config.host}/org/agent/${agencyId}`)
+        this.$http(`${config.host}/org/agent/info?agent_id=${agencyId}`)
         .then((res) => {
           let data = res.data
           let agency = res.data.data
