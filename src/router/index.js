@@ -32,6 +32,7 @@ import salesList from 'components/salesman/salesList'
 import createSalesman from 'components/salesman/createSalesman'
 import salesDetail from 'components/salesman/salesDetail'
 import logList from 'components/system/logList'
+import tradeLimit from 'components/system/tradeLimit'
 
 Vue.use(Router)
 
@@ -210,6 +211,11 @@ export default new Router({
           path: 'operation_logs_list',
           name: 'logList',
           component: logList
+        },
+        {
+          path: 'transaction_limit_list',
+          name: 'tradeLimit',
+          component: tradeLimit
         }
       ]
     }

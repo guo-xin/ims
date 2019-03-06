@@ -49,6 +49,7 @@ const en = {
     format: 'Support JPG / PNG Format',
     uploadSucc: 'Upload Success',
     uploadFailed: 'Upload Failed',
+    noEmpty: '该字段不可为空',
     CLOSE: 'CLOSE',
     SAVE: 'SAVE',
     EDIT: 'EDIT',

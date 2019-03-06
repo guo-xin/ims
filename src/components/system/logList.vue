@@ -26,9 +26,9 @@
     <el-table :data="logs" v-loading="isLoading" stripe>
       <el-table-column prop="username" label="登录账号"></el-table-column>
       <el-table-column prop="shopname" label="用户名称"></el-table-column>
-      <el-table-column prop="ipaddr" label="登陆IP"></el-table-column>
+      <el-table-column prop="ipaddr" label="登录IP" min-width="90"></el-table-column>
       <el-table-column prop="type" label="登入系统"></el-table-column>
-      <el-table-column prop="ctime" label="操作日期"></el-table-column>
+      <el-table-column prop="ctime" label="操作日期" min-width="120"></el-table-column>
       <el-table-column prop="operation" label="操作"></el-table-column>
       <el-table-column prop="status" :formatter="formatStatus" label="结果"></el-table-column>
     </el-table>

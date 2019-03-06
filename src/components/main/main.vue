@@ -107,7 +107,8 @@
       perm_user_list: ["6", "6-1"], // 用户管理
       perm_role_list: ["6", "6-2"], // 角色管理
       salesman_manage_list: ["7", "7-1"],
-      operation_logs_list: ["8", "8-1"]
+      operation_logs_list: ["8", "8-1"], // 系统日志
+      transaction_limit_list: ["8", "8-2"] // 商户交易额度管理
     }
   export default {
     data() {

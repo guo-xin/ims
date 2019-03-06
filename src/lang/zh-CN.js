@@ -47,6 +47,7 @@ const zh = {
     format: '支持 JPG / PNG 格式',
     uploadSucc: '上传成功',
     uploadFailed: '上传失败',
+    noEmpty: '该字段不可为空',
     SAVE: '保存',
     CLOSE: '关闭',
     EDIT: '编辑',
