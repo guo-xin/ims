@@ -2,9 +2,7 @@
   <div class="roleList">
     <header class="page-header">
       <h2 class="page-title">商户交易额度管理</h2>
-      <div class="header-right">
-        <el-button size="large" type="primary" @click="append()">{{  $t('common.add') }}</el-button>
-      </div>
+      <el-button v-if="hasCreatePerm" size="large" type="primary" @click="append()">{{ $t('common.add') }}</el-button>
     </header>
 
     <el-form class="search-form" ref="searchform" :model="formData">
@@ -24,7 +22,7 @@
       <el-table-column prop="mobile" :label="$t('merchant.table.mobile')"></el-table-column>
       <el-table-column prop="day_total_amt" label="单笔交易额(≤)"></el-table-column>
       <el-table-column prop="trade_amt" label="单日交易额(≤)"></el-table-column>
-      <el-table-column prop="operation" :label="$t('common.operate')">
+      <el-table-column v-if="hasEditPerm" prop="operation" :label="$t('common.operate')">
         <template slot-scope="scope">
           <el-button type="text" @click="edit(scope.row)">{{ $t('common.edit') }}</el-button>
         </template>
@@ -106,6 +104,14 @@
         currentPage: 1
       }
     },
+    computed: {
+      hasCreatePerm() {
+        return this.$store.getters.hasPermission('transaction_limit_create')
+      },
+      hasEditPerm() {
+        return this.$store.getters.hasPermission('transaction_limit_edit')
+      }
+    },
     created() {
       this.fetchData()
     },
@@ -113,7 +119,9 @@
       append() {
         this.showDialog = true
         this.isUpdate = false
-        this.$refs['appendForm'].resetFields()
+        if (this.$refs['appendForm']) {
+          this.$refs['appendForm'].resetFields()
+        }
       },
       getMerchantName() {
         this.loadingIcon = 'el-icon-loading'
