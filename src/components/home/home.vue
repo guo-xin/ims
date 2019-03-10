@@ -501,6 +501,7 @@
         box-shadow: 2px 6px 8px 0px rgba(142, 169, 190, 0.1);
         border-radius: 8px;
         align-items: center;
+        display: -ms-flexbox;
         display: -webkit-flex;
         justify-content: space-between;
         -webkit-justify-content: space-between;
@@ -575,8 +576,9 @@
     .bars-legend {
       font-size:  12px;
       position: absolute;
-      right: 40px;
+      right: 30px;
       top: 40px;
+      display: -ms-flexbox;
       display: -webkit-flex;
       align-items: center;
       .mer,.submer {

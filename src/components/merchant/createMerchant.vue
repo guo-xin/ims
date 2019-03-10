@@ -1307,6 +1307,7 @@
       }
       .up-item {
         margin-right: 24px;
+        width:300px;
       }
       .image_info {
         font-size: 14px;
