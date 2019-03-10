@@ -274,13 +274,14 @@ form.el-form {
 }
 .el-table .cell {
   line-height: 18px;
-  text-overflow: initial !important;
 }
-.el-table thead th {
-  padding: 24px 0;
-}
+
 .el-table th > .cell {
   word-break: keep-all;
+}
+.el-table th div {
+  text-overflow: visible;
+  overflow: visible;
 }
 .tradeTotal {
   .el-table thead.is-group th {
