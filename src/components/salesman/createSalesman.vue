@@ -263,7 +263,7 @@
         this.$router.push({name: 'salesList'})
       },
       startAvatarUpload(event, file, fileList) {
-        this[file['__ob__'].dep.subs[0].vm.data.tag + 'loading'] = true;
+        this[file['__ob__'].dep.subs[0].vm.$options.propsData.data.tag + 'loading'] = true;
       },
       beforeAvatarUpload(file) {
         const isRightImgType = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -280,7 +280,7 @@
         } else {
           this.$message.error(res.resperr);
         }
-        this[file['__ob__'].dep.subs[0].vm.data.tag + 'loading'] = false;
+        this[file['__ob__'].dep.subs[0].vm.$options.propsData.data.tag + 'loading'] = false;
       },
       avatarFailed(err, file) {
         this.$message.error(err);

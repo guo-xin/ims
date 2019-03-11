@@ -386,7 +386,7 @@
         this.$router.push({name: 'shop_manage_list'})
       },
       startAvatarUpload(event, file, fileList) {
-        this[file['__ob__'].dep.subs[0].vm.data.tag + 'loading'] = true;
+        this[file['__ob__'].dep.subs[0].vm.$options.propsData.data.tag + 'loading'] = true;
       },
       beforeAvatarUpload(file) {
         const isRightImgType = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -418,7 +418,7 @@
         } else {
           this.$message.error(res.resperr);
         }
-        this[file['__ob__'].dep.subs[0].vm.data.tag + 'loading'] = false;
+        this[file['__ob__'].dep.subs[0].vm.$options.propsData.data.tag + 'loading'] = false;
       },
       avatarFailed(err, file) {
         this.$message.error(err);
@@ -559,7 +559,7 @@
         }
       }
       .el-form-item {
-        /*width: 300px;*/
+        width: 300px;
         display: inline-block;
         vertical-align: top;
         margin-right: 80px;
@@ -610,12 +610,12 @@
       .avatar-wrap {
         position: relative !important;
         .avatar {
-          width: 300px;
+          width: 285px;
           height: 214px;
           display: block;
         }
         .img-tip {
-          width: 300px;
+          width: 285px;
           height: 214px;
           line-height: 214px;
           position: absolute;
@@ -646,7 +646,7 @@
         }
       }
       .avatar-uploader-wrap {
-        width: 298px;
+        width: 285px;
         height: 214px;
         background-color: #f2f2f2;
         text-align: center;

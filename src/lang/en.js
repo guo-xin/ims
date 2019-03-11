@@ -276,7 +276,6 @@ const en = {
       merchantID1: 'Merchant No.',
       merchChildID1: 'Sub-Merchant No.',
       merchantPass1: 'Merchant key'
-
     },
     detail: {
       up: 'Activate',
@@ -497,12 +496,12 @@ const en = {
         type3: 'Hong Kong Resident Card'
       },
       picture: {
-        idcardfront: 'Front of ID Card',
+        idcardfront: 'Front of ID card',
         licensephoto: 'Business license',
-        goodsphoto: 'Inside-view Photos of Business Premises',
-        shopphoto: 'Outdoor Photos of Business Places',
-        paypoint: 'Cashier Photo',
-        otherphoto: 'Other Photos'
+        goodsphoto: 'Inside-view photos of business premises',
+        shopphoto: 'Outdoor photos of business places',
+        paypoint: 'Cashier photo',
+        otherphoto: 'Other photos'
       },
       rule1: 'Please select merchant category', // 请选择注册商户
       rule2: 'Please input merchant name', // 请输入商户名称
@@ -631,7 +630,7 @@ const en = {
       casher: 'Click to add a photo of the checkout counter',
       warmcasher: 'Please upload a photo of the checkout counter',
       mustcasher: '* You must upload a photo of the checkout counter',
-      other: 'Click to add a photo of supplementary information',
+      other: 'Click to add a photo of supplementary info',
       warmother: ''
     }
   },

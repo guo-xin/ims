@@ -203,8 +203,9 @@
           <div class="uploader-wrap">
             <el-col :span="7" class="up-item">
               <el-upload
+                :with-credentials="true"
                 :file-list="formData.vouchers"
-                v-loading="goodsphotoloading"
+                v-loading="idcardfrontloading"
                 :on-progress="startAvatarUpload"
                 class="avatar-uploader"
                 :action="uploadInterface"
@@ -233,8 +234,9 @@
             </el-col>
             <el-col :span="7" class="up-item">
               <el-upload
+                :with-credentials="true"
                 :file-list="formData.vouchers"
-                v-loading="shopphotoloading"
+                v-loading="licensephotoloading"
                 :on-progress="startAvatarUpload"
                 class="avatar-uploader"
                 :action="uploadInterface"
@@ -263,6 +265,7 @@
             </el-col>
             <el-col :span="7" class="up-item" v-if="!isUpdate">
               <el-upload
+                :with-credentials="true"
                 :file-list="formData.vouchers"
                 v-loading="goodsphotoloading"
                 :on-progress="startAvatarUpload"
@@ -293,6 +296,7 @@
             </el-col>
             <el-col :span="7" class="up-item" v-if="!isUpdate">
               <el-upload
+                :with-credentials="true"
                 :file-list="formData.vouchers"
                 v-loading="shopphotoloading"
                 :on-progress="startAvatarUpload"
@@ -323,8 +327,9 @@
             </el-col>
             <el-col :span="7" class="up-item" v-if="!isUpdate">
               <el-upload
+                :with-credentials="true"
                 :file-list="formData.vouchers"
-                v-loading="goodsphotoloading"
+                v-loading="paypointloading"
                 :on-progress="startAvatarUpload"
                 class="avatar-uploader"
                 :action="uploadInterface"
@@ -353,8 +358,9 @@
             </el-col>
             <el-col :span="7" class="up-item" v-if="!isUpdate">
               <el-upload
+                :with-credentials="true"
                 :file-list="formData.vouchers"
-                v-loading="goodsphotoloading"
+                v-loading="otherphotoloading"
                 :on-progress="startAvatarUpload"
                 class="avatar-uploader"
                 :action="uploadInterface"
@@ -423,8 +429,12 @@
     data() {
       return {
         isLoading: false,
+        idcardfrontloading: false,
+        licensephotoloading: false,
         goodsphotoloading: false,
         shopphotoloading: false,
+        otherphotoloading: false,
+        paypointloading: false,
         isUpdate: false,
         isStatus: false,
         IsRemit: false,
@@ -876,7 +886,7 @@
         });
       },
       startAvatarUpload(event, file, fileList) {
-        this[file['__ob__'].dep.subs[0].vm.data.tag + 'loading'] = true;
+        this[file['__ob__'].dep.subs[0].vm.$options.propsData.data.tag + 'loading'] = true;
       },
       beforeAvatarUpload(file) {
         const isRightImgType = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -908,31 +918,7 @@
         } else {
           this.$message.error(res.resperr);
         }
-        this[file['__ob__'].dep.subs[0].vm.data.tag + 'loading'] = false;
-      },
-      imgUpload(name, flag) {
-        if (flag || this.voucherInfo[name + '_url']) {
-          axios.post(`${config.imgUpload}/util/v1/cpfile`, qs.stringify({
-            enuserid: this.form.userid,
-            imgurl: this.voucherInfo[name + '_url'],
-            format: 'cors'
-          }), {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-            }
-          }).then((res) => {
-            let data = res.data;
-            if (data.respcd === config.code.OK) {
-              this.voucherInfo[name + '_name'] = data.data.name;
-              this.$message.success(this.$t('common.uploadSucc'));
-            } else {
-              this.voucherInfo[name + '_url'] = '';
-              this.$message.error(this.$t('common.uploadFailed'))
-            }
-          }).catch(() => {
-            this.voucherInfo[name] = '';
-          })
-        }
+        this[file['__ob__'].dep.subs[0].vm.$options.propsData.data.tag + 'loading'] = false;
       },
       avatarFailed(err, file) {
         this.$message.error(err);
@@ -1296,6 +1282,8 @@
       }
       .uploader-wrap {
         padding-top: 20px;
+        float:left;
+        clear:both;
       }
       .upload-label {
         color: grey;
@@ -1307,7 +1295,7 @@
       }
       .up-item {
         margin-right: 24px;
-        width:300px;
+        width:285px;
       }
       .image_info {
         font-size: 14px;
@@ -1363,7 +1351,7 @@
         }
       }
       .avatar-uploader-wrap {
-        width: 298px;
+        width: 285px;
         height: 214px;
         background-color: #f2f2f2;
         text-align: center;

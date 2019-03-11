@@ -278,6 +278,7 @@ form.el-form {
 
 .el-table th > .cell {
   word-break: keep-all;
+  width:auto;
 }
 .el-table th div {
   text-overflow: visible;
@@ -322,6 +323,9 @@ form.el-form {
 }
 .el-steps {
   margin: 35px 0;
+}
+.el-steps .el-step:first-child {
+  -ms-flex-preferred-size: 100%;
 }
 .el-step__head.is-process {
   color: #fff;
