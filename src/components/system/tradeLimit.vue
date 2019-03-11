@@ -134,7 +134,7 @@
           this.loadingIcon = ''
           let data = res.data
           if (data.respcd === '0000') {
-            this.appendForm.shopname = data.data.name
+            this.appendForm.shopname = data.data.shopname
           } else {
             this.appendForm.shopname = ''
           }
