@@ -20,8 +20,8 @@
       <el-table-column prop="shopname" :label="$t('merchant.form.mchtname')"></el-table-column>
       <el-table-column prop="address" :label="$t('agent.address')"></el-table-column>
       <el-table-column prop="mobile" :label="$t('merchant.table.mobile')"></el-table-column>
-      <el-table-column prop="day_total_amt" label="单笔交易额(≤)"></el-table-column>
-      <el-table-column prop="trade_amt" label="单日交易额(≤)"></el-table-column>
+      <el-table-column prop="trade_amt" label="单笔交易额(≤)"></el-table-column>
+      <el-table-column prop="day_total_amt" label="单日交易额(≤)"></el-table-column>
       <el-table-column v-if="hasEditPerm" prop="operation" :label="$t('common.operate')">
         <template slot-scope="scope">
           <el-button type="text" @click="edit(scope.row)">{{ $t('common.edit') }}</el-button>
@@ -48,10 +48,10 @@
           <el-input disabled v-model="appendForm.shopname" type="text"></el-input>
         </el-form-item>
         <el-form-item prop="day_total_amt" :rules="[noEmpty, currencyRule]" label="单笔交易额(≤)">
-          <el-input v-model="appendForm.day_total_amt" type="number"></el-input>
+          <el-input v-model="appendForm.trade_amt" type="number"></el-input>
         </el-form-item>
         <el-form-item prop="trade_amt" :rules="[noEmpty, currencyRule]" label="单日交易额(≤)">
-          <el-input v-model="appendForm.trade_amt" type="number"></el-input>
+          <el-input v-model="appendForm.day_total_amt" type="number"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -137,6 +137,7 @@
             this.appendForm.shopname = data.data.shopname
           } else {
             this.appendForm.shopname = ''
+            this.$message.error(data.resperr)
           }
         })
       },
