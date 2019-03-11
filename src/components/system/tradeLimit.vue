@@ -6,8 +6,8 @@
     </header>
 
     <el-form class="search-form" ref="searchform" :model="formData">
-      <el-form-item label="商户ID" prop="userid">
-        <el-input type="number" v-model="formData.userid"></el-input>
+      <el-form-item label="商户ID" prop="userid" :rules="numberRule">
+        <el-input v-model="formData.userid"></el-input>
       </el-form-item>
       <div class="buttons">
         <el-button type="primary" @click="search()">{{$t('common.search')}}</el-button>
@@ -41,8 +41,8 @@
 
     <el-dialog :title="isUpdate ? '商户交易额度修改' : '商户交易额度设置'" :visible.sync="showDialog" top="20%">
       <el-form :model="appendForm" ref="appendForm">
-        <el-form-item prop="userid" :rules="noEmpty" :label="$t('merchant.form.mchtid')">
-          <el-input v-model="appendForm.userid" type="number" :suffix-icon="loadingIcon" @change="getMerchantName"></el-input>
+        <el-form-item prop="userid" :rules="[noEmpty, numberRule]" :label="$t('merchant.form.mchtid')">
+          <el-input v-model="appendForm.userid" :suffix-icon="loadingIcon" @change="getMerchantName"></el-input>
         </el-form-item>
         <el-form-item prop="shopname" :label="$t('merchant.form.mchtname')">
           <el-input disabled v-model="appendForm.shopname" type="text"></el-input>
@@ -78,6 +78,14 @@
           cb()
         }
       }
+      let numberValidator = (rule, val, cb) => {
+        console.log('numberValidator')
+        if (!/^\d+$/.test(val)) {
+          cb('商户ID只能由数值组成')
+        } else {
+          cb()
+        }
+      }
       return {
         isLoading: false,
         showDialog: false,
@@ -93,6 +101,9 @@
         },
         currencyRule: {
           validator: currencyValidator
+        },
+        numberRule: {
+          validator: numberValidator
         },
         loadingIcon: '',
         formData: {
@@ -124,6 +135,9 @@
         }
       },
       getMerchantName() {
+        if (!this.appendForm.userid) {
+          return false
+        }
         this.loadingIcon = 'el-icon-loading'
         this.$http(`${config.host}/org/tools/mchnt/info`, {
           params: {
@@ -137,7 +151,6 @@
             this.appendForm.shopname = data.data.shopname
           } else {
             this.appendForm.shopname = ''
-            this.$message.error(data.resperr)
           }
         })
       },
