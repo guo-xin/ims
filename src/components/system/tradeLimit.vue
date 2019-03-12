@@ -1,12 +1,12 @@
 <template>
   <div class="roleList">
     <header class="page-header">
-      <h2 class="page-title">商户交易额度管理</h2>
+      <h2 class="page-title">{{$t('system.tradeLimit.title')}}</h2>
       <el-button v-if="hasCreatePerm" size="large" type="primary" @click="append()">{{ $t('common.add') }}</el-button>
     </header>
 
     <el-form class="search-form" ref="searchform" :model="formData">
-      <el-form-item label="商户ID" prop="userid" :rules="numberRule">
+      <el-form-item :label="$t('system.tradeLimit.userid')" prop="userid" :rules="numberRule">
         <el-input v-model="formData.userid"></el-input>
       </el-form-item>
       <div class="buttons">
@@ -16,13 +16,13 @@
     </el-form>
 
     <el-table :data="risks" v-loading="isLoading" stripe>
-      <el-table-column prop="userid" :label="$t('merchant.form.mchtid')"></el-table-column>
-      <el-table-column prop="shopname" :label="$t('merchant.form.mchtname')"></el-table-column>
-      <el-table-column prop="address" :label="$t('agent.address')"></el-table-column>
-      <el-table-column prop="mobile" :label="$t('merchant.table.mobile')"></el-table-column>
-      <el-table-column prop="trade_amt" label="单笔交易额(≤)"></el-table-column>
-      <el-table-column prop="day_total_amt" label="单日交易额(≤)"></el-table-column>
-      <el-table-column v-if="hasEditPerm" prop="operation" :label="$t('common.operate')">
+      <el-table-column prop="userid" :label="$t('system.tradeLimit.userid')"></el-table-column>
+      <el-table-column prop="shopname" :label="$t('system.tradeLimit.shopname')"></el-table-column>
+      <el-table-column prop="address" :label="$t('system.tradeLimit.address')"></el-table-column>
+      <el-table-column prop="mobile" :label="$t('system.tradeLimit.mobile')"></el-table-column>
+      <el-table-column prop="trade_amt" :label="$t('system.tradeLimit.trade_amt') + '(≤)'"></el-table-column>
+      <el-table-column prop="day_total_amt" :label="$t('system.tradeLimit.day_total_amt') + '(≤)'"></el-table-column>
+      <el-table-column v-if="hasEditPerm" prop="operation" :label="$t('system.tradeLimit.operation')">
         <template slot-scope="scope">
           <el-button type="text" @click="edit(scope.row)">{{ $t('common.edit') }}</el-button>
         </template>
@@ -39,7 +39,7 @@
       :current-page="currentPage">
     </el-pagination>
 
-    <el-dialog :title="isUpdate ? '商户交易额度修改' : '商户交易额度设置'" :visible.sync="showDialog" top="20%">
+    <el-dialog :title="isUpdate ? $t('system.tradeLimit.edit') : $t('system.tradeLimit.set')" :visible.sync="showDialog" top="20%">
       <el-form :model="appendForm" ref="appendForm">
         <el-form-item prop="userid" :rules="[noEmpty, numberRule]" :label="$t('merchant.form.mchtid')">
           <el-input v-model="appendForm.userid" :suffix-icon="loadingIcon" @change="getMerchantName"></el-input>
@@ -47,11 +47,11 @@
         <el-form-item prop="shopname" :label="$t('merchant.form.mchtname')">
           <el-input disabled v-model="appendForm.shopname" type="text"></el-input>
         </el-form-item>
-        <el-form-item prop="day_total_amt" :rules="[noEmpty, currencyRule]" label="单笔交易额(≤)">
-          <el-input v-model="appendForm.trade_amt" type="number"></el-input>
+        <el-form-item prop="trade_amt" :rules="[noEmpty, currencyRule]" :label="$t('system.tradeLimit.trade_amt')+'(≤)'">
+          <el-input v-model="appendForm.trade_amt"></el-input>
         </el-form-item>
-        <el-form-item prop="trade_amt" :rules="[noEmpty, currencyRule]" label="单日交易额(≤)">
-          <el-input v-model="appendForm.day_total_amt" type="number"></el-input>
+        <el-form-item prop="day_total_amt" :rules="[noEmpty, currencyRule]" :label="$t('system.tradeLimit.day_total_amt')+'(≤)'">
+          <el-input v-model="appendForm.day_total_amt"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -68,20 +68,19 @@
   export default {
     data() {
       let currencyValidator = (rule, val, cb) => {
-        if (val == 0) {
-          cb('金额不能为0')
+        if (parseInt(val) === 0) {
+          cb(this.$t('system.tradeLimit.zero'))
         } if (val < 0) {
-          cb('金额不能为负数')
+          cb(this.$t('system.tradeLimit.negative'))
         } if (!/^\d+([.]\d{1,2})?$/.test(val)) {
-          cb('小数点后只能有两位')
+          cb(this.$t('system.tradeLimit.decimal'))
         } else {
           cb()
         }
       }
       let numberValidator = (rule, val, cb) => {
-        console.log('numberValidator')
         if (!/^\d+$/.test(val)) {
-          cb('商户ID只能由数值组成')
+          cb(this.$t('system.tradeLimit.numerical'))
         } else {
           cb()
         }
