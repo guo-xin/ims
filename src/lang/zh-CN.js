@@ -813,6 +813,34 @@ const zh = {
       pic1warn: '* 必须上传证件照正面照片',
       tip: '请上传证件正面照'
     }
+  },
+  system: {
+    log: {
+      username: '登录账号',
+      shopname: '用户名称',
+      ipaddr: '登陆IP',
+      type: '登入系统',
+      operation_date: '操作日期',
+      operation: '操作',
+      status: '结果',
+      title: '系统日志'
+    },
+    tradeLimit: {
+      title: '商户交易额度管理',
+      userid: '商户ID',
+      shopname: '商户名称',
+      address: '地址',
+      mobile: '联系电话',
+      trade_amt: '单笔交易额',
+      day_total_amt: '单日交易额',
+      operation: '操作',
+      edit: '商户交易额度修改',
+      set: '商户交易额度设置',
+      zero: '交易额不能为0',
+      negative: '交易额不能为负数',
+      decimal: '只支持小数点后两位的数值格式',
+      numerical: '商户ID只支持数值格式'
+    }
   }
 }
 export default zh;

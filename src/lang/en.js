@@ -49,7 +49,7 @@ const en = {
     format: 'Support JPG / PNG Format',
     uploadSucc: 'Upload Success',
     uploadFailed: 'Upload Failed',
-    noEmpty: '该字段不可为空',
+    noEmpty: "Field can't be empty",
     CLOSE: 'CLOSE',
     SAVE: 'SAVE',
     EDIT: 'EDIT',
@@ -858,6 +858,34 @@ const en = {
       pic1: 'Certificate front side',
       pic1warn: '* Must upload certificate photo with front side',
       tip: 'Please upload certificate photo with front side'
+    }
+  },
+  system: {
+    log: {
+      username: 'Account of logging in',
+      shopname: "User's name",
+      ipaddr: 'Log in IP',
+      type: 'Log in system',
+      operation_date: 'Operation date',
+      operation: 'Operation',
+      status: 'Results',
+      title: 'System log'
+    },
+    tradeLimit: {
+      title: 'Transaction Limit',
+      userid: "Merchant's ID",
+      shopname: "Merchant's name",
+      address: 'Address',
+      mobile: 'Telephone',
+      trade_amt: 'Single transaction volumn',
+      day_total_amt: 'Per-day transaction volumn',
+      operation: 'Operation',
+      edit: 'Transaction Limit Modification',
+      set: 'Transaction Limit Set',
+      zero: "Transaction value can't be zero",
+      negative: "Transaction value can't be negative",
+      decimal: 'Decimal with two digit only',
+      numerical: 'Merchant ID with numerical value only'
     }
   }
 }

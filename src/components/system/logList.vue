@@ -1,17 +1,17 @@
 <template>
   <div class="roleList">
     <header class="page-header">
-      <h2 class="page-title">系统日志</h2>
+      <h2 class="page-title">{{$t('system.log.title')}}</h2>
     </header>
 
     <el-form class="search-form" ref="searchform" :model="formData">
-      <el-form-item label="登录账号" prop="username">
+      <el-form-item :label="$t('system.log.username')" prop="username">
         <el-input v-model="formData.username"></el-input>
       </el-form-item>
-      <el-form-item label="用户名称" prop="shopname">
+      <el-form-item :label="$t('system.log.shopname')" prop="shopname">
         <el-input v-model="formData.shopname"></el-input>
       </el-form-item>
-      <el-form-item label="操作日期" prop="date">
+      <el-form-item :label="$t('system.log.operation_date')" prop="date">
         <el-date-picker
           v-model="formData.date"
           type="date">
@@ -24,13 +24,13 @@
     </el-form>
 
     <el-table :data="logs" v-loading="isLoading" stripe>
-      <el-table-column prop="username" label="登录账号"></el-table-column>
-      <el-table-column prop="shopname" label="用户名称"></el-table-column>
-      <el-table-column prop="ipaddr" label="登录IP" min-width="90"></el-table-column>
-      <el-table-column prop="type" label="登入系统"></el-table-column>
-      <el-table-column prop="ctime" label="操作日期" min-width="120"></el-table-column>
-      <el-table-column prop="operation" label="操作"></el-table-column>
-      <el-table-column prop="status" :formatter="formatStatus" label="结果"></el-table-column>
+      <el-table-column prop="username" :label="$t('system.log.username')"></el-table-column>
+      <el-table-column prop="shopname" :label="$t('system.log.shopname')"></el-table-column>
+      <el-table-column prop="ipaddr" :label="$t('system.log.ipaddr')" min-width="90"></el-table-column>
+      <el-table-column prop="type" :label="$t('system.log.type')"></el-table-column>
+      <el-table-column prop="ctime" :label="$t('system.log.operation_date')" min-width="120"></el-table-column>
+      <el-table-column prop="operation" :label="$t('system.log.operation')"></el-table-column>
+      <el-table-column prop="status" :formatter="formatStatus" :label="$t('system.log.status')"></el-table-column>
     </el-table>
 
     <el-pagination
