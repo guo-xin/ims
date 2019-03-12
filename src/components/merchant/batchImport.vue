@@ -208,7 +208,7 @@
 //        return this.$confirm(`确定移除 ${ file.name } ？`);
       },
       beforeZipUpload(file) {
-        const isRightImgType = file.type === 'application/zip'
+        const isRightImgType = file.type === 'application/zip' || file.type === 'application/x-zip-compressed'
         if (!isRightImgType) {
           this.$message.error(this.$t('merchant.newMerchant.rule33'));
         }
