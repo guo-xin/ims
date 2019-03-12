@@ -482,6 +482,7 @@
   @import "../../../src/assets/css/zchart.css";
 
   .home {
+    overflow-x: hidden;
     .current-data {
       justify-content: space-between;
       -webkit-justify-content: space-between;
@@ -495,7 +496,8 @@
       }
       .item {
         height: 80px;
-        margin-left: 16px;
+        margin-left: 10px;
+        flex:1;
         padding-right:10px;
         background: rgba(255, 255, 255, 1);
         box-shadow: 2px 6px 8px 0px rgba(142, 169, 190, 0.1);
