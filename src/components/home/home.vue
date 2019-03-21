@@ -364,7 +364,7 @@
               .showTooltipPercent(1)
               .arcsRadius(arcRadius)
               .labelType("key")
-              .showLabels(true)
+              .showLabels(false)
               .showLegend(true)
               .labelsOutside(true)
               .labelSunbeamLayout(0)
