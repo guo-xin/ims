@@ -30,7 +30,7 @@
                 <a href="javascript:void(0)" class="outer-link">&nbsp;Agent / </a>
               </div> -->
             </el-col>
-            <el-col :span="6" class="lang-change">
+            <el-col :span="5" class="lang-change">
               <el-select v-model="select" @change="selectChange">
                 <el-option
                   v-for="item in items"
@@ -40,7 +40,7 @@
                 </el-option>
               </el-select>
             </el-col>
-            <el-col :span="2">
+            <el-col :span="3">
               <div class="sign-out-wrap" @click="logoutHandler">
                  <img class="logout-icon" src="../../assets/common_img/logout.png"/>
                  <span class="logout-txt">{{$t('main.logout')}}</span>
@@ -269,7 +269,6 @@
             min-width: 150px;
           }
           .sign-out-wrap {
-            width:80px;
             display: flex;
             align-items: center;
             cursor:pointer;
