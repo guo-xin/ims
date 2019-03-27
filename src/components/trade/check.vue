@@ -20,30 +20,29 @@
       </div>
     </el-form>
 
-    <el-table :data="refundList.infos" stripe v-loading="loading" class="table-hover">
+    <el-table :data="refundList.list" stripe v-loading="loading" class="table-hover">
       <el-table-column prop="syssn" :label="$t('trade.common.tradeSum')" min-width="150"></el-table-column>
-      <el-table-column prop="name" :label="$t('trade.common.merchantName')" min-width="90"></el-table-column>
-      <el-table-column prop="shopname" :label="$t('trade.common.shopName')" min-width="80"></el-table-column>
+      <el-table-column prop="name" :label="$t('trade.common.merchantName')" min-width="120"></el-table-column>
+      <el-table-column prop="shopname" :label="$t('trade.common.shopName')" min-width="100"></el-table-column>
       <el-table-column prop="telephone" :label="$t('trade.common.phone')" min-width="140"></el-table-column>
-      <el-table-column prop="sysdtm" :label="$t('trade.common.tradeTime')" min-width="140"></el-table-column>
-      <el-table-column :label="$t('trade.common.tradeAmount')" min-width="140">
+      <el-table-column prop="sysdtm" :label="$t('trade.common.tradeTime')" min-width="170"></el-table-column>
+      <el-table-column :label="$t('trade.common.tradeAmount')" min-width="110">
         <template slot-scope="scope">
           <span>{{ scope.row.txamt | formatCurrency }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="ctime" :label="$t('trade.common.applyTime')" min-width="140"></el-table-column>
-      <el-table-column prop="refund_amt" :label="$t('trade.common.refundAmount')" min-width="140"></el-table-column>
+      <el-table-column prop="ctime" :label="$t('trade.common.applyTime')" min-width="170"></el-table-column>
+      <el-table-column prop="refund_amt" :label="$t('trade.common.refundAmount')" min-width="100"></el-table-column>
 
-      <el-table-column :label="$t('common.status')" min-width="80">
+      <el-table-column :label="$t('common.status')" min-width="150">
         <template slot-scope="scope">
-          <!--<span></span>-->
           <el-button type="text" @click="detail(scope.row)">{{ $t('common.audit') }}</el-button>
         </template>
       </el-table-column>
 
     </el-table>
 
-    <div class="pagination_wrapper" v-if="refundList.cnt >= 1">
+    <div class="pagination_wrapper" v-if="refundList.total >= 1">
       <el-pagination
         ref="page"
         layout="total, sizes, prev, pager, next, jumper"
@@ -58,7 +57,7 @@
 
     <el-dialog :title="$t('trade.refundCheck')" :visible.sync="showConfirm"
                :show-close="false" center custom-class="singleLine-dialog" @close="handleClose">
-      <el-form :model="formUser" :rules="userRules" ref="formUser">
+      <el-form :model="formUser" ref="formUser">
         <div class="line-row">
           <span class="line-label">{{ $t('trade.common.tradeSum') }}</span>
           <div class="line-content">{{ tradeInfo.syssn }}</div>
@@ -131,7 +130,7 @@
         iconLoading: false,
         form: {
           syssn: '',
-          status: 0,
+          state: 0,
           name: '',
         },
         tradeInfo: {
@@ -218,7 +217,7 @@
       getData() {
         if(!this.loading) {
           this.loading = true;
-          axios.get(`${config.host}/org/mchnt/api/list`, {
+          axios.get(`${config.host}/org/trade/refund/list`, {
             params: Object.assign({}, this.form, {
               page: this.currentPage - 1,
               page_size: this.pageSize,

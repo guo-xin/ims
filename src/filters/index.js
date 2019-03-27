@@ -9,7 +9,7 @@ let filters = {
     } else if (number === 0) {
       return 0;
     }
-    return formatLength(formatData(number, 1 / 100).toFixed(2));
+    return formatLength(number);
   },
 }
 

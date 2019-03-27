@@ -23,30 +23,30 @@
       </div>
     </el-form>
 
-    <el-table :data="refundList.infos" stripe v-loading="loading" class="table-hover">
+    <el-table :data="refundList.list" stripe v-loading="loading" class="table-hover">
       <el-table-column prop="syssn" :label="$t('trade.common.tradeSum')" min-width="150"></el-table-column>
-      <el-table-column prop="name" :label="$t('trade.common.merchantName')" min-width="90"></el-table-column>
-      <el-table-column prop="shopname" :label="$t('trade.common.shopName')" min-width="80"></el-table-column>
+      <el-table-column prop="name" :label="$t('trade.common.merchantName')" min-width="120"></el-table-column>
+      <el-table-column prop="shopname" :label="$t('trade.common.shopName')" min-width="100"></el-table-column>
       <el-table-column prop="telephone" :label="$t('trade.common.phone')" min-width="140"></el-table-column>
-      <el-table-column prop="sysdtm" :label="$t('trade.common.tradeTime')" min-width="140"></el-table-column>
-      <el-table-column :label="$t('trade.common.tradeAmount')" min-width="140">
+      <el-table-column prop="sysdtm" :label="$t('trade.common.tradeTime')" min-width="170"></el-table-column>
+      <el-table-column :label="$t('trade.common.tradeAmount')" min-width="110">
         <template slot-scope="scope">
           <span>{{ scope.row.txamt | formatCurrency }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="ctime" :label="$t('trade.common.applyTime')" min-width="140"></el-table-column>
-      <el-table-column prop="refund_amt" :label="$t('trade.common.refundAmount')" min-width="140"></el-table-column>
-      <el-table-column prop="utime" :label="$t('trade.common.refundTime')" min-width="140"></el-table-column>
+      <el-table-column prop="ctime" :label="$t('trade.common.applyTime')" min-width="170"></el-table-column>
+      <el-table-column prop="refund_amt" :label="$t('trade.common.refundAmount')" min-width="100"></el-table-column>
+      <el-table-column prop="utime" :label="$t('trade.common.refundTime')" min-width="170"></el-table-column>
 
-      <el-table-column :label="$t('common.status')" min-width="80">
+      <el-table-column :label="$t('common.status')" min-width="150">
         <template slot-scope="scope">
-          <span @click="detail(scope.row)">{{ stateList[scope.row.state] }}</span>
+          <span @click="detail(scope.row)">{{ stateList[scope.row.status] }}</span>
         </template>
       </el-table-column>
 
     </el-table>
 
-    <div class="pagination_wrapper" v-if="refundList.cnt >= 1">
+    <div class="pagination_wrapper" v-if="refundList.total >= 1">
       <el-pagination
         ref="page"
         layout="total, sizes, prev, pager, next, jumper"
@@ -63,7 +63,7 @@
                :show-close="false" custom-class="singleLine-dialog" @close="handleClose">
       <el-form :model="formUser" :rules="userRules" ref="formUser">
         <el-form-item prop="syssn">
-          <el-input v-model="formUser.syssn" :disabled="isCreat" type="text" @change="getTrade">
+          <el-input v-model="formUser.syssn" :disabled="!isCreat" type="text" @change="getTrade">
             <template slot="prepend">{{ $t('trade.common.tradeSum') }}</template>
           </el-input>
         </el-form-item>
@@ -90,7 +90,7 @@
         </div>
         <div class="line-row">
           <span class="line-label">{{ $t('trade.common.tradeAmount') }}</span>
-          <div class="line-content">{{ tradeInfo.txamt | formatCurrency }}</div>
+          <div class="line-content">{{ tradeInfo.txamt }}</div>
         </div>
         <div class="line-row">
           <span class="line-label">{{ $t('trade.dialog.pay') }}</span>
@@ -99,7 +99,7 @@
 
         <div v-if="isCreat">
           <el-form-item prop="amount">
-            <el-input v-model="formUser.amount" type="text">
+            <el-input v-model="formUser.amount" type="text" :placeholder="$t('trade.dialog.tip3') + ' ' + (tradeInfo.m_refund || 0)">
               <template slot="prepend">{{ $t('trade.common.refundAmount') }}</template>
             </el-input>
           </el-form-item>
@@ -107,7 +107,7 @@
         <div v-else>
           <div class="line-row">
             <span class="line-label">{{ $t('common.status') }}</span>
-            <div class="line-content">{{ tradeInfo.state }}</div>
+            <div class="line-content">{{ stateList[tradeInfo.status] }}</div>
           </div>
           <el-form-item prop="remark">
             <el-input v-model="formUser.remark" type="text" disabled>
@@ -129,11 +129,20 @@
 <script>
   import axios from 'axios';
   import config from 'config';
-  import { formatData } from '../../common/js/util'
   import qs from 'qs';
 
   export default {
     data() {
+      let checkAmount = (rule, val, cb) => {
+        if(+val === 0) {
+          cb(this.$t('trade.dialog.tip2'));
+        }else if(+val > +this.tradeInfo.m_refund) {
+          cb(this.$t('trade.dialog.tip5'));
+        } else {
+          cb();
+        }
+      };
+
       return {
         loading: false,
         currentPage: 1,
@@ -153,7 +162,8 @@
           this.$t('common.agree'),
           this.$t('common.refuse'),
           this.$t('trade.common.refundSuc'),
-          this.$t('reade.common.refundFail'),
+          this.$t('trade.common.refundFail'),
+          this.$t('trade.common.refund'),
         ],
         refundList: {},
         formUser: {
@@ -166,7 +176,8 @@
             {required: true, message: this.$t('trade.dialog.tip1')}
           ],
           amount: [
-            {required: true, message: this.$t('trade.dialog.tip2')}
+            {required: true, message: this.$t('trade.dialog.tip2')},
+            { validator: checkAmount, trigger: 'change' }
           ],
         }
       }
@@ -177,6 +188,19 @@
         return this.$store.state.permissionData || [];
       }
     },
+
+    watch: {
+      'formUser.amount': function(val, old) {
+        if(val) {
+          if(!/^\d+(\.\d{0,2})?$/.test(val)) {
+            setTimeout(() => {
+              this.formUser.amount = old;
+            }, 10);
+          }
+        }
+      }
+    },
+
     created() {
       this.getData();
     },
@@ -189,7 +213,7 @@
             let form = this.formUser;
             let params = {
               syssn: form.syssn,
-              reund_amt: formatData(form.amount, 100),
+              reund_amt: form.amount,
               format: 'cors'
             };
 
@@ -234,10 +258,11 @@
       detail(row) {
         this.isCreat = false;
         this.showConfirm = true;
+        this.tradeInfo = row;
 
         Object.assign(this.formUser, {
           syssn: row.syssn,
-          remark: row.desc
+          remark: row.memo
         });
       },
 
@@ -252,6 +277,7 @@
 
       // 创建
       create() {
+        this.tradeInfo = {};
         this.isCreat = true;
         this.showConfirm = true;
       },
@@ -260,7 +286,7 @@
       getData() {
         if(!this.loading) {
           this.loading = true;
-          axios.get(`${config.host}/org/mchnt/api/list`, {
+          axios.get(`${config.host}/org/trade/refund/list`, {
             params: Object.assign({}, this.form, {
               page: this.currentPage - 1,
               page_size: this.pageSize,

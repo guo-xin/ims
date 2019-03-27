@@ -17,7 +17,6 @@ let switchlang = sessionStorage.getItem("oasbp_lang") || 'en-us';
 
 Vue.use(VueI18n)
 
-
 Vue.use(Container)
 Vue.use(Header)
 Vue.use(Aside)
