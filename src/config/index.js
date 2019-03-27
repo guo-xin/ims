@@ -1,28 +1,24 @@
 const env = process.env.NODE_ENV
-let host, ohost, region = 'HK', imgUpload = '';
+let host, region = 'HK', imgUpload = '';
 
 switch (env) {
   case 'test': // QA
     host = 'https://oasbp.qa.qfpay.net';
-    ohost = 'https://o.qa.qfpay.net';
     imgUpload = 'https://o2.qa.qfpay.net';
     break;
 
   case "development":
-    host = 'api'
-    ohost = 'https://o.qa.qfpay.net';
+    host = 'api';
     imgUpload = 'https://o2.qa.qfpay.net';
     break;
 
   default: // 线上正式
      host = 'https://ims-hk.qfapi.com';
-     ohost = 'https://o.qfpay.com';
      imgUpload = 'https://o2-hk.qfapi.com';
 }
 
 export default {
   host,
-  ohost,
   imgUpload,
   region,
   code: {

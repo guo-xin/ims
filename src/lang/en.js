@@ -19,10 +19,6 @@ const en = {
     done: 'Finish',
     close: 'Close',
     search: 'Search',
-    enable: 'Enable',
-    disable: 'Disable',
-    audit: 'Under Approval',
-    refuse: 'Reject',
     add: 'Add',
     reset: 'Reset',
     loading: 'Loading...',
@@ -41,6 +37,11 @@ const en = {
     cancel: 'Cancel',
     tip: 'Prompt',
     status: 'Status',
+    enable: 'Enable',
+    disable: 'Disable',
+    audit: 'Under Approval',
+    refuse: 'Reject',
+    agree: 'Pass',
     startTime: 'Starting Time',
     endTime: 'End Time',
     privata: 'Private',
@@ -53,7 +54,8 @@ const en = {
     CLOSE: 'CLOSE',
     SAVE: 'SAVE',
     EDIT: 'EDIT',
-    SWIFT: 'SWIFT'
+    SWIFT: 'SWIFT',
+    remark: 'Remark',
   },
   home: {
       all: 'All',
@@ -562,7 +564,7 @@ const en = {
       address1: 'Notification address',
       address2: 'Return address',
       tip1: 'Please enter a user ID',
-      tip2: 'Please Enter  Correct User-ID',
+      tip2: 'Please Enter Correct User-ID',
     }
   },
   shop: {
@@ -701,10 +703,21 @@ const en = {
   trade: {
     detail: 'Transaction Detail',
     total: 'Transaction Summary',
+    refundMsg: 'Refund Management',
+    refundCheck: 'Refund Audit',
+    btn: {
+      applyRefund: 'Apply Refund',
+    },
     common: {
       tradeDate: 'Trans Date',
       tradeTime: 'Transaction Time',
       inSameMonth: 'Transaction detail can only be queried within the same month',
+      tradeSum: 'Transaction ID',
+      phone: 'Contact Number',
+      applyTime: 'Application Time',
+      refundTime: 'Refund Time',
+      refundSuc: 'Refund success',
+      refundFail: 'Refund failed',
       sNum: 'Transaction ID',
       tradeType: 'Transaction Type',
       payPass: 'Payment Gateway',
@@ -729,7 +742,17 @@ const en = {
       count: 'Entries',
       pleaseSelect: 'Please choose ',
       noData: 'No data'
-    }
+    },
+    dialog: {
+      title1: 'Refund Details',
+      title2: 'Refund Application',
+      allRefund: 'Full Refund',
+      merchantId: 'Merchant ID',
+      pay: 'Payment Method',
+      btn1: 'Submit',
+      tip1: 'Please enter the Transaction ID.',
+      tip2: 'Please enter the refund amount',
+    },
   },
   agent: {
     agentName: 'Agent Name',
@@ -886,6 +909,20 @@ const en = {
       negative: "Transaction value can't be negative",
       decimal: 'Decimal with two digit only',
       numerical: 'Merchant ID with numerical value only'
+    },
+    refund: {
+      title: 'The management of merged refund white list',
+      title1: 'Add merged refund white list',
+      title2: 'The audit of merged refund white list',
+      title3: 'State management',
+      merchantId: 'Merchant ID',
+      merchantName: 'Merchant Name',
+      address: 'Address',
+      phone: 'Contact phone number',
+      joinTime: 'Join Time',
+      audit: 'Audit operation',
+      tip1: 'Please Enter a merchant ID',
+      tip2: 'Please Enter Correct merchant ID',
     }
   }
 }

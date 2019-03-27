@@ -1,4 +1,4 @@
-
+// 通用样式
 .el-dialog {
   width: 650px;
   margin-top: 10% !important;
@@ -24,6 +24,40 @@
     padding: 0 $midGap;
     .el-button + .el-button {
       margin-left: $midGap;
+    }
+  }
+}
+
+.el-dialog.singleLine-dialog {
+  margin-top: 10vh !important;
+  .el-form-item {
+    width: 100%;
+    .el-input-group__prepend {
+      border: 1px solid #dcdfe6;
+      padding: 0 20px;
+      line-height: 40px;
+      font-size: $lgSize;
+      color: $baseColor;
+    }
+    .el-input__inner {
+      line-height: 42px;
+      height: 42px !important;
+    }
+  }
+
+
+  .line-row {
+    font-size: $baseSize;
+    display: flex;
+    padding: 0 $midGap 22px;
+
+    .line-label {
+      color: $submenu-font-color;
+      width: 100px;
+      margin-left: $midGap;
+    }
+    .line-content {
+      color: $titleColor;
     }
   }
 }

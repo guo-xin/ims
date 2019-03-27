@@ -4,14 +4,14 @@
       <div class="header-left">
         <h2 class="page-title">{{ $t('system.refund.title') }}</h2>
       </div>
-      <div class="header-right" v-if="basicAuth.includes('api_manage_create')">
+      <div class="header-right" v-if="basicAuth.includes('refund_white_create')">
         <el-button size="large" type="primary" @click="create()">{{  $t('common.create') }}</el-button>
       </div>
     </header>
 
     <el-form class="search-form" ref="form" :model="form">
-      <el-form-item :label="$t('system.refund.merchantId')" prop="userId">
-        <el-input v-model="form.userId"></el-input>
+      <el-form-item :label="$t('system.refund.merchantId')" prop="userid">
+        <el-input v-model="form.userid"></el-input>
       </el-form-item>
 
       <div class="buttons">
@@ -21,18 +21,16 @@
     </el-form>
 
     <el-table :data="whiteList.infos" stripe v-loading="loading" class="table-hover">
-      <el-table-column prop="id" :label="$t('system.refund.merchantId')" min-width="150"></el-table-column>
-      <el-table-column prop="user_name" :label="$t('system.refund.merchantName')" min-width="90"></el-table-column>
-
-      <el-table-column prop="userId" :label="$t('system.refund.address')" min-width="80"></el-table-column>
-      <el-table-column prop="code" :label="$t('system.refund.phone')" min-width="140"></el-table-column>
-      <el-table-column prop="key" :label="$t('system.refund.joinTime')" min-width="140"></el-table-column>
+      <el-table-column prop="userid" :label="$t('system.refund.merchantId')" min-width="80"></el-table-column>
+      <el-table-column prop="name" :label="$t('system.refund.merchantName')" min-width="140"></el-table-column>
+      <el-table-column prop="address" :label="$t('system.refund.address')" min-width="80"></el-table-column>
+      <el-table-column prop="telephone" :label="$t('system.refund.phone')" min-width="140"></el-table-column>
+      <el-table-column prop="ctime" :label="$t('system.refund.joinTime')" min-width="140"></el-table-column>
       <el-table-column prop="memo" :label="$t('common.remark')" min-width="80"></el-table-column>
 
       <el-table-column :label="$t('common.status')" min-width="80">
         <template slot-scope="scope">
-          <!--<span></span>-->
-          <el-button type="text" @click="detail(scope.row)">{{ $t('common.detail') }}</el-button>
+          <span @click="detail(scope.row)">{{ stateList[scope.row.status] }}</span>
         </template>
       </el-table-column>
 
@@ -55,8 +53,8 @@
                :show-close="false" @close="handleClose">
       <el-form :model="formUser" :rules="userRules" ref="formUser">
         <div class="dialog-row">
-          <el-form-item prop="userId" :label="$t('system.refund.merchantId')">
-            <el-input :disabled="flag !== 1" v-model="formUser.userId" type="text" @change="getName"></el-input>
+          <el-form-item prop="userid" :label="$t('system.refund.merchantId')">
+            <el-input :disabled="flag !== 1" v-model="formUser.userid" type="text" @change="getName"></el-input>
           </el-form-item>
           <el-form-item prop="userName" :label="$t('system.refund.merchantName')">
             <el-input disabled v-model="formUser.userName" type="text"></el-input>
@@ -64,29 +62,29 @@
         </div>
 
         <div class="dialog-row">
-          <el-form-item v-if="flag === 2" prop="return_url" :label="$t('system.refund.audit')">
+          <el-form-item v-if="flag === 2" prop="status" :label="flag === 2 ? $t('system.refund.audit') : $t('common.status')">
+            <el-select :disabled="flag === 4" v-model="formUser.status" :placeholder="$t('common.choose')">
+              <el-option :label="$t('common.agree')" value=2></el-option>
+              <el-option :label="$t('common.refuse')" value=3></el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item v-if="flag === 3" prop="status" :label="$t('common.status')">
             <el-select v-model="formUser.status" :placeholder="$t('common.choose')">
-              <el-option :label="$t('common.agree')" value=1></el-option>
-              <el-option :label="$t('common.refuse')" value=9></el-option>
+              <el-option :label="$t('common.enable')" value=2></el-option>
+              <el-option :label="$t('common.disable')" value=0></el-option>
             </el-select>
           </el-form-item>
 
-          <el-form-item v-if="flag === 3" prop="return_url" :label="$t('common.status')">
-            <el-select disabled v-model="formUser.status" :placeholder="$t('common.choose')">
-              <el-option :label="$t('common.enable')" value=1></el-option>
-              <el-option :label="$t('common.disable')" value=1></el-option>
-            </el-select>
-          </el-form-item>
-
-          <el-form-item v-if="flag !== 3" prop="notify_url" :label="$t('common.remark')">
-            <el-input v-model="formUser.remark" type="text"></el-input>
+          <el-form-item v-if="flag !== 3" prop="memo" :label="$t('common.remark')">
+            <el-input :disabled="flag === 4" v-model="formUser.memo" type="text"></el-input>
           </el-form-item>
         </div>
       </el-form>
       <div class="divider"></div>
       <div slot="footer" class="dialog-footer">
-        <el-button type="text" class="text-button" @click="showConfirm = false">{{ $t('common.cancel') }}</el-button>
-        <el-button type="text" :loading="iconLoading" class="text-button" @click="confirm">{{ flag === 3 ? $t('common.edit') : $t('common.save') }}</el-button>
+        <el-button type="text" class="text-button" @click="showConfirm = false">{{ flag === 4 ? $t('common.close') : $t('common.cancel') }}</el-button>
+        <el-button v-if="flag !== 4" type="text" :loading="iconLoading" class="text-button" @click="confirm">{{ flag === 3 ? $t('common.edit') : $t('common.save') }}</el-button>
       </div>
     </el-dialog>
 
@@ -96,7 +94,6 @@
 <script>
   import axios from 'axios';
   import config from 'config';
-  import Store from '../../assets/js/store';
   import qs from 'qs';
 
   export default {
@@ -105,22 +102,27 @@
         loading: false,
         currentPage: 1,
         pageSize: 10,
-        flag: 1, // 1创建2审核3状态
+        flag: 1, // 1创建2审核3编辑状态4查看
         showConfirm: false,
         iconLoading: false,
-        id: '',
         form: {
-          userId: ''
+          userid: ''
         },
+        stateList: [
+          this.$t('common.disable'),
+          this.$t('common.audit'),
+          this.$t('common.enable'),
+          this.$t('common.refuse')
+        ],
         whiteList: {},
         formUser: {
-          userId: '',
+          userid: '',
           userName: '',
           status: '',
-          remark: '',
+          memo: '',
         },
         userRules: {
-          userId: [
+          userid: [
             {required: true, message: this.$t('system.refund.tip1')}
           ]
         }
@@ -136,7 +138,7 @@
       this.getData();
     },
     methods: {
-      //
+      // 点击确定
       confirm() {
         this.$refs['formUser'].validate((valid) => {
           if (valid && !this.iconLoading) {
@@ -144,7 +146,6 @@
               this.$message.error(this.$t('system.refund.tip2'));
               return;
             }
-
             this.save()
           }
         })
@@ -155,23 +156,30 @@
         let [params, url] = [];
         let form = this.formUser;
 
-        if (this.isCreat) {
+        if(this.flag === 1) {
           params = {
-            userid: form.userId,
-            notify_url: form.userName,
-            return_url: form.status,
-            memo: form.remark
+            userid: form.userid,
+            memo: form.memo,
+            format: 'cors'
           };
-          url = 'org/mchnt/api/create';
-        } else {
+          url = 'org/refund_white/create';
+        }else if(this.flag === 2) {
           params = {
-            id: this.id,
-            notify_url: form.notify_url,
-            return_url: form.return_url,
-            memo: form.memo
+            userid: form.userid,
+            audit: form.status,
+            memo: form.memo,
+            format: 'cors'
           };
-          url = 'org/mchnt/api/edit';
+          url = 'org/refund_white/audit';
+        }else {
+          params = {
+            userid: form.userid,
+            status: form.status === '2' ? 1 : 0,
+            format: 'cors'
+          };
+          url = 'org/refund_white/edit';
         }
+
         axios.post(`${config.host}/${url}`, qs.stringify(params))
         .then((res) => {
           this.iconLoading = false;
@@ -207,27 +215,38 @@
       },
 
       detail(row) {
-        if(this.basicAuth.includes('api_manage_edit')) {
+        let st = false;
+        if((row.status === 0 || row.status === 2) && this.basicAuth.includes('api_manage_edit')) {
+          this.flag = 3;
+          st = true;
+        } else if(row.status === 1 && this.basicAuth.includes('refund_white_audit')) {
           this.flag = 2;
+          st = true;
+        }else if(row.status === 3) {
+          this.flag = 4;
+          Object.assign(this.formUser, {
+            status: row.status + '',
+          });
+          st = true;
+        }
+        if(st) {
           this.showConfirm = true;
 
-          this.id = row.id;
           Object.assign(this.formUser, {
             userid: row.userid,
-            notify_url: row.notify_url,
-            return_url: row.return_url,
+            userName: row.name,
             memo: row.memo
           });
-          this.getName(row.userid);
         }
+
       },
 
       handleClose() {
         this.formUser = {
-          userId: '',
+          userid: '',
           userName: '',
           status: '',
-          remark: ''
+          memo: '',
         };
         this.$refs['formUser'].resetFields();
       },
@@ -242,7 +261,7 @@
       getData() {
         if(!this.loading) {
           this.loading = true;
-          axios.get(`${config.host}/org/mchnt/api/list`, {
+          axios.get(`${config.host}/org/refund_white/list`, {
             params: Object.assign({}, this.form, {
               page: this.currentPage - 1,
               page_size: this.pageSize,
@@ -279,7 +298,7 @@
 
       // 查用户名称
       getName(val) {
-        axios.get(`${config.host}/org/tools/submchnt_agent_name`, {
+        axios.get(`${config.host}/org/tools/bigmerchnt_name`, {
           params: {
             userid: val,
             format: 'cors'
@@ -300,9 +319,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-.whiteList {
-
-}
-</style>

@@ -117,11 +117,15 @@ const formatData = (arg1, arg2) => {
 }
 
 const formatLength = (val) => {
-  let len;
+  let [len, fit] = ['', ''];
   let num = (val || 0).toString();
   if(num && num.indexOf('.') > -1) {
     len = num.split('.')[1];
     num = num.split('.')[0];
+  }
+  if(num && num.indexOf('-') > -1) {
+    fit = '-';
+    num = num.split('-')[1];
   }
 
   let result = '';
@@ -132,7 +136,7 @@ const formatLength = (val) => {
   if (num) {
     result = num + result;
   }
-  return len ? `${result}.${len}` : result;
+  return len ? `${fit}${result}.${len}` : `${fit}${result}`;
 };
 
 const getCookie = (sName) => {

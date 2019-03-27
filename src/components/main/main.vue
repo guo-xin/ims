@@ -98,6 +98,8 @@
       api_manage_list: ["2", "2-4"], // API管理
       trade_detail_list: ["3", "3-1"], // 交易明细
       trade_summary_list: ["3", "3-2"], // 交易汇总
+      refund_list: ["3", "3-3"], // 退款管理
+      refund_audit_list: ["3", "3-4"], // 退款审核
       agent_manage_list: ["4", "4-1"],
       clearing_detail_list: ["5", "5-1"], // 清分明细
       clearing_summary_list: ["5", "5-2"], // 清分汇总
@@ -108,7 +110,8 @@
       perm_role_list: ["6", "6-2"], // 角色管理
       salesman_manage_list: ["7", "7-1"],
       operation_logs_list: ["8", "8-1"], // 系统日志
-      transaction_limit_list: ["8", "8-2"] // 商户交易额度管理
+      transaction_limit_list: ["8", "8-2"], // 商户交易额度管理
+      refund_white_list: ["8", "8-3"], // 合并退款白名单管理
     }
   export default {
     data() {

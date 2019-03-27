@@ -8,6 +8,8 @@ import agencyDetail from 'components/agency/detail'
 import agencyModify from 'components/agency/modify'
 import tradeList from 'components/trade/list'
 import tradeTotal from 'components/trade/total'
+import refundManage from 'components/trade/refund'
+import refundCheck from 'components/trade/check'
 import roleList from 'components/authority/roleList'
 import roleModify from 'components/authority/modify'
 import userList from 'components/authority/userList'
@@ -33,6 +35,7 @@ import createSalesman from 'components/salesman/createSalesman'
 import salesDetail from 'components/salesman/salesDetail'
 import logList from 'components/system/logList'
 import tradeLimit from 'components/system/tradeLimit'
+import whiteList from 'components/system/whiteList'
 
 Vue.use(Router)
 
@@ -142,6 +145,18 @@ export default new Router({
           name: 'tradeTotal',
           component: tradeTotal
         },
+
+        {
+          path: 'refund_list',
+          name: 'refundManage',
+          component: refundManage
+        },
+        {
+          path: 'refund_audit_list',
+          name: 'refundCheck',
+          component: refundCheck
+        },
+
         {
           path: 'perm_role_list',
           name: 'roleList',
@@ -216,6 +231,12 @@ export default new Router({
           path: 'transaction_limit_list',
           name: 'tradeLimit',
           component: tradeLimit
+        },
+
+        {
+          path: 'refund_white_list',
+          name: 'whiteList',
+          component: whiteList
         }
       ]
     }

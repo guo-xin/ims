@@ -110,8 +110,8 @@ form.el-form {
   }
 }
 
-.el-form-item__label {
-  float:none !important;
+.el-form-item .el-form-item__label {
+  float:none;
   font-size: 14px !important;
   color: rgba(113,114,131,1);
   line-height: 30px;

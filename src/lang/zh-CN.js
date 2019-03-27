@@ -39,6 +39,7 @@ const zh = {
     disable: '停用',
     audit: '待审核',
     refuse: '驳回',
+    agree: '通过',
     startTime: '开始时间',
     endTime: '结束时间',
     privata: '对私',
@@ -51,7 +52,8 @@ const zh = {
     SAVE: '保存',
     CLOSE: '关闭',
     EDIT: '编辑',
-    SWIFT: 'SWIFT'
+    SWIFT: 'SWIFT',
+    remark: '备注',
   },
   home: {
     all: '全部',
@@ -655,10 +657,21 @@ const zh = {
   trade: {
     detail: '交易明细',
     total: '交易汇总',
+    refundMsg: '退款管理',
+    refundCheck: '退款审核',
+    btn: {
+      applyRefund: '申请退款',
+    },
     common: {
       tradeDate: '交易日期',
       tradeTime: '交易时间',
       inSameMonth: '交易信息不可跨月查询',
+      tradeSum: '交易流水号',
+      phone: '联系电话',
+      applyTime: '申请时间',
+      refundTime: '退款时间',
+      refundSuc: '退款成功',
+      refundFail: '退款失败',
       sNum: '流水号',
       tradeType: '交易类型',
       payPass: '支付通道',
@@ -683,7 +696,17 @@ const zh = {
       count: '笔数',
       pleaseSelect: '请选择',
       noData: '暂无数据'
-    }
+    },
+    dialog: {
+      title1: '退款详情',
+      title2: '退款申请',
+      allRefund: '全额退款',
+      merchantId: '商户ID',
+      pay: '支付方式',
+      btn1: '提交申请',
+      tip1: '请输入交易流水号',
+      tip2: '请输入退款金额',
+    },
   },
   agent: {
     agentName: '代理商名称',
@@ -840,6 +863,20 @@ const zh = {
       negative: '交易额不能为负数',
       decimal: '只支持小数点后两位的数值格式',
       numerical: '商户ID只支持数值格式'
+    },
+    refund: {
+      title: '合并退款白名单管理',
+      title1: '添加合并退款白名单',
+      title2: '合并退款白名单审核',
+      title3: '状态管理',
+      merchantId: '商户ID',
+      merchantName: '商户名称',
+      address: '地址',
+      phone: '联系电话',
+      joinTime: '加入时间',
+      audit: '审核操作',
+      tip1: '请输入商户ID',
+      tip2: '请输入商户名称',
     }
   }
 }

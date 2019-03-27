@@ -61,7 +61,7 @@
     </div>
     <div class="table_placeholder" v-else></div>
 
-    <el-dialog :title="$t('merchant.api.userInfo') " :visible.sync="showConfirm" top="20%"
+    <el-dialog :title="$t('merchant.api.userInfo') " :visible.sync="showConfirm"
                :show-close="false" @close="handleClose">
       <el-form :model="formUser" :rules="userRules" ref="formUser">
         <div class="dialog-row">
@@ -102,7 +102,6 @@
 <script>
   import axios from 'axios';
   import config from 'config';
-  import Store from '../../assets/js/store';
   import qs from 'qs';
 
   export default {
@@ -178,7 +177,8 @@
             userid: form.userid,
             notify_url: form.notify_url,
             return_url: form.return_url,
-            memo: form.memo
+            memo: form.memo,
+            format: 'cors'
           };
           url = 'org/mchnt/api/create';
         } else {
@@ -186,7 +186,8 @@
             id: this.id,
             notify_url: form.notify_url,
             return_url: form.return_url,
-            memo: form.memo
+            memo: form.memo,
+            format: 'cors'
           };
           url = 'org/mchnt/api/edit';
         }
