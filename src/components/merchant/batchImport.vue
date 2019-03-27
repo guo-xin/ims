@@ -8,7 +8,7 @@
       <div class="note">
         {{$t('batch.tip.txt')}}
         <el-button type="text" @click="dialogVisible = true">{{$t('batch.tip.ins')}}</el-button>&nbsp;{{$t('batch.tip.and')}}
-        <a class="download-temp" href="static/excel/batch_template.xlsx" target="_self">{{$t('batch.tip.template')}}</a>
+        <a class="download-temp" download="batch_template.xlsx" :href="`static/excel/batch_template_${lang}.xlsx`" target="_self">{{$t('batch.tip.template')}}</a>
         <el-dialog
           :title="$t('batch.tip.title')"
           :visible.sync="dialogVisible"
@@ -118,11 +118,12 @@
           fileid: '',
           dir_name: '',
           file_name_new: ''
-        }
+        },
+        lang: ''
       }
     },
     created() {
-
+      this.lang = sessionStorage.getItem("oasbp_lang") || 'en-us';
     },
     methods: {
       commitHandler() {
