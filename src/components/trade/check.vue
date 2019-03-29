@@ -34,7 +34,7 @@
       <el-table-column prop="ctime" :label="$t('trade.common.applyTime')" min-width="170"></el-table-column>
       <el-table-column prop="refund_amt" :label="$t('trade.common.refundAmount')" min-width="100"></el-table-column>
 
-      <el-table-column :label="$t('common.status')" min-width="150">
+      <el-table-column :label="$t('common.status')" min-width="150" fixed="right">
         <template slot-scope="scope">
           <el-button type="text" @click="detail(scope.row)">{{ $t('common.audit') }}</el-button>
         </template>
@@ -48,7 +48,7 @@
         layout="total, sizes, prev, pager, next, jumper"
         :page-size="pageSize"
         @size-change="handleSizeChange"
-        :total="refundList.cnt"
+        :total="refundList.total"
         @current-change="currentChange"
         :current-page="currentPage">
       </el-pagination>

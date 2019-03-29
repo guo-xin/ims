@@ -38,7 +38,7 @@
       <el-table-column prop="refund_amt" :label="$t('trade.common.refundAmount')" min-width="100"></el-table-column>
       <el-table-column prop="utime" :label="$t('trade.common.refundTime')" min-width="170"></el-table-column>
 
-      <el-table-column :label="$t('common.status')" min-width="150">
+      <el-table-column :label="$t('common.status')" min-width="150" fixed="right">
         <template slot-scope="scope">
           <span @click="detail(scope.row)">{{ stateList[scope.row.status] }}</span>
         </template>
@@ -52,7 +52,7 @@
         layout="total, sizes, prev, pager, next, jumper"
         :page-size="pageSize"
         @size-change="handleSizeChange"
-        :total="refundList.cnt"
+        :total="refundList.total"
         @current-change="currentChange"
         :current-page="currentPage">
       </el-pagination>
