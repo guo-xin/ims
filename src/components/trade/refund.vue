@@ -10,7 +10,7 @@
     </header>
 
     <el-form class="search-form" ref="form" :model="form">
-      <el-form-item :label="$t('trade.common.tradeSum')" prop="syssn">
+      <el-form-item :label="$t('trade.common.tradeSum')" prop="syssn" style="width: 280px">
         <el-input v-model="form.syssn"></el-input>
       </el-form-item>
       <el-form-item :label="$t('trade.common.merchantName')" prop="name">
@@ -323,21 +323,23 @@
 
       // 查询交易
       getTrade(val) {
-        axios.get(`${config.host}/org/tools/syssn_infos`, {
-          params: {
-            syssn: val,
-            format: 'cors'
-          }
-        }).then((res) => {
-          let data = res.data;
-          if(data.respcd === config.code.OK) {
-            this.tradeInfo = data.data || {};
-          } else {
-            this.$message.error(data.resperr);
-          }
-        }).catch(() => {
-          this.$message.error(this.$t('common.netError'));
-        });
+        if(val !== '') {
+          axios.get(`${config.host}/org/tools/syssn_infos`, {
+            params: {
+              syssn: val,
+              format: 'cors'
+            }
+          }).then((res) => {
+            let data = res.data;
+            if(data.respcd === config.code.OK) {
+              this.tradeInfo = data.data || {};
+            } else {
+              this.$message.error(data.resperr);
+            }
+          }).catch(() => {
+            this.$message.error(this.$t('common.netError'));
+          });
+        }
       },
 
     }

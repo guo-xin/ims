@@ -299,22 +299,24 @@
 
       // 查用户名称
       getName(val) {
-        axios.get(`${config.host}/org/tools/submchnt_agent_name`, {
-          params: {
-            userid: val,
-            format: 'cors'
-          }
-        }).then((res) => {
-          let data = res.data;
-          if(data.respcd === config.code.OK) {
-            let ob = data.data || {};
-            this.formUser.userName = ob.name;
-          } else {
-            this.$message.error(data.resperr);
-          }
-        }).catch(() => {
-          this.$message.error(this.$t('common.netError'));
-        });
+        if(val !== '') {
+          axios.get(`${config.host}/org/tools/submchnt_agent_name`, {
+            params: {
+              userid: val,
+              format: 'cors'
+            }
+          }).then((res) => {
+            let data = res.data;
+            if(data.respcd === config.code.OK) {
+              let ob = data.data || {};
+              this.formUser.userName = ob.name;
+            } else {
+              this.$message.error(data.resperr);
+            }
+          }).catch(() => {
+            this.$message.error(this.$t('common.netError'));
+          });
+        }
       },
 
     }

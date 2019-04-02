@@ -63,7 +63,7 @@
 
         <div class="dialog-row">
           <el-form-item v-if="flag === 2" prop="status" :label="flag === 2 ? $t('system.refund.audit') : $t('common.status')">
-            <el-select :disabled="flag === 4" v-model="formUser.status" :placeholder="$t('common.choose')">
+            <el-select v-model="formUser.status" :placeholder="$t('common.choose')">
               <el-option :label="$t('common.agree')" value=2></el-option>
               <el-option :label="$t('common.refuse')" value=3></el-option>
             </el-select>
@@ -142,9 +142,6 @@
       confirm() {
         this.$refs['formUser'].validate((valid) => {
           if (valid && !this.iconLoading) {
-            if(!this.formUser.userName) {
-              return;
-            }
             this.save()
           }
         })
@@ -193,7 +190,7 @@
             this.handleSizeChange();
 
           } else {
-            this.showConfirm = false;
+            // this.showConfirm = false;
             this.$message.error(data.resperr);
           }
         }).catch(() => {
@@ -217,15 +214,15 @@
         let st = false;
         if((row.status === 0 || row.status === 2) && this.basicAuth.includes('api_manage_edit')) {
           this.flag = 3;
+          Object.assign(this.formUser, {
+            status: row.status + '',
+          });
           st = true;
         } else if(row.status === 1 && this.basicAuth.includes('refund_white_audit')) {
           this.flag = 2;
           st = true;
         }else if(row.status === 3) {
           this.flag = 4;
-          Object.assign(this.formUser, {
-            status: row.status + '',
-          });
           st = true;
         }
         if(st) {
@@ -297,22 +294,24 @@
 
       // 查用户名称
       getName(val) {
-        axios.get(`${config.host}/org/tools/bigmerchnt_name`, {
-          params: {
-            userid: val,
-            format: 'cors'
-          }
-        }).then((res) => {
-          let data = res.data;
-          if(data.respcd === config.code.OK) {
-            let ob = data.data || {};
-            this.formUser.userName = ob.name;
-          } else {
-            this.$message.error(data.resperr);
-          }
-        }).catch(() => {
-          this.$message.error(this.$t('common.netError'));
-        });
+        if(val !== '') {
+          axios.get(`${config.host}/org/tools/bigmerchnt_name`, {
+            params: {
+              userid: val,
+              format: 'cors'
+            }
+          }).then((res) => {
+            let data = res.data;
+            if(data.respcd === config.code.OK) {
+              let ob = data.data || {};
+              this.formUser.userName = ob.name;
+            } else {
+              this.$message.error(data.resperr);
+            }
+          }).catch(() => {
+            this.$message.error(this.$t('common.netError'));
+          });
+        }
       },
 
     }

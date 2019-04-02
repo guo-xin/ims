@@ -7,7 +7,7 @@
     </header>
 
     <el-form class="search-form" ref="form" :model="form">
-      <el-form-item :label="$t('trade.common.tradeSum')" prop="syssn">
+      <el-form-item :label="$t('trade.common.tradeSum')" prop="syssn" style="width: 280px">
         <el-input v-model="form.syssn"></el-input>
       </el-form-item>
       <el-form-item :label="$t('trade.common.merchantName')" prop="name">
@@ -55,7 +55,7 @@
     </div>
     <div class="table_placeholder" v-else></div>
 
-    <el-dialog :title="$t('trade.refundCheck')" :visible.sync="showConfirm"
+    <el-dialog :title="$t('trade.dialog.title3')" :visible.sync="showConfirm"
                :show-close="false" center custom-class="singleLine-dialog" @close="handleClose">
       <el-form :model="formUser" ref="formUser">
         <div class="line-row">

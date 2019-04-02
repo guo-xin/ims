@@ -658,7 +658,7 @@ const zh = {
     detail: '交易明细',
     total: '交易汇总',
     refundMsg: '退款管理',
-    refundCheck: '退款审核',
+    refundCheck: '退款审核管理',
     btn: {
       applyRefund: '申请退款',
     },
@@ -700,6 +700,7 @@ const zh = {
     dialog: {
       title1: '退款详情',
       title2: '退款申请',
+      title3: '退款审核',
       allRefund: '全额退款',
       merchantId: '商户ID',
       pay: '支付方式',

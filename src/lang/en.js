@@ -704,7 +704,7 @@ const en = {
     detail: 'Transaction Detail',
     total: 'Transaction Summary',
     refundMsg: 'Refund Management',
-    refundCheck: 'Refund Audit',
+    refundCheck: 'Refund Audit Management',
     btn: {
       applyRefund: 'Apply Refund',
     },
@@ -746,6 +746,7 @@ const en = {
     dialog: {
       title1: 'Refund Details',
       title2: 'Refund Application',
+      title3: 'Refund Audit',
       allRefund: 'Full Refund',
       merchantId: 'Merchant ID',
       pay: 'Payment Method',
