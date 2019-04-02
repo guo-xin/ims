@@ -873,6 +873,7 @@ const zh = {
       title1: '添加合并退款白名单',
       title2: '合并退款白名单审核',
       title3: '状态管理',
+      title4: '合并退款白名单详情',
       merchantId: '商户ID',
       merchantName: '商户名称',
       address: '地址',

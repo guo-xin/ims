@@ -143,7 +143,6 @@
         this.$refs['formUser'].validate((valid) => {
           if (valid && !this.iconLoading) {
             if(!this.formUser.userName) {
-              this.$message.error(this.$t('system.refund.tip2'));
               return;
             }
             this.save()

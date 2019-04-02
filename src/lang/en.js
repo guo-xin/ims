@@ -919,6 +919,7 @@ const en = {
       title1: 'Add Merged Refund White List',
       title2: 'The Audit Of Merged Refund White List',
       title3: 'State Management',
+      title4: 'Merged Refund White List Details',
       merchantId: 'Merchant ID',
       merchantName: 'Merchant Name',
       address: 'Address',
