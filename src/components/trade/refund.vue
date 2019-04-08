@@ -231,7 +231,7 @@
                   this.handleSizeChange();
 
                 } else {
-                  this.showConfirm = false;
+                  // this.showConfirm = false;
                   this.$message.error(data.resperr);
                 }
               }).catch(() => {
