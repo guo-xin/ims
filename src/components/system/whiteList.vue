@@ -62,7 +62,7 @@
         </div>
 
         <div class="dialog-row">
-          <el-form-item v-if="flag === 2" prop="status" :label="flag === 2 ? $t('system.refund.audit') : $t('common.status')">
+          <el-form-item v-if="flag === 2" prop="status" :label="$t('system.refund.audit')">
             <el-select v-model="formUser.status" :placeholder="$t('common.choose')">
               <el-option :label="$t('common.agree')" value=2></el-option>
               <el-option :label="$t('common.refuse')" value=3></el-option>
@@ -77,14 +77,14 @@
           </el-form-item>
 
           <el-form-item v-if="flag !== 3" prop="memo" :label="$t('common.remark')">
-            <el-input :disabled="flag === 4" v-model="formUser.memo" type="text"></el-input>
+            <el-input v-model="formUser.memo" type="text"></el-input>
           </el-form-item>
         </div>
       </el-form>
       <div class="divider"></div>
       <div slot="footer" class="dialog-footer">
-        <el-button type="text" class="text-button" @click="showConfirm = false">{{ flag === 4 ? $t('common.close') : $t('common.cancel') }}</el-button>
-        <el-button v-if="flag !== 4" type="text" :loading="iconLoading" class="text-button" @click="confirm">{{ flag === 3 ? $t('common.edit') : $t('common.save') }}</el-button>
+        <el-button type="text" class="text-button" @click="showConfirm = false">{{ $t('common.cancel') }}</el-button>
+        <el-button type="text" :loading="iconLoading" class="text-button" @click="confirm">{{ flag === 3 ? $t('common.edit') : $t('common.save') }}</el-button>
       </div>
     </el-dialog>
 
@@ -102,7 +102,7 @@
         loading: false,
         currentPage: 1,
         pageSize: 10,
-        flag: 1, // 1创建2审核3编辑状态4查看
+        flag: 1, // 1创建2审核3编辑状态
         showConfirm: false,
         iconLoading: false,
         form: {
@@ -211,29 +211,33 @@
       },
 
       detail(row) {
-        let st = false;
-        if((row.status === 0 || row.status === 2) && this.basicAuth.includes('api_manage_edit')) {
-          this.flag = 3;
-          Object.assign(this.formUser, {
-            status: row.status + '',
-          });
-          st = true;
-        } else if(row.status === 1 && this.basicAuth.includes('refund_white_audit')) {
-          this.flag = 2;
-          st = true;
-        }else if(row.status === 3) {
-          this.flag = 4;
-          st = true;
+        if(row.status === 1 || row.status === 3) {
+          if(this.basicAuth.includes('refund_white_audit')) {
+            this.flag = 2;
+            row.status === 3 && Object.assign(this.formUser, {
+              status: row.status + '',
+            });
+          }else {
+            return;
+          }
+        }else {
+          if(this.basicAuth.includes('api_manage_edit')) {
+            this.flag = 3;
+            Object.assign(this.formUser, {
+              status: row.status + '',
+            });
+          }else {
+            return;
+          }
         }
-        if(st) {
-          this.showConfirm = true;
 
-          Object.assign(this.formUser, {
-            userid: row.userid,
-            userName: row.name,
-            memo: row.memo
-          });
-        }
+        this.showConfirm = true;
+
+        Object.assign(this.formUser, {
+          userid: row.userid,
+          userName: row.name,
+          memo: row.memo
+        });
 
       },
 
