@@ -1,20 +1,14 @@
 const env = process.env.NODE_ENV
 let host, region = 'HK', imgUpload = '';
 
-switch (env) {
-  case 'test': // QA
-    host = 'https://oasbp.qa.qfpay.net';
-    imgUpload = 'https://o2.qa.qfpay.net';
-    break;
-
-  case "development":
-    host = 'api';
-    imgUpload = 'https://o2.qa.qfpay.net';
-    break;
-
-  default: // 线上正式
-     host = 'https://ims-hk.qfapi.com';
-     imgUpload = 'https://o2-hk.qfapi.com';
+if(env === 'development') {
+  host = 'api';
+  imgUpload = 'https://o2.qa.qfpay.net';
+}else {
+  let u = location.hostname;
+  let pro = location.protocol;
+  host = `${pro}//${u}`;
+  imgUpload = `${pro}//${u.replace(/(ims|oasbp)/, 'o2')}`
 }
 
 export default {
