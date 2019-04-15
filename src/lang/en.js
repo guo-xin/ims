@@ -32,6 +32,7 @@ const en = {
     look: 'View',
     detail: 'Detail',
     range: 'Select Date Range',
+    chooseDate: 'Select Date',
     sure: 'Are you sure?',
     confirm: 'Determine',
     cancel: 'Cancel',

@@ -30,6 +30,7 @@ const zh = {
     look: '查看',
     detail: '详情',
     range: '选择时间范围',
+    chooseDate: '选择日期',
     sure: '请确定是否当前操作？',
     confirm: '确定',
     cancel: '取消',
