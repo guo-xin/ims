@@ -41,6 +41,7 @@ const en = {
     enable: 'Enable',
     disable: 'Disable',
     audit: 'Under Approval',
+    toSubmit: 'Waiting For Application',
     refuse: 'Reject',
     agree: 'Pass',
     startTime: 'Starting Time',
@@ -257,6 +258,8 @@ const en = {
       mchtname: 'Merchant Name',
       address: 'Address',
       mobile: 'Contact Number',
+      source: 'Merchant Source',
+      type: 'Merchant Type',
       agent1: 'Agent Name',
       agent2: '2nd-tier Agent',
       account: 'Account Name',
@@ -270,12 +273,15 @@ const en = {
       wechatpay: 'WeChat Pay'
     },
     payment: {
+      title: 'Payment Channel',
       configured: "Configured",
       nonconfigured: "Non-Configured",
       radio1: 'First Clean',
       radio2: 'Second Clean',
       merchantID2: 'Channel Merchant No.',
       merchChildID2: 'Channel Sub-Merchant No.',
+      type: 'Online&in Store/Application Type',
+      desc: 'Onboarding Status/Description',
       merchantID1: 'Merchant No.',
       merchChildID1: 'Sub-Merchant No.',
       merchantPass1: 'Merchant key'

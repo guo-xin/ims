@@ -39,6 +39,7 @@ const zh = {
     enable: '启用',
     disable: '停用',
     audit: '待审核',
+    toSubmit: '待提交',
     refuse: '驳回',
     agree: '通过',
     startTime: '开始时间',
@@ -250,6 +251,7 @@ const zh = {
       audit_state: '商户状态'
     },
     payment: {
+      title: '支付通道',
       configured: "已配置",
       nonconfigured: "未配置",
       merchantID1: '商户号',
@@ -257,6 +259,8 @@ const zh = {
       merchantPass1: '商户秘钥',
       merchantID2: '通道商号',
       merchChildID2: '通道子商户号',
+      type: '接入类型/应用类型',
+      desc: '进件状态/描述',
       radio1: '一清',
       radio2: '二清',
       rule1: "请选择商户号",
@@ -268,6 +272,8 @@ const zh = {
       mchtname: '商户名称',
       address: '商户地址',
       mobile: '联系电话',
+      source: '商户来源',
+      type: '商户类型',
       agent1: '所属机构',
       account: '账户名称',
       industry: '行业',
@@ -277,7 +283,8 @@ const zh = {
       payment: '支付配置',
       pid: '服务商号',
       wechatM: '微信商户号',
-      wechatpay: '微信支付'
+      wechatpay: '微信支付',
+
     },
     detail: {
       up: '启用',
