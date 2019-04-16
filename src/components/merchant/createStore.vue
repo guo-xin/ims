@@ -13,6 +13,10 @@
         <el-input v-model.trim="storeModel.shopname"></el-input>
       </el-form-item>
 
+      <el-form-item prop="short_name" :label="$t('shop.newStore.model.short_name')">
+        <el-input v-model.trim="storeModel.short_name"></el-input>
+      </el-form-item>
+
       <el-form-item prop="address" :label="$t('shop.newStore.model.storeaddress')">
         <el-input v-model.trim="storeModel.address"></el-input>
       </el-form-item>
@@ -223,6 +227,7 @@
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
         storeModel: {
           big_uid: '',
+          short_name: '',
           shopname: '',
           address: '',
           telephone: '',
@@ -249,6 +254,9 @@
           'shopname': [
             {required: true, message: this.$t('shop.newStore.rule1'), trigger: 'blur'},
             {max: 60, min: 0, message: this.$t('merchant.newMerchant.rule10'), trigger: 'blur'}
+          ],
+          'short_name': [
+            {required: true, message: this.$t('shop.newStore.rule5'), trigger: 'blur'}
           ],
           'address': [
             {required: true, message: this.$t('shop.newStore.rule2'), trigger: 'blur'},
@@ -334,6 +342,7 @@
 
               let da =  data.data;
               Object.assign(this.storeModel, {
+                short_name: da.userinfo.short_name,
                 shopname: da.userinfo.shopname,
                 address: da.userinfo.address,
                 telephone: da.userinfo.telephone,
