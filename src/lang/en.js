@@ -57,7 +57,7 @@ const en = {
     SAVE: 'SAVE',
     EDIT: 'EDIT',
     SWIFT: 'SWIFT',
-    remark: 'Remark',
+    remark: 'Remark'
   },
   home: {
       all: 'All',
@@ -328,12 +328,15 @@ const en = {
         la13: 'BR Number:',
         la14: 'BR Validity:',
         la15: 'CI Number:',
-        la16: 'CI Validity:',
+        // la16: 'CI Validity:',
+        la16: 'Register Address:',
         la17: 'Account Name:',
         la18: 'Bank Name:',
         la19: 'Bank Account:',
         la20: 'Bank Address:',
-        la21: 'Starting Point of Settlement Fund:'
+        la21: 'Starting Point of Settlement Fund:',
+        la22: 'Company Website:',
+        la23: 'Legal Person:'
       },
       shop: {
         subtitle: 'Shop Info',
@@ -434,6 +437,8 @@ const en = {
         status: 'Status',
         sub: 'Merchant',
         big: 'Big Merchant',
+        personal: 'Personal',
+        enterprise: 'Enterprise',
         saleMan: 'Salesman',
         channel: 'Subordinate first-level agents',
         channel2: 'Subordinate secondary agents',
@@ -458,6 +463,26 @@ const en = {
         BRvality: 'BR Validity',
         CInumber: 'CI Number',
         CIvality: 'CI Validity',
+        applicationType: 'Application Types',
+        accessType: 'Online/Offline in store',
+        ratio: 'MDR',
+        acquirer: 'acquirer',
+        direct: 'direct',
+        offline: 'offline',
+        online: 'online',
+        shopAbbreviation: 'Merchant Abbreviation',
+        registeredAddress: 'Register Address',
+        companyWebsite: 'Company Website',
+        legalName: 'Legal Person',
+        bigMerchant: 'Merchant／Big Merchant'
+      },
+      applicationTypes: {
+        direct: 'direct',
+        indirect: 'indirect'
+      },
+      accessTypes: {
+        offline: 'offline',
+        online: 'online'
       },
       requiredRule: {
         rule1: 'Please select agent name',
@@ -484,6 +509,13 @@ const en = {
         rule22: 'Please input store contact number',
         rule23: 'Please input business hours',
         rule24: 'Please enter the SWIFT code',
+        rule25: 'Please select payment channel',
+        rule26: 'Please select merchant category',
+        rule27: 'Please input contact name',
+        rule28: 'Please input legal person name',
+        rule29: 'Please input register address',
+        rule30: 'Please input company website',
+        rule31: 'Please input merchant abbreviation'
       },
       lengthRule: {
         rule1: 'The maxlength is 4',
@@ -510,7 +542,12 @@ const en = {
         goodsphoto: 'Inside-view photos of business premises',
         shopphoto: 'Outdoor photos of business places',
         paypoint: 'Cashier photo',
-        otherphoto: 'Other photos'
+        otherphoto: 'Other photos',
+        certificate: 'Certificate of incorportion',
+        bankStatement: 'Bank Statement',
+        otherDocument1: 'Other Supporting Document 1',
+        otherDocument2: 'Other Supporting Document 2',
+        otherDocument3: 'Other Supporting Document 3'
       },
       rule1: 'Please select merchant category', // 请选择注册商户
       rule2: 'Please input merchant name', // 请输入商户名称
@@ -630,12 +667,14 @@ const en = {
         storename: 'Store Name',
         storeaddress: 'Store Address',
         mobile: 'Store Contact Number',
-        operation: 'Business Hours'
+        operation: 'Business Hours',
+        short_name: '门店简称'
       },
       rule1: 'Please input store name',
       rule2: 'Please input store address',
       rule3: 'Please input store contact number',
       rule4: 'Please input business hours',
+      rule5: '请输入门店简称',
       casher: 'Click to add a photo of the checkout counter',
       warmcasher: 'Please upload a photo of the checkout counter',
       mustcasher: '* You must upload a photo of the checkout counter',
