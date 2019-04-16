@@ -107,8 +107,8 @@
       </el-form>
       <div class="divider"></div>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" class="text-button" @click="confirm(true)">{{ $t('common.agree') }}</el-button>
-        <el-button :loading="iconLoading" class="text-button" @click="confirm(false)">{{ $t('common.refuse') }}</el-button>
+        <el-button type="primary" :loading="iconLoading1" class="text-button" @click="confirm(1)">{{ $t('common.agree') }}</el-button>
+        <el-button class="text-button" :loading="iconLoading2" @click="confirm(2)">{{ $t('common.refuse') }}</el-button>
       </div>
     </el-dialog>
 
@@ -127,7 +127,8 @@
         currentPage: 1,
         pageSize: 10,
         showConfirm: false,
-        iconLoading: false,
+        iconLoading1: false,
+        iconLoading2: false,
         form: {
           syssn: '',
           state: 0,
@@ -154,18 +155,18 @@
     methods: {
       // 保存
       confirm(flag) {
-        if (!this.iconLoading) {
-          this.iconLoading = true;
+        if (!this['iconLoading' + flag]) {
+          this['iconLoading' + flag] = true;
           let params = {
             refund_id: this.tradeInfo.id,
-            status: flag ? 1 : 2,
+            status: flag,
             desc: this.formUser.remark,
             format: 'cors'
           };
 
           axios.post(`${config.host}/org/trade/refund/info`, qs.stringify(params))
             .then((res) => {
-              this.iconLoading = false;
+              this['iconLoading' + flag] = false;
               let data = res.data;
               if(data.respcd === config.code.OK) {
                 this.showConfirm = false;
@@ -181,7 +182,7 @@
                 this.$message.error(data.resperr);
               }
             }).catch(() => {
-            this.iconLoading = false;
+            this['iconLoading' + flag] = false;
             this.showConfirm = false;
             this.$message.error(this.$t('common.netError'));
           })

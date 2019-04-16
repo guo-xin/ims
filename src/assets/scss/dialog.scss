@@ -24,6 +24,7 @@
     padding: 0 $midGap;
     .el-button + .el-button {
       margin-left: $midGap;
+      padding: $xsGap $midGap;
     }
   }
 }
@@ -34,6 +35,7 @@
     width: 100%;
     .el-input-group__prepend {
       border: 1px solid #dcdfe6;
+      border-right: none;
       padding: 0 20px;
       line-height: 40px;
       font-size: $lgSize;

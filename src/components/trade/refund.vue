@@ -36,7 +36,7 @@
       </el-table-column>
       <el-table-column prop="ctime" :label="$t('trade.common.applyTime')" min-width="170"></el-table-column>
       <el-table-column prop="refund_amt" :label="$t('trade.common.refundAmount')" min-width="100"></el-table-column>
-      <el-table-column prop="utime" :label="$t('trade.common.refundTime')" min-width="170"></el-table-column>
+      <el-table-column prop="refund_time" :label="$t('trade.common.refundTime')" min-width="170"></el-table-column>
 
       <el-table-column :label="$t('common.status')" min-width="150" fixed="right">
         <template slot-scope="scope">
@@ -231,7 +231,7 @@
                   this.handleSizeChange();
 
                 } else {
-                  this.showConfirm = false;
+                  // this.showConfirm = false;
                   this.$message.error(data.resperr);
                 }
               }).catch(() => {

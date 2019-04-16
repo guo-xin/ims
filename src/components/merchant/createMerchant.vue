@@ -133,7 +133,7 @@
           type="date"
           format='dd/MM/yyyy'
           value-format="yyyy/MM/dd HH:mm:ss"
-          placeholder="选择日期">
+          :placeholder="$t('common.chooseDate')">
         </el-date-picker>
       </el-form-item>
 

@@ -258,6 +258,11 @@ form.el-form {
 }
 
 .el-table {
+  &.el-table--scrollable-x {
+    .el-table__body-wrapper {
+      padding-bottom: 5px;
+    }
+  }
   &::before {
     height: 0 !important;
   }
