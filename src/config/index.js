@@ -9,6 +9,7 @@ switch (env) {
 
   case "development":
     host = 'api';
+    host = 'http://172.100.108.27:6500'
     imgUpload = 'https://o2.qa.qfpay.net';
     break;
 

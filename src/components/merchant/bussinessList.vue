@@ -2,9 +2,9 @@
   <div class="shop">
     <header class="page-header">
       <h2 class="page-title">{{$t('shop.title')}}</h2>
-      <!--<div>-->
-        <!--<el-button size="large" type="primary" @click="createStore">{{$t('shop.create')}}</el-button>-->
-      <!--</div>-->
+      <div>
+        <!-- <el-button size="large" type="primary" @click="createStore">{{$t('shop.create')}}</el-button> -->
+      </div>
     </header>
     <el-form class="search-form" :model="formData" ref="shop_list_form">
       <el-form-item :label="$t('shop.form.mchntid')" prop="mchntid">

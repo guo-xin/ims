@@ -56,21 +56,21 @@
           v-model.trim="formData.shopname"></el-input>
       </el-form-item>
 
-      <el-form-item :label="$t('merchant.newMerchant.form.mertype')" prop="cate">
+      <el-form-item :label="$t('merchant.newMerchant.form.bigMerchant')" prop="cate">
         <el-select v-model="formData.cate" ref="cate" :disabled="isUpdate">
           <el-option :label="$t('merchant.newMerchant.form.sub')" value="merchant"></el-option>
           <el-option :label="$t('merchant.newMerchant.form.big')" value="bigmerchant"></el-option>
         </el-select>
       </el-form-item>
 
-      <el-form-item prop="email" :label="$t('merchant.newMerchant.form.postT')">
+      <el-form-item prop="contact_email" :label="$t('merchant.newMerchant.form.postT')">
         <el-input
-          v-model.trim="formData.email"
+          v-model.trim="formData.contact_email"
           :disabled="isUpdate"></el-input>
       </el-form-item>
 
-      <el-form-item prop="legalperson" :label="$t('merchant.newMerchant.form.concatName')">
-        <el-input v-model.trim="formData.legalperson"></el-input>
+      <el-form-item prop="contact" :label="$t('merchant.newMerchant.form.concatName')">
+        <el-input v-model.trim="formData.contact"></el-input>
       </el-form-item>
 
       <el-form-item prop="telephone" :label="$t('merchant.newMerchant.form.concatNumber')">
@@ -97,10 +97,26 @@
         ></el-input>
       </el-form-item>
 
-      <el-form-item prop="mcc" :label="$t('merchant.newMerchant.form.industry')">
+      <!-- <el-form-item prop="mcc" :label="$t('merchant.newMerchant.form.industry')">
         <el-select v-model.trim="formData.mcc" ref="mcc">
           <el-option :label="item.name" :value="item.id" v-for="item in shopTypes" :key="item.id"></el-option>
         </el-select>
+      </el-form-item> -->
+
+      <el-form-item prop="mcc" :label="$t('merchant.newMerchant.form.industry')">
+        <el-input id="op_type" v-model="formData.mcc"
+                :placeholder="$t('merchant.newMerchant.rule43')"
+                readonly
+                class="sub-account-item-info"><template slot="append"><i class="el-icon-arrow-down tree-indic" @click.stop="showIndustyTreeComponent"></i></template>
+        </el-input>
+        <el-tree
+          :data="shopTypes"
+          @node-click="IndustyhandleNodeClick"
+          v-show="isShowIndustyTree"
+          node-key="id"
+          :props="shopTypeProps"
+          draggable
+        ></el-tree>
       </el-form-item>
 
       <el-form-item prop="address" :label="$t('merchant.newMerchant.form.addressT')">
@@ -125,21 +141,66 @@
         <el-input v-model.trim="formData.ci"></el-input>
       </el-form-item>
 
-      <el-form-item prop="ci_expire_time" :label="$t('merchant.newMerchant.form.CIvality')">
-        <el-date-picker
-          v-model.trim="formData.ci_expire_time"
-          type="date"
-          format='dd/MM/yyyy'
-          value-format="yyyy/MM/dd HH:mm:ss"
-          placeholder="选择日期">
-        </el-date-picker>
+      <el-form-item prop="businessaddr" :label="$t('merchant.newMerchant.form.registeredAddress')">
+        <el-input v-model="formData.businessaddr"></el-input>
+      </el-form-item>
+
+      <el-form-item prop="website" :label="$t('merchant.newMerchant.form.companyWebsite')">
+        <el-input v-model="formData.website"></el-input>
+      </el-form-item>
+
+      <el-form-item prop="legalperson" :label="$t('merchant.newMerchant.form.legalName')">
+        <el-input v-model="formData.legalperson"></el-input>
+      </el-form-item>
+
+      <el-form-item prop="user_type" :label="$t('merchant.newMerchant.form.mertype')">
+        <el-select v-model="formData.user_type">
+          <el-option :label="$t('merchant.newMerchant.form.personal')" value="2"></el-option>
+          <el-option :label="$t('merchant.newMerchant.form.enterprise')" value="3"></el-option>
+        </el-select>
       </el-form-item>
 
       <h3>{{$t('merchant.newMerchant.basic.cap2')}}</h3>
-      <div :label="item.name" v-for="(item, index0) in radioList" :key="item.name" prop="tenpay_ratio">
+      <!-- <div :label="item.name" v-for="(item, index0) in radioList" :key="item.name" prop="tenpay_ratio">
         <h4>{{item.name}}</h4>
         <el-form-item :label="fee.trade_type_name" v-for="(fee, index) in item.busicd" :error="fee.error" :key="fee.trade_type_name">
             <el-input-number @change="ratioMinRule($event, fee.ratioMin, fee.trade_type, index, index0)" v-model="fee.ratio" :precision="2" :step="0.01" :min="0" :max="5"></el-input-number>
+        </el-form-item>
+      </div> -->
+      <el-form-item v-if="!isUpdate">
+        <el-select v-model="pid_select" :placeholder="$t('merchant.newMerchant.form.accountName')">
+          <el-option
+            v-for="item in list"
+            :key="item.chnl_code"
+            :label="item.pid_name"
+            :value="item.pid_name"
+          >
+          </el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item>
+        <el-button v-if="!isUpdate" class="el-button el-button--primary" @click="addList()">{{$t('common.confirm')}}</el-button>
+      </el-form-item>
+
+      <div class="payList" v-for="item in list_Select" :key="item.value">
+        <el-form-item :label="item.pid_name">
+          <el-input-number v-model="item.ratio" :precision="2" :step="0.01" :min="Number(item.ratioMin)"></el-input-number>
+        </el-form-item>
+        <el-form-item v-if="item.line_type != ''" :label="$t('merchant.newMerchant.form.accessType')">
+          <el-select :disabled="true" v-model="item.line_type">
+            <el-option :label="$t('merchant.newMerchant.accessTypes.offline')" value="offline"></el-option>
+            <el-option :label="$t('merchant.newMerchant.accessTypes.online')" value="online"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item v-if="item.finance_type != ''" :label="$t('merchant.newMerchant.form.applicationType')">
+          <el-select :disabled="true" v-model="item.finance_type">
+            <el-option :label="$t('merchant.newMerchant.applicationTypes.direct')" value="direct"></el-option>
+            <el-option :label="$t('merchant.newMerchant.applicationTypes.indirect')" value="indirect"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item v-if="!isUpdate" class="icon_remove" style="width:20px;margin-top:25px;">
+          <i class="el-icon-remove" @click="pid_name_remove(item.pid_name)"></i>
         </el-form-item>
       </div>
 
@@ -177,6 +238,10 @@
         <h3>{{$t('merchant.newMerchant.basic.cap4')}}</h3>
         <el-form-item prop="shopnameT" :label="$t('merchant.newMerchant.form.storename')">
           <el-input v-model.trim="formData.shopnameT"></el-input>
+        </el-form-item>
+
+        <el-form-item prop="short_name" :label="$t('merchant.newMerchant.form.shopAbbreviation')">
+          <el-input v-model="formData.short_name"></el-input>
         </el-form-item>
 
         <el-form-item prop="addressT" :label="$t('merchant.newMerchant.form.storeAddress')">
@@ -356,11 +421,11 @@
               </el-upload>
               <!-- <div class="image_info">{{$t('merchant.newMerchant.form.warmpaypoint')}}</div> -->
             </el-col>
-            <el-col :span="7" class="up-item" v-if="!isUpdate">
+              <el-col :span="7" class="up-item">
               <el-upload
                 :with-credentials="true"
                 :file-list="formData.vouchers"
-                v-loading="otherphotoloading"
+                v-loading="goodsphotoloading"
                 :on-progress="startAvatarUpload"
                 class="avatar-uploader"
                 :action="uploadInterface"
@@ -381,16 +446,147 @@
                 </div>
                 <div v-else class="avatar-uploader-wrap">
                   <i class="avatar-uploader-icon el-icon-plus"></i>
-                  <div class="avatar-desc">{{$t('merchant.newMerchant.picture.otherphoto')}}</div>
+                  <div class="avatar-desc">{{$t('merchant.newMerchant.picture.otherDocument1')}}</div>
                   <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
-              <!-- <div class="image_info">{{$t('merchant.newMerchant.form.warmother')}}</div> -->
+              <!-- <div class="image_info">{{$t('merchant.newMerchant.form.warmgood')}}</div> -->
+            </el-col>
+            <el-col :span="7" class="up-item">
+              <el-upload
+                :with-credentials="true"
+                :file-list="formData.vouchers"
+                v-loading="shopphotoloading"
+                :on-progress="startAvatarUpload"
+                class="avatar-uploader"
+                :action="uploadInterface"
+                :show-file-list="false"
+                :before-upload="beforeAvatarUpload"
+                :on-success="avatarSuccess"
+                :on-error="avatarFailed"
+                :data="{
+                    category: 1,
+                    source: 1,
+                    tag: 'otherphoto1',
+                    format: 'cors',
+                    enuserid: 'EPeRaNEt'
+                }">
+                <div v-if="voucherInfo.otherphoto1_url" class="avatar-wrap">
+                  <img :src="voucherInfo.otherphoto1_url" class="avatar">
+                  <i class="img-tip">{{$t('common.reupload')}}</i>
+                </div>
+                <div v-else class="avatar-uploader-wrap">
+                  <i class="avatar-uploader-icon el-icon-plus"></i>
+                  <div class="avatar-desc">{{$t('merchant.newMerchant.picture.otherDocument2')}}</div>
+                  <div class="avatar-tip">{{$t('common.format')}}</div>
+                </div>
+              </el-upload>
+              <!-- <div class="image_info">{{$t('merchant.newMerchant.form.warmshop')}}</div> -->
+            </el-col>
+            <el-col :span="7" class="up-item">
+              <el-upload
+                :with-credentials="true"
+                :file-list="formData.vouchers"
+                v-loading="paypointloading"
+                :on-progress="startAvatarUpload"
+                class="avatar-uploader"
+                :action="uploadInterface"
+                :show-file-list="false"
+                :before-upload="beforeAvatarUpload"
+                :on-success="avatarSuccess"
+                :on-error="avatarFailed"
+                :data="{
+                    category: 1,
+                    source: 1,
+                    tag: 'otherphoto2',
+                    enuserid: 'EPeRaNEt',
+                    format: 'cors'
+                }">
+                <div v-if="voucherInfo.otherphoto2_url" class="avatar-wrap">
+                  <img :src="voucherInfo.otherphoto2_url" class="avatar">
+                  <span class="img-tip">{{$t('common.reupload')}}</span>
+                </div>
+                <div v-else class="avatar-uploader-wrap">
+                  <i class="avatar-uploader-icon el-icon-plus"></i>
+                  <div class="avatar-desc">{{$t('merchant.newMerchant.picture.otherDocument3')}}</div>
+                  <div class="avatar-tip">{{$t('common.format')}}</div>
+                </div>
+              </el-upload>
+              <!-- <div class="image_info">{{$t('merchant.newMerchant.form.warmpaypoint')}}</div> -->
             </el-col>
           </div>
         </el-col>
       </el-row>
 
+      <h3>上传档案</h3>
+      <el-row>
+        <el-col :span="24">
+          <div class="uploader-wrap">
+            <el-col :span="7" class="up-item">
+              <el-upload
+                :with-credentials="true"
+                :file-list="formData.vouchers"
+                v-loading="idcardfrontloading"
+                :on-progress="startAvatarUpload"
+                class="avatar-uploader"
+                :action="uploadInterface"
+                :show-file-list="false"
+                :before-upload="beforeAvatarUpload"
+                :on-success="avatarSuccess"
+                :on-error="avatarFailed"
+                :data="{
+                    category: 1,
+                    source: 1,
+                    tag: 'ciphoto',
+                    enuserid: 'EPeRaNEt',
+                    format: 'cors'
+                }">
+                <div v-if="voucherInfo.ciphoto_url" class="avatar-wrap">
+                  <img :src="voucherInfo.ciphoto_url" class="avatar">
+                  <span class="img-tip">{{$t('common.reupload')}}</span>
+                </div>
+                <div v-else class="avatar-uploader-wrap">
+                  <i class="avatar-uploader-icon el-icon-plus"></i>
+                  <div class="avatar-desc">{{$t('merchant.newMerchant.picture.certificate')}}</div>
+                  <div class="avatar-tip">{{$t('common.format')}}</div>
+                </div>
+              </el-upload>
+              <!-- <div class="image_info">{{$t('merchant.newMerchant.form.warmfront')}}</div> -->
+            </el-col>
+            <el-col :span="7" class="up-item">
+              <el-upload
+                :with-credentials="true"
+                :file-list="formData.vouchers"
+                v-loading="licensephotoloading"
+                :on-progress="startAvatarUpload"
+                class="avatar-uploader"
+                :action="uploadInterface"
+                :show-file-list="false"
+                :before-upload="beforeAvatarUpload"
+                :on-success="avatarSuccess"
+                :on-error="avatarFailed"
+                :data="{
+                    category: 1,
+                    source: 1,
+                    tag: 'bankcheckphoto',
+                    format: 'cors',
+                    enuserid: 'EPeRaNEt'
+                }">
+                <div v-if="voucherInfo.bankcheckphoto_url" class="avatar-wrap">
+                  <img :src="voucherInfo.bankcheckphoto_url" class="avatar">
+                  <i class="img-tip">{{$t('common.reupload')}}</i>
+                </div>
+                <div v-else class="avatar-uploader-wrap">
+                  <i class="avatar-uploader-icon el-icon-plus"></i>
+                  <div class="avatar-desc">{{$t('merchant.newMerchant.picture.bankStatement')}}</div>
+                  <div class="avatar-tip">{{$t('common.format')}}</div>
+                </div>
+              </el-upload>
+              <!-- <div class="image_info">{{$t('merchant.newMerchant.form.warmlicense')}}</div> -->
+            </el-col>
+          </div>
+        </el-col>
+      </el-row>
     </el-form>
 
     <footer v-if="isUpdate">
@@ -428,6 +624,9 @@
     components: {ElFormItem},
     data() {
       return {
+        pid_select: '',
+        list: [],
+        list_Select: [],
         isLoading: false,
         idcardfrontloading: false,
         licensephotoloading: false,
@@ -445,34 +644,40 @@
         forFlag: false,
         formData: {
           cate: '', // 注册商户的类型
+          sls_uid: '', // 业务员id
           shopname: '', // 商户名称
           mcc: '', // 商家类型
-          status: '', // 商户类型
-          address: '', // 商户地址
-          legalperson: '', // 公司联系人
+          user_type: '', // 商户类型 1:微小 2：个体商户 3:企业
+          status: '', // 商户状态
+          address: '', // 公司地址
+          contact: '', // 公司联系人
+          legalperson: '', // 法人名称
           telephone: '', // 公司联系人电话
-          email: '', // 邮箱
-          headbankname: '', // 开户行名称
-          bankuser: '', // 开户行
-          bankaccount: '', // 银行账号
-          bankProvince: '', // 银行地址
-          bankcode: '', // SWIFT码
-          remit_amt: '', // 结算资金起点
-          ci: '', // ci编号
-          ci_expire_time: '', // ci有效期
-          br: '', // br编号
-          br_expire_time: '', // br有效期
-          shopnameT: '', // 门店地址
-          telephoneT: '', // 门店联系电话
-          addressT: '', // 门店地址
-          operatingT: '', // 店铺营业时间
-          vouchers: [], // 上传的凭据照片
           documentType: '', // 证件类型
           documentNum: '',
+          contact_email: '', // 邮箱
+          website: '', // 公司网址
+          businessaddr: '', // 注册地址
+          headbankname: '', // 开户行名称
+          bankuser: '', // 开户行
+          bankcode: '', // SWIFT码
+          bankaccount: '', // 银行账号
+          bankProvince: '', // 银行地址
+          remit_amt: '', // 结算资金起点
+          // ci_expire_time: '', // ci有效期
+          shopnameT: '', // 店铺名称
+          short_name: '', // 店铺简称
+          telephoneT: '', // 店铺联系电话
+          addressT: '', // 门店地址
+          operatingT: '', // 店铺营业时间
+          ci: '', // ci编号
+          br: '', // br编号
+          br_expire_time: '', // br有效期
+          vouchers: [], // 上传的凭据照片
           primary_uid: '', // 一级代理商id
           secondary_uid: '', // 二级代理商id
-          sls_uid: '', // 业务员id
           slsm_name: '', // 业务员姓名
+          unify_mcc: ''
         },
         shopTypes: [], // 一级渠道的店铺类型列表
 //        shopTypes2: [], // 二级渠道的店铺类型列表
@@ -484,6 +689,12 @@
           label: 'name',
           value: 'uid'
         },
+        shopTypeProps: {
+          children: 'shoptypes',
+          label: 'name',
+          value: 'id'
+        },
+        isShowIndustyTree: false,
         signedList: [
           {value: 1, name: this.$t('merchant.detail.signed.yes')},
           {value: 0, name: this.$t('merchant.detail.signed.no')}
@@ -508,8 +719,16 @@
           shopphoto_name: '',
           paypoint_url: '',
           paypoint_name: '',
+          ciphoto_name: '',
+          ciphoto_url: '',
+          bankcheckphoto_url: '',
+          bankcheckphoto_name: '',
           otherphoto_url: '',
-          otherphoto_name: ''
+          otherphoto_name: '',
+          otherphoto1_url: '',
+          otherphoto1_name: '',
+          otherphoto2_url: '',
+          otherphoto2_name: ''
         },
         baseRules: {
           'sls_uid': [
@@ -522,7 +741,10 @@
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule3')},
             {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule8'), trigger: 'blur'}
           ],
-          'email': [
+          'contact': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule27')}
+          ],
+          'contact_email': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule4'), trigger: 'blur'},
             {
               validator: (rule, val, cb) => {
@@ -535,8 +757,11 @@
             },
             {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule8'), trigger: 'blur'}
           ],
+          'user_type': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule26')}
+          ],
           'legalperson': [
-            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule5')}
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule28')}
           ],
           'telephone': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule6')},
@@ -549,6 +774,12 @@
                 }
               }
             }
+          ],
+          'businessaddr': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule29')}
+          ],
+          'website': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule30')}
           ],
           'documentType': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule7')}
@@ -583,9 +814,9 @@
             },
             {max: 25, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule7'), trigger: 'blur'}
           ],
-          'ci_expire_time': [
-            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule14')}
-          ],
+          // 'ci_expire_time': [
+          //   {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule14')}
+          // ],
           'bankuser': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule15')},
             {max: 50, min: 0, message: this.$t('merchant.newMerchant.lengthRule.rule7'), trigger: 'blur'}
@@ -635,6 +866,9 @@
           'addressT': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule21'), trigger: 'blur'},
           ],
+          'short_name': [
+            {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule31'), trigger: 'blur'}
+          ],
           'telephoneT': [
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule22'), trigger: 'blur'},
             {
@@ -659,9 +893,11 @@
         this.isUpdate = this.$route.query.command === 'edit' || getParams('command') === 'edit'
         !this.isUpdate && this.getChannelList()
         !this.isUpdate && this.getSalesPersonList();
-        !this.isUpdate && this.fetchRadio()
+        // !this.isUpdate && this.fetchRadio()
+        this.getPid()
         !this.isUpdate && this.getShopTypes()
         this.isUpdate && this.getAllSalesperson();
+        this.isUpdate && this.getDetailInfo()
       }
     },
     mounted() {
@@ -676,84 +912,89 @@
         }
       }, false);
     },
-    watch: {
-      "formData.secondary_uid"() {
-        this.fetchRadio(this.formData.secondary_uid || this.formData.primary_uid)
-      }
-    },
     methods: {
       // 费率的接口请求
-      fetchRadio(agentUid, fees = []) {  // fee 更新ratio
-        let params = {
-          format: 'cors'
-        }
-        if (agentUid) {
-          params.agent_uid = agentUid
-        }
-        if (agentUid && fees.length === 0) { // 切换业务员
-          fees = [...this.radioList]
-        }
-        axios.get(`${config.host}/org/tools/get/ratio`, {
-          params
-        }).then((res) => {
-          let data = res.data;
-          if (data.respcd === config.code.OK) {
-            let ratios = data.data;
-            if (fees.length > 0) {
-              ratios.map((ratio, index) => {
-                fees.map((fee, fIndex) => {
-                  if (ratio.name === fee.name) {
-                    ratio.busicd.map((item) => {
-                      fee.busicd.map((fitem) => {
-                        if (item.trade_type === fitem.trade_type) {
-                          if (agentUid && fees.length === 0) {
-                            item.ratioMin = fitem.ratioMin
-                          } else {
-                            item.ratio = fitem.ratio
-                          }
-                        }
-                      })
-                    })
-                  }
-                })
-              })
-            }
-            this.radioList = ratios;
-          } else {
-            this.$message.error(data.respmsg);
-          }
-        }).catch(() => {
-          this.$message.error(this.$t('common.netError'));
-        });
-      },
-      ratioMinRule(value, ratioMin, trade_type, index, index0) { // 费率填写提示信息的处理
-        if(value === undefined ) {
-          setTimeout(() => {
-          this.radioList[index0]['busicd'][index]['ratio'] = 0;
-          }, 0)
-        }
-        let errorMessage = value < ratioMin ? this.$t('common.MINRatio')+`${ratioMin}` : ''
-        this.radioList.map((radio) => {
-          radio.busicd.map((item) => {
-            if (trade_type === item.trade_type) {
-              this.$set(item, 'error', errorMessage)
-            } else {
-              item.error = ''
-            }
-          })
-        })
-      },
+      // fetchRadio(agentUid, fees = []) {  // fee 更新ratio
+      //   let params = {
+      //     format: 'cors'
+      //   }
+      //   if (agentUid) {
+      //     params.agent_uid = agentUid
+      //   }
+      //   if (agentUid && fees.length === 0) { // 切换业务员
+      //     fees = [...this.radioList]
+      //   }
+      //   axios.get(`${config.host}/org/tools/get/ratio`, {
+      //     params
+      //   }).then((res) => {
+      //     let data = res.data;
+      //     if (data.respcd === config.code.OK) {
+      //       let ratios = data.data;
+      //       if (fees.length > 0) {
+      //         ratios.map((ratio, index) => {
+      //           fees.map((fee, fIndex) => {
+      //             if (ratio.name === fee.name) {
+      //               ratio.busicd.map((item) => {
+      //                 fee.busicd.map((fitem) => {
+      //                   if (item.trade_type === fitem.trade_type) {
+      //                     if (agentUid && fees.length === 0) {
+      //                       item.ratioMin = fitem.ratioMin
+      //                     } else {
+      //                       item.ratio = fitem.ratio
+      //                     }
+      //                   }
+      //                 })
+      //               })
+      //             }
+      //           })
+      //         })
+      //       }
+      //       this.radioList = ratios;
+      //     } else {
+      //       this.$message.error(data.respmsg);
+      //     }
+      //   }).catch(() => {
+      //     this.$message.error(this.$t('common.netError'));
+      //   });
+      // },
+      // ratioMinRule(value, ratioMin, trade_type, index, index0) { // 费率填写提示信息的处理
+      //   if(value === undefined ) {
+      //     setTimeout(() => {
+      //     this.radioList[index0]['busicd'][index]['ratio'] = 0;
+      //     }, 0)
+      //   }
+      //   let errorMessage = value < ratioMin ? this.$t('common.MINRatio')+`${ratioMin}` : ''
+      //   this.radioList.map((radio) => {
+      //     radio.busicd.map((item) => {
+      //       if (trade_type === item.trade_type) {
+      //         this.$set(item, 'error', errorMessage)
+      //       } else {
+      //         item.error = ''
+      //       }
+      //     })
+      //   })
+      // },
       handleNodeClick(data, node) { // 编辑商户的修改业务员部分
         if(data.isLeaf && Object.prototype.toString.call(data.slsm) === "[object Undefined]") {
            this.formData.sls_uid = data.uid;
            this.formData.slsm_name = data.name;
            this.isShowTree = false;
-           this.fetchRadio(node.parent.data.uid)
+          //  this.fetchRadio(node.parent.data.uid)
           //  this.revalue(this.radioList, this.radioListInfo)
         }
       },
       showTreeComponent(e) {
         this.isShowTree = true;
+      },
+      IndustyhandleNodeClick(data, node) { // 编辑商户的修改业务员部分
+        if(data.level ===3) {
+            this.formData.unify_mcc = data.id;
+            this.isShowIndustyTree = false;
+            this.formData.mcc = data.name;
+        }
+      },
+      showIndustyTreeComponent(e) {
+        this.isShowIndustyTree = !this.isShowIndustyTree;
       },
       getAllSalesperson() {
         axios.get(`${config.host}/org/tools/org/slsms`, {
@@ -826,7 +1067,8 @@
             if (data.respcd === config.code.OK) {
               this.channels2 = (groupid ? data.data.list: []);
               this.formData.secondary_uid = ''
-              this.fetchRadio(groupid)
+              // this.fetchRadio(groupid)
+              this.getPid()
               this.getSalesPersonList()
             } else {
               this.$message.error(data.respmsg);
@@ -837,6 +1079,7 @@
       },
       selectChannel2Handler() { // 选择二级代理商
         // this.fetchRadio(groupid || this.formData.primary_uid)
+        this.getPid()
         this.getSalesPersonList()
       },
       getSalesPersonList() {
@@ -858,10 +1101,36 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      getShopTypes(mcc1) {
-        axios.get(`${config.host}/org/tools/mcc/list`, {
+      // getShopTypes(mcc1) {
+      //   axios.get(`${config.host}/org/tools/mcc/list`, {
+      //     params: {
+      //       mcc: mcc1 || '',
+      //       format: 'cors'
+      //     }
+      //   })
+      //     .then((res) => {
+      //       let data = res.data;
+      //       this.isLoading = false;
+      //       if (data.respcd === config.code.OK) {
+      //         if (mcc1) {
+      //           this.shopTypes2 = data.data
+      //         } else {
+      //           this.shopTypes = data.data;
+      //         }
+      //         if (this.isUpdate) {
+      //           this.getDetailInfo()
+      //         }
+      //       } else {
+      //         this.$message.error(data.respmsg);
+      //       }
+      //     }).catch(() => {
+      //     this.isLoading = false;
+      //     this.$message.error(this.$t('common.netError'));
+      //   });
+      // },
+      getShopTypes(){
+        axios.get(`${config.host}/org/tools/get_shop_types`, {
           params: {
-            mcc: mcc1 || '',
             format: 'cors'
           }
         })
@@ -869,21 +1138,14 @@
             let data = res.data;
             this.isLoading = false;
             if (data.respcd === config.code.OK) {
-              if (mcc1) {
-                this.shopTypes2 = data.data
-              } else {
-                this.shopTypes = data.data;
-              }
-              if (this.isUpdate) {
-                this.getDetailInfo()
-              }
+                this.shopTypes = data.data.shop_types;
             } else {
               this.$message.error(data.respmsg);
             }
           }).catch(() => {
           this.isLoading = false;
           this.$message.error(this.$t('common.netError'));
-        });
+          })
       },
       startAvatarUpload(event, file, fileList) {
         this[file['__ob__'].dep.subs[0].vm.$options.propsData.data.tag + 'loading'] = true;
@@ -946,24 +1208,30 @@
               this.formData.status = uinfo.status
               this.formData.sls_uid = qdinfo.sls_uid
               this.formData.vouchers = vouchers
+              this.formData.businessaddr = uinfo.businessaddr
               this.formData.shopname = uinfo.shopname; // 商户名称
               this.formData.cate = uinfo.cate; // 商户类型
-              this.formData.mcc = +uinfo.mcc; // 行业类别
+              this.formData.unify_mcc = uinfo.unify_mcc
+              this.formData.mcc = uinfo.mcc_str
+              // this.formData.mcc = +uinfo.mcc; // 行业类别
               this.formData.documentNum = uinfo.idnumber || uinfo.eep || uinfo.passport
               this.formData.address = uinfo.address; //
+              this.formData.contact = uinfo.contact
               this.formData.legalperson = uinfo.legalperson; // 联系人姓名
               this.formData.telephone = uinfo.telephone; // 联系电话
-              this.formData.email = uinfo.email; // 邮箱地址
+              this.formData.contact_email = uinfo.contact_email; // 邮箱地址
               this.formData.br = uinfo.br; // br编号
               this.formData.br_expire_time = uinfo.br_expire_time; // br有效期
               this.formData.ci = uinfo.ci; // ci编号
-              this.formData.ci_expire_time = uinfo.ci_expire_time; // ci有效期
+              this.formData.website = uinfo.website
+              // this.formData.ci_expire_time = uinfo.ci_expire_time; // ci有效期
               this.formData.headbankname = bankinfo.headbankname //
               this.formData.bankProvince = bankinfo.bankProvince //
               this.formData.bankuser = bankinfo.bankuser //
               this.formData.bankaccount = bankinfo.bankaccount //
               this.formData.bankcode = bankinfo.bankcode //
               this.formData.remit_amt = uinfo.remit_amt
+              this.formData.user_type = uinfo.user_type + ''
               // this.radioList = fee
 
               this.isStatus = this.formData.status == 3 || this.formData.status == 4
@@ -975,7 +1243,8 @@
               } else {
                 this.formData.documentType = "eep"
               }
-              this.fetchRadio(qdinfo.qd_uid, fees)
+              this.list_Select = fees
+              // this.fetchRadio(qdinfo.qd_uid, fees)
               // this.revalue(this.radioList, this.radioListInfo)
               this.repicture(this.voucherInfo, vouchers)
               this.getSalesPersonName(this.salesperson); // 匹配树形结构的销售员name
@@ -1019,38 +1288,44 @@
             cate: this.formData.cate, // 注册商户的类型
             sls_uid: this.formData.sls_uid, // 业务员id
             shopname: this.formData.shopname, // 商户名称
-            mcc: this.formData.mcc, // 商家类型
+            user_type: this.formData.user_type, // 商户类型 1:微小 2:个体工商户 3:企业
             address: this.formData.address, // 公司地址
-            legalperson: this.formData.legalperson, // 公司联系人
+            contact_email: this.formData.contact_email, // 公司邮箱
+            legalperson: this.formData.legalperson, // 公司法人
+            contact: this.formData.contact, // 公司联系人
             telephone: this.formData.telephone, // 公司联系人电话
-            email: this.formData.email, // 邮箱
+            website: this.formData.website, // 公司网址
+            businessaddr: this.formData.businessaddr, // 注册地址
             headbankname: this.formData.headbankname, // 开户银行
-            bankuser: this.formData.bankuser, // 银行账户名称
-            bankaccount: this.formData.bankaccount, // 银行账号
-            bankProvince: this.formData.bankProvince, // 银行地址
             bankcode: this.formData.bankcode, // SWIFT码
+            bankaccount: this.formData.bankaccount, // 银行账号
+            bankuser: this.formData.bankuser, // 银行账户名称
+            bankProvince: this.formData.bankProvince, // 银行地址
             remit_amt: this.formData.remit_amt, // 结算资金起点
             ci: this.formData.ci, // ci编号
-            ci_expire_time: this.formData.ci_expire_time, // ci有效期
+            // ci_expire_time: this.formData.ci_expire_time, // ci有效期
             br: this.formData.br, // br编号
             br_expire_time: this.formData.br_expire_time, // br有效期
-            status: this.formData.status
+            status: this.formData.status,
+            unify_mcc: this.formData.unify_mcc
           },
           store: {
             shopname: this.formData.shopnameT, // 门店地址
             telephone: this.formData.telephoneT, // 门店联系电话
             address: this.formData.addressT, // 门店地址
             operating: this.formData.operatingT, // 店铺营业时间
+            short_name: this.formData.short_name // 店铺简称
           },
           vouchers: [], // 上传的凭据照片
         }
         let params = {}
         form.mchnt[this.formData.documentType] = this.formData.documentNum
-        let radioListValue = this.refee(this.radioList)
+        // let radioListValue = this.refee(this.radioList)
         // console.log(radioListValue, 4444)
         params.mchnt = JSON.stringify(form.mchnt)
         params.store = JSON.stringify(form.store)
-        params.mchnt_ratios = JSON.stringify(radioListValue)
+        // params.mchnt_ratios = JSON.stringify(radioListValue)
+        params.mchnt_ratios = JSON.stringify(this.list_Select)
         let url = this.isUpdate ? `${config.host}/org/mchnt/edit` : `${config.host}/org/mchnt/signup`
         params.format = 'cors'
         // params.tenpay_ratio = parseFloat(params.tenpay_ratio).toFixed(2)
@@ -1148,15 +1423,6 @@
           }
         }
       },
-      refee(f) { // 注册及编辑的费率结构修改
-        let e = []
-        for(let i of f) {
-          for(let j of i.busicd){
-            e.push(j)
-          }
-        }
-        return e
-      },
       GetRemit() { // 根据银行账号获得
         axios.get(`${config.host}/org/tools/remit_amt`, {
           params: {
@@ -1176,7 +1442,46 @@
             this.$message.error(data.respmsg);
           }
         })
-      }
+      },
+      getPid() {  // 商户自动入网获取通道pid配置信息
+        axios.get(`${config.host}/org/tools/get_pid_info`, {
+          params: {
+            qd_uid: this.formData.secondary_uid || this.formData.primary_uid,
+            format: 'cors'
+          }
+        })
+          .then((res) => {
+            let data = res.data;
+            if (data.respcd === config.code.OK) {
+              console.log(res.data)
+              this.list = res.data.data
+            } else {
+              this.$message.error(data.respmsg);
+            }
+          }).catch(() => {
+          this.$message.error(this.$t('common.netError'));
+        });
+      },
+      addList() {
+        let pid_select = this.pid_select
+        let pid_select_array = []
+        this.list_Select.forEach(element => {
+          pid_select_array.push(element.pid_name)
+        })
+        this.list.forEach(element => {
+          if(pid_select_array.indexOf(pid_select) > -1){
+            this.$message.error(this.$t('您已经添加了该支付方式'));
+          }else if(element.pid_name === pid_select){
+            this.list_Select.push(element)
+          }
+        })
+      },
+      pid_name_remove(pid_name) { // 支付通道点击减号
+        let new_list_select = this.list_Select.filter(element => {
+          return element.pid_name !== pid_name
+        })
+        this.list_Select = new_list_select
+      }   
     }
   }
 </script>
@@ -1382,7 +1687,29 @@
         }
 
       }
+      .payList {
+        .el-form-item {
+          width: 220px;
+          .el-form-item__content {
+            width: 220px;
+          }
+        }
+        .icon_remove {
+          .el-form-item__content {
+            font-size: 24px;
+            .el-icon-remove {
+              color: #409EFF;
+            }
+          }
+        }
+      }
     }
-
+    .el-tree {
+      position: absolute;
+      width: 100%;
+      z-index: 99;
+      margin-top: 6px;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
+    }
   }
 </style>

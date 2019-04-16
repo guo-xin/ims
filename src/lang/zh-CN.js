@@ -53,7 +53,7 @@ const zh = {
     CLOSE: '关闭',
     EDIT: '编辑',
     SWIFT: 'SWIFT',
-    remark: '备注',
+    remark: '备注'
   },
   home: {
     all: '全部',
@@ -288,7 +288,9 @@ const zh = {
       cate: {
         merchant: '单店',
         big: '连锁店',
-        sub: '连锁店'
+        sub: '连锁店',
+        personal: '个人',
+        enterprise: '企业'
       },
       signed: {
         yes: '是',
@@ -320,12 +322,15 @@ const zh = {
         la13: 'BR编号:',
         la14: 'BR有效期:',
         la15: 'CI编号:',
-        la16: 'CI有效期:',
+        // la16: 'CI有效期:',
+        la16: '注册地址:',
         la17: '开户名称:',
         la18: '开户行:',
         la19: '银行账号:',
         la20: '银行地址:',
-        la21: '结算资金起点:'
+        la21: '结算资金起点:',
+        la22: '公司网址:',
+        la23: '法人名称:'
       },
       shop: {
         subtitle: '商户信息',
@@ -377,6 +382,8 @@ const zh = {
         status: '商户状态',
         sub: '单店',
         big: '连锁店',
+        personal: '个人',
+        enterprise: '企业',
         channel: '所属一级代理',
         channel2: '所属二级代理',
         saleMan: '业务员',
@@ -408,7 +415,27 @@ const zh = {
         warmgood: '* 必须上传经营场所/经营场所内景照片',
         warmshop: '* 必须上传经营场所/经营场所外景照片',
         warmpaypoint: '* 必须上传收银台照片',
-        warmother: '* 必须上传其他凭证照片'
+        warmother: '* 必须上传其他凭证照片',
+        applicationType: '应用类型',
+        accessType: '接入类型',
+        ratio: '费率',
+        acquirer: '二清',
+        direct: '直连',
+        offline: '线下',
+        online: '线上',
+        shopAbbreviation: '门店简称',
+        registeredAddress: '注册地址',
+        companyWebsite: '公司网址',
+        legalName: '法人名称',
+        bigMerchant: '单店／连锁'
+      },
+      applicationTypes: {
+        direct: '直连',
+        indirect: '二清'
+      },
+      accessTypes: {
+        offline: '线下',
+        online: '线上'
       },
       requiredRule: {
         rule1: '请选择业务员',
@@ -435,6 +462,13 @@ const zh = {
         rule22: '请输入联系电话',
         rule23: '请输入营业时间',
         rule24: '请输入SWIFT码',
+        rule25: '请选择支付通道',
+        rule26: '请选择商户类型',
+        rule27: '请输入联系人姓名',
+        rule28: '请输入法人姓名',
+        rule29: '请输入注册地址',
+        rule30: '请输入公司网址',
+        rule31: '请输入门店简称'
       },
       lengthRule: {
         rule1: '最多输入4个字符',
@@ -461,7 +495,13 @@ const zh = {
         goodsphoto: '经营场所内景照片',
         shopphoto: '经营场所外景照片',
         paypoint: '收银台照',
-        otherphoto: '其他凭证照片'
+        otherphoto: '其他凭证照片',
+        certificate: '有限公司证书',
+        bankStatement: '银行对账单',
+        otherDocument1: '其他文件1',
+        otherDocument2: '其他文件2',
+        otherDocument3: '其他文件3'
+
       },
       rule1: '请选择业务员',
       rule2: '请选择商户类型',
@@ -577,12 +617,14 @@ const zh = {
         storename: '门店名称',
         storeaddress: '门店地址',
         mobile: '门店联系电话',
-        operation: '门店营业时间'
+        operation: '门店营业时间',
+        short_name: '门店简称'
       },
       rule1: '请输入门店名称',
       rule2: '请输入门店地址',
       rule3: '请输入联系电话',
       rule4: '请输入营业时间',
+      rule5: '请输入门店简称',
       casher: '点击添加收银台照片',
       warmcasher: '请上传收银台照片',
       mustcasher: '* 必须上传收银台照片',
