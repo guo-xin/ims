@@ -3,7 +3,7 @@ let host, region = 'HK', imgUpload = '';
 
 if(env === 'development') {
   host = 'api';
-  imgUpload = 'https://o2.qa.qfpay.net';
+  imgUpload = 'https://o.qa.qfpay.net';
 }else {
   let u = location.hostname;
   let pro = location.protocol;

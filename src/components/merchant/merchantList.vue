@@ -304,7 +304,6 @@
 
       // 支付配置弹框
       paymentConfigure(userid) {
-        userid = '2805441';
         this.isLoading = true;
         this.userId = userid;
         axios.get(`${config.host}/org/mchnt/hk/channel/info?userid=${userid}&format=cors`).then((res) => {
