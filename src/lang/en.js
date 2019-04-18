@@ -41,6 +41,7 @@ const en = {
     enable: 'Enable',
     disable: 'Disable',
     audit: 'Under Approval',
+    toSubmit: 'Waiting For Application',
     refuse: 'Reject',
     agree: 'Pass',
     startTime: 'Starting Time',
@@ -257,6 +258,8 @@ const en = {
       mchtname: 'Merchant Name',
       address: 'Address',
       mobile: 'Contact Number',
+      source: 'Merchant Source',
+      type: 'Merchant／Big Merchant',
       agent1: 'Agent Name',
       agent2: '2nd-tier Agent',
       account: 'Account Name',
@@ -270,12 +273,15 @@ const en = {
       wechatpay: 'WeChat Pay'
     },
     payment: {
+      title: 'Payment Channel',
       configured: "Configured",
       nonconfigured: "Non-Configured",
       radio1: 'First Clean',
       radio2: 'Second Clean',
       merchantID2: 'Channel Merchant No.',
       merchChildID2: 'Channel Sub-Merchant No.',
+      type: 'Online&in Store/Application Type',
+      desc: 'Onboarding Status/Description',
       merchantID1: 'Merchant No.',
       merchChildID1: 'Sub-Merchant No.',
       merchantPass1: 'Merchant key'
@@ -627,7 +633,7 @@ const en = {
       address: 'Address',
       telephone: 'Contact Number',
       location: 'Area',
-      post: 'Store Post Code',
+      account: 'Account Name',
       operating: 'Business Hours'
     },
     detail: {
@@ -739,7 +745,7 @@ const en = {
     rule1: 'Please upload merchant\'s data.',
     rule2: 'Please upload merchant\'s photo.',
     manual1: '1. Please download template《batch merchants on-boarding.xlsx》and fill in all necessary infos of on-boarding merchants.',
-    manual2: '2. Attachments should be named according to naming criteria and uploaded after folder compression. (Naming criteria for store licenses: store telephone-shopphoto.jpg、store telephone-paypoint.jpg、store telephone-otherphoto.jpg、store telephone-idcardfront.jpg、store telephone-licensephoto.jpg、store telephone-goodsphoto.jpg)',
+    manual2: '2. Attachments should be named according to naming criteria and uploaded after folder compression. (Naming criteria for store licenses: store telephone-shopphoto.jpg、store telephone-paypoint.jpg、store telephone-otherphoto.jpg、store telephone-idcardfront.jpg、store telephone-licensephoto.jpg、store telephone-goodsphoto.jpg、store telephone-otherphoto1.jpg、store telephone-otherphoto2.jpg、store telephone-ciphoto.jpg、store telephone-bankcheckphoto.jpg)',
     manual3: '3. The folder naming should be the same as before and after compression, please revise the folder naming after then compress again if it is necessary to revise the compressed file name.'
   },
   trade: {

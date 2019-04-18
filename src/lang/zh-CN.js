@@ -39,6 +39,7 @@ const zh = {
     enable: '启用',
     disable: '停用',
     audit: '待审核',
+    toSubmit: '待提交',
     refuse: '驳回',
     agree: '通过',
     startTime: '开始时间',
@@ -64,7 +65,7 @@ const zh = {
     curamt: '当日交易金额',
     curcnt: '当日交易笔数',
     curnewmchnt: '当日新增商户',
-    curnewstore: '当日新增门店',
+    curnewstore: '当日新增店铺',
     nodata: '没有可用数据',
     curve: {
       title: '交易趋势图',
@@ -73,7 +74,7 @@ const zh = {
       title: '商户交易趋势图',
       legend: {
         mer: '商户',
-        submer: '门店'
+        submer: '店铺'
       }
     },
     pie: {
@@ -84,7 +85,7 @@ const zh = {
       totle_mount: '总交易金额',
       totle_count: '总交易笔数',
       totle_mchnt_num: '总商户数量',
-      totle_store_num: '总门店数量',
+      totle_store_num: '总店铺数量',
       totle_agent_num: '总代理商数量'
     }
   },
@@ -161,7 +162,7 @@ const zh = {
     table: {
       sNum: '流水号',
       merName: '商户名称',
-      shopName: '门店名称',
+      shopName: '店铺名称',
       tradeAmount: '交易金额',
       settlePercent: '清分比例',
       settleAmount: '清分金额',
@@ -250,6 +251,7 @@ const zh = {
       audit_state: '商户状态'
     },
     payment: {
+      title: '支付通道',
       configured: "已配置",
       nonconfigured: "未配置",
       merchantID1: '商户号',
@@ -257,6 +259,8 @@ const zh = {
       merchantPass1: '商户秘钥',
       merchantID2: '通道商号',
       merchChildID2: '通道子商户号',
+      type: '接入类型/应用类型',
+      desc: '进件状态/描述',
       radio1: '一清',
       radio2: '二清',
       rule1: "请选择商户号",
@@ -268,16 +272,19 @@ const zh = {
       mchtname: '商户名称',
       address: '商户地址',
       mobile: '联系电话',
+      source: '商户来源',
+      type: '单店／连锁',
       agent1: '所属机构',
       account: '账户名称',
       industry: '行业',
-      store: '门店',
+      store: '店铺',
       detail: '详情',
       merstatus: '商户状态',
       payment: '支付配置',
       pid: '服务商号',
       wechatM: '微信商户号',
-      wechatpay: '微信支付'
+      wechatpay: '微信支付',
+
     },
     detail: {
       up: '启用',
@@ -285,13 +292,11 @@ const zh = {
       audit: '待审核',
       refuse: '驳回',
       redit: '继续编辑',
-      createShop: '创建门店',
+      createShop: '创建店铺',
       cate: {
         merchant: '单店',
         big: '连锁店',
-        sub: '连锁店',
-        personal: '个人',
-        enterprise: '企业'
+        sub: '连锁店'
       },
       signed: {
         yes: '是',
@@ -374,12 +379,12 @@ const zh = {
       title2: '编辑商户',
       step1: '基本信息',
       step2: '费率信息',
-      step3: '门店证照',
+      step3: '店铺证照',
       basic: {
         cap1: '基本信息',
         cap2: '支付通道',
         cap3: '结算信息',
-        cap4: '门店证照'
+        cap4: '店铺证照'
       },
       form: {
         status: '商户状态',
@@ -405,10 +410,10 @@ const zh = {
         accountH: '银行账号',
         accountAddress: '银行地址',
         moneySettment: '结算资金起点',
-        storename: '门店名称',
-        storeAddress: '门店地址',
+        storename: '店铺名称',
+        storeAddress: '店铺地址',
         storephone: '联系电话',
-        storeoperating: '门店营业时间',
+        storeoperating: '店铺营业时间',
         BRnumber: 'BR编号',
         BRvality: 'BR有效期',
         CInumber: 'CI编号',
@@ -426,7 +431,7 @@ const zh = {
         direct: '直连',
         offline: '线下',
         online: '线上',
-        shopAbbreviation: '门店简称',
+        shopAbbreviation: '店铺简称',
         registeredAddress: '注册地址',
         companyWebsite: '公司网址',
         legalName: '法人名称',
@@ -460,8 +465,8 @@ const zh = {
         rule17: '请输入银行账号',
         rule18: '请输入银行地址',
         rule19: '请输入资金结算起点',
-        rule20: '请输入门店名称',
-        rule21: '请输入门店地址',
+        rule20: '请输入店铺名称',
+        rule21: '请输入店铺地址',
         rule22: '请输入联系电话',
         rule23: '请输入营业时间',
         rule24: '请输入SWIFT码',
@@ -471,7 +476,7 @@ const zh = {
         rule28: '请输入法人姓名',
         rule29: '请输入注册地址',
         rule30: '请输入公司网址',
-        rule31: '请输入门店简称'
+        rule31: '请输入店铺简称'
       },
       lengthRule: {
         rule1: '最多输入4个字符',
@@ -526,13 +531,13 @@ const zh = {
       rule18: '请输入银行名称',
       rule19: '请输入SWIFT代码',
       rule20: '请输入银行帐户名称',
-      rule21: '请输入门店名称',
-      rule22: '请输入门店联系电话',
-      rule23: '请选择门店所属地区',
-      rule24: '请输入门店地址',
-      rule25: '请输入门店邮编',
-      rule26: '请输入门店附加服务',
-      rule27: '请输入门店营业时间',
+      rule21: '请输入店铺名称',
+      rule22: '请输入店铺联系电话',
+      rule23: '请选择店铺所属地区',
+      rule24: '请输入店铺地址',
+      rule25: '请输入店铺邮编',
+      rule26: '请输入店铺附加服务',
+      rule27: '请输入店铺营业时间',
       rule28: '请上传经营场所/经营场所内景照片',
       rule29: '请上传经营场所/经营场所外景照片',
       rule30: '请输入公司邮箱',
@@ -546,8 +551,8 @@ const zh = {
       rule38: '请选择行业',
       rule39: '请确认合同是否签署',
       rule40: '请选择结算周期',
-      rule41: '请输入门店网址',
-      rule42: '请输入可访问的门店网址',
+      rule41: '请输入店铺网址',
+      rule42: '请输入可访问的店铺网址',
       rule43: '请选择销售员',
       rule44: '请上传身份证正面/法人身份证正面',
       rule45: '请上传营业执照',
@@ -572,62 +577,62 @@ const zh = {
     }
   },
   shop: {
-    title: '门店管理',
+    title: '店铺管理',
     query: '查询',
     reset: '重置',
     create: '创建',
     form: {
       mchntid: '商户ID',
       mchntname: '商户名称',
-      submchntid: '门店ID',
-      sunmchntname: '门店名称',
+      submchntid: '店铺ID',
+      sunmchntname: '店铺名称',
     },
     table: {
-      submchntid: '门店ID',
-      sunmchntname: '门店名称',
+      submchntid: '店铺ID',
+      sunmchntname: '店铺名称',
       mchntid: '商户ID',
       mchntname: '商户名称',
-      address: '门店地址',
-      telephone: '门店联系电话',
-      location: '门店所属地区',
-      account: '账户',
-      operating: '门店营业时间'
+      address: '店铺地址',
+      telephone: '店铺联系电话',
+      location: '店铺所属地区',
+      account: '账户名称',
+      operating: '店铺营业时间'
     },
     detail: {
       basic: {
-        title: '门店详情',
+        title: '店铺详情',
         close: '关闭',
         subtitle: '基本信息',
         la1: '商户名称:',
-        la2: '门店登陆账号:',
-        la3: '门店名称:',
-        la4: '门店联系电话:',
-        la5: '门店所属地区:',
-        la6: '门店地址:',
-        la7: '门店邮编:',
-        la8: '门店营业时间:',
-        la9: '门店附加服务:',
-        la10: '门店网址:',
+        la2: '店铺登陆账号:',
+        la3: '店铺名称:',
+        la4: '店铺联系电话:',
+        la5: '店铺所属地区:',
+        la6: '店铺地址:',
+        la7: '店铺邮编:',
+        la8: '店铺营业时间:',
+        la9: '店铺附加服务:',
+        la10: '店铺网址:',
         la11: '图片展示:',
         la12: '子商户号(mchid):',
         la13: 'SWIFT:'
       }
     },
     newStore: {
-      title1: '创建门店',
-      title2: '编辑门店',
+      title1: '创建店铺',
+      title2: '编辑店铺',
       model: {
-        storename: '门店名称',
-        storeaddress: '门店地址',
-        mobile: '门店联系电话',
-        operation: '门店营业时间',
-        short_name: '门店简称'
+        storename: '店铺名称',
+        storeaddress: '店铺地址',
+        mobile: '店铺联系电话',
+        operation: '店铺营业时间',
+        short_name: '店铺简称'
       },
-      rule1: '请输入门店名称',
-      rule2: '请输入门店地址',
+      rule1: '请输入店铺名称',
+      rule2: '请输入店铺地址',
       rule3: '请输入联系电话',
       rule4: '请输入营业时间',
-      rule5: '请输入门店简称',
+      rule5: '请输入店铺简称',
       casher: '点击添加收银台照片',
       warmcasher: '请上传收银台照片',
       mustcasher: '* 必须上传收银台照片',
@@ -659,7 +664,7 @@ const zh = {
     rule1: '请上传商户信息',
     rule2: '请上传照片信息',
     manual1: '1、请点击下载批量上传模板《batch merchants on-boarding.xlsx》，下载后将需要入网的商户信息汇总。',
-    manual2: '2、附件请按照命名规范命名，并放入文件夹压缩后进行上传（门店证照命名规范：门店电话-shopphoto.jpg、门店电话-paypoint.jpg、门店电话-otherphoto.jpg、门店电话-idcardfront.jpg、门店电话-licensephoto.jpg和门店电话-goodsphoto.jpg）。',
+    manual2: '2、附件请按照命名规范命名，并放入文件夹压缩后进行上传（店铺证照命名规范：店铺电话-shopphoto.jpg、店铺电话-paypoint.jpg、店铺电话-otherphoto.jpg、店铺电话-idcardfront.jpg、店铺电话-licensephoto.jpg、店铺电话-goodsphoto.jpg、店铺电话-otherphoto1.jpg、店铺电话-otherphoto2.jpg、店铺电话-ciphoto.jpg和店铺电话-bankcheckphoto.jpg）。',
     manual3: '3、附件中文件夹名称与压缩包名称需保持一致，如需修改名称，请先修改文件夹名称再进行压缩。'
   },
   audit: {
@@ -681,8 +686,8 @@ const zh = {
       title: '审核记录',
       storeInfo: {
         title: '证照信息',
-        storename: '门店名称',
-        storeaddr: '门店地址',
+        storename: '店铺名称',
+        storeaddr: '店铺地址',
         storetel: '联系电话',
         opertime: '营业时间'
       },
@@ -721,7 +726,7 @@ const zh = {
       tradeType: '交易类型',
       payPass: '支付通道',
       merchantName: '商户名称',
-      shopName: '门店名称',
+      shopName: '店铺名称',
       firstAgent: '一级代理',
       secondAgent: '二级代理',
       wechat: '微信支付',

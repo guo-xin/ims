@@ -30,41 +30,14 @@
     </el-form>
 
     <el-table :data="shops" stripe v-loading="isLoading" @current-change="selectCurrentRowHandler">
-      <el-table-column prop="submchnt_id" :label="$t('shop.table.submchntid')">
-        <template slot-scope="scope">
-          {{ scope.row.submchnt_id }}
-        </template>
-      </el-table-column>
+      <el-table-column prop="submchnt_id" :label="$t('shop.table.submchntid')"></el-table-column>
+      <el-table-column prop="mchnt_name"  :label="$t('shop.table.mchntname')"></el-table-column>
+      <el-table-column width="170" prop="submchnt_name" :label="$t('shop.table.sunmchntname')"></el-table-column>
+      <el-table-column prop="address" :label="$t('shop.table.address')"></el-table-column>
+      <el-table-column prop="telephone" :label="$t('shop.table.telephone')"></el-table-column>
+      <el-table-column prop="operating" :label="$t('shop.table.operating')"></el-table-column>
+      <el-table-column prop="username" :label="$t('shop.table.account')"></el-table-column>
 
-       <el-table-column prop="submchnt_name"  :label="$t('shop.table.mchntname')">
-        <template slot-scope="scope">
-          {{ scope.row.mchnt_name }}
-        </template>
-      </el-table-column>
-
-      <el-table-column width="170" prop="mchnt_name" :label="$t('shop.table.sunmchntname')">
-        <template slot-scope="scope">
-          {{ scope.row.submchnt_name }}
-        </template>
-      </el-table-column>
-
-      <el-table-column prop="address" :label="$t('shop.table.address')">
-        <template slot-scope="scope">
-          {{ scope.row.address }}
-        </template>
-      </el-table-column>
-
-      <el-table-column prop="telephone" :label="$t('shop.table.telephone')">
-        <template slot-scope="scope">
-          {{ scope.row.telephone }}
-        </template>
-      </el-table-column>
-
-      <el-table-column prop="operating" :label="$t('shop.table.operating')">
-        <template slot-scope="scope">
-          {{ scope.row.operating }}
-        </template>
-      </el-table-column>
     </el-table>
 
     <el-pagination
