@@ -70,7 +70,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('merchant.table.payment')" width="100">
+      <el-table-column :label="$t('merchant.table.payment')" width="150">
         <template slot-scope="scope">
           <el-button :disabled="scope.row.status !== 3" type="text" @click.stop="paymentConfigure(scope.row.userid)">{{ scope.row.deploy == 1 ? $t('merchant.payment.configured') : $t('merchant.payment.nonconfigured') }}</el-button>
         </template>
