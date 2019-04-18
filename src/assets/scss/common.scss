@@ -281,14 +281,11 @@ form.el-form {
   line-height: 18px;
 }
 
-.el-table th > .cell {
+.el-table th > .cell, .el-table td > .cell {
   word-break: keep-all;
-  width:auto;
-}
-.el-table th div {
-  text-overflow: visible;
   overflow: visible;
 }
+
 .tradeTotal {
   .el-table thead.is-group th {
     background-color: #F5FAFF;
