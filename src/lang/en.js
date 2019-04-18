@@ -330,7 +330,8 @@ const en = {
         la20: 'Bank Address:',
         la21: 'Starting Point of Settlement Fund:',
         la22: 'Company Website:',
-        la23: 'Legal Person:'
+        la23: 'Legal Person:',
+        la24: 'Merchant/Big Merchant:'
       },
       shop: {
         subtitle: 'Shop Info',
@@ -359,7 +360,8 @@ const en = {
       },
       edit: 'Edit',
       document: {
-        doctitle: 'Licence Info'
+        doctitle: 'Licence Info',
+        doctitle1: 'File Info'
       },
     },
     newMerchant: {
@@ -468,7 +470,7 @@ const en = {
         registeredAddress: 'Register Address',
         companyWebsite: 'Company Website',
         legalName: 'Legal Person',
-        bigMerchant: 'Merchant／Big Merchant'
+        bigMerchant: 'Branch Merchant／Chain Merchant'
       },
       applicationTypes: {
         direct: 'direct',
@@ -537,7 +539,7 @@ const en = {
         shopphoto: 'Outdoor photos of business places',
         paypoint: 'Cashier photo',
         otherphoto: 'Other photos',
-        certificate: 'Certificate of incorportion',
+        certificate: 'Certificate of incorportion(CI)',
         bankStatement: 'Bank Statement',
         otherDocument1: 'Other Supporting Document 1',
         otherDocument2: 'Other Supporting Document 2',

@@ -32,6 +32,45 @@
         <el-input v-model.trim="storeModel.operating"></el-input>
       </el-form-item>
 
+
+      <h3>{{$t('merchant.newMerchant.basic.cap2')}}</h3>
+      <el-form-item v-if="!isUpdate">
+        <el-select v-model="pid_select" :placeholder="$t('merchant.newMerchant.requiredRule.rule25')">
+          <el-option
+            v-for="item in list"
+            :key="item.chnl_code"
+            :label="item.pid_name"
+            :value="item.pid_name"
+          >
+          </el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item>
+        <el-button v-if="!isUpdate" class="el-button el-button--primary" @click="addList()">{{$t('common.confirm')}}</el-button>
+      </el-form-item>
+
+      <div class="payList" v-for="item in list_Select" :key="item.value">
+        <el-form-item :label="item.pid_name">
+          <el-input-number v-model="item.ratio" :precision="2" :step="0.01" :min="Number(item.ratioMin)"></el-input-number>
+        </el-form-item>
+        <el-form-item v-if="item.line_type !== ''" :label="$t('merchant.newMerchant.form.accessType')">
+          <el-select :disabled="true" v-model="item.line_type">
+            <el-option :label="$t('merchant.newMerchant.accessTypes.offline')" value="offline"></el-option>
+            <el-option :label="$t('merchant.newMerchant.accessTypes.online')" value="online"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item v-if="item.finance_type !== ''" :label="$t('merchant.newMerchant.form.applicationType')">
+          <el-select :disabled="true" v-model="item.finance_type">
+            <el-option :label="$t('merchant.newMerchant.applicationTypes.direct')" value="direct"></el-option>
+            <el-option :label="$t('merchant.newMerchant.applicationTypes.indirect')" value="indirect"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item v-if="!isUpdate" class="icon_remove" style="width:20px;margin-top:25px;">
+          <i class="el-icon-remove" @click="pid_name_remove(item.pid_name)"></i>
+        </el-form-item>
+      </div>
+
       <h3>{{$t('merchant.detail.rates.setitle')}}</h3>
 
       <el-form-item prop="bankuser" :label="$t('merchant.newMerchant.form.accountName')">
@@ -217,6 +256,9 @@
   export default {
     data() {
       return {
+        pid_select: [],
+        list: [],
+        list_Select: [],
         isUpdate: false,
         isLoading: false,
         IsRemit: false,
@@ -248,7 +290,11 @@
           paypoint_url: '', // 收银柜台照片url
           paypoint_name: '',
           otherphoto_url: '', // 补充资料照片
-          otherphoto_name: ''
+          otherphoto_name: '',
+          otherphoto1_url: '', // 补充资料照片
+          otherphoto1_name: '',
+          otherphoto2_url: '', // 补充资料照片
+          otherphoto2_name: ''
         },
         storeRules: {
           'shopname': [
@@ -324,6 +370,7 @@
       if (this.$route.query) {
         this.isUpdate = this.$route.query.command === 'edit' || getParams('command') === 'edit';
         this.storeModel.big_uid = this.$route.query.big_uid;
+        this.getPid()
         this.isUpdate && this.getStoreInfo()
       }
     },
@@ -508,7 +555,45 @@
           this.$message.error(this.$t('common.netError'));
           this.isLoading = false;
         });
-      }
+      },
+      getPid() {  // 商户自动入网获取通道pid配置信息
+        axios.get(`${config.host}/org/tools/get_pid_info`, {
+          params: {
+            qd_uid: this.$route.query.qd_uid || getParams('qd_uid'),
+            format: 'cors'
+          }
+        })
+          .then((res) => {
+            let data = res.data;
+            if (data.respcd === config.code.OK) {
+              this.list = res.data.data
+            } else {
+              this.$message.error(data.respmsg);
+            }
+          }).catch(() => {
+          this.$message.error(this.$t('common.netError'));
+        });
+      },
+      addList() {
+        let pid_select = this.pid_select
+        let pid_select_array = []
+        this.list_Select.forEach(element => {
+          pid_select_array.push(element.pid_name)
+        })
+        this.list.forEach(element => {
+          if(pid_select_array.indexOf(pid_select) > -1){
+            this.$message.error(this.$t('您已经添加了该支付方式'));
+          }else if(element.pid_name === pid_select){
+            this.list_Select.push(element)
+          }
+        })
+      },
+      pid_name_remove(pid_name) { // 支付通道点击减号
+        let new_list_select = this.list_Select.filter(element => {
+          return element.pid_name !== pid_name
+        })
+        this.list_Select = new_list_select
+      } 
     }
   }
 </script>
@@ -685,6 +770,22 @@
           font-size: $baseSize;
         }
 
+      }
+    }
+    .payList {
+      .el-form-item {
+        width: 220px;
+        .el-form-item__content {
+          width: 220px;
+        }
+      }
+      .icon_remove {
+        .el-form-item__content {
+          font-size: 24px;
+          .el-icon-remove {
+            color: #409EFF;
+          }
+        }
       }
     }
   }

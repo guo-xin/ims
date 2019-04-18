@@ -27,15 +27,15 @@
           <span class="basic-content">{{form.userinfo.shopname}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la4')}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la24')}}</span>
           <span class="basic-content">{{cate[form.userinfo.cate]}}</span>
         </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la5')}}</span>
-          <span class="basic-content">{{form.userinfo.mcc_str}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la11')}}</span>
+          <span class="basic-content">{{form.userinfo.contact_email}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la6')}}</span>
@@ -69,9 +69,9 @@
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la11')}}</span>
-          <span class="basic-content">{{form.userinfo.email}}</span>
-        </el-col>
+          <span class="basic-label">{{$t('merchant.detail.basic.la5')}}</span>
+          <span class="basic-content">{{form.userinfo.mcc_str}}</span>
+        </el-col>        
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la12')}}</span>
           <span class="basic-content">{{form.userinfo.address}}</span>
@@ -99,6 +99,35 @@
           <span class="basic-content">{{form.userinfo.ci_expire_time}}</span>
         </el-col>
       </el-row>
+
+            <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la15')}}</span>
+          <span class="basic-content">{{form.userinfo.ci}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la16')}}</span>
+          <span class="basic-content">{{form.userinfo.businessaddr}}</span>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la22')}}</span>
+          <span class="basic-content">{{form.userinfo.website}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la23')}}</span>
+          <span class="basic-content">{{form.userinfo.legalperson}}</span>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la4')}}</span>
+          <span class="basic-content">{{merchantType[form.userinfo.user_type]}}</span>
+        </el-col>
+      </el-row>
     </section>
 
     <section class="rates">
@@ -107,12 +136,29 @@
         <div class="divider"></div>
       </div>
 
-      <div v-for="item in form.fee_ratios" :key="item.name">
+      <!-- <div v-for="item in form.fee_ratios" :key="item.name">
         <h3>{{item.name}}</h3>
         <el-row v-for="fee in item.busicd" :key="fee.trade_type_name">
           <el-col :span="8">
             <span class="basic-label">{{fee.trade_type_name}}:</span>
             <span class="basic-content">{{fee.ratio}}</span>
+          </el-col>
+        </el-row>
+      </div> -->
+      <div v-for="item in form.fee_ratios" :key="item.pid_name">
+        <h3>{{item.pid_name}}</h3>
+        <el-row>
+          <el-col :span="8">
+            <span class="basic-label">{{$t('merchant.newMerchant.form.ratio')}}:</span>
+            <span class="basic-content">{{item.ratio}}</span>
+          </el-col>
+          <el-col :span="8" v-show="item.line_type !== ''">
+            <span class="basic-label">{{$t('merchant.newMerchant.form.accessType')}}:</span>
+            <span class="basic-content">{{accessType[item.line_type]}}</span>
+          </el-col>
+          <el-col :span="8" v-show="item.finance_type !== ''">
+            <span class="basic-label">{{$t('merchant.newMerchant.form.applicationType')}}:</span>
+            <span class="basic-content">{{applicationType[item.finance_type]}}</span>
           </el-col>
         </el-row>
       </div>
@@ -273,6 +319,10 @@
           "-1": this.$t('common.audit'),
           "0": this.$t('common.refuse')
         },
+        merchantType: {
+          2: this.$t('merchant.newMerchant.form.personal'),
+          3: this.$t('merchant.newMerchant.form.enterprise')
+        },
         status: {
           '0': this.$t('audit.deny'),
           '1': this.$t('audit.succ'),
@@ -318,6 +368,14 @@
             bankaccount: '',
             bankProvince: ''
           }
+        },
+        accessType: {
+          'offline': this.$t('merchant.newMerchant.accessTypes.offline'),
+          'online': this.$t('merchant.newMerchant.accessTypes.online')
+        },
+        applicationType: {
+          'direct': this.$t('merchant.newMerchant.applicationTypes.direct'),
+          'indirect': this.$t('merchant.newMerchant.applicationTypes.indirect')
         },
         pictures: [],
         audit_logs: [],
