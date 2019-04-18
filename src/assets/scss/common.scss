@@ -283,10 +283,11 @@ form.el-form {
 
 .el-table th > .cell {
   word-break: keep-all;
-  width:auto;
+  overflow: visible;
 }
-.el-table th div {
-  text-overflow: visible;
+.el-table td > .cell {
+  word-wrap: break-word;
+  word-break: break-all;
   overflow: visible;
 }
 .tradeTotal {

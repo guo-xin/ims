@@ -39,32 +39,32 @@
       </div>
     </el-form>
 
-    <el-table :data="merchents" stripe v-loading="isLoading" @current-change="selectCurrentRowHandler">
-      <el-table-column prop="userid" :label="$t('merchant.table.mchtid')"></el-table-column>
-      <el-table-column prop="shopname" :label="$t('merchant.table.mchtname')"></el-table-column>
-      <el-table-column prop="mobile" :label="$t('merchant.table.mobile')"></el-table-column>
-      <el-table-column prop="source" :label="$t('merchant.table.source')"></el-table-column>
-      <el-table-column prop="qd_name" :label="$t('merchant.table.agent1')"></el-table-column>
-      <el-table-column prop="username" :label="$t('merchant.table.account')"></el-table-column>
-      <el-table-column prop="mcc_str" :label="$t('merchant.table.industry')"></el-table-column>
-      <el-table-column prop="cate" :label="$t('merchant.table.type')">
+    <el-table :data="merchents" stripe v-loading="isLoading" class="table-hover" @current-change="selectCurrentRowHandler">
+      <el-table-column prop="userid" :label="$t('merchant.table.mchtid')" width="120"></el-table-column>
+      <el-table-column prop="shopname" :label="$t('merchant.table.mchtname')" width="100"></el-table-column>
+      <el-table-column prop="mcc_str" :label="$t('merchant.table.industry')" width="140"></el-table-column>
+      <el-table-column prop="telephone" :label="$t('merchant.table.mobile')" width="110"></el-table-column>
+      <el-table-column prop="source" :label="$t('merchant.table.source')" width="100"></el-table-column>
+      <el-table-column prop="qd_name" :label="$t('merchant.table.agent1')" width="100"></el-table-column>
+      <el-table-column prop="username" :label="$t('merchant.table.account')" width="100"></el-table-column>
+      <el-table-column :label="$t('merchant.table.type')" width="130">
         <template slot-scope="scope">
           {{ cate[scope.row.cate] }}
         </template>
       </el-table-column>
-      <el-table-column :label="$t('merchant.table.store')">
+      <el-table-column :label="$t('merchant.table.store')" width="80">
         <template slot-scope="scope">
           <el-button type="text" @click.stop="shopList(scope.row.userid)">{{ $t('common.look') }}</el-button>
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('merchant.table.detail')">
+      <el-table-column :label="$t('merchant.table.detail')" width="80">
         <template slot-scope="scope">
           <el-button type="text">{{ $t('common.look') }}</el-button>
         </template>
       </el-table-column>
 
-       <el-table-column :label="$t('merchant.table.merstatus')" width="140">
+       <el-table-column :label="$t('merchant.table.merstatus')" width="100">
         <template slot-scope="scope">
           {{ isSigned[scope.row.status] }}
         </template>
@@ -147,6 +147,7 @@
           {name: this.$t('common.disable'), val: 4},
           {name: this.$t('common.refuse'), val: 0},
           {name: this.$t('common.audit'), val: -1},
+          {name: this.$t('common.toSubmit'), val: 5},
         ],
         isSigned: {
           "3": this.$t('common.enable'),
@@ -370,6 +371,7 @@
               type: 'success',
               message: this.$t('common.opSucc')
             });
+            this.paymentConfigure(this.userId);
           }else {
             this.$message.error(data.resperr);
           }
