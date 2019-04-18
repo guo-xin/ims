@@ -313,7 +313,7 @@ const zh = {
         subtitle: '基本信息',
         paymenttitle: '支付通道',
         bd: '简介:',
-        la1: '所属渠道:',
+        la1: '所属机构:',
         la2: '业务员名称:',
         la3: '商户名称:',
         la4: '商户类型:',
@@ -336,7 +336,8 @@ const zh = {
         la20: '银行地址:',
         la21: '结算资金起点:',
         la22: '公司网址:',
-        la23: '法人名称:'
+        la23: '法人名称:',
+        la24: '单点／连锁店:'
       },
       shop: {
         subtitle: '商户信息',
@@ -355,7 +356,8 @@ const zh = {
         sa7: '结算资金起点:'
       },
       document: {
-        doctitle: '证照信息'
+        doctitle: '证照信息',
+        doctitle1: '档案信息'
       },
       pay: {
         subtitle: '公司信息',
@@ -433,7 +435,7 @@ const zh = {
         registeredAddress: '注册地址',
         companyWebsite: '公司网址',
         legalName: '法人名称',
-        bigMerchant: '单店／连锁'
+        bigMerchant: '单店／连锁店'
       },
       applicationTypes: {
         direct: '直连',
@@ -502,7 +504,7 @@ const zh = {
         shopphoto: '经营场所外景照片',
         paypoint: '收银台照',
         otherphoto: '其他凭证照片',
-        certificate: '有限公司证书',
+        certificate: '有限公司证书(CI)',
         bankStatement: '银行对账单',
         otherDocument1: '其他文件1',
         otherDocument2: '其他文件2',

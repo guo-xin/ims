@@ -168,7 +168,7 @@
         </el-form-item>
       </div> -->
       <el-form-item v-if="!isUpdate">
-        <el-select v-model="pid_select" :placeholder="$t('merchant.newMerchant.form.accountName')">
+        <el-select v-model="pid_select" :placeholder="$t('merchant.newMerchant.requiredRule.rule25')">
           <el-option
             v-for="item in list"
             :key="item.chnl_code"
@@ -187,13 +187,13 @@
         <el-form-item :label="item.pid_name">
           <el-input-number v-model="item.ratio" :precision="2" :step="0.01" :min="Number(item.ratioMin)"></el-input-number>
         </el-form-item>
-        <el-form-item v-if="item.line_type != ''" :label="$t('merchant.newMerchant.form.accessType')">
+        <el-form-item v-if="item.line_type !== ''" :label="$t('merchant.newMerchant.form.accessType')">
           <el-select :disabled="true" v-model="item.line_type">
             <el-option :label="$t('merchant.newMerchant.accessTypes.offline')" value="offline"></el-option>
             <el-option :label="$t('merchant.newMerchant.accessTypes.online')" value="online"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item v-if="item.finance_type != ''" :label="$t('merchant.newMerchant.form.applicationType')">
+        <el-form-item v-if="item.finance_type !== ''" :label="$t('merchant.newMerchant.form.applicationType')">
           <el-select :disabled="true" v-model="item.finance_type">
             <el-option :label="$t('merchant.newMerchant.applicationTypes.direct')" value="direct"></el-option>
             <el-option :label="$t('merchant.newMerchant.applicationTypes.indirect')" value="indirect"></el-option>
@@ -518,7 +518,7 @@
         </el-col>
       </el-row>
 
-      <h3>上传档案</h3>
+      <h3>{{$t('merchant.detail.document.doctitle1')}}</h3>
       <el-row>
         <el-col :span="24">
           <div class="uploader-wrap">
@@ -1390,14 +1390,18 @@
       },
       next() {
         if (this.active === 0) { // 第一步
-          this.$refs['baseinfo'].validate((valid) => {
-            if (valid) {
-              this.active += 1
-              if (!this.isUpdate) {
-                localStorage.setItem('new_baseinfo', JSON.stringify(this.form))
+          if(this.list_Select.length === 0) {
+            this.$message.error(this.$t('merchant.newMerchant.requiredRule.rule25'))
+          }else {
+            this.$refs['baseinfo'].validate((valid) => {
+              if (valid) {
+                this.active += 1
+                if (!this.isUpdate) {
+                  localStorage.setItem('new_baseinfo', JSON.stringify(this.form))
+                }
               }
-            }
-          })
+            })
+          }
         } else if (this.active === 1) { // 第二步
           this.$refs['bankinfos'].validate((valid) => {
             if (valid) {
