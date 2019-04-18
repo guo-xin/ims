@@ -287,7 +287,7 @@ form.el-form {
 }
 .el-table td > .cell {
   word-wrap: break-word;
-  word-break: break-all;
+  word-break: keep-all;
   overflow: visible;
 }
 .tradeTotal {
