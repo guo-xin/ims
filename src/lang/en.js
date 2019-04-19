@@ -489,7 +489,7 @@ const en = {
       },
       requiredRule: {
         rule1: 'Please select agent name',
-        rule2: 'Please select merchant／big merchant',
+        rule2: 'Please select',
         rule3: 'Please input merchant name',
         rule4: 'Please input email',
         rule5: 'Please input contact name',
@@ -672,17 +672,20 @@ const en = {
         storeaddress: 'Store Address',
         mobile: 'Store Contact Number',
         operation: 'Business Hours',
-        short_name: '门店简称'
+        short_name: 'Merchant Abbreviation'
       },
       rule1: 'Please input store name',
       rule2: 'Please input store address',
       rule3: 'Please input store contact number',
       rule4: 'Please input business hours',
-      rule5: '请输入门店简称',
+      rule5: 'Please input merchant abbreviation',
       casher: 'Click to add a photo of the checkout counter',
       warmcasher: 'Please upload a photo of the checkout counter',
       mustcasher: '* You must upload a photo of the checkout counter',
-      other: 'Click to add a photo of supplementary info',
+      // other: 'Click to add a photo of supplementary info',
+      other: 'Other Supporting Document 1',
+      other1: 'Other Supporting Document 2',
+      other2: 'Other Supporting Document 3',
       warmother: ''
     }
   },

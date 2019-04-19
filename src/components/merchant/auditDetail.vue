@@ -218,6 +218,20 @@
       </el-row>
     </section>
 
+    <section v-if="dossierPictures.length>0">
+      <div class="banner">
+        <div class="title">{{$t('merchant.detail.document.doctitle1')}}</div>
+        <div class="divider"></div>
+        <el-row>
+         <el-col :span="24">
+           <span class="basic-content-p">
+             <img :src="item.url" v-for="(item,url) in dossierPictures" class="voucher_photo" :key="url"/>
+          </span>
+         </el-col>
+       </el-row>
+      </div>
+    </section>
+
     <section class="audit-log">
       <div class="banner">
         <div class="title">{{$t('audit.detail.title')}}</div>
@@ -378,6 +392,7 @@
           'indirect': this.$t('merchant.newMerchant.applicationTypes.indirect')
         },
         pictures: [],
+        dossierPictures: [],
         audit_logs: [],
         memo: {
           memo: ''
@@ -414,6 +429,13 @@
         for(let i of b) {
           if(i['name'] === "idcardfront" || i['name'] === 'licensephoto') {
             a.push(i)
+          }
+        }
+      },
+      dossierSelect(a, b) {
+        for(let i of b) {
+          if(i['name'] === "ciphoto" || i['name'] === 'bankcheckphoto') {
+             a.push(i)
           }
         }
       },
@@ -487,6 +509,7 @@
             if (data.respcd === '0000') {
                 this.form = data.data;
               this.picturesSelect(this.pictures, this.form.vouchers)
+              this.dossierSelect(this.dossierPictures, this.form.vouchers)
               this.form.userinfo.ci_expire_time = formatDate(this.form.userinfo.ci_expire_time, 'dd/MM/yyyy')
               this.form.userinfo.br_expire_time = formatDate(this.form.userinfo.br_expire_time, 'dd/MM/yyyy')
               this.form.number = this.form.userinfo['idnumber'] || this.form.userinfo['passport'] || this.form.userinfo['eep']

@@ -84,8 +84,8 @@
         <el-select
             v-model="formData.documentType"
             :disabled="isUpdate">
-          <el-option :label="$t('merchant.newMerchant.doctype.type2')" value="passport"></el-option>
-          <el-option :label="$t('merchant.newMerchant.doctype.type1')" value="eep"></el-option>
+          <el-option :label="$t('merchant.newMerchant.doctype.type1')" value="passport"></el-option>
+          <el-option :label="$t('merchant.newMerchant.doctype.type2')" value="eep"></el-option>
           <el-option :label="$t('merchant.newMerchant.doctype.type3')" value="idnumber"></el-option>
         </el-select>
       </el-form-item>

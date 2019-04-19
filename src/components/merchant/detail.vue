@@ -56,8 +56,8 @@
       <el-row>
         <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la9')}}</span>
-          <span v-if="form.userinfo.eep" class="basic-content">{{$t('merchant.newMerchant.doctype.type1')}}</span>
-          <span v-else-if="form.userinfo.passport" class="basic-content">{{$t('merchant.newMerchant.doctype.type2')}}</span>
+          <span v-if="form.userinfo.eep" class="basic-content">{{$t('merchant.newMerchant.doctype.type2')}}</span>
+          <span v-else-if="form.userinfo.passport" class="basic-content">{{$t('merchant.newMerchant.doctype.type1')}}</span>
           <span v-else-if="form.userinfo.idnumber" class="basic-content">{{$t('merchant.newMerchant.doctype.type3')}}</span>
         </el-col>
         <el-col :span="14">
