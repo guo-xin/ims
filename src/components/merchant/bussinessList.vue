@@ -38,6 +38,11 @@
       <el-table-column prop="operating" :label="$t('shop.table.operating')"></el-table-column>
       <el-table-column prop="username" :label="$t('shop.table.account')"></el-table-column>
 
+      <el-table-column :label="$t('merchant.table.payment')" width="150">
+        <template slot-scope="scope">
+          <el-button :disabled="scope.row.status !== 3" type="text" @click.stop="paymentConfigure(scope.row.submchnt_id)">{{ scope.row.deploy == 1 ? $t('merchant.payment.configured') : $t('merchant.payment.nonconfigured') }}</el-button>
+        </template>
+      </el-table-column>
     </el-table>
 
     <el-pagination
@@ -49,11 +54,47 @@
       @current-change="handleCurrentChange"
       :current-page="currentPage">
     </el-pagination>
+
+    <el-dialog :title="$t('merchant.payment.title')" :visible.sync="showConfirm"
+               :show-close="false" center width="80%" class="dialog" @close="handleClose">
+      <el-form :model="formPayment" ref="formPayment">
+        <div class="dialog-row" v-for="(item, index) in formPayment.list" :key="index">
+          <h4>{{ item.pid_name }}</h4>
+          <el-form-item :label="$t('merchant.payment.merchantID1')">
+            <el-input :disabled="item.type === 1" v-model="item['mchntid']" type="text"></el-input>
+          </el-form-item>
+
+          <el-form-item :label="$t('merchant.payment.merchChildID1')">
+            <el-input :disabled="item.type === 1" v-model="item['termid']" type="text"></el-input>
+          </el-form-item>
+
+          <el-form-item :label="$t('merchant.payment.merchantPass1')">
+            <el-input :disabled="item.type === 1" v-model="item['key1']" type="text"></el-input>
+          </el-form-item>
+          <el-form-item v-if="item.type" :label="$t('merchant.payment.type')">
+            <el-input v-model="item['line_finance']" disabled type="text"></el-input>
+          </el-form-item>
+          <el-form-item v-if="item.type" :label="$t('merchant.payment.desc')">
+            <el-input v-model="item['state_memo']" disabled type="text"></el-input>
+          </el-form-item>
+
+          <el-button type="text" :disabled="item.type === 1 && item.state !== 2" :loading="formPayment['loading' + index]" @click="submit(index)">{{ $t('common.submit') }}</el-button>
+        </div>
+      </el-form>
+
+      <div class="divider"></div>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="text" @click="showConfirm = false">{{ $t('common.CLOSE') }}</el-button>
+      </div>
+
+    </el-dialog>
   </div>
 </template>
 <script>
   import config from 'config'
   import axios from 'axios';
+  import qs from 'qs';
+
   export default {
     data() {
       return {
@@ -67,7 +108,12 @@
         shops: [],
         total: 0,
         pageSize: 10,
-        currentPage: 0
+        currentPage: 0,
+        showConfirm: false,
+        userId: '',
+        formPayment: {
+          list: []
+        },
       }
     },
     created() {
@@ -132,9 +178,135 @@
           this.currentPage = 0
         }
         this.fetchData()
-      }
+      },
+
+      // 支付配置弹框
+      paymentConfigure(userid) {
+        this.isLoading = true;
+        this.userId = userid;
+        axios.get(`${config.host}/org/mchnt/hk/channel/info?userid=${userid}&format=cors`).then((res) => {
+          let data = res.data;
+          this.isLoading = false;
+          if (data.respcd === config.code.OK) {
+            this.formPayment.list = data.data;
+            this.showConfirm = true;
+
+          } else {
+            this.$message.error(data.respmsg);
+          }
+        }).catch(() => {
+          this.isLoading = false;
+          this.$message.error(this.$t('common.netError'));
+        });
+      },
+
+      // 提交
+      submit(index) {
+        this.$set(this.formPayment, 'loading' + index, true);
+        let list = this.formPayment.list[index] || {};
+        let [url, param] = [];
+        // 失败重新提交的
+        if(list.type) {
+          url = '/org/mchnt/bind';
+          param = {
+            userid: this.userId,
+            chnlids: list.chnlid
+          }
+
+        }else {
+          // 编辑
+          if(list.mchnt_state) {
+            url = '/org/mchnt/hk/channel/edit';
+            param = {
+              userid: this.userId,
+              termid: list.termid,
+              mchntid: list.mchntid,
+              id: list.id,
+              key1: list.key1,
+              format: 'cors'
+            }
+          }else {
+            // 新建
+            url = '/org/mchnt/hk/channel/bind';
+            param = {
+              userid: this.userId,
+              termid: list.termid,
+              mchntid: list.mchntid,
+              chnlid: list.chnlid,
+              key1: list.key1,
+              format: 'cors'
+            }
+          }
+        }
+
+        axios.post(`${config.host}${url}`, qs.stringify(param)).then((res) => {
+          this.$set(this.formPayment, 'loading' + index, false);
+          let data = res.data;
+          if(data.respcd === config.code.OK) {
+
+            this.$message({
+              type: 'success',
+              message: this.$t('common.opSucc')
+            });
+            this.paymentConfigure(this.userId);
+          }else {
+            this.$message.error(data.resperr);
+          }
+        }).catch(() => {
+          this.$set(this.formPayment, 'loading' + index, false);
+          this.$message.error(this.$t('common.netError'));
+        });
+
+      },
+
+      // 重置弹框表单
+      handleClose() {
+        this.$refs['formPayment'].resetFields();
+        this.handleSizeChange();
+      },
     }
   }
 </script>
 <style lang="scss">
+  .shop {
+    .dialog {
+      .el-dialog {
+        margin-top: 15vh !important;
+      }
+      .el-dialog__body {
+        max-height: 50vh;
+        overflow-y: scroll;
+      }
+      .el-dialog__header {
+        border-bottom: 1px #2974FF solid;
+      }
+      .dialog-row {
+        display: block;
+      }
+      .el-form-item {
+        width: 19%;
+        padding-left: 0;
+        padding-right: $miderGap;
+      }
+      h4 {
+        position: relative;
+        padding: $smGap 0;
+        margin: 0 0 $midGap;
+        font-size: $bigSize;
+        color: $titleColor;
+        &:after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 50px;
+          height: 2px;
+          background-color: #232629;
+        }
+      }
+      box-shadow: 2px 2px 4px 0 rgba(29,29,36,0.1);
+      border-radius: 2px;
+      font-size: $xgSize;
+    }
+  }
 </style>
