@@ -1474,7 +1474,7 @@
         })
         this.list.forEach(element => {
           if(pid_select_array.indexOf(pid_select) > -1){
-            this.$message.error(this.$t('您已经添加了该支付方式'));
+            this.$message.error(this.$t('common.payTip'));
           }else if(element.pid_name === pid_select){
             this.list_Select.push(element)
           }

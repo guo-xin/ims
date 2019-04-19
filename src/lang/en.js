@@ -57,7 +57,8 @@ const en = {
     SAVE: 'SAVE',
     EDIT: 'EDIT',
     SWIFT: 'SWIFT',
-    remark: 'Remark'
+    remark: 'Remark',
+    payTip: 'Non-repeatable selection of the payment channel'
   },
   home: {
       all: 'All',

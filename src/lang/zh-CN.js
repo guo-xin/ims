@@ -55,7 +55,8 @@ const zh = {
     CLOSE: '关闭',
     EDIT: '编辑',
     SWIFT: 'SWIFT',
-    remark: '备注'
+    remark: '备注',
+    payTip: '不可重复选择支付通道'
   },
   home: {
     all: '全部',
