@@ -273,7 +273,7 @@ const zh = {
       address: '商户地址',
       mobile: '联系电话',
       source: '商户来源',
-      type: '单店／连锁',
+      type: '单店／连锁店',
       agent1: '所属机构',
       account: '账户名称',
       industry: '行业',
