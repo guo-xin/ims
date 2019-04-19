@@ -55,7 +55,8 @@ const zh = {
     CLOSE: '关闭',
     EDIT: '编辑',
     SWIFT: 'SWIFT',
-    remark: '备注'
+    remark: '备注',
+    payTip: '不可重复选择支付通道'
   },
   home: {
     all: '全部',
@@ -447,7 +448,7 @@ const zh = {
       },
       requiredRule: {
         rule1: '请选择业务员',
-        rule2: '请选择单店／连锁店',
+        rule2: '请选择',
         rule3: '请输入商户名称',
         rule4: '请输入邮箱',
         rule5: '请输入联系人姓名',
@@ -637,7 +638,10 @@ const zh = {
       casher: '点击添加收银台照片',
       warmcasher: '请上传收银台照片',
       mustcasher: '* 必须上传收银台照片',
-      other: '点击添加补充资料照片',
+      // other: '点击添加补充资料照片',
+      other: '其它文件1',
+      other1: '其它文件2',
+      other2: '其它文件3',
       warmother: ''
     }
   },

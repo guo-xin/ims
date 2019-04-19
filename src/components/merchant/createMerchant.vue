@@ -84,8 +84,8 @@
         <el-select
             v-model="formData.documentType"
             :disabled="isUpdate">
-          <el-option :label="$t('merchant.newMerchant.doctype.type2')" value="passport"></el-option>
-          <el-option :label="$t('merchant.newMerchant.doctype.type1')" value="eep"></el-option>
+          <el-option :label="$t('merchant.newMerchant.doctype.type1')" value="passport"></el-option>
+          <el-option :label="$t('merchant.newMerchant.doctype.type2')" value="eep"></el-option>
           <el-option :label="$t('merchant.newMerchant.doctype.type3')" value="idnumber"></el-option>
         </el-select>
       </el-form-item>
@@ -1474,7 +1474,7 @@
         })
         this.list.forEach(element => {
           if(pid_select_array.indexOf(pid_select) > -1){
-            this.$message.error(this.$t('您已经添加了该支付方式'));
+            this.$message.error(this.$t('common.payTip'));
           }else if(element.pid_name === pid_select){
             this.list_Select.push(element)
           }

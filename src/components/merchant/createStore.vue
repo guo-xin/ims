@@ -253,7 +253,7 @@
                 </div>
                 <div v-else class="avatar-uploader-wrap">
                   <i class="avatar-uploader-icon el-icon-plus"></i>
-                  <div class="avatar-desc">{{$t('shop.newStore.other')}}</div>
+                  <div class="avatar-desc">{{$t('shop.newStore.other1')}}</div>
                   <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
@@ -284,7 +284,7 @@
                 </div>
                 <div v-else class="avatar-uploader-wrap">
                   <i class="avatar-uploader-icon el-icon-plus"></i>
-                  <div class="avatar-desc">{{$t('shop.newStore.other')}}</div>
+                  <div class="avatar-desc">{{$t('shop.newStore.other2')}}</div>
                   <div class="avatar-tip">{{$t('common.format')}}</div>
                 </div>
               </el-upload>
@@ -557,15 +557,19 @@
         return true
       },
       next() {
-        this.$refs['store-form'].validate((valid) => { // && this.checkPhotosIsUpdated()
-          if (valid) {
-            if (this.isUpdate) {
-              this.confirm()
-            } else {
-              this.commit()
+        if(this.list_Select.length === 0) {
+            this.$message.error(this.$t('merchant.newMerchant.requiredRule.rule25'))
+        }else {
+          this.$refs['store-form'].validate((valid) => { // && this.checkPhotosIsUpdated()
+            if (valid) {
+              if (this.isUpdate) {
+                this.confirm()
+              } else {
+                this.commit()
+              }
             }
-          }
-        })
+          })
+        }
       },
       confirm() {
         this.$confirm(this.$t('common.sure'), this.$t('common.tip'), {
@@ -645,7 +649,7 @@
         })
         this.list.forEach(element => {
           if(pid_select_array.indexOf(pid_select) > -1){
-            this.$message.error(this.$t('您已经添加了该支付方式'));
+            this.$message.error(this.$t('common.payTip'));
           }else if(element.pid_name === pid_select){
             this.list_Select.push(element)
           }
