@@ -16,27 +16,56 @@
           <span class="basic-content">{{form.userinfo.shopname}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('shop.detail.basic.la12')}}</span>
-          <span class="basic-content">{{form.userinfo.mchid}}</span>
+          <span class="basic-label">{{$t('shop.detail.basic.la14')}}</span>
+          <span class="basic-content">{{form.userinfo.short_name}}</span>
         </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('shop.detail.basic.la6')}}</span>
-          <span class="basic-content">{{form.userinfo.address}}</span>
+          <span class="basic-label">{{$t('shop.detail.basic.la12')}}</span>
+          <span class="basic-content">{{form.userinfo.mchid}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('shop.detail.basic.la4')}}</span>
-          <span class="basic-content">{{form.userinfo.telephone}}</span>
+          <span class="basic-label">{{$t('shop.detail.basic.la6')}}</span>
+          <span class="basic-content">{{form.userinfo.address}}</span>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="10">
+          <span class="basic-label">{{$t('shop.detail.basic.la4')}}</span>
+          <span class="basic-content">{{form.userinfo.telephone}}</span>
+        </el-col>
+        <el-col :span="14">
           <span class="basic-label">{{$t('shop.detail.basic.la8')}}</span>
           <span class="basic-content">{{form.userinfo.operating}}</span>
         </el-col>
       </el-row>
+    </section>
+
+    <section>
+      <div class="banner">
+        <div class="title">{{$t('shop.detail.basic.subtitle')}}</div>
+        <div class="divider"></div>
+      </div>
+
+      <div v-for="item in form.fee_ratios" :key="item.pid_name">
+        <h3>{{item.pid_name}}</h3>
+        <el-row>
+          <el-col :span="8">
+            <span class="basic-label">{{$t('merchant.newMerchant.form.ratio')}}:</span>
+            <span class="basic-content">{{item.ratio}}</span>
+          </el-col>
+          <el-col :span="8" v-if="item.line_type !== ''">
+            <span class="basic-label">{{$t('merchant.newMerchant.form.accessType')}}:</span>
+            <span class="basic-content">{{accessType[item.line_type]}}</span>
+          </el-col>
+          <el-col :span="8" v-if="item.finance_type !== ''">
+            <span class="basic-label">{{$t('merchant.newMerchant.form.applicationType')}}:</span>
+            <span class="basic-content">{{applicationType[item.finance_type]}}</span>
+          </el-col>
+        </el-row>
+      </div>
     </section>
 
     <section class="rates">
@@ -130,11 +159,18 @@
             website: '',
             remit_amt: ''
           },
-          bankinfo: {
-
-          },
-          vouchers: []
-        }
+          bankinfo: {},
+          vouchers: [],
+          fee_ratios: []
+        },
+        accessType: {
+          'offline': this.$t('merchant.newMerchant.accessTypes.offline'),
+          'online': this.$t('merchant.newMerchant.accessTypes.online')
+        },
+        applicationType: {
+          'direct': this.$t('merchant.newMerchant.applicationTypes.direct'),
+          'indirect': this.$t('merchant.newMerchant.applicationTypes.indirect')
+        },
       }
     },
     created() {
@@ -163,8 +199,9 @@
                 this.form.userinfo = data.data.userinfo;
                 this.form.bankinfo = data.data.bankinfo;
                 this.form.vouchers = _.filter(data.data.vouchers, (item) => {
-                  return ~'goodsphoto|shopphoto|paypoint|otherphoto'.indexOf(item.name)
+                  return ~'goodsphoto|shopphoto|paypoint|otherphoto|otherphoto1|otherphoto2'.indexOf(item.name)
                 })
+                this.form.fee_ratios = data.data.fee_ratios
             } else {
               this.$message.error(data.respmsg);
             }
