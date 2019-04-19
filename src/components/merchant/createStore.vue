@@ -228,6 +228,68 @@
               </el-upload>
               <!--<div class="image_info">{{$t('shop.newStore.warmother')}}</div>-->
             </el-col>
+            <!-- 补充资料照片上传-->
+            <el-col :span="7" class="up-item" style="margin-top:20px;">
+              <el-upload
+                :file-list="storeModel.vouchers"
+                v-loading="otherphotoloading"
+                :on-progress="startAvatarUpload"
+                class="avatar-uploader"
+                :action="uploadInterface"
+                :show-file-list="false"
+                :before-upload="beforeAvatarUpload"
+                :on-success="avatarSuccess"
+                :on-error="avatarFailed"
+                :data="{
+                    category: 1,
+                    source: 1,
+                    tag: 'otherphoto1',
+                    format: 'cors',
+                    enuserid: 'EPeRaNEt'
+                }">
+                <div v-if="voucherInfo.otherphoto1_url" class="avatar-wrap">
+                  <img :src="voucherInfo.otherphoto1_url" class="avatar">
+                  <i class="img-tip">{{$t('common.reupload')}}</i>
+                </div>
+                <div v-else class="avatar-uploader-wrap">
+                  <i class="avatar-uploader-icon el-icon-plus"></i>
+                  <div class="avatar-desc">{{$t('shop.newStore.other')}}</div>
+                  <div class="avatar-tip">{{$t('common.format')}}</div>
+                </div>
+              </el-upload>
+              <!--<div class="image_info">{{$t('shop.newStore.warmother')}}</div>-->
+            </el-col>
+            <!-- 补充资料照片上传-->
+            <el-col :span="7" class="up-item" style="margin-top:20px;">
+              <el-upload
+                :file-list="storeModel.vouchers"
+                v-loading="otherphotoloading"
+                :on-progress="startAvatarUpload"
+                class="avatar-uploader"
+                :action="uploadInterface"
+                :show-file-list="false"
+                :before-upload="beforeAvatarUpload"
+                :on-success="avatarSuccess"
+                :on-error="avatarFailed"
+                :data="{
+                    category: 1,
+                    source: 1,
+                    tag: 'otherphoto2',
+                    format: 'cors',
+                    enuserid: 'EPeRaNEt'
+                }">
+                <div v-if="voucherInfo.otherphoto2_url" class="avatar-wrap">
+                  <img :src="voucherInfo.otherphoto2_url" class="avatar">
+                  <i class="img-tip">{{$t('common.reupload')}}</i>
+                </div>
+                <div v-else class="avatar-uploader-wrap">
+                  <i class="avatar-uploader-icon el-icon-plus"></i>
+                  <div class="avatar-desc">{{$t('shop.newStore.other')}}</div>
+                  <div class="avatar-tip">{{$t('common.format')}}</div>
+                </div>
+              </el-upload>
+              <!--<div class="image_info">{{$t('shop.newStore.warmother')}}</div>-->
+            </el-col>
           </div>
         </el-col>
       </el-row>
@@ -401,9 +463,9 @@
                 bankcode: da.bankinfo.bankcode, // SWIFT码
                 remit_amt: da.userinfo.remit_amt, // 结算资金起点
               });
-
+              this.list_Select = da.fee_ratios
               da.vouchers.forEach((item) =>{
-                if(~'goodsphoto|shopphoto|paypoint|otherphoto'.indexOf(item.name)) {
+                if(~'goodsphoto|shopphoto|paypoint|otherphoto|otherphoto1|otherphoto2'.indexOf(item.name)) {
                   this.storeModel.vouchers.push(item)
                   this.voucherInfo[item.name + '_url'] = item.url
                   this.voucherInfo[item.name + '_name'] = item.imgname;
@@ -519,6 +581,7 @@
         let params = Object.assign({}, this.storeModel)
         let url = this.isUpdate ? `${config.host}/org/mchnt/sub/edit` : `${config.host}/org/mchnt/sub/signup`
         params.format = 'cors'
+        params.mchnt_ratios = JSON.stringify(this.list_Select)
         if (this.isUpdate) {
           params.type = 'submerchant';
           params.userid = this.$route.query.userid || getParams('userid')

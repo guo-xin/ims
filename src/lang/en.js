@@ -476,7 +476,7 @@ const en = {
         registeredAddress: 'Register Address',
         companyWebsite: 'Company Website',
         legalName: 'Legal Person',
-        bigMerchant: 'Branch Merchant／Chain Merchant'
+        bigMerchant: 'Merchant／Big Merchant'
       },
       applicationTypes: {
         direct: 'direct',
@@ -488,7 +488,7 @@ const en = {
       },
       requiredRule: {
         rule1: 'Please select agent name',
-        rule2: 'Please input merchant category',
+        rule2: 'Please select merchant／big merchant',
         rule3: 'Please input merchant name',
         rule4: 'Please input email',
         rule5: 'Please input contact name',
@@ -639,8 +639,8 @@ const en = {
     detail: {
       cate: {
         merchant: 'Merchant',
-        big: 'Chain Merchant',
-        sub: 'Branch Merchant'
+        big: 'Big Merchant',
+        sub: 'Merchant'
       },
       basic: {
         title: 'Store Detail',
@@ -658,7 +658,8 @@ const en = {
         la10: 'Website:',
         la11: 'Photograph:',
         la12: 'Sub-business account number:',
-        la13: 'SWIFT:'
+        la13: 'SWIFT:',
+        la14: 'Merchant Abbreviation:'
       },
       edit: 'Edit'
     },
