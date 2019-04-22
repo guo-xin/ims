@@ -442,7 +442,7 @@
         });
       },
       createShop() {
-        this.$router.push({name: 'createStore', query: {big_uid: this.form.userinfo.userid}})
+        this.$router.push({name: 'createStore', query: {big_uid: this.form.userinfo.userid, qd_uid: this.form.userinfo.qd_uid}})
       },
       picturesSelect(a, b) {
         for(let i of b) {

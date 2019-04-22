@@ -1254,6 +1254,7 @@
               // this.fetchRadio(qdinfo.qd_uid, fees)
               // this.revalue(this.radioList, this.radioListInfo)
               this.repicture(this.voucherInfo, vouchers)
+              this.dossierSelect(this.voucherInfo, vouchers)
               this.getSalesPersonName(this.salesperson); // 匹配树形结构的销售员name
             } else {
               this.$message.error(data.respmsg);
@@ -1431,6 +1432,15 @@
             c['idcardfront_url'] = i['url'];
           } else if(i['name'] === 'licensephoto') {
             c['licensephoto_url'] = i['url']
+          }
+        }
+      },
+      dossierSelect(a, b) {
+        for(let i of b) {
+          if(i['name'] === "ciphoto") {
+            a['ciphoto_url'] = i['url'];
+          } else if(i['name'] === 'bankcheckphoto') {
+            a['bankcheckphoto_url'] = i['url']
           }
         }
       },
