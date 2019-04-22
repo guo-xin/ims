@@ -43,7 +43,7 @@
       </el-row>
     </section>
 
-    <section>
+    <section class="payment">
       <div class="banner">
         <div class="title">{{$t('merchant.newMerchant.basic.cap2')}}</div>
         <div class="divider"></div>

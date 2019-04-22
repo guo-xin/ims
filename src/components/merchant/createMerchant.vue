@@ -107,8 +107,6 @@
         <el-input id="op_type" v-model="formData.mcc"
                 :placeholder="$t('merchant.newMerchant.requiredRule.rule9')"
                 readonly
-                @focus="showIndustyTreeComponent"
-                @blur="showIndustyTreeComponent"
                 class="sub-account-item-info"><template slot="append"><i class="el-icon-arrow-down tree-indic" @click.stop="showIndustyTreeComponent"></i></template>
         </el-input>
         <el-tree
@@ -906,7 +904,14 @@
       var _self = this;
       document.addEventListener('click', (evt) => {
         if ('el-tree-node'.indexOf(evt.target.className) == -1) {
-          if (_self.isShowTree) this.isShowTree = false;
+          if (_self.isShowTree){
+            this.isShowTree = false;
+            console.log("点击空白")
+            this.isShowIndustyTree = false;
+          }else if (_self.isShowIndustyTree){
+            console.log("点击空白")
+            this.isShowIndustyTree = false;
+          } 
         }
         if (evt.target.parentNode && evt.target.parentNode.id === 'op_type' && evt.target.className.indexOf('el-input__icon el-icon-caret-bottom') === -1) {
           evt.preventDefault();
