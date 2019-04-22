@@ -408,11 +408,14 @@
       }
       .dialog-row {
         display: block;
+        &>div:last-of-type {
+          padding-right: $smGap;
+        }
       }
       .el-form-item {
         width: 19%;
         padding-left: 0;
-        padding-right: $baseGap;
+        padding-right: $miderGap;
       }
       h4 {
         position: relative;
