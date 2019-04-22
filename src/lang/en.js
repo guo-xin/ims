@@ -261,7 +261,7 @@ const en = {
       mobile: 'Contact Number',
       source: 'Merchant Source',
       type: 'Merchant／Big Merchant',
-      agent1: 'Agent Name',
+      agent1: 'Channels Belongs',
       agent2: '2nd-tier Agent',
       account: 'Account Name',
       industry: 'Industry',
@@ -473,7 +473,7 @@ const en = {
         direct: 'direct',
         offline: 'offline',
         online: 'online',
-        shopAbbreviation: 'Merchant Abbreviation',
+        shopAbbreviation: 'Store Abbreviation',
         registeredAddress: 'Register Address',
         companyWebsite: 'Company Website',
         legalName: 'Legal Person',
@@ -515,10 +515,10 @@ const en = {
         rule25: 'Please select payment channel',
         rule26: 'Please select merchant category',
         rule27: 'Please input contact name',
-        rule28: 'Please input legal person name',
+        rule28: 'Please input legal person person',
         rule29: 'Please input register address',
         rule30: 'Please input company website',
-        rule31: 'Please input merchant abbreviation'
+        rule31: 'Please input store abbreviation'
       },
       lengthRule: {
         rule1: 'The maxlength is 4',
@@ -548,9 +548,9 @@ const en = {
         otherphoto: 'Other photos',
         certificate: 'Certificate of incorportion(CI)',
         bankStatement: 'Bank Statement',
-        otherDocument1: 'Other Supporting Document 1',
-        otherDocument2: 'Other Supporting Document 2',
-        otherDocument3: 'Other Supporting Document 3'
+        otherDocument1: 'Other supporting document 1',
+        otherDocument2: 'Other supporting document 2',
+        otherDocument3: 'Other supporting document 3'
       },
       rule1: 'Please select merchant category', // 请选择注册商户
       rule2: 'Please input merchant name', // 请输入商户名称
@@ -570,7 +570,7 @@ const en = {
       rule16: 'Please input company address', // 请输入公司地址
       rule17: 'Please input company contact name', // 请输入公司联系人
       rule18: 'Please input bank name', // 请输入总行名称
-      rule19: 'Please input SWIFT code', // 请输入SWIFT代码
+      rule19: 'Please input SWIFT', // 请输入SWIFT代码
       rule20: 'Please input bank account name', // 请输入银行帐户名称
       rule21: 'Please input store name', // 请输入店铺名称
       rule22: 'Please input store contact number', // 请输入店铺联系电话
@@ -660,7 +660,7 @@ const en = {
         la11: 'Photograph:',
         la12: 'Sub-business account number:',
         la13: 'SWIFT:',
-        la14: 'Merchant Abbreviation:'
+        la14: 'Store Abbreviation:'
       },
       edit: 'Edit'
     },
@@ -672,20 +672,20 @@ const en = {
         storeaddress: 'Store Address',
         mobile: 'Store Contact Number',
         operation: 'Business Hours',
-        short_name: 'Merchant Abbreviation'
+        short_name: 'Store Abbreviation'
       },
       rule1: 'Please input store name',
       rule2: 'Please input store address',
       rule3: 'Please input store contact number',
       rule4: 'Please input business hours',
-      rule5: 'Please input merchant abbreviation',
+      rule5: 'Please input store abbreviation',
       casher: 'Click to add a photo of the checkout counter',
       warmcasher: 'Please upload a photo of the checkout counter',
       mustcasher: '* You must upload a photo of the checkout counter',
       // other: 'Click to add a photo of supplementary info',
-      other: 'Other Supporting Document 1',
-      other1: 'Other Supporting Document 2',
-      other2: 'Other Supporting Document 3',
+      other: 'Other supporting document 1',
+      other1: 'Other supporting document 2',
+      other2: 'Other supporting document 3',
       warmother: ''
     }
   },
