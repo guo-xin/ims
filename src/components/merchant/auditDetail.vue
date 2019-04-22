@@ -100,17 +100,6 @@
         </el-col>
       </el-row>
 
-            <el-row>
-        <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la15')}}</span>
-          <span class="basic-content">{{form.userinfo.ci}}</span>
-        </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la16')}}</span>
-          <span class="basic-content">{{form.userinfo.businessaddr}}</span>
-        </el-col>
-      </el-row>
-
       <el-row>
         <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la22')}}</span>
