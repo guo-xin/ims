@@ -261,7 +261,7 @@ const en = {
       mobile: 'Contact Number',
       source: 'Merchant Source',
       type: 'Merchant／Big Merchant',
-      agent1: 'Agent Name',
+      agent1: 'Channels Belongs',
       agent2: '2nd-tier Agent',
       account: 'Account Name',
       industry: 'Industry',
@@ -548,9 +548,9 @@ const en = {
         otherphoto: 'Other photos',
         certificate: 'Certificate of incorportion(CI)',
         bankStatement: 'Bank Statement',
-        otherDocument1: 'Other Supporting Document 1',
-        otherDocument2: 'Other Supporting Document 2',
-        otherDocument3: 'Other Supporting Document 3'
+        otherDocument1: 'Other supporting document 1',
+        otherDocument2: 'Other supporting document 2',
+        otherDocument3: 'Other supporting document 3'
       },
       rule1: 'Please select merchant category', // 请选择注册商户
       rule2: 'Please input merchant name', // 请输入商户名称
@@ -683,9 +683,9 @@ const en = {
       warmcasher: 'Please upload a photo of the checkout counter',
       mustcasher: '* You must upload a photo of the checkout counter',
       // other: 'Click to add a photo of supplementary info',
-      other: 'Other Supporting Document 1',
-      other1: 'Other Supporting Document 2',
-      other2: 'Other Supporting Document 3',
+      other: 'Other supporting document 1',
+      other1: 'Other supporting document 2',
+      other2: 'Other supporting document 3',
       warmother: ''
     }
   },
