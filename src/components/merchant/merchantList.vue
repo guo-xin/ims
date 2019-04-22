@@ -413,7 +413,7 @@
         }
       }
       .el-form-item {
-        width: 19%;
+        width: 18%;
         padding-left: 0;
         padding-right: $miderGap;
       }
