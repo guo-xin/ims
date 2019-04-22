@@ -281,8 +281,8 @@ const en = {
       radio2: 'Second Clean',
       merchantID2: 'Channel Merchant No.',
       merchChildID2: 'Channel Sub-Merchant No.',
-      type: 'Online&in Store/Application Type',
-      desc: 'Onboarding Status/Description',
+      type: 'Online&in Store / Application Type',
+      desc: 'Onboarding Status / Description',
       merchantID1: 'Merchant No.',
       merchChildID1: 'Sub-Merchant No.',
       merchantPass1: 'Merchant key'
