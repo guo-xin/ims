@@ -105,8 +105,10 @@
 
       <el-form-item prop="mcc" :label="$t('merchant.newMerchant.form.industry')">
         <el-input id="op_type" v-model="formData.mcc"
-                :placeholder="$t('merchant.newMerchant.rule43')"
+                :placeholder="$t('merchant.newMerchant.requiredRule.rule9')"
                 readonly
+                @focus="showIndustyTreeComponent"
+                @blur="showIndustyTreeComponent"
                 class="sub-account-item-info"><template slot="append"><i class="el-icon-arrow-down tree-indic" @click.stop="showIndustyTreeComponent"></i></template>
         </el-input>
         <el-tree
@@ -421,7 +423,7 @@
               </el-upload>
               <!-- <div class="image_info">{{$t('merchant.newMerchant.form.warmpaypoint')}}</div> -->
             </el-col>
-              <el-col :span="7" class="up-item">
+              <el-col :span="7" class="up-item" v-if="!isUpdate">
               <el-upload
                 :with-credentials="true"
                 :file-list="formData.vouchers"
@@ -452,7 +454,7 @@
               </el-upload>
               <!-- <div class="image_info">{{$t('merchant.newMerchant.form.warmgood')}}</div> -->
             </el-col>
-            <el-col :span="7" class="up-item">
+            <el-col :span="7" class="up-item" v-if="!isUpdate">
               <el-upload
                 :with-credentials="true"
                 :file-list="formData.vouchers"
@@ -483,7 +485,7 @@
               </el-upload>
               <!-- <div class="image_info">{{$t('merchant.newMerchant.form.warmshop')}}</div> -->
             </el-col>
-            <el-col :span="7" class="up-item">
+            <el-col :span="7" class="up-item" v-if="!isUpdate">
               <el-upload
                 :with-credentials="true"
                 :file-list="formData.vouchers"

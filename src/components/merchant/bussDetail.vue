@@ -45,7 +45,7 @@
 
     <section>
       <div class="banner">
-        <div class="title">{{$t('shop.detail.basic.subtitle')}}</div>
+        <div class="title">{{$t('merchant.newMerchant.basic.cap2')}}</div>
         <div class="divider"></div>
       </div>
 
@@ -105,9 +105,13 @@
         </el-col>
       </el-row>
 
+      <div class="banner">
+        <div class="title">{{$t('merchant.detail.document.doctitle')}}</div>
+        <div class="divider"></div>
+      </div>
       <el-row>
         <el-col :span="24" v-if="form.vouchers.length>0">
-          <span class="basic-label">{{$t('shop.detail.basic.la11')}}</span>
+          <!-- <span class="basic-label">{{$t('shop.detail.basic.la11')}}</span> -->
           <span class="basic-content-p">
              <img :src="item.url" v-for="(item,url) in form.vouchers" class="voucher_photo" :key="url"/>
           </span>
@@ -263,7 +267,7 @@
               width:200px;
               height:150px;
               display:inline-block;
-              margin-left:$smGap;
+              margin-right:$smGap;
           }
         }
       }
