@@ -624,6 +624,7 @@
     components: {ElFormItem},
     data() {
       return {
+        select: this.$i18n.locale,
         pid_select: '',
         list: [],
         list_Select: [],
@@ -1732,9 +1733,9 @@
     }
     .el-tree {
       overflow-x: scroll;
-      padding: 5px;
+      padding: 5px 12px 5px 5px;
       position: absolute;
-      width: 100%;
+      min-width: 100%;
       z-index: 99;
       margin-top: 6px;
       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)

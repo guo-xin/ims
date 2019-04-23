@@ -511,7 +511,7 @@ const en = {
         rule21: 'Please input store address',
         rule22: 'Please input store contact number',
         rule23: 'Please input business hours',
-        rule24: 'Please enter the SWIFT code',
+        rule24: 'Please enter the SWIFT',
         rule25: 'Please select payment channel',
         rule26: 'Please select merchant category',
         rule27: 'Please input contact name',
