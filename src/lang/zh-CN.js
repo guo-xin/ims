@@ -635,7 +635,7 @@ const zh = {
       rule3: '请输入联系电话',
       rule4: '请输入营业时间',
       rule5: '请输入店铺简称',
-      casher: '点击添加收银台照片',
+      casher: '收银台照片',
       warmcasher: '请上传收银台照片',
       mustcasher: '* 必须上传收银台照片',
       // other: '点击添加补充资料照片',

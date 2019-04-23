@@ -261,7 +261,7 @@ const en = {
       mobile: 'Contact Number',
       source: 'Merchant Source',
       type: 'Merchant／Big Merchant',
-      agent1: 'Channels Belongs',
+      agent1: 'Agent Name',
       agent2: '2nd-tier Agent',
       account: 'Account Name',
       industry: 'Industry',
@@ -314,7 +314,7 @@ const en = {
         subtitle: 'Basic Info',
         paymenttitle: 'Payment Channels Info',
         bd: 'Description:',
-        la1: 'Channels Belongs:',
+        la1: 'Agent Name:',
         la2: 'Salesman:',
         la3: 'Merchant Name:',
         la4: 'Merchant Category:',
@@ -473,7 +473,7 @@ const en = {
         direct: 'direct',
         offline: 'offline',
         online: 'online',
-        shopAbbreviation: 'Store Abbreviation',
+        shopAbbreviation: 'Merchant Abbreviation',
         registeredAddress: 'Register Address',
         companyWebsite: 'Company Website',
         legalName: 'Legal Person',
@@ -515,10 +515,10 @@ const en = {
         rule25: 'Please select payment channel',
         rule26: 'Please select merchant category',
         rule27: 'Please input contact name',
-        rule28: 'Please input legal person person',
+        rule28: 'Please input legal person',
         rule29: 'Please input register address',
         rule30: 'Please input company website',
-        rule31: 'Please input store abbreviation'
+        rule31: 'Please input merchant abbreviation'
       },
       lengthRule: {
         rule1: 'The maxlength is 4',
@@ -660,7 +660,7 @@ const en = {
         la11: 'Photograph:',
         la12: 'Sub-business account number:',
         la13: 'SWIFT:',
-        la14: 'Store Abbreviation:'
+        la14: 'Merchant Abbreviation:'
       },
       edit: 'Edit'
     },
@@ -672,14 +672,15 @@ const en = {
         storeaddress: 'Store Address',
         mobile: 'Store Contact Number',
         operation: 'Business Hours',
-        short_name: 'Store Abbreviation'
+        short_name: 'Merchant Abbreviation'
       },
       rule1: 'Please input store name',
       rule2: 'Please input store address',
       rule3: 'Please input store contact number',
       rule4: 'Please input business hours',
-      rule5: 'Please input store abbreviation',
-      casher: 'Click to add a photo of the checkout counter',
+      rule5: 'Please input merchant abbreviation',
+      // casher: 'Click to add a photo of the checkout counter',
+      casher: 'Cashier photo',
       warmcasher: 'Please upload a photo of the checkout counter',
       mustcasher: '* You must upload a photo of the checkout counter',
       // other: 'Click to add a photo of supplementary info',
@@ -707,7 +708,7 @@ const en = {
     detail: {
       title: 'Approved Memo',
       storeInfo: {
-        title: 'License Of Store',
+        title: 'Licence Info',
         storename: 'Store Name',
         storeaddr: 'Store Address',
         storetel: 'Contact Number',
