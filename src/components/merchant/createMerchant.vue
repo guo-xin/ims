@@ -114,7 +114,7 @@
           @node-click="IndustyhandleNodeClick"
           v-show="isShowIndustyTree"
           node-key="id"
-          :props="shopTypeProps"
+          :props="select==='en-us'?shopTypeProps_en:shopTypeProps_zh"
           draggable
         ></el-tree>
       </el-form-item>
@@ -689,11 +689,16 @@
           label: 'name',
           value: 'uid'
         },
-        shopTypeProps: {
+        shopTypeProps_en: {
+          children: 'shoptypes',
+          label: 'name_en',
+          value: 'id'
+        },
+        shopTypeProps_zh: {
           children: 'shoptypes',
           label: 'name',
           value: 'id'
-        },
+        },        
         isShowIndustyTree: false,
         signedList: [
           {value: 1, name: this.$t('merchant.detail.signed.yes')},
