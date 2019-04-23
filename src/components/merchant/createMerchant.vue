@@ -1726,6 +1726,8 @@
       }
     }
     .el-tree {
+      overflow-x: scroll;
+      padding: 5px;
       position: absolute;
       width: 100%;
       z-index: 99;
