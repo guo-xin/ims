@@ -1003,7 +1003,7 @@
         if(data.level ===3) {
             this.formData.unify_mcc = data.id;
             this.isShowIndustyTree = false;
-            this.formData.mcc = data.name;
+            this.select === 'en-us'?this.formData.mcc = data.name_en:this.formData.mcc = data.name;
         }
       },
       showIndustyTreeComponent(e) {

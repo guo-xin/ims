@@ -290,8 +290,7 @@
         audit_logs: [],
         cate: {
           "merchant": this.$t('merchant.detail.cate.merchant'),
-          "bigmerchant": this.$t('merchant.detail.cate.big'),
-          "submerchant": this.$t('merchant.detail.cate.sub')
+          "bigmerchant": this.$t('merchant.detail.cate.big')
         },
         banktype: {
           "1": this.$t('common.privata'),

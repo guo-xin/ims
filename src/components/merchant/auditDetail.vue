@@ -46,7 +46,7 @@
       <el-row>
         <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la7')}}</span>
-          <span class="basic-content">{{form.userinfo.legalperson}}</span>
+          <span class="basic-content">{{form.userinfo.contact}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la8')}}</span>
@@ -96,7 +96,7 @@
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la16')}}</span>
-          <span class="basic-content">{{form.userinfo.ci_expire_time}}</span>
+          <span class="basic-content">{{form.userinfo.businessadd}}</span>
         </el-col>
       </el-row>
 
@@ -309,8 +309,7 @@
         temp: [],
         cate: {
           "merchant": this.$t('merchant.detail.cate.merchant'),
-          "bigmerchant": this.$t('merchant.detail.cate.big'),
-          "submerchant": this.$t('merchant.detail.cate.sub')
+          "bigmerchant": this.$t('merchant.detail.cate.big')
         },
         banktype: {
           "1": this.$t('common.privata'),

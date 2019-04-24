@@ -296,8 +296,9 @@ const en = {
       createShop: 'Create Store',
       cate: {
         merchant: 'Merchant',
-        big: 'Chain Merchant',
-        sub: 'Sub-merchant'
+        // big: 'Chain Merchant',
+        // sub: 'Sub-merchant'
+        big: 'Big Merchant'
       },
       signed: {
         yes: 'Yes',
