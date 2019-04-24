@@ -96,7 +96,7 @@
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la16')}}</span>
-          <span class="basic-content">{{form.userinfo.businessadd}}</span>
+          <span class="basic-content">{{form.userinfo.businessaddr}}</span>
         </el-col>
       </el-row>
 
