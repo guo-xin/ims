@@ -300,7 +300,8 @@
           "3": this.$t('common.enable'),
           "4": this.$t('common.disable'),
           "-1": this.$t('common.audit'),
-          "0": this.$t('common.refuse')
+          "0": this.$t('common.refuse'),
+          "5": this.$t('common.toSubmit'),
         },
         statusList: [
           {name: this.$t('common.enable'), val: 3},
