@@ -124,17 +124,6 @@
         <div class="divider"></div>
       </div>
 
-      <!-- <div v-for="item in form.fee_ratios" :key="item.name">
-        <h3>{{item.name}}</h3>
-        <el-row v-for="fee in item.busicd" :key="fee.trade_type_name">
-          <el-col :span="8">
-            <span class="basic-label">{{fee.trade_type_name}}:</span>
-            <span class="basic-content">{{fee.ratio}}</span>
-          </el-col>
-        </el-row>
-      </div> -->
-      
-
       <div v-for="item in form.fee_ratios" :key="item.pid_name">
         <h3>{{item.pid_name}}</h3>
         <el-row>
@@ -152,7 +141,6 @@
           </el-col>
         </el-row>
       </div>
-      
     </section>
 
     <section class="rates">
@@ -430,6 +418,9 @@
                 this.form.number = this.form.userinfo['idnumber'] || this.form.userinfo['passport'] || this.form.userinfo['eep']
                 this.isCreateShop = this.form.userinfo.cate === 'bigmerchant' ? 1 : 0
                 this.isEditable = this.form.userinfo.status !== -1 ? 1 : 0
+                if(this.isReEditable) {
+                  this.isReEditable = this.form.userinfo.status !== -1 ? 1 : 0
+                }
               if(data.data.userinfo.status == 0) {
                 this.getAuditResult()
               }

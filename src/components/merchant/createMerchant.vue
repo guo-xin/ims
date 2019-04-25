@@ -285,7 +285,6 @@
           <div v-if="voucherInfo.idcardfront_url" class="avatar-wrap">
             <img :src="voucherInfo.idcardfront_url" class="avatar">
             <span class="img-tip">{{$t('common.reupload')}}</span>
->>>>>>> 1343f4f4264d7523f7f86085b7f9a8fd468148a7
           </div>
           <div v-else class="avatar-uploader-wrap">
             <i class="avatar-uploader-icon el-icon-plus"></i>
@@ -412,7 +411,7 @@
           v-if="!isUpdate"
           :with-credentials="true"
           :file-list="formData.vouchers"
-          v-loading="goodsphotoloading"
+          v-loading="otherphoto1loading"
           :on-progress="startAvatarUpload"
           class="avatar-uploader"
           :action="uploadInterface"
@@ -441,7 +440,7 @@
           v-if="!isUpdate"
           :with-credentials="true"
           :file-list="formData.vouchers"
-          v-loading="shopphotoloading"
+          v-loading="otherphoto2loading"
           :on-progress="startAvatarUpload"
           class="avatar-uploader"
           :action="uploadInterface"
@@ -470,7 +469,7 @@
           v-if="!isUpdate"
           :with-credentials="true"
           :file-list="formData.vouchers"
-          v-loading="paypointloading"
+          v-loading="otherphoto3loading"
           :on-progress="startAvatarUpload"
           class="avatar-uploader"
           :action="uploadInterface"
@@ -501,7 +500,7 @@
           <el-upload
             :with-credentials="true"
             :file-list="formData.vouchers"
-            v-loading="idcardfrontloading"
+            v-loading="ciphotoloading"
             :on-progress="startAvatarUpload"
             class="avatar-uploader"
             :action="uploadInterface"
@@ -529,7 +528,7 @@
           <el-upload
             :with-credentials="true"
             :file-list="formData.vouchers"
-            v-loading="licensephotoloading"
+            v-loading="bankcheckphotoloading"
             :on-progress="startAvatarUpload"
             class="avatar-uploader"
             :action="uploadInterface"
@@ -605,6 +604,8 @@
         otherphoto2loading: false,
         otherphoto3loading: false,
         paypointloading: false,
+        ciphotoloading: false,
+        bankcheckphotoloading: false,
         isUpdate: false,
         isStatus: false,
         IsRemit: false,
