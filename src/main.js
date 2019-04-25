@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import 'babel-polyfill'
 import Vue from 'vue'
+import 'src/filters'
 import App from './App'
 import axios from 'axios'
 import store from './store'
@@ -15,7 +16,6 @@ import locale from 'qfpay-element-ui/lib/locale';
 let switchlang = sessionStorage.getItem("oasbp_lang") || 'en-us';
 
 Vue.use(VueI18n)
-
 
 Vue.use(Container)
 Vue.use(Header)

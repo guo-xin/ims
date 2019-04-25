@@ -110,8 +110,8 @@ form.el-form {
   }
 }
 
-.el-form-item__label {
-  float:none !important;
+.el-form-item .el-form-item__label {
+  float:none;
   font-size: 14px !important;
   color: rgba(113,114,131,1);
   line-height: 30px;
@@ -258,6 +258,11 @@ form.el-form {
 }
 
 .el-table {
+  &.el-table--scrollable-x {
+    .el-table__body-wrapper {
+      padding-bottom: 5px;
+    }
+  }
   &::before {
     height: 0 !important;
   }
@@ -278,10 +283,11 @@ form.el-form {
 
 .el-table th > .cell {
   word-break: keep-all;
-  width:auto;
+  overflow: visible;
 }
-.el-table th div {
-  text-overflow: visible;
+.el-table td > .cell {
+  word-wrap: break-word;
+  word-break: keep-all;
   overflow: visible;
 }
 .tradeTotal {

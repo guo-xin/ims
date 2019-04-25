@@ -70,7 +70,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="cate" :label="$t('audit.table.cate')">
+      <el-table-column prop="cate" width="130" :label="$t('merchant.table.type')">
         <template slot-scope="scope">
           {{ cate[scope.row.cate] }}
         </template>

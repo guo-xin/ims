@@ -8,7 +8,7 @@
       <div class="note">
         {{$t('batch.tip.txt')}}
         <el-button type="text" @click="dialogVisible = true">{{$t('batch.tip.ins')}}</el-button>&nbsp;{{$t('batch.tip.and')}}
-        <a class="download-temp" href="static/excel/batch_template.xlsx" target="_self">{{$t('batch.tip.template')}}</a>
+        <a class="download-temp" download="batch_template.xlsx" :href="`static/excel/batch_template_${lang}.xlsx`" target="_self">{{$t('batch.tip.template')}}</a>
         <el-dialog
           :title="$t('batch.tip.title')"
           :visible.sync="dialogVisible"
@@ -49,7 +49,7 @@
                     tag: 'excel',
                     format: 'cors'
                   }">
-                    <el-button size="small" type="primary"><i class="icon-up"></i>{{$t('batch.up.excel')}}</el-button>
+                    <el-button size="small" :loading="excelLoading" type="primary"><i class="icon-up"></i>{{$t('batch.up.excel')}}</el-button>
                   </el-upload>
                 </template>
               </el-input>
@@ -83,7 +83,7 @@
                     tag: 'zip',
                     format: 'cors'
                   }">
-                    <el-button size="small" type="primary"><i class="icon-up"></i>{{$t('batch.up.zip')}}</el-button>
+                    <el-button size="small" :loading="zipLoading" type="primary"><i class="icon-up"></i>{{$t('batch.up.zip')}}</el-button>
                   </el-upload>
                 </template>
               </el-input>
@@ -93,7 +93,7 @@
         </el-row>
       </el-form>
       <footer>
-        <el-button @click="commitHandler">{{$t('batch.commit')}}</el-button>
+        <el-button @click="commitHandler" :disabled="excelLoading || zipLoading">{{$t('batch.commit')}}</el-button>
       </footer>
     </section>
   </div>
@@ -108,8 +108,8 @@
       return {
         isLoading: false,
         dialogVisible: false,
-        excelloading: false,
-        ziploading: false,
+        excelLoading: false,
+        zipLoading: false,
         uploadExcelInterface: `${config.host}/org/mchnt/hk/upload_create_file`, // 上传excel接口
         uploadZipInterface: `${config.host}/org/mchnt/upload_batch_package`, // 上传zip接口
         form: {
@@ -118,13 +118,15 @@
           fileid: '',
           dir_name: '',
           file_name_new: ''
-        }
+        },
+        lang: ''
       }
     },
     created() {
-
+      this.lang = sessionStorage.getItem("oasbp_lang") || 'en-us';
     },
     methods: {
+      // 提交
       commitHandler() {
         if(!this.form.fileid) {
           this.$message.error(this.$t('batch.rule1'))
@@ -158,9 +160,11 @@
           this.isLoading = false;
         })
       },
+
       clearExcelName() {
         this.form.fileid = '';
       },
+
       clearZipPackage() {
         this.form.dir_name = '';
         this.form.file_name_new = '';
@@ -173,7 +177,9 @@
       myUploadFn(data) {
         let formData = new FormData();
         let tag = data.data.tag;
-        let reqUrl = tag === 'zip' ? this.uploadZipInterface : this.uploadExcelInterface
+        let reqUrl = tag === 'zip' ? this.uploadZipInterface : this.uploadExcelInterface;
+        this[tag + 'Loading'] = true;
+
         let blob = new Blob([data.file]);
         formData.append("content", blob);
         formData.append("file_name", data.file.name.substring(0,data.file.name.indexOf('.')));
@@ -189,6 +195,8 @@
           }
         }).then((res) => {
           let data = res.data;
+          this[tag + 'Loading'] = false;
+
           if (data.respcd === config.code.OK) {
             if(tag === 'excel') {
               this.form.fileid = data.data.fileid;
@@ -202,13 +210,14 @@
             this.$message.error(data.respmsg)
           }
         }).catch(() => {
+          this[tag + 'Loading'] = false;
         })
       },
       beforeRemove(file, fileList) {
 //        return this.$confirm(`确定移除 ${ file.name } ？`);
       },
       beforeZipUpload(file) {
-        const isRightImgType = file.type === 'application/zip'
+        const isRightImgType = file.type === 'application/zip' || file.type === 'application/x-zip-compressed'
         if (!isRightImgType) {
           this.$message.error(this.$t('merchant.newMerchant.rule33'));
         }

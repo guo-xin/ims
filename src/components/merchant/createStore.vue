@@ -13,6 +13,10 @@
         <el-input v-model.trim="storeModel.shopname"></el-input>
       </el-form-item>
 
+      <el-form-item prop="short_name" :label="$t('shop.newStore.model.short_name')">
+        <el-input v-model.trim="storeModel.short_name"></el-input>
+      </el-form-item>
+
       <el-form-item prop="address" :label="$t('shop.newStore.model.storeaddress')">
         <el-input v-model.trim="storeModel.address"></el-input>
       </el-form-item>
@@ -27,6 +31,45 @@
       <el-form-item prop="operating" :label="$t('shop.newStore.model.operation')">
         <el-input v-model.trim="storeModel.operating"></el-input>
       </el-form-item>
+
+
+      <h3>{{$t('merchant.newMerchant.basic.cap2')}}</h3>
+      <el-form-item v-if="!isUpdate">
+        <el-select v-model="pid_select" :placeholder="$t('merchant.newMerchant.requiredRule.rule25')">
+          <el-option
+            v-for="item in list"
+            :key="item.chnl_code"
+            :label="item.pid_name"
+            :value="item.pid_name"
+          >
+          </el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item>
+        <el-button v-if="!isUpdate" class="el-button el-button--primary" @click="addList()">{{$t('common.confirm')}}</el-button>
+      </el-form-item>
+
+      <div class="payList" v-for="item in list_Select" :key="item.value">
+        <el-form-item :label="item.pid_name">
+          <el-input-number v-model="item.ratio" :precision="2" :step="0.01" :min="Number(item.ratioMin)"></el-input-number>
+        </el-form-item>
+        <el-form-item v-if="item.line_type !== ''" :label="$t('merchant.newMerchant.form.accessType')">
+          <el-select :disabled="true" v-model="item.line_type">
+            <el-option :label="$t('merchant.newMerchant.accessTypes.offline')" value="offline"></el-option>
+            <el-option :label="$t('merchant.newMerchant.accessTypes.online')" value="online"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item v-if="item.finance_type !== ''" :label="$t('merchant.newMerchant.form.applicationType')">
+          <el-select :disabled="true" v-model="item.finance_type">
+            <el-option :label="$t('merchant.newMerchant.applicationTypes.direct')" value="direct"></el-option>
+            <el-option :label="$t('merchant.newMerchant.applicationTypes.indirect')" value="indirect"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item v-if="!isUpdate" class="icon_remove" style="width:20px;margin-top:25px;">
+          <i class="el-icon-remove" @click="pid_name_remove(item.pid_name)"></i>
+        </el-form-item>
+      </div>
 
       <h3>{{$t('merchant.detail.rates.setitle')}}</h3>
 
@@ -185,6 +228,68 @@
               </el-upload>
               <!--<div class="image_info">{{$t('shop.newStore.warmother')}}</div>-->
             </el-col>
+            <!-- 补充资料照片上传-->
+            <el-col :span="7" class="up-item" style="margin-top:20px;">
+              <el-upload
+                :file-list="storeModel.vouchers"
+                v-loading="otherphotoloading"
+                :on-progress="startAvatarUpload"
+                class="avatar-uploader"
+                :action="uploadInterface"
+                :show-file-list="false"
+                :before-upload="beforeAvatarUpload"
+                :on-success="avatarSuccess"
+                :on-error="avatarFailed"
+                :data="{
+                    category: 1,
+                    source: 1,
+                    tag: 'otherphoto1',
+                    format: 'cors',
+                    enuserid: 'EPeRaNEt'
+                }">
+                <div v-if="voucherInfo.otherphoto1_url" class="avatar-wrap">
+                  <img :src="voucherInfo.otherphoto1_url" class="avatar">
+                  <i class="img-tip">{{$t('common.reupload')}}</i>
+                </div>
+                <div v-else class="avatar-uploader-wrap">
+                  <i class="avatar-uploader-icon el-icon-plus"></i>
+                  <div class="avatar-desc">{{$t('shop.newStore.other1')}}</div>
+                  <div class="avatar-tip">{{$t('common.format')}}</div>
+                </div>
+              </el-upload>
+              <!--<div class="image_info">{{$t('shop.newStore.warmother')}}</div>-->
+            </el-col>
+            <!-- 补充资料照片上传-->
+            <el-col :span="7" class="up-item" style="margin-top:20px;">
+              <el-upload
+                :file-list="storeModel.vouchers"
+                v-loading="otherphotoloading"
+                :on-progress="startAvatarUpload"
+                class="avatar-uploader"
+                :action="uploadInterface"
+                :show-file-list="false"
+                :before-upload="beforeAvatarUpload"
+                :on-success="avatarSuccess"
+                :on-error="avatarFailed"
+                :data="{
+                    category: 1,
+                    source: 1,
+                    tag: 'otherphoto2',
+                    format: 'cors',
+                    enuserid: 'EPeRaNEt'
+                }">
+                <div v-if="voucherInfo.otherphoto2_url" class="avatar-wrap">
+                  <img :src="voucherInfo.otherphoto2_url" class="avatar">
+                  <i class="img-tip">{{$t('common.reupload')}}</i>
+                </div>
+                <div v-else class="avatar-uploader-wrap">
+                  <i class="avatar-uploader-icon el-icon-plus"></i>
+                  <div class="avatar-desc">{{$t('shop.newStore.other2')}}</div>
+                  <div class="avatar-tip">{{$t('common.format')}}</div>
+                </div>
+              </el-upload>
+              <!--<div class="image_info">{{$t('shop.newStore.warmother')}}</div>-->
+            </el-col>
           </div>
         </el-col>
       </el-row>
@@ -213,6 +318,9 @@
   export default {
     data() {
       return {
+        pid_select: [],
+        list: [],
+        list_Select: [],
         isUpdate: false,
         isLoading: false,
         IsRemit: false,
@@ -223,6 +331,7 @@
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
         storeModel: {
           big_uid: '',
+          short_name: '',
           shopname: '',
           address: '',
           telephone: '',
@@ -243,12 +352,19 @@
           paypoint_url: '', // 收银柜台照片url
           paypoint_name: '',
           otherphoto_url: '', // 补充资料照片
-          otherphoto_name: ''
+          otherphoto_name: '',
+          otherphoto1_url: '', // 补充资料照片
+          otherphoto1_name: '',
+          otherphoto2_url: '', // 补充资料照片
+          otherphoto2_name: ''
         },
         storeRules: {
           'shopname': [
             {required: true, message: this.$t('shop.newStore.rule1'), trigger: 'blur'},
             {max: 60, min: 0, message: this.$t('merchant.newMerchant.rule10'), trigger: 'blur'}
+          ],
+          'short_name': [
+            {required: true, message: this.$t('shop.newStore.rule5'), trigger: 'blur'}
           ],
           'address': [
             {required: true, message: this.$t('shop.newStore.rule2'), trigger: 'blur'},
@@ -316,6 +432,7 @@
       if (this.$route.query) {
         this.isUpdate = this.$route.query.command === 'edit' || getParams('command') === 'edit';
         this.storeModel.big_uid = this.$route.query.big_uid;
+        this.getPid()
         this.isUpdate && this.getStoreInfo()
       }
     },
@@ -334,6 +451,7 @@
 
               let da =  data.data;
               Object.assign(this.storeModel, {
+                short_name: da.userinfo.short_name,
                 shopname: da.userinfo.shopname,
                 address: da.userinfo.address,
                 telephone: da.userinfo.telephone,
@@ -345,9 +463,9 @@
                 bankcode: da.bankinfo.bankcode, // SWIFT码
                 remit_amt: da.userinfo.remit_amt, // 结算资金起点
               });
-
+              this.list_Select = da.fee_ratios
               da.vouchers.forEach((item) =>{
-                if(~'goodsphoto|shopphoto|paypoint|otherphoto'.indexOf(item.name)) {
+                if(~'goodsphoto|shopphoto|paypoint|otherphoto|otherphoto1|otherphoto2'.indexOf(item.name)) {
                   this.storeModel.vouchers.push(item)
                   this.voucherInfo[item.name + '_url'] = item.url
                   this.voucherInfo[item.name + '_name'] = item.imgname;
@@ -439,15 +557,19 @@
         return true
       },
       next() {
-        this.$refs['store-form'].validate((valid) => { // && this.checkPhotosIsUpdated()
-          if (valid) {
-            if (this.isUpdate) {
-              this.confirm()
-            } else {
-              this.commit()
+        if(this.list_Select.length === 0) {
+            this.$message.error(this.$t('merchant.newMerchant.requiredRule.rule25'))
+        }else {
+          this.$refs['store-form'].validate((valid) => { // && this.checkPhotosIsUpdated()
+            if (valid) {
+              if (this.isUpdate) {
+                this.confirm()
+              } else {
+                this.commit()
+              }
             }
-          }
-        })
+          })
+        }
       },
       confirm() {
         this.$confirm(this.$t('common.sure'), this.$t('common.tip'), {
@@ -463,6 +585,7 @@
         let params = Object.assign({}, this.storeModel)
         let url = this.isUpdate ? `${config.host}/org/mchnt/sub/edit` : `${config.host}/org/mchnt/sub/signup`
         params.format = 'cors'
+        params.mchnt_ratios = JSON.stringify(this.list_Select)
         if (this.isUpdate) {
           params.type = 'submerchant';
           params.userid = this.$route.query.userid || getParams('userid')
@@ -499,7 +622,45 @@
           this.$message.error(this.$t('common.netError'));
           this.isLoading = false;
         });
-      }
+      },
+      getPid() {  // 商户自动入网获取通道pid配置信息
+        axios.get(`${config.host}/org/tools/get_pid_info`, {
+          params: {
+            qd_uid: this.$route.query.qd_uid || getParams('qd_uid'),
+            format: 'cors'
+          }
+        })
+          .then((res) => {
+            let data = res.data;
+            if (data.respcd === config.code.OK) {
+              this.list = res.data.data
+            } else {
+              this.$message.error(data.respmsg);
+            }
+          }).catch(() => {
+          this.$message.error(this.$t('common.netError'));
+        });
+      },
+      addList() {
+        let pid_select = this.pid_select
+        let pid_select_array = []
+        this.list_Select.forEach(element => {
+          pid_select_array.push(element.pid_name)
+        })
+        this.list.forEach(element => {
+          if(pid_select_array.indexOf(pid_select) > -1){
+            this.$message.error(this.$t('common.payTip'));
+          }else if(element.pid_name === pid_select){
+            this.list_Select.push(element)
+          }
+        })
+      },
+      pid_name_remove(pid_name) { // 支付通道点击减号
+        let new_list_select = this.list_Select.filter(element => {
+          return element.pid_name !== pid_name
+        })
+        this.list_Select = new_list_select
+      } 
     }
   }
 </script>
@@ -676,6 +837,22 @@
           font-size: $baseSize;
         }
 
+      }
+    }
+    .payList {
+      .el-form-item {
+        width: 220px;
+        .el-form-item__content {
+          width: 220px;
+        }
+      }
+      .icon_remove {
+        .el-form-item__content {
+          font-size: 24px;
+          .el-icon-remove {
+            color: #409EFF;
+          }
+        }
       }
     }
   }

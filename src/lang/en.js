@@ -19,10 +19,6 @@ const en = {
     done: 'Finish',
     close: 'Close',
     search: 'Search',
-    enable: 'Enable',
-    disable: 'Disable',
-    audit: 'Under Approval',
-    refuse: 'Reject',
     add: 'Add',
     reset: 'Reset',
     loading: 'Loading...',
@@ -36,11 +32,18 @@ const en = {
     look: 'View',
     detail: 'Detail',
     range: 'Select Date Range',
+    chooseDate: 'Select Date',
     sure: 'Are you sure?',
     confirm: 'Determine',
     cancel: 'Cancel',
     tip: 'Prompt',
     status: 'Status',
+    enable: 'Enable',
+    disable: 'Disable',
+    audit: 'Under Approval',
+    toSubmit: 'Waiting For Application',
+    refuse: 'Reject',
+    agree: 'Pass',
     startTime: 'Starting Time',
     endTime: 'End Time',
     privata: 'Private',
@@ -53,7 +56,9 @@ const en = {
     CLOSE: 'CLOSE',
     SAVE: 'SAVE',
     EDIT: 'EDIT',
-    SWIFT: 'SWIFT'
+    SWIFT: 'SWIFT',
+    remark: 'Remark',
+    payTip: 'Non-repeatable selection of the payment channel'
   },
   home: {
       all: 'All',
@@ -254,6 +259,8 @@ const en = {
       mchtname: 'Merchant Name',
       address: 'Address',
       mobile: 'Contact Number',
+      source: 'Merchant Source',
+      type: 'Merchant／Big Merchant',
       agent1: 'Agent Name',
       agent2: '2nd-tier Agent',
       account: 'Account Name',
@@ -267,12 +274,15 @@ const en = {
       wechatpay: 'WeChat Pay'
     },
     payment: {
+      title: 'Payment Channel',
       configured: "Configured",
       nonconfigured: "Non-Configured",
       radio1: 'First Clean',
       radio2: 'Second Clean',
       merchantID2: 'Channel Merchant No.',
       merchChildID2: 'Channel Sub-Merchant No.',
+      type: 'Online&in Store / Application Type',
+      desc: 'Onboarding Status / Description',
       merchantID1: 'Merchant No.',
       merchChildID1: 'Sub-Merchant No.',
       merchantPass1: 'Merchant key'
@@ -286,8 +296,9 @@ const en = {
       createShop: 'Create Store',
       cate: {
         merchant: 'Merchant',
-        big: 'Chain Merchant',
-        sub: 'Sub-merchant'
+        // big: 'Chain Merchant',
+        // sub: 'Sub-merchant'
+        big: 'Big Merchant'
       },
       signed: {
         yes: 'Yes',
@@ -304,7 +315,7 @@ const en = {
         subtitle: 'Basic Info',
         paymenttitle: 'Payment Channels Info',
         bd: 'Description:',
-        la1: 'Channels Belongs:',
+        la1: 'Agent Name:',
         la2: 'Salesman:',
         la3: 'Merchant Name:',
         la4: 'Merchant Category:',
@@ -319,12 +330,16 @@ const en = {
         la13: 'BR Number:',
         la14: 'BR Validity:',
         la15: 'CI Number:',
-        la16: 'CI Validity:',
+        // la16: 'CI Validity:',
+        la16: 'Register Address:',
         la17: 'Account Name:',
         la18: 'Bank Name:',
         la19: 'Bank Account:',
         la20: 'Bank Address:',
-        la21: 'Starting Point of Settlement Fund:'
+        la21: 'Starting Point of Settlement Fund:',
+        la22: 'Company Website:',
+        la23: 'Legal Person:',
+        la24: 'Merchant/Big Merchant:'
       },
       shop: {
         subtitle: 'Shop Info',
@@ -353,7 +368,8 @@ const en = {
       },
       edit: 'Edit',
       document: {
-        doctitle: 'Licence Info'
+        doctitle: 'Licence Info',
+        doctitle1: 'File Info'
       },
     },
     newMerchant: {
@@ -425,12 +441,14 @@ const en = {
         status: 'Status',
         sub: 'Merchant',
         big: 'Big Merchant',
+        personal: 'Personal',
+        enterprise: 'Enterprise',
         saleMan: 'Salesman',
         channel: 'Subordinate first-level agents',
         channel2: 'Subordinate secondary agents',
         mertype: 'Merchant Category',
         meiname: 'Merchant Name',
-        contact: 'Agent Name',
+        contact: 'Salesman',
         postT: 'Email',
         concatName: 'Contact Name',
         concatNumber: 'Telephone',
@@ -449,10 +467,30 @@ const en = {
         BRvality: 'BR Validity',
         CInumber: 'CI Number',
         CIvality: 'CI Validity',
+        applicationType: 'Application Types',
+        accessType: 'Online/Offline in store',
+        ratio: 'MDR',
+        acquirer: 'acquirer',
+        direct: 'direct',
+        offline: 'offline',
+        online: 'online',
+        shopAbbreviation: 'Merchant Abbreviation',
+        registeredAddress: 'Register Address',
+        companyWebsite: 'Company Website',
+        legalName: 'Legal Person',
+        bigMerchant: 'Merchant／Big Merchant'
+      },
+      applicationTypes: {
+        direct: 'direct',
+        indirect: 'indirect'
+      },
+      accessTypes: {
+        offline: 'offline',
+        online: 'online'
       },
       requiredRule: {
         rule1: 'Please select agent name',
-        rule2: 'Please input merchant category',
+        rule2: 'Please select',
         rule3: 'Please input merchant name',
         rule4: 'Please input email',
         rule5: 'Please input contact name',
@@ -474,7 +512,14 @@ const en = {
         rule21: 'Please input store address',
         rule22: 'Please input store contact number',
         rule23: 'Please input business hours',
-        rule24: 'Please enter the SWIFT code',
+        rule24: 'Please enter the SWIFT',
+        rule25: 'Please select payment channel',
+        rule26: 'Please select merchant category',
+        rule27: 'Please input contact name',
+        rule28: 'Please input legal person',
+        rule29: 'Please input register address',
+        rule30: 'Please input company website',
+        rule31: 'Please input merchant abbreviation'
       },
       lengthRule: {
         rule1: 'The maxlength is 4',
@@ -501,7 +546,12 @@ const en = {
         goodsphoto: 'Inside-view photos of business premises',
         shopphoto: 'Outdoor photos of business places',
         paypoint: 'Cashier photo',
-        otherphoto: 'Other photos'
+        otherphoto: 'Other photos',
+        certificate: 'Certificate of incorportion(CI)',
+        bankStatement: 'Bank Statement',
+        otherDocument1: 'Other supporting document 1',
+        otherDocument2: 'Other supporting document 2',
+        otherDocument3: 'Other supporting document 3'
       },
       rule1: 'Please select merchant category', // 请选择注册商户
       rule2: 'Please input merchant name', // 请输入商户名称
@@ -521,7 +571,7 @@ const en = {
       rule16: 'Please input company address', // 请输入公司地址
       rule17: 'Please input company contact name', // 请输入公司联系人
       rule18: 'Please input bank name', // 请输入总行名称
-      rule19: 'Please input SWIFT code', // 请输入SWIFT代码
+      rule19: 'Please input SWIFT', // 请输入SWIFT代码
       rule20: 'Please input bank account name', // 请输入银行帐户名称
       rule21: 'Please input store name', // 请输入店铺名称
       rule22: 'Please input store contact number', // 请输入店铺联系电话
@@ -562,7 +612,7 @@ const en = {
       address1: 'Notification address',
       address2: 'Return address',
       tip1: 'Please enter a user ID',
-      tip2: 'Please Enter  Correct User-ID',
+      tip2: 'Please Enter Correct User-ID',
     }
   },
   shop: {
@@ -585,14 +635,14 @@ const en = {
       address: 'Address',
       telephone: 'Contact Number',
       location: 'Area',
-      post: 'Store Post Code',
+      account: 'Account Name',
       operating: 'Business Hours'
     },
     detail: {
       cate: {
         merchant: 'Merchant',
-        big: 'Chain Merchant',
-        sub: 'Branch Merchant'
+        big: 'Big Merchant',
+        sub: 'Merchant'
       },
       basic: {
         title: 'Store Detail',
@@ -610,7 +660,8 @@ const en = {
         la10: 'Website:',
         la11: 'Photograph:',
         la12: 'Sub-business account number:',
-        la13: 'SWIFT:'
+        la13: 'SWIFT:',
+        la14: 'Merchant Abbreviation:'
       },
       edit: 'Edit'
     },
@@ -621,16 +672,22 @@ const en = {
         storename: 'Store Name',
         storeaddress: 'Store Address',
         mobile: 'Store Contact Number',
-        operation: 'Business Hours'
+        operation: 'Business Hours',
+        short_name: 'Merchant Abbreviation'
       },
       rule1: 'Please input store name',
       rule2: 'Please input store address',
       rule3: 'Please input store contact number',
       rule4: 'Please input business hours',
-      casher: 'Click to add a photo of the checkout counter',
+      rule5: 'Please input merchant abbreviation',
+      // casher: 'Click to add a photo of the checkout counter',
+      casher: 'Cashier photo',
       warmcasher: 'Please upload a photo of the checkout counter',
       mustcasher: '* You must upload a photo of the checkout counter',
-      other: 'Click to add a photo of supplementary info',
+      // other: 'Click to add a photo of supplementary info',
+      other: 'Other supporting document 1',
+      other1: 'Other supporting document 2',
+      other2: 'Other supporting document 3',
       warmother: ''
     }
   },
@@ -652,7 +709,7 @@ const en = {
     detail: {
       title: 'Approved Memo',
       storeInfo: {
-        title: 'License Of Store',
+        title: 'Licence Info',
         storename: 'Store Name',
         storeaddr: 'Store Address',
         storetel: 'Contact Number',
@@ -695,21 +752,32 @@ const en = {
     rule1: 'Please upload merchant\'s data.',
     rule2: 'Please upload merchant\'s photo.',
     manual1: '1. Please download template《batch merchants on-boarding.xlsx》and fill in all necessary infos of on-boarding merchants.',
-    manual2: '2. Attachments should be named according to naming criteria and uploaded after folder compression. (Naming criteria for store licenses: store telephone-shopphoto.jpg、store telephone-paypoint.jpg、store telephone-otherphoto.jpg、store telephone-idcardfront.jpg、store telephone-licensephoto.jpg、store telephone-goodsphoto.jpg)',
+    manual2: '2. Attachments should be named according to naming criteria and uploaded after folder compression. (Naming criteria for store licenses: store telephone-shopphoto.jpg、store telephone-paypoint.jpg、store telephone-otherphoto.jpg、store telephone-idcardfront.jpg、store telephone-licensephoto.jpg、store telephone-goodsphoto.jpg、store telephone-otherphoto1.jpg、store telephone-otherphoto2.jpg、store telephone-ciphoto.jpg、store telephone-bankcheckphoto.jpg)',
     manual3: '3. The folder naming should be the same as before and after compression, please revise the folder naming after then compress again if it is necessary to revise the compressed file name.'
   },
   trade: {
     detail: 'Transaction Detail',
     total: 'Transaction Summary',
+    refundMsg: 'Refund Management',
+    refundCheck: 'Refund Audit Management',
+    btn: {
+      applyRefund: 'Apply Refund',
+    },
     common: {
       tradeDate: 'Trans Date',
       tradeTime: 'Transaction Time',
       inSameMonth: 'Transaction detail can only be queried within the same month',
+      tradeSum: 'Transaction ID',
+      phone: 'Contact Number',
+      applyTime: 'Application Time',
+      refundTime: 'Refund Time',
+      refundSuc: 'Refund Success',
+      refundFail: 'Refund Failed',
       sNum: 'Transaction ID',
       tradeType: 'Transaction Type',
       payPass: 'Payment Gateway',
       merchantName: 'Merchant Name',
-      shopName: 'Store name',
+      shopName: 'Store Name',
       firstAgent: 'First Level Agent',
       secondAgent: 'Second Level Agent',
       wechat: 'WeChat Pay',
@@ -723,13 +791,28 @@ const en = {
       refundTrade: 'Refund',
       tradeAmount: 'Transaction Amount',
       tradeCount: 'Entries',
-      refundAmount: 'Total Amount',
+      refundAmount: 'Refund Amount',
       refundCount: 'Entries',
       amount: 'Total Amount',
       count: 'Entries',
       pleaseSelect: 'Please choose ',
       noData: 'No data'
-    }
+    },
+    dialog: {
+      title1: 'Refund Details',
+      title2: 'Refund Application',
+      title3: 'Refund Audit',
+      allRefund: 'Full Refund',
+      merchantId: 'Merchant ID',
+      pay: 'Payment Method',
+      btn1: 'Submit',
+      tip1: 'Please enter the Transaction ID.',
+      tip2: 'Please enter the refund amount',
+      tip3: 'Max. Refund Amount',
+      tip4: 'Please enter a valid refund amount',
+      tip5: 'Out of range',
+      tip6: 'Refund failed, please contact us for assistance.',
+    },
   },
   agent: {
     agentName: 'Agent Name',
@@ -886,6 +969,20 @@ const en = {
       negative: "Transaction value can't be negative",
       decimal: 'Decimal with two digit only',
       numerical: 'Merchant ID with numerical value only'
+    },
+    refund: {
+      title: 'The Management Of Merged Refund White List',
+      title1: 'Add Merged Refund White List',
+      title2: 'The Audit Of Merged Refund White List',
+      title3: 'State Management',
+      merchantId: 'Merchant ID',
+      merchantName: 'Merchant Name',
+      address: 'Address',
+      phone: 'Contact Phone Number',
+      joinTime: 'Join Time',
+      audit: 'Audit Operation',
+      tip1: 'Please Enter a merchant ID',
+      tip2: 'Please Enter Correct merchant ID',
     }
   }
 }

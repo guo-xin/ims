@@ -30,7 +30,7 @@
                 <a href="javascript:void(0)" class="outer-link">&nbsp;Agent / </a>
               </div> -->
             </el-col>
-            <el-col :span="6" class="lang-change">
+            <el-col :span="5" class="lang-change">
               <el-select v-model="select" @change="selectChange">
                 <el-option
                   v-for="item in items"
@@ -40,7 +40,7 @@
                 </el-option>
               </el-select>
             </el-col>
-            <el-col :span="2">
+            <el-col :span="3">
               <div class="sign-out-wrap" @click="logoutHandler">
                  <img class="logout-icon" src="../../assets/common_img/logout.png"/>
                  <span class="logout-txt">{{$t('main.logout')}}</span>
@@ -98,6 +98,8 @@
       api_manage_list: ["2", "2-4"], // API管理
       trade_detail_list: ["3", "3-1"], // 交易明细
       trade_summary_list: ["3", "3-2"], // 交易汇总
+      refund_list: ["3", "3-3"], // 退款管理
+      refund_audit_list: ["3", "3-4"], // 退款审核
       agent_manage_list: ["4", "4-1"],
       clearing_detail_list: ["5", "5-1"], // 清分明细
       clearing_summary_list: ["5", "5-2"], // 清分汇总
@@ -108,7 +110,8 @@
       perm_role_list: ["6", "6-2"], // 角色管理
       salesman_manage_list: ["7", "7-1"],
       operation_logs_list: ["8", "8-1"], // 系统日志
-      transaction_limit_list: ["8", "8-2"] // 商户交易额度管理
+      transaction_limit_list: ["8", "8-2"], // 商户交易额度管理
+      refund_white_list: ["8", "8-3"], // 合并退款白名单管理
     }
   export default {
     data() {
@@ -269,7 +272,6 @@
             min-width: 150px;
           }
           .sign-out-wrap {
-            width:80px;
             display: flex;
             align-items: center;
             cursor:pointer;

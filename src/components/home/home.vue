@@ -245,7 +245,7 @@
         sinAndCos() {
           let sin = [], cos = [];
           this.tradeTrends.forEach((v, i) => {
-            sin.push({x: +v.time, y: (v.amt / 100).toFixed(2)})
+            sin.push({x: +v.time, y: parseInt(v.amt / 100)})
             cos.push({x: +v.time, y: v.cnt});
           })
           return [
@@ -364,7 +364,7 @@
               .showTooltipPercent(1)
               .arcsRadius(arcRadius)
               .labelType("key")
-              .showLabels(true)
+              .showLabels(false)
               .showLegend(true)
               .labelsOutside(true)
               .labelSunbeamLayout(0)

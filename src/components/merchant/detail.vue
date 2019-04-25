@@ -26,15 +26,15 @@
           <span class="basic-content">{{form.userinfo.shopname}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la4')}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la24')}}</span>
           <span class="basic-content">{{cate[form.userinfo.cate]}}</span>
         </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la5')}}</span>
-          <span class="basic-content">{{form.userinfo.mcc_str}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la11')}}</span>
+          <span class="basic-content">{{form.userinfo.contact_email}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la6')}}</span>
@@ -45,7 +45,7 @@
       <el-row>
         <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la7')}}</span>
-          <span class="basic-content">{{form.userinfo.legalperson}}</span>
+          <span class="basic-content">{{form.userinfo.contact}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la8')}}</span>
@@ -56,8 +56,8 @@
       <el-row>
         <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la9')}}</span>
-          <span v-if="form.userinfo.eep" class="basic-content">{{$t('merchant.newMerchant.doctype.type1')}}</span>
-          <span v-else-if="form.userinfo.passport" class="basic-content">{{$t('merchant.newMerchant.doctype.type2')}}</span>
+          <span v-if="form.userinfo.eep" class="basic-content">{{$t('merchant.newMerchant.doctype.type2')}}</span>
+          <span v-else-if="form.userinfo.passport" class="basic-content">{{$t('merchant.newMerchant.doctype.type1')}}</span>
           <span v-else-if="form.userinfo.idnumber" class="basic-content">{{$t('merchant.newMerchant.doctype.type3')}}</span>
         </el-col>
         <el-col :span="14">
@@ -68,8 +68,8 @@
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la11')}}</span>
-          <span class="basic-content">{{form.userinfo.email}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la5')}}</span>
+          <span class="basic-content">{{form.userinfo.mcc_str}}</span>
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la12')}}</span>
@@ -95,7 +95,25 @@
         </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la16')}}</span>
-          <span class="basic-content">{{form.userinfo.ci_expire_time}}</span>
+          <span class="basic-content">{{form.userinfo.businessaddr}}</span>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la22')}}</span>
+          <span class="basic-content">{{form.userinfo.website}}</span>
+        </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('merchant.detail.basic.la23')}}</span>
+          <span class="basic-content">{{form.userinfo.legalperson}}</span>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la4')}}</span>
+          <span class="basic-content">{{merchantType[form.userinfo.user_type]}}</span>
         </el-col>
       </el-row>
     </section>
@@ -106,7 +124,7 @@
         <div class="divider"></div>
       </div>
 
-      <div v-for="item in form.fee_ratios" :key="item.name">
+      <!-- <div v-for="item in form.fee_ratios" :key="item.name">
         <h3>{{item.name}}</h3>
         <el-row v-for="fee in item.busicd" :key="fee.trade_type_name">
           <el-col :span="8">
@@ -114,7 +132,27 @@
             <span class="basic-content">{{fee.ratio}}</span>
           </el-col>
         </el-row>
+      </div> -->
+      
+
+      <div v-for="item in form.fee_ratios" :key="item.pid_name">
+        <h3>{{item.pid_name}}</h3>
+        <el-row>
+          <el-col :span="8">
+            <span class="basic-label">{{$t('merchant.newMerchant.form.ratio')}}:</span>
+            <span class="basic-content">{{item.ratio}}</span>
+          </el-col>
+          <el-col :span="8" v-if="item.line_type !== ''">
+            <span class="basic-label">{{$t('merchant.newMerchant.form.accessType')}}:</span>
+            <span class="basic-content">{{accessType[item.line_type]}}</span>
+          </el-col>
+          <el-col :span="8" v-if="item.finance_type !== ''">
+            <span class="basic-label">{{$t('merchant.newMerchant.form.applicationType')}}:</span>
+            <span class="basic-content">{{applicationType[item.finance_type]}}</span>
+          </el-col>
+        </el-row>
       </div>
+      
     </section>
 
     <section class="rates">
@@ -171,6 +209,20 @@
       </div>
     </section>
 
+    <section v-if="dossierPictures.length>0">
+      <div class="banner">
+        <div class="title">{{$t('merchant.detail.document.doctitle1')}}</div>
+        <div class="divider"></div>
+        <el-row>
+         <el-col :span="24">
+           <span class="basic-content-p">
+             <img :src="item.url" v-for="(item,url) in dossierPictures" class="voucher_photo" :key="url"/>
+          </span>
+         </el-col>
+       </el-row>
+      </div>
+    </section>
+
     <section class="audit-log" v-if="form.userinfo.status==0">
       <div class="banner">
         <div class="title">{{$t('audit.detail.title')}}</div>
@@ -214,7 +266,7 @@
 </template>
 <script>
   import config from 'config'
-  import axios from 'axios';
+  import axios from 'axios'
   import { formatDate } from '../../common/js/util'
   const getParams = (key) => {
     // 获取参数
@@ -238,8 +290,7 @@
         audit_logs: [],
         cate: {
           "merchant": this.$t('merchant.detail.cate.merchant'),
-          "bigmerchant": this.$t('merchant.detail.cate.big'),
-          "submerchant": this.$t('merchant.detail.cate.sub')
+          "bigmerchant": this.$t('merchant.detail.cate.big')
         },
         banktype: {
           "1": this.$t('common.privata'),
@@ -249,7 +300,8 @@
           "3": this.$t('common.enable'),
           "4": this.$t('common.disable'),
           "-1": this.$t('common.audit'),
-          "0": this.$t('common.refuse')
+          "0": this.$t('common.refuse'),
+          "5": this.$t('common.toSubmit'),
         },
         statusList: [
           {name: this.$t('common.enable'), val: 3},
@@ -272,6 +324,18 @@
           '2': this.$t('audit.fail'),
           '-1': this.$t('audit.going'),
         },
+        accessType: {
+          'offline': this.$t('merchant.newMerchant.accessTypes.offline'),
+          'online': this.$t('merchant.newMerchant.accessTypes.online')
+        },
+        applicationType: {
+          'direct': this.$t('merchant.newMerchant.applicationTypes.direct'),
+          'indirect': this.$t('merchant.newMerchant.applicationTypes.indirect')
+        },
+        merchantType: {
+          2: this.$t('merchant.newMerchant.form.personal'),
+          3: this.$t('merchant.newMerchant.form.enterprise')
+        },
         form: {
           number: '',
           userinfo: {
@@ -279,19 +343,24 @@
             user_type: '',
             groupid: '',
             cate: '',
+            businessaddr: '', // 注册地址
             address: '', // 公司地址
             provice: '',
             city: '',
-            email: '',
+            contact_email: '',
             mobile: '',
             remit_amt: '',
-            legalperson: '', // 公司联系人
+            contact: '', // 公司联系人
+            legalperson: '', // 法人
             shopname: '', // 商户名称
             name: '', // 公司名称
             audit_status_str: '',
             jointime: '',
             mcc: '', // 店铺类型编码，仅可以填数字
-            mcc_str: '' // 商户类型名称
+            unify_mcc: '',
+            mcc_str: '', // 商户类型名称
+            website: '', // 公司网址
+            qd_uid: ''
           },
           qdinfo: {
             qd_name: '', // 所属代理商名称
@@ -305,9 +374,11 @@
             bankuser: '',
             bankaccount: '',
             bankProvince: ''
-          }
+          },
+          fee_ratios: []
         },
-        pictures: []
+        pictures: [],
+        dossierPictures: []
       }
     },
     created() {
@@ -338,7 +409,7 @@
         this.$router.push({name: 'mchnt_manage_list'})
       },
       editHandler() {
-        this.$router.push({name: 'mchntCreate', query: {command: 'edit', userid: this.form.userinfo.userid}})
+        this.$router.push({name: 'mchntCreate', query: {command: 'edit', userid: this.form.userinfo.userid, qd_uid: this.form.userinfo.qd_uid}})
       },
       fetchDetailData() {
         axios.get(`${config.host}/org/mchnt/info`, {
@@ -353,7 +424,8 @@
             if (data.respcd === config.code.OK) {
                 this.form = data.data
                 this.picturesSelect(this.pictures, this.form.vouchers)
-                this.form.userinfo.ci_expire_time = formatDate(this.form.userinfo.ci_expire_time, 'dd/MM/yyyy')
+                this.dossierSelect(this.dossierPictures, this.form.vouchers)
+                // this.form.userinfo.ci_expire_time = formatDate(this.form.userinfo.ci_expire_time, 'dd/MM/yyyy')
                 this.form.userinfo.br_expire_time = formatDate(this.form.userinfo.br_expire_time, 'dd/MM/yyyy')
                 this.form.number = this.form.userinfo['idnumber'] || this.form.userinfo['passport'] || this.form.userinfo['eep']
                 this.isCreateShop = this.form.userinfo.cate === 'bigmerchant' ? 1 : 0
@@ -370,11 +442,18 @@
         });
       },
       createShop() {
-        this.$router.push({name: 'createStore', query: {big_uid: this.form.userinfo.userid}})
+        this.$router.push({name: 'createStore', query: {big_uid: this.form.userinfo.userid, qd_uid: this.form.userinfo.qd_uid}})
       },
       picturesSelect(a, b) {
         for(let i of b) {
           if(i['name'] === "idcardfront" || i['name'] === 'licensephoto') {
+             a.push(i)
+          }
+        }
+      },
+      dossierSelect(a, b) {
+        for(let i of b) {
+          if(i['name'] === "ciphoto" || i['name'] === 'bankcheckphoto') {
              a.push(i)
           }
         }
