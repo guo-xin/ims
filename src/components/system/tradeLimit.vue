@@ -68,7 +68,7 @@
   export default {
     data() {
       let currencyValidator = (rule, val, cb) => {
-        if (parseInt(val) === 0) {
+        if (Number(val) === 0) {
           cb(this.$t('system.tradeLimit.zero'))
         } if (val < 0) {
           cb(this.$t('system.tradeLimit.negative'))

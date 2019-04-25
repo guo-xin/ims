@@ -425,7 +425,7 @@
               <el-upload
                 :with-credentials="true"
                 :file-list="formData.vouchers"
-                v-loading="goodsphotoloading"
+                v-loading="otherphoto1loading"
                 :on-progress="startAvatarUpload"
                 class="avatar-uploader"
                 :action="uploadInterface"
@@ -456,7 +456,7 @@
               <el-upload
                 :with-credentials="true"
                 :file-list="formData.vouchers"
-                v-loading="shopphotoloading"
+                v-loading="otherphoto2loading"
                 :on-progress="startAvatarUpload"
                 class="avatar-uploader"
                 :action="uploadInterface"
@@ -487,7 +487,7 @@
               <el-upload
                 :with-credentials="true"
                 :file-list="formData.vouchers"
-                v-loading="paypointloading"
+                v-loading="otherphoto3loading"
                 :on-progress="startAvatarUpload"
                 class="avatar-uploader"
                 :action="uploadInterface"
@@ -633,12 +633,14 @@
         licensephotoloading: false,
         goodsphotoloading: false,
         shopphotoloading: false,
-        otherphotoloading: false,
+        otherphoto1loading: false,
+        otherphoto2loading: false,
+        otherphoto3loading: false,
         paypointloading: false,
         isUpdate: false,
         isStatus: false,
         IsRemit: false,
-        active: 0, // 当前步骤,
+        active: 1, // 当前步骤,
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
         qd_uid: '', // 所有代理商id
         isShowTree: false,
@@ -1027,29 +1029,6 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      // checkPhotosIsUpdated() { // 图片设置的必传后又改为非必传
-      //   if (!this.voucherInfo.idcardfront_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
-      //     this.$message.error(this.$t('merchant.newMerchant.rule44'));
-      //     return false;
-      //   }
-      //   if (!this.voucherInfo.licensephoto_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
-      //     this.$message.error(this.$t('merchant.newMerchant.rule45'));
-      //     return false;
-      //   }
-      //   if (!this.voucherInfo.goodsphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('goodsphoto')
-      //     this.$message.error(this.$t('merchant.newMerchant.rule28'));
-      //     return false;
-      //   }
-      //   if (!this.voucherInfo.shopphoto_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
-      //     this.$message.error(this.$t('merchant.newMerchant.rule29'));
-      //     return false;
-      //   }
-      //   if (!this.voucherInfo.paypoint_url && !this.isUpdate) { // && this.form.vouchers.includes('shopphoto')
-      //     this.$message.error(this.$t('merchant.newMerchant.rule46'));
-      //     return false;
-      //   }
-      //   return true
-      // },
       getChannelList() { // 获取1级渠道列表
         axios.get(`${config.host}/org/tools/qudao/list`, {
           params: {
@@ -1114,33 +1093,6 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      // getShopTypes(mcc1) {
-      //   axios.get(`${config.host}/org/tools/mcc/list`, {
-      //     params: {
-      //       mcc: mcc1 || '',
-      //       format: 'cors'
-      //     }
-      //   })
-      //     .then((res) => {
-      //       let data = res.data;
-      //       this.isLoading = false;
-      //       if (data.respcd === config.code.OK) {
-      //         if (mcc1) {
-      //           this.shopTypes2 = data.data
-      //         } else {
-      //           this.shopTypes = data.data;
-      //         }
-      //         if (this.isUpdate) {
-      //           this.getDetailInfo()
-      //         }
-      //       } else {
-      //         this.$message.error(data.respmsg);
-      //       }
-      //     }).catch(() => {
-      //     this.isLoading = false;
-      //     this.$message.error(this.$t('common.netError'));
-      //   });
-      // },
       getShopTypes(){
         axios.get(`${config.host}/org/tools/get_shop_types`, {
           params: {
@@ -1706,7 +1658,7 @@
         .avatar-desc {
           font-size: $baseSize;
           color: #8a8c92;
-          padding-top: $smGap
+          // padding-top: $smGap
         }
         .avatar-tip {
           color: #bdbdbd;
