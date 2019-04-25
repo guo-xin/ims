@@ -609,7 +609,7 @@
         isUpdate: false,
         isStatus: false,
         IsRemit: false,
-        active: 1, // 当前步骤,
+        active: 0, // 当前步骤,
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
         qd_uid: '', // 所有代理商id
         isShowTree: false,
