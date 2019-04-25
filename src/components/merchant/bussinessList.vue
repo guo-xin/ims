@@ -40,7 +40,7 @@
 
       <el-table-column :label="$t('merchant.table.payment')" width="150">
         <template slot-scope="scope">
-          <el-button :disabled="scope.row.status !== 3" type="text" @click.stop="paymentConfigure(scope.row.submchnt_id)">{{ scope.row.deploy == 1 ? $t('merchant.payment.configured') : $t('merchant.payment.nonconfigured') }}</el-button>
+          <el-button type="text" @click.stop="paymentConfigure(scope.row.submchnt_id)">{{ scope.row.deploy == 1 ? $t('merchant.payment.configured') : $t('merchant.payment.nonconfigured') }}</el-button>
         </template>
       </el-table-column>
     </el-table>
