@@ -210,7 +210,8 @@
           url = '/org/mchnt/bind';
           param = {
             userid: this.userId,
-            chnlids: list.chnlid
+            chnlid: list.chnlid,
+            qf_pid: list.qf_pid
           }
 
         }else {
