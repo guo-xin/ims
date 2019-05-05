@@ -12,8 +12,7 @@ module.exports = {
     proxyTable: {
       '/api': {
         // target: 'https://oasbp.qa.qfpay.net',
-        // target: 'http://172.100.108.27:6500',
-        target: 'https://test-ims-hk.qfapi.com',
+        target: 'http://172.100.108.27:6500',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/'

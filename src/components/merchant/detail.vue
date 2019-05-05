@@ -243,10 +243,10 @@
       </el-table>
     </section>
     <footer>
-      <el-button v-if="isEditable&&!isReEditable" @click="editHandler">{{$t('merchant.detail.edit')}}</el-button>
+      <el-button v-if="isEditable&&!isReEditable&&form.userinfo.is_edit" @click="editHandler">{{$t('merchant.detail.edit')}}</el-button>
       <el-button v-if="isCreateShop&&!isReEditable" @click="createShop">{{$t('merchant.detail.createShop')}}</el-button>
     </footer>
-    <footer v-if="isReEditable">
+    <footer v-if="isReEditable && form.userinfo.is_edit">
       <el-button @click="editHandler">{{$t('merchant.detail.redit')}}</el-button>
       <el-button @click="cancel">{{$t('merchant.detail.basic.close')}}</el-button>
     </footer>
@@ -348,7 +348,8 @@
             unify_mcc: '',
             mcc_str: '', // 商户类型名称
             website: '', // 公司网址
-            qd_uid: ''
+            qd_uid: '',
+            is_edit: 0
           },
           qdinfo: {
             qd_name: '', // 所属代理商名称

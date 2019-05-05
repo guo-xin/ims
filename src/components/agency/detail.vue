@@ -36,7 +36,7 @@
         </ul>
     </div>
     <el-button size="large" @click="cancel()">{{$t('common.close')}}</el-button>
-    <el-button v-if="hasEditPerm" size="large" type="primary" @click="editAgency()">{{$t('common.edit')}}</el-button>
+    <el-button v-if="hasEditPerm && !!base.is_edit" size="large" type="primary" @click="editAgency()">{{$t('common.edit')}}</el-button>
   </div>
 </template>
 
@@ -46,7 +46,9 @@
     data() {
       return {
         isLoading: false,
-        base: {},
+        base: {
+          is_edit: 0
+        },
         bankinfo: {},
         payfee: {}
       }
