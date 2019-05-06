@@ -8,13 +8,13 @@
         <div class="desc" v-show="false">
           {{$t('login.desc')}}
         </div>
-        <el-form ref="form-login"  :model="form" label-width="0px" class="form-login" :rules="rules" :autocomplete="false">
+        <el-form ref="form-login"  :model="form" label-width="0px" class="form-login" :rules="rules">
           <el-form-item :label="$t('login.nameph')" prop="username">
             <el-input type="text" v-model.trim="form.username" :clearable="true" @focus="addNameBorder" @blur="removeNameBorder"></el-input>
           </el-form-item>
 
           <el-form-item :label="$t('login.passph')" prop="password">
-            <el-input v-model.trim="form.password"  type="password" :clearable="true" @focus="addPassBorder" @blur="removePassBorder"></el-input>
+            <el-input v-model.trim="form.password" type="password" :clearable="true" @focus="addPassBorder" @blur="removePassBorder"></el-input>
           </el-form-item>
 
           <!--<el-form-item label="" prop="checked">-->

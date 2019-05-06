@@ -170,8 +170,8 @@
       <el-form-item v-if="!isUpdate">
         <el-select v-model="pid_select" :placeholder="$t('merchant.newMerchant.requiredRule.rule25')">
           <el-option
-            v-for="item in list"
-            :key="item.chnl_code"
+            v-for="(item, index) in list"
+            :key="index"
             :label="item.pid_name"
             :value="item.pid_name"
           >
@@ -183,7 +183,7 @@
         <el-button v-if="!isUpdate" class="el-button el-button--primary" @click="addList()">{{$t('common.confirm')}}</el-button>
       </el-form-item>
 
-      <div class="payList" v-for="item in list_Select" :key="item.value">
+      <div class="payList" v-for="(item, index) in list_Select" :key="index">
         <el-form-item :label="item.pid_name">
           <el-input-number v-model="item.ratio" :precision="2" :step="0.01" :min="Number(item.ratioMin)"></el-input-number>
         </el-form-item>
@@ -199,9 +199,9 @@
             <el-option :label="$t('merchant.newMerchant.applicationTypes.indirect')" value="indirect"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item v-if="!isUpdate" class="icon_remove" style="width:20px;margin-top:25px;">
+        <div v-if="!isUpdate" class="icon_remove">
           <i class="el-icon-remove" @click="pid_name_remove(item.pid_name)"></i>
-        </el-form-item>
+        </div>
       </div>
 
       <h3>{{$t('merchant.newMerchant.basic.cap3')}}</h3>
@@ -699,7 +699,7 @@
           children: 'shoptypes',
           label: 'name',
           value: 'id'
-        },        
+        },
         isShowIndustyTree: false,
         signedList: [
           {value: 1, name: this.$t('merchant.detail.signed.yes')},
@@ -754,7 +754,7 @@
             {required: true, message: this.$t('merchant.newMerchant.requiredRule.rule4'), trigger: 'blur'},
             {
               validator: (rule, val, cb) => {
-                if (!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(val)) {
+                if (!/^[\w-]+[\w-.]*@[a-zA-Z\d-]+(\.[a-zA-Z\d-]+)*\.[a-zA-Z\d]{2,6}$/.test(val)) {
                   cb(new Error(this.$t('merchant.newMerchant.specialRule.rule1')));
                 } else {
                   cb();
@@ -917,7 +917,7 @@
           }else if (_self.isShowIndustyTree){
             console.log("点击空白")
             this.isShowIndustyTree = false;
-          } 
+          }
         }
         if (evt.target.parentNode && evt.target.parentNode.id === 'op_type' && evt.target.className.indexOf('el-input__icon el-icon-caret-bottom') === -1) {
           evt.preventDefault();
@@ -1079,10 +1079,8 @@
             let data = res.data;
             if (data.respcd === config.code.OK) {
               this.channels2 = (groupid ? data.data.list: []);
-              this.formData.secondary_uid = ''
-              // this.fetchRadio(groupid)
-              this.getPid()
-              this.getSalesPersonList()
+              this.formData.secondary_uid = '';
+              this.getSalesPersonList();
             } else {
               this.$message.error(data.respmsg);
             }
@@ -1090,10 +1088,10 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      selectChannel2Handler() { // 选择二级代理商
-        // this.fetchRadio(groupid || this.formData.primary_uid)
-        this.getPid()
-        this.getSalesPersonList()
+
+      // 选择二级代理商
+      selectChannel2Handler() {
+        this.getSalesPersonList();
       },
       getSalesPersonList() {
         axios.get(`${config.host}/org/tools/slsm`, {
@@ -1114,33 +1112,7 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
-      // getShopTypes(mcc1) {
-      //   axios.get(`${config.host}/org/tools/mcc/list`, {
-      //     params: {
-      //       mcc: mcc1 || '',
-      //       format: 'cors'
-      //     }
-      //   })
-      //     .then((res) => {
-      //       let data = res.data;
-      //       this.isLoading = false;
-      //       if (data.respcd === config.code.OK) {
-      //         if (mcc1) {
-      //           this.shopTypes2 = data.data
-      //         } else {
-      //           this.shopTypes = data.data;
-      //         }
-      //         if (this.isUpdate) {
-      //           this.getDetailInfo()
-      //         }
-      //       } else {
-      //         this.$message.error(data.respmsg);
-      //       }
-      //     }).catch(() => {
-      //     this.isLoading = false;
-      //     this.$message.error(this.$t('common.netError'));
-      //   });
-      // },
+
       getShopTypes(){
         axios.get(`${config.host}/org/tools/get_shop_types`, {
           params: {
@@ -1471,16 +1443,9 @@
         })
       },
       getPid() {  // 商户自动入网获取通道pid配置信息
-        axios.get(`${config.host}/org/tools/get_pid_info`, {
-          params: {
-            qd_uid: this.formData.secondary_uid || this.formData.primary_uid,
-            format: 'cors'
-          }
-        })
-          .then((res) => {
+        axios.get(`${config.host}/org/tools/get_pid_info?format=cors`).then((res) => {
             let data = res.data;
             if (data.respcd === config.code.OK) {
-              console.log(res.data)
               this.list = res.data.data
             } else {
               this.$message.error(data.respmsg);
@@ -1508,7 +1473,7 @@
           return element.pid_name !== pid_name
         })
         this.list_Select = new_list_select
-      }   
+      }
     }
   }
 </script>
@@ -1722,11 +1687,17 @@
           }
         }
         .icon_remove {
-          .el-form-item__content {
-            font-size: 24px;
-            .el-icon-remove {
-              color: #409EFF;
-            }
+          width: $midGap;
+          display: inline-block;
+          margin-top: $bigGap;
+          .el-icon-remove {
+            cursor: pointer;
+            font-size: $xgSize;
+            color: $baseColor;
+            &:hover, &:focus {
+              color: lighten($baseColor, 10%);
+              outline: none;
+          }
           }
         }
       }

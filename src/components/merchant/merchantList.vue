@@ -40,31 +40,31 @@
     </el-form>
 
     <el-table :data="merchents" stripe v-loading="isLoading" class="table-hover" @current-change="selectCurrentRowHandler">
-      <el-table-column prop="userid" :label="$t('merchant.table.mchtid')" width="120"></el-table-column>
-      <el-table-column prop="shopname" :label="$t('merchant.table.mchtname')" width="100"></el-table-column>
-      <el-table-column prop="mcc_str" :label="$t('merchant.table.industry')" width="140"></el-table-column>
-      <el-table-column prop="telephone" :label="$t('merchant.table.mobile')" width="110"></el-table-column>
-      <el-table-column prop="source" :label="$t('merchant.table.source')" width="100"></el-table-column>
-      <el-table-column prop="qd_name" :label="$t('merchant.table.agent1')" width="100"></el-table-column>
-      <el-table-column prop="username" :label="$t('merchant.table.account')" width="100"></el-table-column>
-      <el-table-column :label="$t('merchant.table.type')" width="130">
+      <el-table-column prop="userid" :label="$t('merchant.table.mchtid')" min-width="120"></el-table-column>
+      <el-table-column prop="shopname" :label="$t('merchant.table.mchtname')" min-width="100"></el-table-column>
+      <el-table-column prop="mcc_str" :label="$t('merchant.table.industry')" min-width="140"></el-table-column>
+      <el-table-column prop="telephone" :label="$t('merchant.table.mobile')" min-width="110"></el-table-column>
+      <el-table-column prop="source" :label="$t('merchant.table.source')" min-width="100"></el-table-column>
+      <el-table-column prop="qd_name" :label="$t('merchant.table.agent1')" min-width="100"></el-table-column>
+      <el-table-column prop="username" :label="$t('merchant.table.account')" min-width="100"></el-table-column>
+      <el-table-column :label="$t('merchant.table.type')" min-width="130">
         <template slot-scope="scope">
           {{ cate[scope.row.cate] }}
         </template>
       </el-table-column>
-      <el-table-column :label="$t('merchant.table.store')" width="80">
+      <el-table-column :label="$t('merchant.table.store')" min-width="80">
         <template slot-scope="scope">
           <el-button type="text" @click.stop="shopList(scope.row.userid)">{{ $t('common.look') }}</el-button>
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('merchant.table.detail')" width="80">
+      <el-table-column :label="$t('merchant.table.detail')" min-width="80">
         <template slot-scope="scope">
           <el-button type="text">{{ $t('common.look') }}</el-button>
         </template>
       </el-table-column>
 
-       <el-table-column :label="$t('merchant.table.merstatus')" width="100">
+       <el-table-column :label="$t('merchant.table.merstatus')" min-width="100">
         <template slot-scope="scope">
           {{ isSigned[scope.row.status] }}
         </template>

@@ -297,7 +297,7 @@ const en = {
       cate: {
         merchant: 'Merchant',
         // big: 'Chain Merchant',
-        // sub: 'Sub-merchant'
+        sub: 'Sub-merchant',
         big: 'Big Merchant'
       },
       signed: {

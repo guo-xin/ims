@@ -432,8 +432,8 @@
       if (this.$route.query) {
         this.isUpdate = this.$route.query.command === 'edit' || getParams('command') === 'edit';
         this.storeModel.big_uid = this.$route.query.big_uid;
-        this.getPid()
-        this.isUpdate && this.getStoreInfo()
+        this.getPid();
+        this.isUpdate && this.getStoreInfo();
       }
     },
     methods: {
@@ -463,11 +463,11 @@
                 bankcode: da.bankinfo.bankcode, // SWIFT码
                 remit_amt: da.userinfo.remit_amt, // 结算资金起点
               });
-              this.list_Select = da.fee_ratios
+              this.list_Select = da.fee_ratios;
               da.vouchers.forEach((item) =>{
                 if(~'goodsphoto|shopphoto|paypoint|otherphoto|otherphoto1|otherphoto2'.indexOf(item.name)) {
-                  this.storeModel.vouchers.push(item)
-                  this.voucherInfo[item.name + '_url'] = item.url
+                  this.storeModel.vouchers.push(item);
+                  this.voucherInfo[item.name + '_url'] = item.url;
                   this.voucherInfo[item.name + '_name'] = item.imgname;
                 }
               })
@@ -479,20 +479,21 @@
         });
       },
 
-      GetRemit() { // 根据银行账号获得
+      // 根据银行账号获得
+      GetRemit() {
         axios.get(`${config.host}/org/tools/remit_amt`, {
           params: {
             bankaccount: this.storeModel.bankaccount,
             format: 'cors'
           }
         }).then((res) => {
-          let data = res.data
+          let data = res.data;
           if(data.respcd === config.code.OK) {
             this.storeModel.remit_amt = data.data.remit_amt;
             if(data.data.remit_amt !== "") {
-              this.IsRemit = true
+              this.IsRemit = true;
             }else {
-              this.IsRemit = false
+              this.IsRemit = false;
             }
           }else {
             this.$message.error(data.respmsg);
@@ -513,6 +514,7 @@
         }
         return isRightImgType;
       },
+
       avatarSuccess(res, file, fileList) {
         let data = res.data;
         if (res.respcd === config.code.OK) {
@@ -556,6 +558,7 @@
         }
         return true
       },
+
       next() {
         if(this.list_Select.length === 0) {
             this.$message.error(this.$t('merchant.newMerchant.requiredRule.rule25'))
@@ -571,6 +574,7 @@
           })
         }
       },
+
       confirm() {
         this.$confirm(this.$t('common.sure'), this.$t('common.tip'), {
           confirmButtonText: this.$t('common.confirm'),
@@ -581,11 +585,12 @@
         }).catch(() => {
         })
       },
+
       commit() {
         let params = Object.assign({}, this.storeModel)
         let url = this.isUpdate ? `${config.host}/org/mchnt/sub/edit` : `${config.host}/org/mchnt/sub/signup`
-        params.format = 'cors'
-        params.mchnt_ratios = JSON.stringify(this.list_Select)
+        params.format = 'cors';
+        params.mchnt_ratios = JSON.stringify(this.list_Select);
         if (this.isUpdate) {
           params.type = 'submerchant';
           params.userid = this.$route.query.userid || getParams('userid')
@@ -593,13 +598,13 @@
         let converted = _.map(_.cloneDeep(this.storeModel.vouchers), (item) => {
           return _.pick(item, ['name', 'imgname']);
         })
-        params.vouchers = {}
+        params.vouchers = {};
         converted.forEach((item) => {
-          let vals = _.values(item)
+          let vals = _.values(item);
           params.vouchers[vals[0]] = vals[1]
         })
         params.vouchers.enuserid = 'EPeRaNEt';
-        params.vouchers = JSON.stringify(params.vouchers)
+        params.vouchers = JSON.stringify(params.vouchers);
         this.isLoading = true;
         axios.post(url, qs.stringify(params), {
           headers: {
@@ -623,14 +628,10 @@
           this.isLoading = false;
         });
       },
-      getPid() {  // 商户自动入网获取通道pid配置信息
-        axios.get(`${config.host}/org/tools/get_pid_info`, {
-          params: {
-            qd_uid: this.$route.query.qd_uid || getParams('qd_uid'),
-            format: 'cors'
-          }
-        })
-          .then((res) => {
+
+      // 商户自动入网获取通道pid配置信息
+      getPid() {
+        axios.get(`${config.host}/org/tools/get_pid_info?format=cors`).then((res) => {
             let data = res.data;
             if (data.respcd === config.code.OK) {
               this.list = res.data.data
@@ -641,9 +642,10 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
+
       addList() {
-        let pid_select = this.pid_select
-        let pid_select_array = []
+        let pid_select = this.pid_select;
+        let pid_select_array = [];
         this.list_Select.forEach(element => {
           pid_select_array.push(element.pid_name)
         })
@@ -655,12 +657,14 @@
           }
         })
       },
-      pid_name_remove(pid_name) { // 支付通道点击减号
+
+      // 支付通道点击减号
+      pid_name_remove(pid_name) {
         let new_list_select = this.list_Select.filter(element => {
           return element.pid_name !== pid_name
-        })
-        this.list_Select = new_list_select
-      } 
+        });
+        this.list_Select = new_list_select;
+      }
     }
   }
 </script>
