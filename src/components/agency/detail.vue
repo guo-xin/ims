@@ -7,7 +7,7 @@
     <h3>{{$t('agent.baseInfo')}}</h3>
     <ul>
       <li><em>{{$t('agent.agentName')}}：</em><span>{{base.name}}</span></li>
-      <li><em>{{$t('agent.agentLevel')}}：</em><span>{{base.levelcode === 1 ? $t('agent.agentLevel1') : $t('agent.agentLevel2')}} {{base.parent_name}}</span></li>
+      <li><em>{{$t('agent.agentLevel')}}：</em><span>{{base.levelcode === 1 ? $t('agent.agentLevel1') : (base.levelcode === 2 ? $t('agent.agentLevel2'): $t('agent.agentLevel3'))}} {{base.parent_name}}</span></li>
       <li><em>{{$t('agent.agentNickname')}}：</em><span>{{base.short_name}}</span></li>
       <li><em>{{$t('agent.agentArea')}}：</em><span>{{base.auth_province}} {{base.auth_city}}</span></li>
       <li><em>{{$t('agent.address')}}：</em><span>{{base.address}}</span></li>

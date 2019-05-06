@@ -824,6 +824,7 @@ const en = {
     level3: '3rd-tier Agent',
     agentLevel1: '1st-tier Agent',
     agentLevel2: '2nd-tier Agent',
+    agentLevel3: '3rd-tier Agent',
     leaderAgent: 'Superior Agent Name',
     registerTime: 'Registration Time',
     agentNickname: 'Enterprise Abbreviation',
