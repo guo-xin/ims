@@ -17,6 +17,7 @@
           <el-option :label="$t('common.all')" value=""></el-option>
           <el-option :label="$t('agent.level1')" value="1"></el-option>
           <el-option :label="$t('agent.level2')" value="2"></el-option>
+          <el-option :label="$t('agent.level3')" value="3"></el-option>
           </el-select>
       </el-form-item>
       <el-form-item :label="$t('common.status')">
@@ -81,7 +82,7 @@
     },
     methods: {
       formatLevel(row, column, cellValue) {
-        return cellValue === 1 ? this.$t('agent.level1') : this.$t('agent.level2')
+        return cellValue === 1 ? this.$t('agent.level1') : (cellValue === 2 ? this.$t('agent.level2') : this.$t('agent.level3'))
       },
       formatStatus(row, column, cellValue) {
         return cellValue === 0 ? this.$t('common.enable') : this.$t('common.disable')
@@ -118,6 +119,9 @@
           level: '',
           status: ''
         }
+        this.currentPage = 1
+        this.pageSize = 10
+        this.fetchData()
       },
       goDetail(row) {
         this.$router.push({

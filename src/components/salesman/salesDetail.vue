@@ -73,10 +73,10 @@
       </el-row>
     </section>
 
-    <footer v-if="isEditable">
+    <footer v-if="isEditable && !!userInfo.is_edit">
       <el-button @click="editHandler">{{$t('merchant.detail.edit')}}</el-button>
     </footer>
-    <footer v-if="isReEditable">
+    <footer v-if="isReEditable && !!userInfo.is_edit">
       <el-button @click="editHandler">{{$t('merchant.detail.redit')}}</el-button>
       <el-button @click="cancel">{{$t('merchant.detail.basic.close')}}</el-button>
     </footer>
@@ -115,7 +115,8 @@
           idcardfront: '', // 上传的照片
           status: '',
           email: '',
-          ctime: ''
+          ctime: '',
+          is_edit: 0
         }
       }
     },

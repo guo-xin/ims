@@ -105,7 +105,7 @@
         </el-col>
       </el-row>
 
-      <div class="banner">
+      <div class="banner" v-if="form.vouchers.length>0">
         <div class="title">{{$t('merchant.detail.document.doctitle')}}</div>
         <div class="divider"></div>
       </div>
@@ -119,10 +119,10 @@
       </el-row>
     </section>
 
-    <footer v-if="isEditable">
+    <footer v-if="isEditable && form.userinfo.is_edit">
       <el-button @click="editHandler">{{$t('merchant.detail.edit')}}</el-button>
     </footer>
-    <footer v-if="isReEditable">
+    <footer v-if="isReEditable && form.userinfo.is_edit">
       <el-button @click="editHandler">{{$t('merchant.detail.redit')}}</el-button>
       <el-button @click="cancel">{{$t('merchant.detail.basic.close')}}</el-button>
     </footer>
@@ -161,7 +161,8 @@
             operating: '',
             additional: '',
             website: '',
-            remit_amt: ''
+            remit_amt: '',
+            is_edit: 0
           },
           bankinfo: {},
           vouchers: [],

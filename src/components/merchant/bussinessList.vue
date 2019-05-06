@@ -78,7 +78,7 @@
             <el-input v-model="item['state_memo']" disabled type="text"></el-input>
           </el-form-item>
 
-          <el-button type="text" :disabled="item.type === 1 && item.state !== 2" :loading="formPayment['loading' + index]" @click="submit(index)">{{ $t('common.submit') }}</el-button>
+          <el-button type="text" v-if="item.is_edit" :disabled="item.type === 1 && item.state !== 2" :loading="formPayment['loading' + index]" @click="submit(index)">{{ $t('common.submit') }}</el-button>
         </div>
       </el-form>
 
