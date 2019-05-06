@@ -101,198 +101,176 @@
       </el-form-item>
 
       <h3>{{$t('merchant.detail.document.doctitle')}}</h3>
-      <el-row>
-        <el-col :span="24">
-          <div class="uploader-wrap">
-            <!-- 经营场所内景照片上传-->
-            <el-col :span="7" class="up-item">
-              <el-upload
-                :file-list="storeModel.vouchers"
-                v-loading="goodsphotoloading"
-                :on-progress="startAvatarUpload"
-                class="avatar-uploader"
-                :action="uploadInterface"
-                :show-file-list="false"
-                :before-upload="beforeAvatarUpload"
-                :on-success="avatarSuccess"
-                :on-error="avatarFailed"
-                :data="{
-                    category: 1,
-                    source: 1,
-                    tag: 'goodsphoto',
-                    enuserid: 'EPeRaNEt',
-                    format: 'cors'
-                }">
-                <div v-if="voucherInfo.goodsphoto_url" class="avatar-wrap">
-                  <img :src="voucherInfo.goodsphoto_url" class="avatar">
-                  <span class="img-tip">{{$t('common.reupload')}}</span>
-                </div>
-                <div v-else class="avatar-uploader-wrap">
-                  <i class="avatar-uploader-icon el-icon-plus"></i>
-                  <div class="avatar-desc">{{$t('merchant.newMerchant.picture.goodsphoto')}}</div>
-                  <div class="avatar-tip">{{$t('common.format')}}</div>
-                </div>
-              </el-upload>
-              <!--<div class="image_info">{{$t('merchant.newMerchant.form.warmgood')}}</div>-->
-            </el-col>
-            <!-- 经营场所外景照片上传-->
-            <el-col :span="7" class="up-item">
-              <el-upload
-                :file-list="storeModel.vouchers"
-                v-loading="shopphotoloading"
-                :on-progress="startAvatarUpload"
-                class="avatar-uploader"
-                :action="uploadInterface"
-                :show-file-list="false"
-                :before-upload="beforeAvatarUpload"
-                :on-success="avatarSuccess"
-                :on-error="avatarFailed"
-                :data="{
-                    category: 1,
-                    source: 1,
-                    tag: 'shopphoto',
-                    format: 'cors',
-                    enuserid: 'EPeRaNEt'
-                }">
-                <div v-if="voucherInfo.shopphoto_url" class="avatar-wrap">
-                  <img :src="voucherInfo.shopphoto_url" class="avatar">
-                  <i class="img-tip">{{$t('common.reupload')}}</i>
-                </div>
-                <div v-else class="avatar-uploader-wrap">
-                  <i class="avatar-uploader-icon el-icon-plus"></i>
-                  <div class="avatar-desc">{{$t('merchant.newMerchant.picture.shopphoto')}}</div>
-                  <div class="avatar-tip">{{$t('common.format')}}</div>
-                </div>
-              </el-upload>
-              <!--<div class="image_info">{{$t('merchant.newMerchant.form.warmshop')}}</div>-->
-            </el-col>
-            <!-- 收银台照片上传-->
-            <el-col :span="7" class="up-item">
-              <el-upload
-                :file-list="storeModel.vouchers"
-                v-loading="paypointloading"
-                :on-progress="startAvatarUpload"
-                class="avatar-uploader"
-                :action="uploadInterface"
-                :show-file-list="false"
-                :before-upload="beforeAvatarUpload"
-                :on-success="avatarSuccess"
-                :on-error="avatarFailed"
-                :data="{
-                    category: 1,
-                    source: 1,
-                    tag: 'paypoint',
-                    format: 'cors',
-                    enuserid: 'EPeRaNEt'
-                }">
-                <div v-if="voucherInfo.paypoint_url" class="avatar-wrap">
-                  <img :src="voucherInfo.paypoint_url" class="avatar">
-                  <i class="img-tip">{{$t('common.reupload')}}</i>
-                </div>
-                <div v-else class="avatar-uploader-wrap">
-                  <i class="avatar-uploader-icon el-icon-plus"></i>
-                  <div class="avatar-desc">{{$t('shop.newStore.casher')}}</div>
-                  <div class="avatar-tip">{{$t('common.format')}}</div>
-                </div>
-              </el-upload>
-              <!--<div class="image_info">{{$t('shop.newStore.mustcasher')}}</div>-->
-            </el-col>
-            <!-- 补充资料照片上传-->
-            <el-col :span="7" class="up-item" style="margin-top:20px;">
-              <el-upload
-                :file-list="storeModel.vouchers"
-                v-loading="otherphotoloading"
-                :on-progress="startAvatarUpload"
-                class="avatar-uploader"
-                :action="uploadInterface"
-                :show-file-list="false"
-                :before-upload="beforeAvatarUpload"
-                :on-success="avatarSuccess"
-                :on-error="avatarFailed"
-                :data="{
-                    category: 1,
-                    source: 1,
-                    tag: 'otherphoto',
-                    format: 'cors',
-                    enuserid: 'EPeRaNEt'
-                }">
-                <div v-if="voucherInfo.otherphoto_url" class="avatar-wrap">
-                  <img :src="voucherInfo.otherphoto_url" class="avatar">
-                  <i class="img-tip">{{$t('common.reupload')}}</i>
-                </div>
-                <div v-else class="avatar-uploader-wrap">
-                  <i class="avatar-uploader-icon el-icon-plus"></i>
-                  <div class="avatar-desc">{{$t('shop.newStore.other')}}</div>
-                  <div class="avatar-tip">{{$t('common.format')}}</div>
-                </div>
-              </el-upload>
-              <!--<div class="image_info">{{$t('shop.newStore.warmother')}}</div>-->
-            </el-col>
-            <!-- 补充资料照片上传-->
-            <el-col :span="7" class="up-item" style="margin-top:20px;">
-              <el-upload
-                :file-list="storeModel.vouchers"
-                v-loading="otherphotoloading"
-                :on-progress="startAvatarUpload"
-                class="avatar-uploader"
-                :action="uploadInterface"
-                :show-file-list="false"
-                :before-upload="beforeAvatarUpload"
-                :on-success="avatarSuccess"
-                :on-error="avatarFailed"
-                :data="{
-                    category: 1,
-                    source: 1,
-                    tag: 'otherphoto1',
-                    format: 'cors',
-                    enuserid: 'EPeRaNEt'
-                }">
-                <div v-if="voucherInfo.otherphoto1_url" class="avatar-wrap">
-                  <img :src="voucherInfo.otherphoto1_url" class="avatar">
-                  <i class="img-tip">{{$t('common.reupload')}}</i>
-                </div>
-                <div v-else class="avatar-uploader-wrap">
-                  <i class="avatar-uploader-icon el-icon-plus"></i>
-                  <div class="avatar-desc">{{$t('shop.newStore.other1')}}</div>
-                  <div class="avatar-tip">{{$t('common.format')}}</div>
-                </div>
-              </el-upload>
-              <!--<div class="image_info">{{$t('shop.newStore.warmother')}}</div>-->
-            </el-col>
-            <!-- 补充资料照片上传-->
-            <el-col :span="7" class="up-item" style="margin-top:20px;">
-              <el-upload
-                :file-list="storeModel.vouchers"
-                v-loading="otherphotoloading"
-                :on-progress="startAvatarUpload"
-                class="avatar-uploader"
-                :action="uploadInterface"
-                :show-file-list="false"
-                :before-upload="beforeAvatarUpload"
-                :on-success="avatarSuccess"
-                :on-error="avatarFailed"
-                :data="{
-                    category: 1,
-                    source: 1,
-                    tag: 'otherphoto2',
-                    format: 'cors',
-                    enuserid: 'EPeRaNEt'
-                }">
-                <div v-if="voucherInfo.otherphoto2_url" class="avatar-wrap">
-                  <img :src="voucherInfo.otherphoto2_url" class="avatar">
-                  <i class="img-tip">{{$t('common.reupload')}}</i>
-                </div>
-                <div v-else class="avatar-uploader-wrap">
-                  <i class="avatar-uploader-icon el-icon-plus"></i>
-                  <div class="avatar-desc">{{$t('shop.newStore.other2')}}</div>
-                  <div class="avatar-tip">{{$t('common.format')}}</div>
-                </div>
-              </el-upload>
-              <!--<div class="image_info">{{$t('shop.newStore.warmother')}}</div>-->
-            </el-col>
+      <div class="uploaders">
+        <!-- 经营场所内景照片上传-->
+        <el-upload
+          :file-list="storeModel.vouchers"
+          v-loading="goodsphotoloading"
+          :on-progress="startAvatarUpload"
+          class="avatar-uploader"
+          :action="uploadInterface"
+          :show-file-list="false"
+          :before-upload="beforeAvatarUpload"
+          :on-success="avatarSuccess"
+          :on-error="avatarFailed"
+          :data="{
+              category: 1,
+              source: 1,
+              tag: 'goodsphoto',
+              enuserid: 'EPeRaNEt',
+              format: 'cors'
+          }">
+          <div v-if="voucherInfo.goodsphoto_url" class="avatar-wrap">
+            <img :src="voucherInfo.goodsphoto_url" class="avatar">
+            <span class="img-tip">{{$t('common.reupload')}}</span>
           </div>
-        </el-col>
-      </el-row>
+          <div v-else class="avatar-uploader-wrap">
+            <i class="avatar-uploader-icon el-icon-plus"></i>
+            <div class="avatar-desc">{{$t('merchant.newMerchant.picture.goodsphoto')}}</div>
+            <div class="avatar-tip">{{$t('common.format')}}</div>
+          </div>
+        </el-upload>
+        <!-- 经营场所外景照片上传-->
+        <el-upload
+          :file-list="storeModel.vouchers"
+          v-loading="shopphotoloading"
+          :on-progress="startAvatarUpload"
+          class="avatar-uploader"
+          :action="uploadInterface"
+          :show-file-list="false"
+          :before-upload="beforeAvatarUpload"
+          :on-success="avatarSuccess"
+          :on-error="avatarFailed"
+          :data="{
+              category: 1,
+              source: 1,
+              tag: 'shopphoto',
+              format: 'cors',
+              enuserid: 'EPeRaNEt'
+          }">
+          <div v-if="voucherInfo.shopphoto_url" class="avatar-wrap">
+            <img :src="voucherInfo.shopphoto_url" class="avatar">
+            <i class="img-tip">{{$t('common.reupload')}}</i>
+          </div>
+          <div v-else class="avatar-uploader-wrap">
+            <i class="avatar-uploader-icon el-icon-plus"></i>
+            <div class="avatar-desc">{{$t('merchant.newMerchant.picture.shopphoto')}}</div>
+            <div class="avatar-tip">{{$t('common.format')}}</div>
+          </div>
+        </el-upload>
+        <!-- 收银台照片上传-->
+        <el-upload
+          :file-list="storeModel.vouchers"
+          v-loading="paypointloading"
+          :on-progress="startAvatarUpload"
+          class="avatar-uploader"
+          :action="uploadInterface"
+          :show-file-list="false"
+          :before-upload="beforeAvatarUpload"
+          :on-success="avatarSuccess"
+          :on-error="avatarFailed"
+          :data="{
+              category: 1,
+              source: 1,
+              tag: 'paypoint',
+              format: 'cors',
+              enuserid: 'EPeRaNEt'
+          }">
+          <div v-if="voucherInfo.paypoint_url" class="avatar-wrap">
+            <img :src="voucherInfo.paypoint_url" class="avatar">
+            <i class="img-tip">{{$t('common.reupload')}}</i>
+          </div>
+          <div v-else class="avatar-uploader-wrap">
+            <i class="avatar-uploader-icon el-icon-plus"></i>
+            <div class="avatar-desc">{{$t('shop.newStore.casher')}}</div>
+            <div class="avatar-tip">{{$t('common.format')}}</div>
+          </div>
+        </el-upload>
+        <!-- 补充资料照片上传-->
+        <el-upload
+          :file-list="storeModel.vouchers"
+          v-loading="otherphotoloading"
+          :on-progress="startAvatarUpload"
+          class="avatar-uploader"
+          :action="uploadInterface"
+          :show-file-list="false"
+          :before-upload="beforeAvatarUpload"
+          :on-success="avatarSuccess"
+          :on-error="avatarFailed"
+          :data="{
+              category: 1,
+              source: 1,
+              tag: 'otherphoto',
+              format: 'cors',
+              enuserid: 'EPeRaNEt'
+          }">
+          <div v-if="voucherInfo.otherphoto_url" class="avatar-wrap">
+            <img :src="voucherInfo.otherphoto_url" class="avatar">
+            <i class="img-tip">{{$t('common.reupload')}}</i>
+          </div>
+          <div v-else class="avatar-uploader-wrap">
+            <i class="avatar-uploader-icon el-icon-plus"></i>
+            <div class="avatar-desc">{{$t('shop.newStore.other')}}</div>
+            <div class="avatar-tip">{{$t('common.format')}}</div>
+          </div>
+        </el-upload>
+        <!-- 补充资料照片上传-->
+        <el-upload
+          :file-list="storeModel.vouchers"
+          v-loading="otherphotoloading"
+          :on-progress="startAvatarUpload"
+          class="avatar-uploader"
+          :action="uploadInterface"
+          :show-file-list="false"
+          :before-upload="beforeAvatarUpload"
+          :on-success="avatarSuccess"
+          :on-error="avatarFailed"
+          :data="{
+              category: 1,
+              source: 1,
+              tag: 'otherphoto1',
+              format: 'cors',
+              enuserid: 'EPeRaNEt'
+          }">
+          <div v-if="voucherInfo.otherphoto1_url" class="avatar-wrap">
+            <img :src="voucherInfo.otherphoto1_url" class="avatar">
+            <i class="img-tip">{{$t('common.reupload')}}</i>
+          </div>
+          <div v-else class="avatar-uploader-wrap">
+            <i class="avatar-uploader-icon el-icon-plus"></i>
+            <div class="avatar-desc">{{$t('shop.newStore.other1')}}</div>
+            <div class="avatar-tip">{{$t('common.format')}}</div>
+          </div>
+        </el-upload>
+        <!-- 补充资料照片上传-->
+        <el-upload
+          :file-list="storeModel.vouchers"
+          v-loading="otherphotoloading"
+          :on-progress="startAvatarUpload"
+          class="avatar-uploader"
+          :action="uploadInterface"
+          :show-file-list="false"
+          :before-upload="beforeAvatarUpload"
+          :on-success="avatarSuccess"
+          :on-error="avatarFailed"
+          :data="{
+              category: 1,
+              source: 1,
+              tag: 'otherphoto2',
+              format: 'cors',
+              enuserid: 'EPeRaNEt'
+          }">
+          <div v-if="voucherInfo.otherphoto2_url" class="avatar-wrap">
+            <img :src="voucherInfo.otherphoto2_url" class="avatar">
+            <i class="img-tip">{{$t('common.reupload')}}</i>
+          </div>
+          <div v-else class="avatar-uploader-wrap">
+            <i class="avatar-uploader-icon el-icon-plus"></i>
+            <div class="avatar-desc">{{$t('shop.newStore.other2')}}</div>
+            <div class="avatar-tip">{{$t('common.format')}}</div>
+          </div>
+        </el-upload>
+      </div>
     </el-form>
     <footer>
       <el-button @click="next" :disabled="isLoading">{{$t('common.done')}}</el-button>
@@ -776,6 +754,7 @@
         position: relative !important;
         .avatar {
           width: 285px;
+          border: 1px dashed #CCCCD5;
           height: 214px;
           display: block;
         }
@@ -809,6 +788,11 @@
             height: 100%;
           }
         }
+      }
+      .avatar-uploader {
+        display: inline-block;
+        vertical-align: top;
+        margin: 15px 15px 0 0;
       }
       .avatar-uploader-wrap {
         width: 285px;
