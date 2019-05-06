@@ -775,6 +775,7 @@ const zh = {
     level: '等级',
     level1: '一级',
     level2: '二级',
+    level3: '三级',
     agentLevel1: '一级代理',
     agentLevel2: '二级代理',
     leaderAgent: '上级代理商名称',

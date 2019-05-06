@@ -81,7 +81,7 @@
     },
     methods: {
       formatLevel(row, column, cellValue) {
-        return cellValue === 1 ? this.$t('agent.level1') : this.$t('agent.level2')
+        return cellValue === 1 ? this.$t('agent.level1') : (cellValue === 2 ? this.$t('agent.level2') : this.$t('agent.level3'))
       },
       formatStatus(row, column, cellValue) {
         return cellValue === 0 ? this.$t('common.enable') : this.$t('common.disable')
