@@ -234,6 +234,7 @@
               termid: list.termid,
               mchntid: list.mchntid,
               chnlid: list.chnlid,
+              pid_name: list.pid_name,
               key1: list.key1,
               format: 'cors'
             }
