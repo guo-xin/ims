@@ -17,6 +17,7 @@ const setformateDate = (date) => {
 
 // 日期格式化
 const formatDate = (parDate, formatStr) => {
+  if(!parDate || parDate == null) return '';
   if(parDate && parDate.constructor === String) {
     parDate = parDate.replace(/-/g, "/");
   }
