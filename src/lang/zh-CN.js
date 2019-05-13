@@ -54,7 +54,7 @@ const zh = {
     SAVE: '保存',
     CLOSE: '关闭',
     EDIT: '编辑',
-    SWIFT: 'SWIFT',
+    SWIFT: 'SWIFT CODE',
     remark: '备注',
     payTip: '不可重复选择支付通道'
   },
@@ -257,7 +257,10 @@ const zh = {
       nonconfigured: "未配置",
       merchantID1: '商户号',
       merchChildID1: '子商户号',
-      merchantPass1: '商户秘钥',
+      merchantName: '商户名',
+      merchantPass1: 'key1',
+      merchantPass2: 'key2',
+      merchantPass3: 'key3',
       merchantID2: '通道商号',
       merchChildID2: '通道子商户号',
       type: '接入类型/应用类型',
@@ -324,7 +327,7 @@ const zh = {
         la8: '联系电话:',
         la9: '证件类型:',
         la10: '证件编号:',
-        la11: '邮箱:',
+        la11: '联系人邮箱:',
         la12: '商户地址:',
         la13: 'BR编号:',
         la14: 'BR有效期:',
@@ -332,12 +335,12 @@ const zh = {
         // la16: 'CI有效期:',
         la16: '注册地址:',
         la17: '开户名称:',
-        la18: '开户行:',
+        la18: '开户银行:',
         la19: '银行账号:',
         la20: '银行地址:',
         la21: '结算资金起点:',
         la22: '公司网址:',
-        la23: '法人名称:',
+        la23: '法人姓名:',
         la24: '单店／连锁店:'
       },
       shop: {
@@ -351,7 +354,7 @@ const zh = {
         sa1: '微信费率:',
         sa2: '支付宝费率:',
         sa3: '开户名称:',
-        sa4: '开户行:',
+        sa4: '开户银行:',
         sa5: '银行账号:',
         sa6: '银行地址:',
         sa7: '结算资金起点:'
@@ -399,7 +402,7 @@ const zh = {
         mertype: '商户类型',
         meiname: '商户名称',
         contact: '业务员',
-        postT: '邮箱',
+        postT: '联系人邮箱',
         concatName: '联系人姓名',
         concatNumber: '联系电话',
         documentType: '证件类型',
@@ -407,7 +410,7 @@ const zh = {
         industry: '行业类别',
         addressT: '商户地址',
         accountName: '开户名称',
-        accountType: '开户行',
+        accountType: '开户银行',
         accountH: '银行账号',
         accountAddress: '银行地址',
         moneySettment: '结算资金起点',
@@ -435,7 +438,7 @@ const zh = {
         shopAbbreviation: '店铺简称',
         registeredAddress: '注册地址',
         companyWebsite: '公司网址',
-        legalName: '法人名称',
+        legalName: '法人姓名',
         bigMerchant: '单店／连锁店'
       },
       applicationTypes: {
@@ -616,7 +619,7 @@ const zh = {
         la10: '店铺网址:',
         la11: '图片展示:',
         la12: '子商户号(mchid):',
-        la13: 'SWIFT:',
+        la13: 'SWIFT CODE:',
         la14: '店铺简称:'
       }
     },
@@ -842,13 +845,13 @@ const zh = {
       salesname: '业务员名称',
       mobile: '手机号码',
       status: '业务员状态',
-      email: '邮箱',
+      email: '联系人邮箱',
       idnumber: '证件号码',
       date: '注册日期',
       password: '密码'
     },
     table: {
-      email: '邮箱',
+      email: '联系人邮箱',
       idnumber: '证件号码',
       date: '注册日期',
       password: '密码'
@@ -861,7 +864,7 @@ const zh = {
       salesname: '业务员名称:',
       mobile: '手机号码:',
       status: '业务员状态:',
-      email: '邮箱:',
+      email: '联系人邮箱:',
       idnumber: '证件号码:',
       password: '密码:',
       date: '注册日期:'
@@ -875,7 +878,7 @@ const zh = {
         salesname: '业务员名称',
         mobile: '手机号码',
         status: '业务员状态',
-        email: '邮箱',
+        email: '联系人邮箱',
         password: '密码',
         confirm_password: '确认密码',
         idnumber: '证件号码',

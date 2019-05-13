@@ -283,6 +283,7 @@
         this[file['__ob__'].dep.subs[0].vm.$options.propsData.data.tag + 'loading'] = false;
       },
       avatarFailed(err, file) {
+        this[file['__ob__'].dep.subs[0].vm.$options.propsData.data.tag + 'loading'] = false;
         this.$message.error(err);
       },
       checkPhotosIsUpdated() {

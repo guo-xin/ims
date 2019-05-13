@@ -56,7 +56,7 @@
     </el-pagination>
 
     <el-dialog :title="$t('merchant.payment.title')" :visible.sync="showConfirm"
-               :show-close="false" center width="80%" class="dialog" @close="handleClose">
+               :show-close="false" center width="90%" class="dialog" @close="handleClose">
       <el-form :model="formPayment" ref="formPayment">
         <div class="dialog-row" v-for="(item, index) in formPayment.list" :key="index">
           <h4>{{ item.pid_name }}</h4>
@@ -68,9 +68,22 @@
             <el-input :disabled="item.type === 1" v-model="item['termid']" type="text"></el-input>
           </el-form-item>
 
+          <el-form-item v-if="!item.type" :label="$t('merchant.payment.merchantName')">
+            <el-input v-model="item['mchntnm']" type="text"></el-input>
+          </el-form-item>
+
           <el-form-item :label="$t('merchant.payment.merchantPass1')">
             <el-input :disabled="item.type === 1" v-model="item['key1']" type="text"></el-input>
           </el-form-item>
+
+
+          <el-form-item v-if="!item.type" :label="$t('merchant.payment.merchantPass2')">
+            <el-input v-model="item['key2']" type="text"></el-input>
+          </el-form-item>
+          <el-form-item v-if="!item.type" :label="$t('merchant.payment.merchantPass3')">
+            <el-input v-model="item['key3']" type="text"></el-input>
+          </el-form-item>
+
           <el-form-item v-if="item.type" :label="$t('merchant.payment.type')">
             <el-input v-model="item['line_finance']" disabled type="text"></el-input>
           </el-form-item>
@@ -161,7 +174,9 @@
         this.formData.mchntid = '';
         this.fetchData('query');
       },
-      selectCurrentRowHandler(currentRow, oldCurrentRow) { // 选择列表项，进入详情页
+
+      // 选择列表项，进入详情页
+      selectCurrentRowHandler(currentRow, oldCurrentRow) {
         this.$router.push({
           name: 'shopDetail',
           query: {userid: currentRow.submchnt_id, from: 'old'}
@@ -223,7 +238,10 @@
               termid: list.termid,
               mchntid: list.mchntid,
               id: list.id,
+              mchntnm: list.mchntnm,
               key1: list.key1,
+              key2: list.key2,
+              key3: list.key3,
               format: 'cors'
             }
           }else {
@@ -234,8 +252,11 @@
               termid: list.termid,
               mchntid: list.mchntid,
               chnlid: list.chnlid,
+              mchntnm: list.mchntnm,
               pid_name: list.pid_name,
               key1: list.key1,
+              key2: list.key2,
+              key3: list.key3,
               format: 'cors'
             }
           }
@@ -286,7 +307,7 @@
         display: block;
       }
       .el-form-item {
-        width: 18%;
+        width: 15%;
         padding-left: 0;
         padding-right: $miderGap;
       }

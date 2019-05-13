@@ -56,7 +56,7 @@ const en = {
     CLOSE: 'CLOSE',
     SAVE: 'SAVE',
     EDIT: 'EDIT',
-    SWIFT: 'SWIFT',
+    SWIFT: 'SWIFT CODE',
     remark: 'Remark',
     payTip: 'Non-repeatable selection of the payment channel'
   },
@@ -280,12 +280,15 @@ const en = {
       radio1: 'First Clean',
       radio2: 'Second Clean',
       merchantID2: 'Channel Merchant No.',
+      merchantName: 'Merchant Name',
+      merchantPass1: 'key1',
+      merchantPass2: 'key2',
+      merchantPass3: 'key3',
       merchChildID2: 'Channel Sub-Merchant No.',
       type: 'Online&in Store / Application Type',
       desc: 'Onboarding Status / Description',
       merchantID1: 'Merchant No.',
       merchChildID1: 'Sub-Merchant No.',
-      merchantPass1: 'Merchant key'
     },
     detail: {
       up: 'Activate',
@@ -325,7 +328,7 @@ const en = {
         la8: 'Telephone:',
         la9: 'Certificate Type:',
         la10: 'Certificate Number:',
-        la11: 'Email:',
+        la11: 'Contact Email:',
         la12: 'Address:',
         la13: 'BR Number:',
         la14: 'BR Validity:',
@@ -338,7 +341,7 @@ const en = {
         la20: 'Bank Address:',
         la21: 'Starting Point of Settlement Fund:',
         la22: 'Company Website:',
-        la23: 'Legal Person:',
+        la23: 'Legal Person Name:',
         la24: 'Merchant/Big Merchant:'
       },
       shop: {
@@ -449,7 +452,7 @@ const en = {
         mertype: 'Merchant Category',
         meiname: 'Merchant Name',
         contact: 'Salesman',
-        postT: 'Email',
+        postT: 'Contact Email',
         concatName: 'Contact Name',
         concatNumber: 'Telephone',
         documentType: 'Certificate Type',
@@ -477,7 +480,7 @@ const en = {
         shopAbbreviation: 'Merchant Abbreviation',
         registeredAddress: 'Register Address',
         companyWebsite: 'Company Website',
-        legalName: 'Legal Person',
+        legalName: 'Legal Person Name',
         bigMerchant: 'Merchant／Big Merchant'
       },
       applicationTypes: {
@@ -492,7 +495,7 @@ const en = {
         rule1: 'Please select agent name',
         rule2: 'Please select',
         rule3: 'Please input merchant name',
-        rule4: 'Please input email',
+        rule4: 'Please input contact email',
         rule5: 'Please input contact name',
         rule6: 'Please input telephone',
         rule7: 'Please select certificate type',
@@ -512,11 +515,11 @@ const en = {
         rule21: 'Please input store address',
         rule22: 'Please input store contact number',
         rule23: 'Please input business hours',
-        rule24: 'Please enter the SWIFT',
+        rule24: 'Please enter the SWIFT CODE',
         rule25: 'Please select payment channel',
         rule26: 'Please select merchant category',
         rule27: 'Please input contact name',
-        rule28: 'Please input legal person',
+        rule28: 'Please input Legal Person Name',
         rule29: 'Please input register address',
         rule30: 'Please input company website',
         rule31: 'Please input merchant abbreviation'
@@ -571,13 +574,13 @@ const en = {
       rule16: 'Please input company address', // 请输入公司地址
       rule17: 'Please input company contact name', // 请输入公司联系人
       rule18: 'Please input bank name', // 请输入总行名称
-      rule19: 'Please input SWIFT', // 请输入SWIFT代码
+      rule19: 'Please input SWIFT CODE', // 请输入SWIFT代码
       rule20: 'Please input bank account name', // 请输入银行帐户名称
       rule21: 'Please input store name', // 请输入店铺名称
       rule22: 'Please input store contact number', // 请输入店铺联系电话
       rule23: 'Please select area', // 请选择店铺所属地区
       rule24: 'Please input store address', // 请输入店铺地址
-      rule25: 'Please input Email', // 请输入店铺邮编
+      rule25: 'Please input Contact Email', // 请输入店铺邮编
       rule26: 'Please input store services', // 请输入店铺附加服务
       rule27: 'Please input business hours', // 请输入店铺营业时间
       rule28: 'Please upload photos from inside of store', // 请上传所售商品/经营场所内景照片
@@ -660,7 +663,7 @@ const en = {
         la10: 'Website:',
         la11: 'Photograph:',
         la12: 'Sub-business account number:',
-        la13: 'SWIFT:',
+        la13: 'SWIFT CODE:',
         la14: 'Merchant Abbreviation:'
       },
       edit: 'Edit'
@@ -831,7 +834,7 @@ const en = {
     agentArea: 'Area',
     address: 'Enterprise Address',
     contact: 'Business Contact',
-    legal: 'Enterprise Legal Person',
+    legal: 'Enterprise Legal Person Name',
     contactMobile: 'Contact Number',
     legalMobile: 'Legal Person Phone',
     saleMan: 'Salesman',
@@ -888,13 +891,13 @@ const en = {
       salesname: 'BD Name',
       mobile: 'Contact Number',
       status: 'Status',
-      email: 'Email',
+      email: 'Contact Email',
       idnumber: 'Certificate Number',
       date: 'Registration Date',
       password: 'Password'
     },
     table: {
-      email: 'Email',
+      email: 'Contact Email',
       idnumber: 'Certificate Number',
       date: 'Registration Date',
       password: 'Password'
@@ -907,7 +910,7 @@ const en = {
       salesname: 'BD Name:',
       mobile: 'Contact Number:',
       status: 'Status:',
-      email: 'Email:',
+      email: 'Contact Email:',
       idnumber: 'Certificate Number:',
       password: 'Password:',
       date: 'Registration Date:'
@@ -921,7 +924,7 @@ const en = {
         salesname: 'BD Name',
         mobile: 'Contact Number',
         status: 'Status',
-        email: 'Email',
+        email: 'Contact Email',
         password: 'Password',
         confirm_password: 'Confirm-Password',
         idnumber: 'Certificate Number',
@@ -929,8 +932,8 @@ const en = {
       },
       rule1: "Please enter BD's name",
       rule2: 'The maximum input allowed is 20 characters',
-      rule3: 'Please input email',
-      rule11: 'Please input a valid email',
+      rule3: 'Please input contact email',
+      rule11: 'Please input a valid contact email',
       rule4: 'Please input password',
       rule5: 'The maximum password length is 18 characters',
       rule6: 'Please input confirm-password for validation',
