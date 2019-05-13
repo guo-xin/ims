@@ -8,7 +8,7 @@ if(env === 'development') {
   let u = location.hostname;
   let pro = location.protocol;
   host = `${pro}//${u}`;
-  imgUpload = `${pro}//${u.replace(/(ims|oasbp)/, 'o')}`
+  imgUpload = `${pro}//${u.replace(/(gray-ims|ims|oasbp)/, 'o')}`
 }
 
 export default {
