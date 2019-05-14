@@ -42,11 +42,11 @@
       </el-form-item>
 
       <el-form-item prop="password" :label="$t('salesman.newsale.model.password')">
-        <el-input v-model.trim="salesModel.password" type="password"></el-input>
+        <el-input v-model.trim="salesModel.password" auto-complete="new-password" type="password"></el-input>
       </el-form-item>
 
       <el-form-item prop="confirm_password" :label="$t('salesman.newsale.model.confirm_password')">
-        <el-input v-model.trim="salesModel.confirm_password" type="password"></el-input>
+        <el-input v-model.trim="salesModel.confirm_password" auto-complete="new-password" type="password"></el-input>
       </el-form-item>
 
       <el-form-item :label="$t('salesman.newsale.model.status')" prop="status" v-if="isUpdate">

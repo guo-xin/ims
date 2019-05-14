@@ -64,7 +64,7 @@
         <el-input id="end-length" type="password" :value="editPassword" @input="inputPassword" @focus="focusPassword" @blur="updateAgency('password', $event)"></el-input>
       </el-form-item>
       <el-form-item v-else prop="password" :label="$t('agent.password')">
-        <el-input type="password" v-model="baseform.password"></el-input>
+        <el-input auto-complete="new-password" type="password" v-model="baseform.password"></el-input>
       </el-form-item>
       <el-form-item v-if="isUpdate" prop="status" :label="$t('common.status')">
         <el-select v-model="baseform.status" @change="updateAgency('status', $event)">
