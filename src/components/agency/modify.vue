@@ -140,7 +140,7 @@
         isUpdate: false,
         isLoading: false,
         IsRemit: false,
-        active: 1, // 当前步骤
+        active: 0, // 当前步骤
         isInputing: false, // 正在输入密码
         editPassword: '******',
         oldPassword: '',
