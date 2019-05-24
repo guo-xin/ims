@@ -122,7 +122,7 @@
           {label: 'English', value: 'en-us'},
           {label: '简体中文', value: 'zh-cn'}
         ],
-        isCollapse: (window.innerWidth || document.body.clientWidth) < 1280,
+        isCollapse: document.body.clientWidth <= 1280,
         activeIndex: "1",
         subMenuIdxs: ["1"],
         menuSet: {
@@ -169,7 +169,7 @@
     },
     mounted() {
       window.onresize = (e) => {
-        if((window.innerWidth || document.body.clientWidth) < 1280) {
+        if(document.body.clientWidth <= 1280) {
           this.isCollapse = true
         }else {
           this.isCollapse = false
@@ -229,7 +229,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-  @media screen and (max-width:1279px){
+  @media screen and (max-width:1280px){
     .layout .main-frame .el-main {margin-left:80px !important;}
     .el-aside {width:80px !important}
   }
