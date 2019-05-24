@@ -110,7 +110,7 @@
         dialogVisible: false,
         excelLoading: false,
         zipLoading: false,
-        uploadExcelInterface: `${config.host}/org/mchnt/hk/upload_create_file`, // 上传excel接口
+        uploadExcelInterface: `${config.host}/org/mchnt/upload_create_file`, // 上传excel接口
         uploadZipInterface: `${config.host}/org/mchnt/upload_batch_package`, // 上传zip接口
         form: {
           excel_name: '',
@@ -143,8 +143,8 @@
           file_name_new: this.form.file_name_new,
           format: 'cors'
         };
-        console.log('commit param:', param)
-        axios.post(`${config.host}/org/mchnt/hk/mchnt_batch_create`,qs.stringify(param), {
+        console.log('commit param:', param);
+        axios.post(`${config.host}/org/mchnt/mchnt_batch_create`,qs.stringify(param), {
         }).then((res) => {
           let data = res.data;
           if (data.respcd === config.code.OK) {

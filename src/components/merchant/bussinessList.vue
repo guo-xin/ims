@@ -199,7 +199,7 @@
       paymentConfigure(userid) {
         this.isLoading = true;
         this.userId = userid;
-        axios.get(`${config.host}/org/mchnt/hk/channel/info?userid=${userid}&format=cors`).then((res) => {
+        axios.get(`${config.host}/org/mchnt/channel/info?userid=${userid}&format=cors`).then((res) => {
           let data = res.data;
           this.isLoading = false;
           if (data.respcd === config.code.OK) {
@@ -232,7 +232,7 @@
         }else {
           // 编辑
           if(list.mchnt_state) {
-            url = '/org/mchnt/hk/channel/edit';
+            url = '/org/mchnt/channel/edit';
             param = {
               userid: this.userId,
               termid: list.termid,
@@ -246,7 +246,7 @@
             }
           }else {
             // 新建
-            url = '/org/mchnt/hk/channel/bind';
+            url = '/org/mchnt/channel/bind';
             param = {
               userid: this.userId,
               termid: list.termid,

@@ -109,8 +109,8 @@
       <h3>{{$t('agent.payRate')}}</h3>
       <div :label="item.name" v-for="item in payfee" :key="item.name">
         <h4>{{item.name}}</h4>
-        <el-form-item :label="fee.trade_type_name" v-for="fee in item.busicd" :error="fee.error" :key="fee.trade_type_name">
-            <el-input-number v-model.trim="fee.ratio" :disabled="isUpdate" :precision="2" :step="0.01" :max="5" @change="ratioMinRule($event, fee.ratioMin, fee.trade_type)"></el-input-number>
+        <el-form-item :label="fee.trade_type_name" v-for="(fee, index) in item.busicd" :error="fee.error" :key="`${fee.trade_type_name}${index}`">
+            <el-input-number v-model.trim="fee.ratio" :disabled="isUpdate" :precision="2" :step="0.01" :min="+fee.ratioMin" :max="5" @change="ratioMinRule($event, fee.ratioMin, fee.trade_type)"></el-input-number>
         </el-form-item>
       </div>
     </el-form>
@@ -140,7 +140,7 @@
         isUpdate: false,
         isLoading: false,
         IsRemit: false,
-        active: 0, // 当前步骤
+        active: 1, // 当前步骤
         isInputing: false, // 正在输入密码
         editPassword: '******',
         oldPassword: '',
@@ -322,7 +322,7 @@
           .then((res) => {
             let data = res.data;
             if (data.respcd === config.code.OK) {
-              this.payfee = data.data;
+              this.payfee = this.formatRatio(data.data);
             } else {
               this.$message.error(data.respmsg);
             }
@@ -330,6 +330,17 @@
           this.$message.error(this.$t('common.netError'));
         });
       },
+
+      // 格式化费率
+      formatRatio(data) {
+        for(let item of data) {
+          for(let list of item.busicd) {
+            list['ratio'] = list['ratioMin'];
+          }
+        }
+        return data;
+      },
+
       ratioMinRule(value, ratioMin, tradeType) { // 费率填写提示信息的处理
         let errorMessage = value < ratioMin ? this.$t('common.MINRatio') + `${ratioMin}` : ''
         this.payfee.map((radio) => {
