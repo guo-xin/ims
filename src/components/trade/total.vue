@@ -67,7 +67,7 @@
         <el-row type="flex" align="bottom">
           <el-col :span="11" class="head">
             <span>{{$t('trade.common.tradeAmount')}}</span>
-            <strong>HK${{payTotal.total_txamt | formatCurrency}}</strong>
+            <strong>{{ userInfo.currency }}{{payTotal.total_txamt | formatCurrency}}</strong>
           </el-col>
           <el-col :span="5">
             <span>{{$t('trade.common.tradeCount')}}</span>
@@ -75,7 +75,7 @@
           </el-col>
           <el-col :span="8">
             <span>{{$t('trade.common.fee')}}</span>
-            <strong>HK${{payTotal.total_settlefee | formatCurrency}}</strong>
+            <strong>{{ userInfo.currency }}{{payTotal.total_settlefee | formatCurrency}}</strong>
           </el-col>
         </el-row>
       </el-col>
@@ -83,7 +83,7 @@
         <el-row type="flex" align="bottom">
           <el-col :span="11" class="head">
             <span>{{$t('trade.common.refundAmount')}}</span>
-            <strong>HK${{refundTotal.total_txamt | formatCurrency}}</strong>
+            <strong>{{ userInfo.currency }}{{refundTotal.total_txamt | formatCurrency}}</strong>
           </el-col>
           <el-col :span="5">
             <span>{{$t('trade.common.refundCount')}}</span>
@@ -91,7 +91,7 @@
           </el-col>
           <el-col :span="8">
             <span>{{$t('trade.common.fee')}}</span>
-            <strong>HK${{refundTotal.total_settlefee | formatCurrency}}</strong>
+            <strong>{{ userInfo.currency }}{{refundTotal.total_settlefee | formatCurrency}}</strong>
           </el-col>
         </el-row>
       </el-col>
@@ -132,6 +132,7 @@
   export default {
     data() {
       return {
+        userInfo: JSON.parse(localStorage.getItem('userInfo')),
         isLoading: false,
         acrossMonthTip: '',
         formData: {

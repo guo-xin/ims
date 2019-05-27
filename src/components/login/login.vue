@@ -17,13 +17,6 @@
             <el-input v-model.trim="form.password" type="password" :clearable="true" @focus="addPassBorder" @blur="removePassBorder"></el-input>
           </el-form-item>
 
-          <!--<el-form-item label="" prop="checked">-->
-            <!--<el-checkbox v-model="form.checked" @change="changeCheckboxHandler">{{$t('login.checkbox')}}</el-checkbox>-->
-            <!--&lt;!&ndash;<span style="float:right" class="link-wrap">&ndash;&gt;-->
-              <!--&lt;!&ndash;<router-link :to="{ name: 'forgetPassword'}" class="forget">{{$t('login.forgetPass')}}</router-link>&ndash;&gt;-->
-            <!--&lt;!&ndash;</span>&ndash;&gt;-->
-          <!--</el-form-item>-->
-
           <el-form-item>
             <div class="panel-header-btn submit-btn" @click="submitHandler">
               <span class="el-icon-loading" v-if="loading"></span>
@@ -50,8 +43,7 @@
       return {
         form: {
           username: '',
-          password: '',
-          checked: true
+          password: ''
         },
         type: '',
         isNameBorder: false,
@@ -74,11 +66,6 @@
       this.type = this.$i18n.locale
     },
     methods: {
-      changeCheckboxHandler(e) {
-        if(!e && localStorage.getItem('userInfo')) {
-          localStorage.removeItem('userInfo')
-        }
-      },
       addNameBorder() {
         this.isNameBorder = true;
       },
@@ -109,18 +96,14 @@
               this.loading = false;
               let data = res.data;
               if(data.respcd === config.code.OK) {
-                // 当前域名下设置cookie
-                if(this.form.checked) { // 勾选了记住密码
-                  let userInfo = {
-                    username: data.data.username,
-                    password: this.form.password,
-                    userid: data.data.userid,
-                    role: data.data.role,
-                    role_name: data.data.role_name,
-                    checked: this.form.checked
-                  }
-                  localStorage.setItem('userInfo', JSON.stringify(userInfo))
-                }
+                let info = data.data || {};
+                let userInfo = {
+                  username: info.username,
+                  userid: info.userid,
+                  currency: info.currency_sign || 'HK$'
+                };
+                localStorage.setItem('userInfo', JSON.stringify(userInfo));
+
                 this.$refs['form-login'].resetFields();
                 this.$router.push('/main');
               } else {
@@ -214,33 +197,7 @@
           border:transparent !important;
           border-bottom: 1px solid white;
         }
-        .el-checkbox__inner {
-          background-color:transparent;
-          width: 18px;
-          height: 18px;
-          -webkit-transition:none;
-          transition: none;
-          border: 1px solid #5DD9FF;
-        }
-        .el-checkbox__input.is-checked .el-checkbox__inner {
-          border: 1px solid #5DD9FF;
-        }
-        .el-checkbox__inner::after {
-          border:none;
-        }
-        .el-checkbox__input.is-checked .el-checkbox__inner::after {
-          border: 2px solid #5DD9FF;
-          border-left: 0;
-          border-top: 0;
-          width: 5px;
-          height: 9px;
-          left: 4px;
-          top: 1px;
-        }
-        .el-checkbox {color:#ffffff;}
-        .el-checkbox__input.is-checked+.el-checkbox__label {
-          color:#ffffff;
-        }
+
         .submit-btn {
           width:184px;height:40px;background-color:#FFD641;color:#3578FF;font-size:20px;border-radius:4px;display:flex;
           justify-content: center;align-items: center;cursor:pointer;
