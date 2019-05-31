@@ -32,6 +32,11 @@
         <el-input v-model.trim="storeModel.operating"></el-input>
       </el-form-item>
 
+      <el-form-item :label="$t('merchant.newMerchant.form.status')" prop="status">
+        <el-select v-model="storeModel.status" :disabled="isAllow || !isUpdate">
+         <el-option :label="item.name" :value="item.val" v-for="item in statusList" :key="item.val" :disabled="item.disabled"></el-option>
+        </el-select>
+      </el-form-item>
 
       <h3>{{$t('merchant.newMerchant.basic.cap2')}}</h3>
       <el-form-item v-if="!isUpdate">
@@ -306,7 +311,16 @@
         shopphotoloading: false,
         paypointloading: false,
         otherphotoloading: false,
-        uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
+        uploadInterface: `${config.imgUpload}/util/v1/uploadfile`,
+        isAllow: false,
+        statusList: [
+          {name: this.$t('common.enable'), val: 3},
+          {name: this.$t('common.disable'), val: 4},
+          {name: this.$t('common.audit'), val: -1, disabled: true},
+          {name: this.$t('common.refuse'), val: 0, disabled: true},
+          {name: this.$t('common.toSubmit'), val: 5, disabled: true},
+        ],
+         // 上传接口
         storeModel: {
           big_uid: '',
           short_name: '',
@@ -320,7 +334,8 @@
           bankProvince: '', // 银行地址
           bankcode: '', // SWIFT码
           remit_amt: null, // 结算资金起点
-          vouchers: []
+          vouchers: [],
+          status: 3
         },
         voucherInfo: {
           goodsphoto_url: '', // 经营场所内景照片url
@@ -412,6 +427,7 @@
         this.storeModel.big_uid = this.$route.query.big_uid;
         this.getPid();
         this.isUpdate && this.getStoreInfo();
+
       }
     },
     methods: {
@@ -440,7 +456,9 @@
                 bankProvince: da.bankinfo.bankProvince, // 银行地址
                 bankcode: da.bankinfo.bankcode, // SWIFT码
                 remit_amt: da.userinfo.remit_amt, // 结算资金起点
+                status: da.userinfo.status
               });
+              this.isAllow = this.storeModel.status === 3 || this.storeModel.status === 4 ? false : true;
               this.list_Select = da.fee_ratios;
               da.vouchers.forEach((item) =>{
                 if(~'goodsphoto|shopphoto|paypoint|otherphoto|otherphoto1|otherphoto2'.indexOf(item.name)) {

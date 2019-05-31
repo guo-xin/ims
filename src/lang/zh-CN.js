@@ -284,6 +284,7 @@ const zh = {
       store: '店铺',
       detail: '详情',
       merstatus: '商户状态',
+      stostatus: '店铺状态',
       payment: '支付配置',
       pid: '服务商号',
       wechatM: '微信商户号',

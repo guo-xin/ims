@@ -418,10 +418,10 @@
                 this.form.userinfo.br_expire_time = formatDate(this.form.userinfo.br_expire_time, 'dd/MM/yyyy')
                 this.form.number = this.form.userinfo['idnumber'] || this.form.userinfo['passport'] || this.form.userinfo['eep']
                 this.isCreateShop = this.form.userinfo.cate === 'bigmerchant' ? 1 : 0
-                this.isEditable = this.form.userinfo.status !== -1 ? 1 : 0
-                if(this.isReEditable) {
-                  this.isReEditable = this.form.userinfo.status !== -1 ? 1 : 0
-                }
+                // this.isEditable = this.form.userinfo.status !== -1 ? 1 : 0
+                // if(this.isReEditable) {
+                //   this.isReEditable = this.form.userinfo.status !== -1 ? 1 : 0
+                // }
               if(data.data.userinfo.status == 0) {
                 this.getAuditResult()
               }

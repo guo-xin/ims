@@ -3,7 +3,8 @@
     <header class="page-header">
       <h2 class="page-title">{{$t('shop.title')}}</h2>
       <div>
-        <!-- <el-button size="large" type="primary" @click="createStore">{{$t('shop.create')}}</el-button> -->
+        <el-button size="large" type="primary" @click="createStore">{{$t('shop.create')}}</el-button>
+        <el-button style="margin-left:6px;" size="large" type="primary" @click="patchImport">{{$t('merchant.patchImport')}}</el-button>
       </div>
     </header>
     <el-form class="search-form" :model="formData" ref="shop_list_form">
@@ -41,6 +42,12 @@
       <el-table-column :label="$t('merchant.table.payment')" width="150">
         <template slot-scope="scope">
           <el-button type="text" @click.stop="paymentConfigure(scope.row.submchnt_id)">{{ scope.row.deploy == 1 ? $t('merchant.payment.configured') : $t('merchant.payment.nonconfigured') }}</el-button>
+        </template>
+      </el-table-column>
+      
+      <el-table-column :label="$t('merchant.table.stostatus')" min-width="100">
+        <template slot-scope="scope">
+          {{ isSigned[scope.row.status] }}
         </template>
       </el-table-column>
     </el-table>
@@ -127,6 +134,13 @@
         formPayment: {
           list: []
         },
+        isSigned: {
+          "3": this.$t('common.enable'),
+          "4": this.$t('common.disable'),
+          "-1": this.$t('common.audit'),
+          "0": this.$t('common.refuse'),
+          "5": this.$t('common.toSubmit'),
+        }
       }
     },
     created() {

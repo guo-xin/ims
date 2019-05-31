@@ -266,6 +266,7 @@ const en = {
       account: 'Account Name',
       industry: 'Industry',
       merstatus: 'Merchant Status',
+      stostatus: 'Store Status',
       state: 'Status',
       store: 'Store',
       payment: 'Payment Setting',
