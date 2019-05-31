@@ -29,8 +29,6 @@
   </div>
 </template>
 <script>
-  import ElFormItem from "../../../node_modules/qfpay-element-ui/packages/form/src/form-item.vue";
-  import ElButton from "../../../node_modules/qfpay-element-ui/packages/button/src/button.vue";
   import axios from 'axios';
   import qs from 'qs';
   import config from 'config';
