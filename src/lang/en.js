@@ -877,7 +877,7 @@ const en = {
     createTime: 'Creation Time',
   },
   main: {
-    desc: 'INSTITUTION MANAGEMENT SYSTEM',
+    desc: 'Institution Management System',
     roles: [
       ''
     ],

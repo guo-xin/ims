@@ -574,7 +574,6 @@
   import config from 'config'
   import axios from 'axios';
   import qs from 'qs';
-  import ElFormItem from "../../../node_modules/qfpay-element-ui/packages/form/src/form-item.vue";
   import _ from 'lodash'
   import { formatDate } from '../../common/js/util';
   const getParams = (key) => {
@@ -588,7 +587,6 @@
     return result ? decodeURIComponent(result[2]) : ''
   }
   export default {
-    components: {ElFormItem},
     data() {
       return {
         select: this.$i18n.locale,

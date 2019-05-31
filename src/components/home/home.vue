@@ -7,7 +7,7 @@
       <el-col :span="6" class="item margin0">
         <div class="left-num">
           <div class="title">{{$t('home.curamt')}}</div>
-          <div class="index">HK${{curdata.trade_amt / 100 | formatCurrency}}</div>
+          <div class="index">{{ userInfo.currency }}{{curdata.trade_amt / 100 | formatCurrency}}</div>
         </div>
         <div class="badge amount"></div>
       </el-col>
@@ -56,7 +56,7 @@
       <el-row type="flex" class="cumu-row">
         <el-col :span="12" class="left">
           <div class="cumu-item-label">{{$t('home.cumu.totle_mount')}}</div>
-          <div class="cumu-item-val">HK${{total.total_amt / 100 | formatCurrency}}</div>
+          <div class="cumu-item-val">{{ userInfo.currency }}{{total.total_amt / 100 | formatCurrency}}</div>
         </el-col>
         <el-col :span="12" class="right">
           <div class="cumu-item-label">{{$t('home.cumu.totle_count')}}</div>
@@ -94,6 +94,7 @@
   export default {
     data() {
       return {
+        userInfo: JSON.parse(localStorage.getItem('userInfo')),
         curdata: {
           new_mchnt: 0,
           new_submchnt: 0,

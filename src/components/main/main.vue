@@ -238,7 +238,7 @@
   }
   .layout {
     .tip-box {
-      with: 340px;
+      width: 340px;
       height: auto;
     }
     .el-header {

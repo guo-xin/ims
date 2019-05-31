@@ -71,7 +71,7 @@
         <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la5')}}</span>
           <span class="basic-content">{{form.userinfo.mcc_str}}</span>
-        </el-col>        
+        </el-col>
         <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la12')}}</span>
           <span class="basic-content">{{form.userinfo.address}}</span>
@@ -288,7 +288,6 @@
   import config from 'config'
   import axios from 'axios';
   import qs from 'qs';
-  import ElButton from "../../../node_modules/qfpay-element-ui/packages/button/src/button.vue";
   import { formatDate } from '../../common/js/util'
   const getParams = (key) => {
     // 获取参数
@@ -301,7 +300,6 @@
     return result ? decodeURIComponent(result[2]) : ''
   }
   export default {
-    components: {ElButton},
     data() {
       return {
         isLoading: false,
