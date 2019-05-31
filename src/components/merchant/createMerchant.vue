@@ -587,7 +587,6 @@
     return result ? decodeURIComponent(result[2]) : ''
   }
   export default {
-    components: {ElFormItem},
     data() {
       return {
         select: this.$i18n.locale,

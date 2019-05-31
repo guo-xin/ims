@@ -34,9 +34,7 @@
   import config from 'config';
 
   export default {
-    components: {
-      ElButton,
-      ElFormItem},
+
     data () {
       return {
         form: {

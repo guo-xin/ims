@@ -300,7 +300,6 @@
     return result ? decodeURIComponent(result[2]) : ''
   }
   export default {
-    components: {ElButton},
     data() {
       return {
         isLoading: false,
