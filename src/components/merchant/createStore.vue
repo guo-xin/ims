@@ -32,9 +32,9 @@
         <el-input v-model.trim="storeModel.operating"></el-input>
       </el-form-item>
 
-      <el-form-item :label="$t('merchant.newMerchant.form.status')" prop="status">
-        <el-select v-model="storeModel.status" :disabled="isAllow || !isUpdate">
-         <el-option :label="item.name" :value="item.val" v-for="item in statusList" :key="item.val" :disabled="item.disabled"></el-option>
+      <el-form-item :label="$t('merchant.table.stostatus')" prop="status" v-if="!isAllow">
+        <el-select v-model="storeModel.status" :disabled="!isUpdate">
+         <el-option :label="item.name" :value="item.val" v-for="item in statusList" :key="item.val"></el-option>
         </el-select>
       </el-form-item>
 
@@ -316,9 +316,6 @@
         statusList: [
           {name: this.$t('common.enable'), val: 3},
           {name: this.$t('common.disable'), val: 4},
-          {name: this.$t('common.audit'), val: -1, disabled: true},
-          {name: this.$t('common.refuse'), val: 0, disabled: true},
-          {name: this.$t('common.toSubmit'), val: 5, disabled: true},
         ],
          // 上传接口
         storeModel: {

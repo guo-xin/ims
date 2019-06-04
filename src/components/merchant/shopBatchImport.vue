@@ -17,11 +17,21 @@
           <div class="tip-para">{{$t('batch.manual1_shop')}}</div>
           <div class="tip-para">{{$t('batch.manual2_shop')}}</div>
           <div class="tip-para">{{$t('batch.manual3')}}</div>
-          <span slot="footer" class="dialog-footer">
+          <span slot="footer">
             <el-button @click="dialogVisible = false">{{$t('batch.tip.close')}}</el-button>
           </span>
         </el-dialog>
       </div>
+       <el-dialog
+          :title="$t('batch.tip.title_error')"
+          :visible.sync="errorVisible"
+          width="30%"
+          >
+          <div class="tip-para" v-for="item in error_info">{{item}}</div>
+          <span slot="footer">
+            <el-button @click="errorVisible = false">{{$t('common.confirm')}}</el-button>
+          </span>
+        </el-dialog>
       <el-form ref="baseinfo" :model="form">
         <h3>{{$t('batch.cap')}}</h3>
         <el-row>
@@ -108,6 +118,7 @@
       return {
         isLoading: false,
         dialogVisible: false,
+        errorVisible: false,
         excelLoading: false,
         zipLoading: false,
         uploadExcelInterface: `${config.host}/org/store/upload_create_file`, // 上传excel接口
@@ -119,7 +130,8 @@
           dir_name: '',
           file_name_new: ''
         },
-        lang: ''
+        lang: '',
+        error_info: []
       }
     },
     created() {
@@ -141,6 +153,7 @@
           fileid: this.form.fileid,
           dir_name: this.form.dir_name,
           file_name_new: this.form.file_name_new,
+          store: 1,
           format: 'cors'
         };
         console.log('commit param:', param);
@@ -194,6 +207,7 @@
         formData.append("file_name", data.file.name.substring(0,data.file.name.indexOf('.')));
         formData.append("format", "cors");
         if(tag === 'excel') {
+          formData.append("store", 1);
           this.form.excel_name = data.file.name
         }else {
           this.form.zip_name = data.file.name
@@ -207,6 +221,7 @@
           this[tag + 'Loading'] = false;
 
           if (data.respcd === config.code.OK) {
+            if(data.data.error_info.lenth === 0){
             if(tag === 'excel') {
               this.form.fileid = data.data.fileid;
               this.form.total_cnt = data.data.total_cnt;
@@ -215,6 +230,11 @@
               this.form.file_name_new = data.data.file_name_new;
             }
             console.log('upload done:', this.form)
+            }else {
+           this.error_info = data.data.error_info;
+           this.errorVisible = true;
+          console.log("error",data.data.error_info);      
+          }
           }else {
             this.$message.error(data.respmsg)
           }
@@ -312,7 +332,8 @@
         }
       }
       .tip-para {
-        padding: 10px 20px 10px 20px;
+        padding: 10px 25px;
+        font-size: 16px;
       }
     }
   }

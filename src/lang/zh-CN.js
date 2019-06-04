@@ -660,6 +660,7 @@ const zh = {
       template_shop: '《batch stores on-boarding.xlsx》模板',
       and: '及',
       title: '提示',
+      title_error: '错误信息',
       close: '关 闭'
     },
     cap: '批量创建',

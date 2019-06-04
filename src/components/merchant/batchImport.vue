@@ -17,11 +17,21 @@
           <div class="tip-para">{{$t('batch.manual1')}}</div>
           <div class="tip-para">{{$t('batch.manual2')}}</div>
           <div class="tip-para">{{$t('batch.manual3')}}</div>
-          <span slot="footer" class="dialog-footer">
+          <span slot="footer">
             <el-button @click="dialogVisible = false">{{$t('batch.tip.close')}}</el-button>
           </span>
         </el-dialog>
       </div>
+        <el-dialog
+          :title="$t('batch.tip.title_error')"
+          :visible.sync="errorVisible"
+          width="30%"
+          >
+          <div class="tip-para" v-for="item in error_info">{{item}}</div>
+          <span slot="footer">
+            <el-button @click="errorVisible = false">{{$t('common.confirm')}}</el-button>
+          </span>
+        </el-dialog>
       <el-form ref="baseinfo" :model="form">
         <h3>{{$t('batch.cap')}}</h3>
         <el-row>
@@ -108,6 +118,7 @@
       return {
         isLoading: false,
         dialogVisible: false,
+        errorVisible: false,
         excelLoading: false,
         zipLoading: false,
         uploadExcelInterface: `${config.host}/org/mchnt/upload_create_file`, // 上传excel接口
@@ -119,7 +130,8 @@
           dir_name: '',
           file_name_new: ''
         },
-        lang: ''
+        lang: '',
+        error_info: []
       }
     },
     created() {
@@ -217,35 +229,10 @@
             }
             console.log('upload done:', this.form)
             }else {
-
-          console.log("error",data.data.error_info);
-        //   this.$alert('这是一段内容', '标题名称', {
-        //   confirmButtonText: '确定',
-        //   callback: action => {
-        //     this.$message({
-        //       type: 'info',
-        //       message: `action: ${ action }`
-        //     });
-        //   }
-        // });
-         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'error'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });          
-        });
-          
-            }
-
+           this.error_info = data.data.error_info;
+           this.errorVisible = true;
+          console.log("error",data.data.error_info);      
+          }
           }else {
             this.$message.error(data.respmsg)
           }
@@ -343,7 +330,8 @@
         }
       }
       .tip-para {
-        padding: 10px 20px 10px 20px;
+        padding: 10px 25px;
+        font-size: 16px;
       }
     }
   }

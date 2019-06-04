@@ -24,6 +24,12 @@
         <el-input v-model="formData.sunmchntname"></el-input>
       </el-form-item>
 
+      <!-- <el-form-item :label="$t('merchant.table.stostatus')" prop="status">
+        <el-select v-model="formData.status">
+          <el-option :label="item.name" :value="item.val" v-for="item in statusList" :key="item.val"></el-option>
+        </el-select>
+      </el-form-item> -->
+
       <div class="buttons">
         <el-button type="primary" @click="fetchData('query')">{{$t('merchant.query')}}</el-button>
         <el-button @click="reset">{{$t('merchant.reset')}}</el-button>
@@ -36,16 +42,16 @@
       <el-table-column width="170" prop="submchnt_name" :label="$t('shop.table.sunmchntname')"></el-table-column>
       <el-table-column prop="address" :label="$t('shop.table.address')"></el-table-column>
       <el-table-column prop="telephone" :label="$t('shop.table.telephone')"></el-table-column>
-      <el-table-column prop="operating" :label="$t('shop.table.operating')"></el-table-column>
+      <el-table-column prop="operating" :label="$t('shop.table.operating')" min-width="80"></el-table-column>
       <el-table-column prop="username" :label="$t('shop.table.account')"></el-table-column>
 
-      <el-table-column :label="$t('merchant.table.payment')" width="150">
+      <el-table-column :label="$t('merchant.table.payment')" min-width="60">
         <template slot-scope="scope">
           <el-button type="text" @click.stop="paymentConfigure(scope.row.submchnt_id)">{{ scope.row.deploy == 1 ? $t('merchant.payment.configured') : $t('merchant.payment.nonconfigured') }}</el-button>
         </template>
       </el-table-column>
       
-      <el-table-column :label="$t('merchant.table.stostatus')" min-width="100">
+      <el-table-column :label="$t('merchant.table.stostatus')" min-width="70">
         <template slot-scope="scope">
           {{ isSigned[scope.row.status] }}
         </template>
@@ -123,7 +129,8 @@
           mchntid: '',
           mchntname: '',
           submchntid: '',
-          sunmchntname: ''
+          sunmchntname: '',
+          // status: ''
         },
         shops: [],
         total: 0,
@@ -134,6 +141,13 @@
         formPayment: {
           list: []
         },
+        // statusList: [
+        //   {name: this.$t('common.enable'), val: 3},
+        //   {name: this.$t('common.disable'), val: 4},
+        //   {name: this.$t('common.refuse'), val: 0},
+        //   {name: this.$t('common.audit'), val: -1},
+        //   {name: this.$t('common.toSubmit'), val: 5},
+        // ],
         isSigned: {
           "3": this.$t('common.enable'),
           "4": this.$t('common.disable'),
@@ -161,6 +175,7 @@
           mchnt_uid: this.formData.mchntid,
           shopname: this.formData.mchntname,
           store_uid: this.formData.submchntid,
+          // status: this.formData.status,
           storename: this.formData.sunmchntname,
           page: this.currentPage > 0 ? (this.currentPage - 1) : this.currentPage,
           page_size: this.pageSize,

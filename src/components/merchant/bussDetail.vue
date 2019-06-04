@@ -43,7 +43,7 @@
       </el-row>
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la6')}}</span>
+          <span class="basic-label">{{$t('merchant.table.stostatus')}}</span>
           <span class="basic-content">{{isSigned[form.userinfo.status]}}</span>
         </el-col>
       </el-row>

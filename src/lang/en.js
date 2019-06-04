@@ -743,6 +743,7 @@ const en = {
       template_shop: '《batch stores on-boarding.xlsx》',
       and: 'and',
       title: 'Tip',
+      title_error: 'The error message',
       close: 'Close'
     },
     cap: 'Batch Creation',
