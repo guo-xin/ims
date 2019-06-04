@@ -654,8 +654,10 @@ const zh = {
     t1: '批量导入',
     tip: {
       txt: '* 请按照固定格式上传商户资料，请参考',
+      txt_shop: '* 请按照固定格式上传店铺资料，请参考',
       ins: '《批量进件说明》',
       template: '《batch merchants on-boarding.xlsx》模板',
+      template_shop: '《batch stores on-boarding.xlsx》模板',
       and: '及',
       title: '提示',
       close: '关 闭'
@@ -665,6 +667,10 @@ const zh = {
       cap1: '商户信息',
       cap2: '照片信息'
     },
+    input_shop: {
+      cap1: '店铺信息',
+      cap2: '照片信息'
+    },
     up: {
       excel: '上传Excel',
       zip: '上传图片zip包'
@@ -672,8 +678,12 @@ const zh = {
     commit: '提交',
     rule1: '请上传商户信息',
     rule2: '请上传照片信息',
+    rule1_shop: '请上传店铺信息',
+    rule2_shop: '请上传照片信息',
     manual1: '1、请点击下载批量上传模板《batch merchants on-boarding.xlsx》，下载后将需要入网的商户信息汇总。',
+    manual1_shop: '1、请点击下载批量上传模板《batch stores on-boarding.xlsx》，下载后将需要入网的店铺信息汇总。',
     manual2: '2、附件请按照命名规范命名，并放入文件夹压缩后进行上传（店铺证照命名规范：店铺电话-shopphoto.jpg、店铺电话-paypoint.jpg、店铺电话-otherphoto.jpg、店铺电话-idcardfront.jpg、店铺电话-licensephoto.jpg、店铺电话-goodsphoto.jpg、店铺电话-otherphoto1.jpg、店铺电话-otherphoto2.jpg、店铺电话-ciphoto.jpg和店铺电话-bankcheckphoto.jpg）。',
+    manual2_shop: '2、附件请按照命名规范命名，并放入文件夹压缩后进行上传（店铺证照命名规范：店铺电话-shopphoto.jpg、店铺电话-paypoint.jpg、店铺电话-otherphoto.jpg、店铺电话-goodsphoto.jpg、店铺电话-otherphoto1.jpg、店铺电话-otherphoto2.jpg）。',
     manual3: '3、附件中文件夹名称与压缩包名称需保持一致，如需修改名称，请先修改文件夹名称再进行压缩。'
   },
   audit: {

@@ -737,8 +737,10 @@ const en = {
     t1: 'Batch Creation',
     tip: {
       txt: '* Please follow up the template to upload merchants data to take',
+      txt_shop: '* Please follow up the template to upload stores data to take',
       ins: '《batch registration procedure》',
       template: '《batch merchants on-boarding.xlsx》',
+      template_shop: '《batch stores on-boarding.xlsx》',
       and: 'and',
       title: 'Tip',
       close: 'Close'
@@ -748,6 +750,10 @@ const en = {
       cap1: 'Merchant\'s Data',
       cap2: 'Merchant\'s Photo'
     },
+    input_shop: {
+      cap1: 'Store\'s Data',
+      cap2: 'Store\'s Photo'
+    },
     up: {
       excel: 'Upload Excel',
       zip: 'Upload Photo Zip'
@@ -755,8 +761,12 @@ const en = {
     commit: 'Commit',
     rule1: 'Please upload merchant\'s data.',
     rule2: 'Please upload merchant\'s photo.',
+    rule1_shop: 'Please upload store\'s data.',
+    rule2_shop: 'Please upload store\'s photo.',
     manual1: '1. Please download template《batch merchants on-boarding.xlsx》and fill in all necessary infos of on-boarding merchants.',
+    manual1_shop: '1. Please download template《batch stores on-boarding.xlsx》and fill in all necessary infos of on-boarding stores.',
     manual2: '2. Attachments should be named according to naming criteria and uploaded after folder compression. (Naming criteria for store licenses: store telephone-shopphoto.jpg、store telephone-paypoint.jpg、store telephone-otherphoto.jpg、store telephone-idcardfront.jpg、store telephone-licensephoto.jpg、store telephone-goodsphoto.jpg、store telephone-otherphoto1.jpg、store telephone-otherphoto2.jpg、store telephone-ciphoto.jpg、store telephone-bankcheckphoto.jpg)',
+    manual2_shop: '2. Attachments should be named according to naming criteria and uploaded after folder compression. (Naming criteria for store licenses: store telephone-shopphoto.jpg、store telephone-paypoint.jpg、store telephone-otherphoto.jpg、store telephone-goodsphoto.jpg、store telephone-otherphoto1.jpg、store telephone-otherphoto2.jpg)',
     manual3: '3. The folder naming should be the same as before and after compression, please revise the folder naming after then compress again if it is necessary to revise the compressed file name.'
   },
   trade: {

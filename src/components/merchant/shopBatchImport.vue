@@ -6,16 +6,16 @@
     </header>
     <section class="basic">
       <div class="note">
-        {{$t('batch.tip.txt')}}
+        {{$t('batch.tip.txt_shop')}}
         <el-button type="text" @click="dialogVisible = true">{{$t('batch.tip.ins')}}</el-button>&nbsp;{{$t('batch.tip.and')}}
-        <a class="download-temp" href="javascript:void(0)" @click="downloadTemp()">{{$t('batch.tip.template')}}</a>
+        <a class="download-temp" href="javascript:void(0)" @click="downloadTemp()">{{$t('batch.tip.template_shop')}}</a>
         <el-dialog
           :title="$t('batch.tip.title')"
           :visible.sync="dialogVisible"
           width="40%"
           >
-          <div class="tip-para">{{$t('batch.manual1')}}</div>
-          <div class="tip-para">{{$t('batch.manual2')}}</div>
+          <div class="tip-para">{{$t('batch.manual1_shop')}}</div>
+          <div class="tip-para">{{$t('batch.manual2_shop')}}</div>
           <div class="tip-para">{{$t('batch.manual3')}}</div>
           <span slot="footer" class="dialog-footer">
             <el-button @click="dialogVisible = false">{{$t('batch.tip.close')}}</el-button>
@@ -28,7 +28,7 @@
           <el-col :span="4">
             <div style="height:90px;" ></div></el-col>
           <el-col :span="16">
-            <el-form-item prop="excel_name" :label="$t('batch.input.cap1')">
+            <el-form-item prop="excel_name" :label="$t('batch.input_shop.cap1')">
               <el-input
                 type="text"
                 v-model.trim="form.excel_name"
@@ -62,7 +62,7 @@
             <div style="height:90px;"></div>
           </el-col>
           <el-col :span="16">
-            <el-form-item prop="zip_name" :label="$t('batch.input.cap2')">
+            <el-form-item prop="zip_name" :label="$t('batch.input_shop.cap2')">
               <el-input
                 type="text"
                 v-model.trim="form.zip_name"
@@ -110,8 +110,8 @@
         dialogVisible: false,
         excelLoading: false,
         zipLoading: false,
-        uploadExcelInterface: `${config.host}/org/mchnt/upload_create_file`, // 上传excel接口
-        uploadZipInterface: `${config.host}/org/mchnt/upload_batch_package`, // 上传zip接口
+        uploadExcelInterface: `${config.host}/org/store/upload_create_file`, // 上传excel接口
+        uploadZipInterface: `${config.host}/org/store/upload_batch_package`, // 上传zip接口
         form: {
           excel_name: '',
           zip_name: '',
@@ -129,7 +129,7 @@
       // 提交
       commitHandler() {
         if(!this.form.fileid) {
-          this.$message.error(this.$t('batch.rule1'))
+          this.$message.error(this.$t('batch.rule1_shop'))
           return;
         }
 //         if(!this.form.file_name_new) {
@@ -144,7 +144,7 @@
           format: 'cors'
         };
         console.log('commit param:', param);
-        axios.post(`${config.host}/org/mchnt/mchnt_batch_create`,qs.stringify(param), {
+        axios.post(`${config.host}/org/store/mchnt_batch_create`,qs.stringify(param), {
         }).then((res) => {
           let data = res.data;
           if (data.respcd === config.code.OK) {
@@ -168,10 +168,10 @@
       downloadTemp() {
         let params = {
          model: 'signup',
-         cate: 'merchant',
+         cate: 'submerchant',
          lang: this.lang,
         };
-        window.location.href = `${config.host}/org/mchnt/signup/download_batch_template?${qs.stringify(params)}`
+        window.location.href = `${config.host}/org/store/signup/download_batch_template?${qs.stringify(params)}`
       },
 
       clearZipPackage() {
@@ -207,7 +207,6 @@
           this[tag + 'Loading'] = false;
 
           if (data.respcd === config.code.OK) {
-            if(data.data.error_info.lenth === 0){
             if(tag === 'excel') {
               this.form.fileid = data.data.fileid;
               this.form.total_cnt = data.data.total_cnt;
@@ -216,36 +215,6 @@
               this.form.file_name_new = data.data.file_name_new;
             }
             console.log('upload done:', this.form)
-            }else {
-
-          console.log("error",data.data.error_info);
-        //   this.$alert('这是一段内容', '标题名称', {
-        //   confirmButtonText: '确定',
-        //   callback: action => {
-        //     this.$message({
-        //       type: 'info',
-        //       message: `action: ${ action }`
-        //     });
-        //   }
-        // });
-         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'error'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });          
-        });
-          
-            }
-
           }else {
             this.$message.error(data.respmsg)
           }

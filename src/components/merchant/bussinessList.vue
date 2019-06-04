@@ -189,6 +189,11 @@
         this.fetchData('query');
       },
 
+      // 批量进件
+      patchImport() {
+        this.$router.push({path: 'shop_manage_list/shop_batch_import'})
+      },
+
       // 选择列表项，进入详情页
       selectCurrentRowHandler(currentRow, oldCurrentRow) {
         this.$router.push({
