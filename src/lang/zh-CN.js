@@ -258,9 +258,9 @@ const zh = {
       merchantID1: '商户号',
       merchChildID1: '子商户号',
       merchantName: '商户名',
-      merchantPass1: 'key1',
-      merchantPass2: 'key2',
-      merchantPass3: 'key3',
+      merchantPass1: '通道验签证书',
+      merchantPass2: '公众号appsecret',
+      merchantPass3: 'Appid',
       merchantID2: '通道商号',
       merchChildID2: '通道子商户号',
       type: '接入类型/应用类型',
@@ -342,7 +342,7 @@ const zh = {
         la21: '结算资金起点:',
         la22: '公司网址:',
         la23: '法人姓名:',
-        la24: '单店／连锁店:'
+        la24: '单店／连锁店:',
       },
       shop: {
         subtitle: '商户信息',
@@ -621,7 +621,8 @@ const zh = {
         la11: '图片展示:',
         la12: '子商户号(mchid):',
         la13: 'SWIFT CODE:',
-        la14: '店铺简称:'
+        la14: '店铺简称:',
+        la15: '店铺状态:'
       }
     },
     newStore: {

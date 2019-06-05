@@ -341,7 +341,7 @@
         display: block;
       }
       .el-form-item {
-        width: 15%;
+        width: 16%;
         padding-left: 0;
         padding-right: $miderGap;
       }

@@ -282,9 +282,9 @@ const en = {
       radio2: 'Second Clean',
       merchantID2: 'Channel Merchant No.',
       merchantName: 'Merchant Name',
-      merchantPass1: 'key1',
-      merchantPass2: 'key2',
-      merchantPass3: 'key3',
+      merchantPass1: 'Channel Checking Certification',
+      merchantPass2: 'Official Accounts Appsecret',
+      merchantPass3: 'Appid',
       merchChildID2: 'Channel Sub-Merchant No.',
       type: 'Online&in Store / Application Type',
       desc: 'Onboarding Status / Description',
@@ -343,7 +343,7 @@ const en = {
         la21: 'Starting Point of Settlement Fund:',
         la22: 'Company Website:',
         la23: 'Legal Person Name:',
-        la24: 'Merchant/Big Merchant:'
+        la24: 'Merchant/Big Merchant:',
       },
       shop: {
         subtitle: 'Shop Info',
@@ -665,7 +665,8 @@ const en = {
         la11: 'Photograph:',
         la12: 'Sub-business account number:',
         la13: 'SWIFT CODE:',
-        la14: 'Merchant Abbreviation:'
+        la14: 'Merchant Abbreviation:',
+        la15: 'Store Status:'
       },
       edit: 'Edit'
     },
