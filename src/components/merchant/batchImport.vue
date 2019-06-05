@@ -217,21 +217,22 @@
         }).then((res) => {
           let data = res.data;
           this[tag + 'Loading'] = false;
-
           if (data.respcd === config.code.OK) {
-            if(data.data.error_info.lenth === 0){
-            if(tag === 'excel') {
+            console.log("data",data);
+           console.log(data.data.error_info.length);
+          if(data.data.error_info.length > 0){
+           this.error_info = data.data.error_info;
+           this.errorVisible = true;
+          console.log("error",data.data.error_info);      
+          }else {
+           if(tag === 'excel') {
               this.form.fileid = data.data.fileid;
               this.form.total_cnt = data.data.total_cnt;
             }else {
               this.form.dir_name = data.data.dir_name;
               this.form.file_name_new = data.data.file_name_new;
             }
-            console.log('upload done:', this.form)
-            }else {
-           this.error_info = data.data.error_info;
-           this.errorVisible = true;
-          console.log("error",data.data.error_info);      
+          console.log('upload done:', this.form)
           }
           }else {
             this.$message.error(data.respmsg)

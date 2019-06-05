@@ -3,7 +3,7 @@
     <header class="page-header">
       <h2 class="page-title">{{$t('shop.title')}}</h2>
       <div>
-        <el-button size="large" type="primary" @click="createStore">{{$t('shop.create')}}</el-button>
+        <!-- <el-button size="large" type="primary" @click="createStore">{{$t('shop.create')}}</el-button> -->
         <el-button style="margin-left:6px;" size="large" type="primary" @click="patchImport">{{$t('merchant.patchImport')}}</el-button>
       </div>
     </header>
@@ -37,21 +37,21 @@
     </el-form>
 
     <el-table :data="shops" stripe v-loading="isLoading" @current-change="selectCurrentRowHandler">
-      <el-table-column prop="submchnt_id" :label="$t('shop.table.submchntid')"></el-table-column>
-      <el-table-column prop="mchnt_name"  :label="$t('shop.table.mchntname')"></el-table-column>
-      <el-table-column width="170" prop="submchnt_name" :label="$t('shop.table.sunmchntname')"></el-table-column>
-      <el-table-column prop="address" :label="$t('shop.table.address')"></el-table-column>
-      <el-table-column prop="telephone" :label="$t('shop.table.telephone')"></el-table-column>
+      <el-table-column prop="submchnt_id" :label="$t('shop.table.submchntid')" min-width="100"></el-table-column>
+      <el-table-column prop="mchnt_name"  :label="$t('shop.table.mchntname')" min-width="100"></el-table-column>
+      <el-table-column width="170" prop="submchnt_name" :label="$t('shop.table.sunmchntname')" min-width="100"></el-table-column>
+      <el-table-column prop="address" :label="$t('shop.table.address')" min-width="100"></el-table-column>
+      <el-table-column prop="telephone" :label="$t('shop.table.telephone')" min-width="100"></el-table-column>
       <el-table-column prop="operating" :label="$t('shop.table.operating')" min-width="80"></el-table-column>
-      <el-table-column prop="username" :label="$t('shop.table.account')"></el-table-column>
+      <el-table-column prop="username" :label="$t('shop.table.account')" min-width="100"></el-table-column>
 
-      <el-table-column :label="$t('merchant.table.payment')" min-width="60">
+      <el-table-column :label="$t('merchant.table.payment')" min-width="100">
         <template slot-scope="scope">
           <el-button type="text" @click.stop="paymentConfigure(scope.row.submchnt_id)">{{ scope.row.deploy == 1 ? $t('merchant.payment.configured') : $t('merchant.payment.nonconfigured') }}</el-button>
         </template>
       </el-table-column>
       
-      <el-table-column :label="$t('merchant.table.stostatus')" min-width="70">
+      <el-table-column :label="$t('merchant.table.stostatus')" min-width="100">
         <template slot-scope="scope">
           {{ isSigned[scope.row.status] }}
         </template>
