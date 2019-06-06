@@ -218,8 +218,6 @@
           let data = res.data;
           this[tag + 'Loading'] = false;
           if (data.respcd === config.code.OK) {
-            console.log("data",data);
-           console.log(data.data.error_info.length);
           if(data.data.error_info.length > 0){
            this.error_info = data.data.error_info;
            this.errorVisible = true;
