@@ -41,6 +41,12 @@
           <span class="basic-content">{{form.userinfo.operating}}</span>
         </el-col>
       </el-row>
+      <el-row>
+        <el-col :span="10">
+          <span class="basic-label">{{$t('shop.detail.basic.la15')}}</span>
+          <span class="basic-content">{{isSigned[form.userinfo.status]}}</span>
+        </el-col>
+      </el-row>
     </section>
 
     <section class="payment">
@@ -148,6 +154,13 @@
         isLoading: false,
         isEditable: false,
         isReEditable: false,
+        isSigned: {
+          "3": this.$t('common.enable'),
+          "4": this.$t('common.disable'),
+          "-1": this.$t('common.audit'),
+          "0": this.$t('common.refuse'),
+          "5": this.$t('common.toSubmit'),
+        },
         form: {
           userinfo: {
             userid: this.$route.query.userid || getParams('userid'),
@@ -162,7 +175,8 @@
             additional: '',
             website: '',
             remit_amt: '',
-            is_edit: 0
+            is_edit: 0,
+            status: ''
           },
           bankinfo: {},
           vouchers: [],

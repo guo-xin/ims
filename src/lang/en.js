@@ -266,6 +266,7 @@ const en = {
       account: 'Account Name',
       industry: 'Industry',
       merstatus: 'Merchant Status',
+      stostatus: 'Store Status',
       state: 'Status',
       store: 'Store',
       payment: 'Payment Setting',
@@ -281,9 +282,9 @@ const en = {
       radio2: 'Second Clean',
       merchantID2: 'Channel Merchant No.',
       merchantName: 'Merchant Name',
-      merchantPass1: 'key1',
-      merchantPass2: 'key2',
-      merchantPass3: 'key3',
+      merchantPass1: 'Channel Checking Certification',
+      merchantPass2: 'Official Accounts Appsecret',
+      merchantPass3: 'Appid',
       merchChildID2: 'Channel Sub-Merchant No.',
       type: 'Online&in Store / Application Type',
       desc: 'Onboarding Status / Description',
@@ -342,7 +343,7 @@ const en = {
         la21: 'Starting Point of Settlement Fund:',
         la22: 'Company Website:',
         la23: 'Legal Person Name:',
-        la24: 'Merchant/Big Merchant:'
+        la24: 'Merchant/Big Merchant:',
       },
       shop: {
         subtitle: 'Shop Info',
@@ -664,7 +665,8 @@ const en = {
         la11: 'Photograph:',
         la12: 'Sub-business account number:',
         la13: 'SWIFT CODE:',
-        la14: 'Merchant Abbreviation:'
+        la14: 'Merchant Abbreviation:',
+        la15: 'Store Status:'
       },
       edit: 'Edit'
     },
@@ -736,16 +738,23 @@ const en = {
     t1: 'Batch Creation',
     tip: {
       txt: '* Please follow up the template to upload merchants data to take',
+      txt_shop: '* Please follow up the template to upload stores data to take',
       ins: '《batch registration procedure》',
       template: '《batch merchants on-boarding.xlsx》',
+      template_shop: '《batch stores on-boarding.xlsx》',
       and: 'and',
       title: 'Tip',
+      title_error: 'The error message',
       close: 'Close'
     },
     cap: 'Batch Creation',
     input: {
       cap1: 'Merchant\'s Data',
       cap2: 'Merchant\'s Photo'
+    },
+    input_shop: {
+      cap1: 'Store\'s Data',
+      cap2: 'Store\'s Photo'
     },
     up: {
       excel: 'Upload Excel',
@@ -754,8 +763,12 @@ const en = {
     commit: 'Commit',
     rule1: 'Please upload merchant\'s data.',
     rule2: 'Please upload merchant\'s photo.',
+    rule1_shop: 'Please upload store\'s data.',
+    rule2_shop: 'Please upload store\'s photo.',
     manual1: '1. Please download template《batch merchants on-boarding.xlsx》and fill in all necessary infos of on-boarding merchants.',
+    manual1_shop: '1. Please download template《batch stores on-boarding.xlsx》and fill in all necessary infos of on-boarding stores.',
     manual2: '2. Attachments should be named according to naming criteria and uploaded after folder compression. (Naming criteria for store licenses: store telephone-shopphoto.jpg、store telephone-paypoint.jpg、store telephone-otherphoto.jpg、store telephone-idcardfront.jpg、store telephone-licensephoto.jpg、store telephone-goodsphoto.jpg、store telephone-otherphoto1.jpg、store telephone-otherphoto2.jpg、store telephone-ciphoto.jpg、store telephone-bankcheckphoto.jpg)',
+    manual2_shop: '2. Attachments should be named according to naming criteria and uploaded after folder compression. (Naming criteria for store licenses: store telephone-shopphoto.jpg、store telephone-paypoint.jpg、store telephone-otherphoto.jpg、store telephone-goodsphoto.jpg、store telephone-otherphoto1.jpg、store telephone-otherphoto2.jpg)',
     manual3: '3. The folder naming should be the same as before and after compression, please revise the folder naming after then compress again if it is necessary to revise the compressed file name.'
   },
   trade: {

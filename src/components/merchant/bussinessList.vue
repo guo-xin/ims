@@ -4,6 +4,7 @@
       <h2 class="page-title">{{$t('shop.title')}}</h2>
       <div>
         <!-- <el-button size="large" type="primary" @click="createStore">{{$t('shop.create')}}</el-button> -->
+        <el-button style="margin-left:6px;" size="large" type="primary" @click="patchImport">{{$t('merchant.patchImport')}}</el-button>
       </div>
     </header>
     <el-form class="search-form" :model="formData" ref="shop_list_form">
@@ -23,6 +24,12 @@
         <el-input v-model="formData.sunmchntname"></el-input>
       </el-form-item>
 
+      <!-- <el-form-item :label="$t('merchant.table.stostatus')" prop="status">
+        <el-select v-model="formData.status">
+          <el-option :label="item.name" :value="item.val" v-for="item in statusList" :key="item.val"></el-option>
+        </el-select>
+      </el-form-item> -->
+
       <div class="buttons">
         <el-button type="primary" @click="fetchData('query')">{{$t('merchant.query')}}</el-button>
         <el-button @click="reset">{{$t('merchant.reset')}}</el-button>
@@ -30,17 +37,23 @@
     </el-form>
 
     <el-table :data="shops" stripe v-loading="isLoading" @current-change="selectCurrentRowHandler">
-      <el-table-column prop="submchnt_id" :label="$t('shop.table.submchntid')"></el-table-column>
-      <el-table-column prop="mchnt_name"  :label="$t('shop.table.mchntname')"></el-table-column>
-      <el-table-column width="170" prop="submchnt_name" :label="$t('shop.table.sunmchntname')"></el-table-column>
-      <el-table-column prop="address" :label="$t('shop.table.address')"></el-table-column>
-      <el-table-column prop="telephone" :label="$t('shop.table.telephone')"></el-table-column>
-      <el-table-column prop="operating" :label="$t('shop.table.operating')"></el-table-column>
-      <el-table-column prop="username" :label="$t('shop.table.account')"></el-table-column>
+      <el-table-column prop="submchnt_id" :label="$t('shop.table.submchntid')" min-width="100"></el-table-column>
+      <el-table-column prop="mchnt_name"  :label="$t('shop.table.mchntname')" min-width="100"></el-table-column>
+      <el-table-column width="170" prop="submchnt_name" :label="$t('shop.table.sunmchntname')" min-width="100"></el-table-column>
+      <el-table-column prop="address" :label="$t('shop.table.address')" min-width="100"></el-table-column>
+      <el-table-column prop="telephone" :label="$t('shop.table.telephone')" min-width="100"></el-table-column>
+      <el-table-column prop="operating" :label="$t('shop.table.operating')" min-width="80"></el-table-column>
+      <el-table-column prop="username" :label="$t('shop.table.account')" min-width="100"></el-table-column>
 
-      <el-table-column :label="$t('merchant.table.payment')" width="150">
+      <el-table-column :label="$t('merchant.table.payment')" min-width="100">
         <template slot-scope="scope">
           <el-button type="text" @click.stop="paymentConfigure(scope.row.submchnt_id)">{{ scope.row.deploy == 1 ? $t('merchant.payment.configured') : $t('merchant.payment.nonconfigured') }}</el-button>
+        </template>
+      </el-table-column>
+      
+      <el-table-column :label="$t('merchant.table.stostatus')" min-width="100">
+        <template slot-scope="scope">
+          {{ isSigned[scope.row.status] }}
         </template>
       </el-table-column>
     </el-table>
@@ -116,7 +129,8 @@
           mchntid: '',
           mchntname: '',
           submchntid: '',
-          sunmchntname: ''
+          sunmchntname: '',
+          // status: ''
         },
         shops: [],
         total: 0,
@@ -127,6 +141,20 @@
         formPayment: {
           list: []
         },
+        // statusList: [
+        //   {name: this.$t('common.enable'), val: 3},
+        //   {name: this.$t('common.disable'), val: 4},
+        //   {name: this.$t('common.refuse'), val: 0},
+        //   {name: this.$t('common.audit'), val: -1},
+        //   {name: this.$t('common.toSubmit'), val: 5},
+        // ],
+        isSigned: {
+          "3": this.$t('common.enable'),
+          "4": this.$t('common.disable'),
+          "-1": this.$t('common.audit'),
+          "0": this.$t('common.refuse'),
+          "5": this.$t('common.toSubmit'),
+        }
       }
     },
     created() {
@@ -147,6 +175,7 @@
           mchnt_uid: this.formData.mchntid,
           shopname: this.formData.mchntname,
           store_uid: this.formData.submchntid,
+          // status: this.formData.status,
           storename: this.formData.sunmchntname,
           page: this.currentPage > 0 ? (this.currentPage - 1) : this.currentPage,
           page_size: this.pageSize,
@@ -173,6 +202,11 @@
         this.$refs['shop_list_form'].resetFields();
         this.formData.mchntid = '';
         this.fetchData('query');
+      },
+
+      // 批量进件
+      patchImport() {
+        this.$router.push({path: 'shop_manage_list/shop_batch_import'})
       },
 
       // 选择列表项，进入详情页
@@ -307,7 +341,7 @@
         display: block;
       }
       .el-form-item {
-        width: 15%;
+        width: 16%;
         padding-left: 0;
         padding-right: $miderGap;
       }

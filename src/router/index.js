@@ -17,6 +17,7 @@ import forgetPassword from 'components/forgetPassword'
 import bussinessList from 'components/merchant/bussinessList'
 import merchantList from 'components/merchant/merchantList'
 import batchImport from 'components/merchant/batchImport'
+import shopBatchImport from 'components/merchant/shopBatchImport'
 import auditList from 'components/merchant/auditList'
 import mchntDetail from 'components/merchant/detail'
 import auditDetail from 'components/merchant/auditDetail'
@@ -93,6 +94,11 @@ export default new Router({
           path: 'mchnt_manage_list/batch_import',
           name: 'batchImport',
           component: batchImport
+        },
+        {
+          path: 'shop_manage_list/shop_batch_import',
+          name: 'shopBatchImport',
+          component: shopBatchImport
         },
         {
           path: 'mchnt_manage_list/mchnt_detail',
