@@ -32,7 +32,7 @@
         <el-input v-model.trim="storeModel.operating"></el-input>
       </el-form-item>
 
-      <el-form-item :label="$t('merchant.table.stostatus')" prop="status" v-if="!isAllow">
+      <el-form-item :label="$t('merchant.table.stostatus')" prop="status">
         <el-select v-model="storeModel.status" :disabled="!isUpdate">
          <el-option :label="item.name" :value="item.val" v-for="item in statusList" :key="item.val"></el-option>
         </el-select>
@@ -312,10 +312,10 @@
         paypointloading: false,
         otherphotoloading: false,
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`,
-        isAllow: false,
+
         statusList: [
-          {name: this.$t('common.enable'), val: 3},
-          {name: this.$t('common.disable'), val: 4},
+          {name: this.$t('common.enable'), val: 0},
+          {name: this.$t('common.disable'), val: 1}
         ],
          // 上传接口
         storeModel: {
@@ -332,7 +332,7 @@
           bankcode: '', // SWIFT码
           remit_amt: null, // 结算资金起点
           vouchers: [],
-          status: 3
+          status: 0
         },
         voucherInfo: {
           goodsphoto_url: '', // 经营场所内景照片url
@@ -455,7 +455,6 @@
                 remit_amt: da.userinfo.remit_amt, // 结算资金起点
                 status: da.userinfo.status
               });
-              this.isAllow = this.storeModel.status === 3 || this.storeModel.status === 4 ? false : true;
               this.list_Select = da.fee_ratios;
               da.vouchers.forEach((item) =>{
                 if(~'goodsphoto|shopphoto|paypoint|otherphoto|otherphoto1|otherphoto2'.indexOf(item.name)) {

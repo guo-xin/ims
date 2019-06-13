@@ -44,74 +44,78 @@
 
       <el-row>
         <el-col :span="10">
-          <span class="basic-label">{{$t('merchant.detail.basic.la7')}}</span>
-          <span class="basic-content">{{form.userinfo.contact}}</span>
+          <span class="basic-label">{{$t('audit.form.audit_state')}}:</span>
+          <span class="basic-content">{{status[form.userinfo.audit_status]}}</span>
         </el-col>
         <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la8')}}</span>
-          <span class="basic-content">{{form.userinfo.telephone}}</span>
+          <span class="basic-label">{{$t('merchant.detail.basic.la7')}}</span>
+          <span class="basic-content">{{form.userinfo.contact}}</span>
         </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la8')}}</span>
+          <span class="basic-content">{{form.userinfo.telephone}}</span>
+        </el-col>
+        <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la9')}}</span>
           <span v-if="form.userinfo.eep" class="basic-content">{{$t('merchant.newMerchant.doctype.type2')}}</span>
           <span v-else-if="form.userinfo.passport" class="basic-content">{{$t('merchant.newMerchant.doctype.type1')}}</span>
           <span v-else-if="form.userinfo.idnumber" class="basic-content">{{$t('merchant.newMerchant.doctype.type3')}}</span>
         </el-col>
-        <el-col :span="14">
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la10')}}</span>
           <span class="basic-content">{{form.number}}</span>
         </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
+        <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la5')}}</span>
           <span class="basic-content">{{form.userinfo.mcc_str}}</span>
         </el-col>
-        <el-col :span="14">
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la12')}}</span>
           <span class="basic-content">{{form.userinfo.address}}</span>
         </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
+        <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la13')}}</span>
           <span class="basic-content">{{form.userinfo.br}}</span>
         </el-col>
-        <el-col :span="14">
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la14')}}</span>
           <span class="basic-content">{{form.userinfo.br_expire_time}}</span>
         </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
+        <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la15')}}</span>
           <span class="basic-content">{{form.userinfo.ci}}</span>
         </el-col>
-        <el-col :span="14">
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
           <span class="basic-label">{{$t('merchant.detail.basic.la16')}}</span>
           <span class="basic-content">{{form.userinfo.businessaddr}}</span>
         </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
+        <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la22')}}</span>
           <span class="basic-content">{{form.userinfo.website}}</span>
         </el-col>
-        <el-col :span="14">
-          <span class="basic-label">{{$t('merchant.detail.basic.la23')}}</span>
-          <span class="basic-content">{{form.userinfo.legalperson}}</span>
-        </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="10">
+          <span class="basic-label">{{$t('merchant.detail.basic.la23')}}</span>
+          <span class="basic-content">{{form.userinfo.legalperson}}</span>
+        </el-col>
+        <el-col :span="14">
           <span class="basic-label">{{$t('merchant.detail.basic.la4')}}</span>
           <span class="basic-content">{{merchantType[form.userinfo.user_type]}}</span>
         </el-col>
@@ -285,26 +289,19 @@
           "2": this.$t('common.pub')
         },
         isSigned: {
-          "3": this.$t('common.enable'),
-          "4": this.$t('common.disable'),
-          "-1": this.$t('common.audit'),
-          "0": this.$t('common.refuse'),
-          "5": this.$t('common.toSubmit'),
+          "0": this.$t('common.enable'),
+          "1": this.$t('common.disable')
         },
-        statusList: [
-          {name: this.$t('common.enable'), val: 3},
-          {name: this.$t('common.disable'), val: 4},
-          {name: this.$t('common.refuse'), val: 0},
-          {name: this.$t('common.audit'), val: -1},
-        ],
         period: {
           month: this.$t('merchant.detail.p.m'),
           week: this.$t('merchant.detail.p.w'),
           date: this.$t('merchant.detail.p.d'),
         },
         status: {
-            0: this.$t('common.enable'),
-            1: this.$t('common.disable')
+          "-1": this.$t('common.audit'),
+          "0": this.$t('common.refuse'),
+          "3": this.$t('common.toSubmit'),
+          "1": this.$t('common.agree'),
          },
         auditresult: {
           '0': this.$t('audit.deny'),

@@ -32,7 +32,11 @@
           <el-option :label="item.name" :value="item.val" v-for="item in statusList" :key="item.val"></el-option>
         </el-select>
       </el-form-item>
-
+      <el-form-item :label="$t('audit.form.audit_state')" prop="states">
+        <el-select v-model="formData.states">
+          <el-option :label="item.name" :value="item.val" v-for="item in statesList" :key="item.val"></el-option>
+        </el-select>
+      </el-form-item>
       <div class="buttons">
         <el-button type="primary" @click="fetchData('query')">{{$t('merchant.query')}}</el-button>
         <el-button @click="reset">{{$t('merchant.reset')}}</el-button>
@@ -70,6 +74,11 @@
         </template>
       </el-table-column>
 
+      <el-table-column :label="$t('audit.form.audit_state')" min-width="100">
+        <template slot-scope="scope">
+          {{ list[scope.row.audit_status] }}
+        </template>
+      </el-table-column>
     </el-table>
 
     <el-pagination
@@ -98,24 +107,31 @@
           qd_uid2: '',
           qd_name: '',
           qd_name2: '',
-          status: ''
+          status: '',
+          states: ''
         },
         merchents: [],
         channels: [],
         channels2: [],
         statusList: [
-          {name: this.$t('common.enable'), val: 3},
-          {name: this.$t('common.disable'), val: 4},
+          {name: this.$t('common.enable'), val: 0},
+          {name: this.$t('common.disable'), val: 1}
+        ],
+        statesList: [
+          {name: this.$t('common.agree'), val: 1},
           {name: this.$t('common.refuse'), val: 0},
           {name: this.$t('common.audit'), val: -1},
-          {name: this.$t('common.toSubmit'), val: 5},
+          {name: this.$t('common.toSubmit'), val: 3}
         ],
-        isSigned: {
-          "3": this.$t('common.enable'),
-          "4": this.$t('common.disable'),
+        list: {
           "-1": this.$t('common.audit'),
           "0": this.$t('common.refuse'),
-          "5": this.$t('common.toSubmit'),
+          "3": this.$t('common.toSubmit'),
+          "1": this.$t('common.agree'),
+        },
+        isSigned: {
+          "0": this.$t('common.enable'),
+          "1": this.$t('common.disable')
         },
         cate: {
           "merchant": this.$t('merchant.detail.cate.merchant'),
@@ -195,6 +211,7 @@
           userid: this.formData.userid,
           qd_uid: this.formData.qd_uid,
           status: this.formData.status,
+          audit_status: this.formData.states,
           qd_name: '',
           page: this.currentPage > 0 ? (this.currentPage - 1) : this.currentPage,
           page_size: this.pageSize,

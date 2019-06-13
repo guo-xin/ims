@@ -46,6 +46,10 @@
           <span class="basic-label">{{$t('shop.detail.basic.la15')}}</span>
           <span class="basic-content">{{isSigned[form.userinfo.status]}}</span>
         </el-col>
+        <el-col :span="14">
+          <span class="basic-label">{{$t('audit.form.audit_state')}}:</span>
+          <span class="basic-content">{{status[form.userinfo.audit_status]}}</span>
+        </el-col>
       </el-row>
     </section>
 
@@ -155,11 +159,14 @@
         isEditable: false,
         isReEditable: false,
         isSigned: {
-          "3": this.$t('common.enable'),
-          "4": this.$t('common.disable'),
+          "0": this.$t('common.enable'),
+          "1": this.$t('common.disable')
+        },
+        status: {
           "-1": this.$t('common.audit'),
           "0": this.$t('common.refuse'),
-          "5": this.$t('common.toSubmit'),
+          "3": this.$t('common.toSubmit'),
+          "1": this.$t('common.agree'),
         },
         form: {
           userinfo: {
@@ -176,7 +183,8 @@
             website: '',
             remit_amt: '',
             is_edit: 0,
-            status: ''
+            status: '',
+            audit_status: ''
           },
           bankinfo: {},
           vouchers: [],

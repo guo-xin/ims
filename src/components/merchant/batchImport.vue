@@ -183,7 +183,14 @@
          cate: 'merchant',
          lang: this.lang,
         };
-        window.location.href = `${config.host}/org/mchnt/signup/download_batch_template?${qs.stringify(params)}`
+        let downUrl = `${config.host}/org/mchnt/signup/download_batch_template?${qs.stringify(params)}`;
+        let a = document.createElement('a');
+        a.setAttribute('download', 'true');
+        a.setAttribute('href', downUrl);
+        a.setAttribute('target', '_self');
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
       },
 
       clearZipPackage() {
@@ -221,7 +228,7 @@
           if(data.data.error_info.length > 0){
            this.error_info = data.data.error_info;
            this.errorVisible = true;
-          console.log("error",data.data.error_info);      
+          console.log("error",data.data.error_info);
           }else {
            if(tag === 'excel') {
               this.form.fileid = data.data.fileid;

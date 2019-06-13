@@ -32,9 +32,13 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item :label="$t('merchant.newMerchant.form.status')" prop="status" v-if="isUpdate&&isStatus">
-        <el-select v-model="formData.status">
+      <el-form-item :label="$t('merchant.newMerchant.form.status')" prop="status">
+        <el-select v-model="formData.status" :disabled="!isUpdate">
          <el-option :label="item.name" :value="item.val" v-for="item in statusList" :key="item.val"></el-option>
+        </el-select>
+      </el-form-item><el-form-item :label="$t('audit.form.audit_state')" prop="audit_status" v-if="isUpdate">
+        <el-select v-model="formData.audit_status" disabled>
+         <el-option :label="item.name" :value="item.val" v-for="item in statesList" :key="item.val"></el-option>
         </el-select>
       </el-form-item>
 
@@ -605,7 +609,6 @@
         ciphotoloading: false,
         bankcheckphotoloading: false,
         isUpdate: false,
-        isStatus: false,
         IsRemit: false,
         active: 0, // 当前步骤,
         uploadInterface: `${config.imgUpload}/util/v1/uploadfile`, // 上传接口
@@ -618,7 +621,8 @@
           shopname: '', // 商户名称
           mcc: '', // 商家类型
           user_type: '', // 商户类型 1:微小 2：个体商户 3:企业
-          status: '', // 商户状态
+          status: 0, // 商户状态
+          audit_status: '', // 审核状态
           address: '', // 公司地址
           contact: '', // 公司联系人
           legalperson: '', // 法人名称
@@ -680,8 +684,14 @@
           {value: 'date', name: this.$t('merchant.detail.p.d')},
         ],
         statusList: [
-          {name: this.$t('common.enable'), val: 3},
-          {name: this.$t('common.disable'), val: 4}
+          {name: this.$t('common.enable'), val: 0},
+          {name: this.$t('common.disable'), val: 1}
+        ],
+        statesList: [
+          {name: this.$t('common.agree'), val: 1},
+          {name: this.$t('common.refuse'), val: 0},
+          {name: this.$t('common.audit'), val: -1},
+          {name: this.$t('common.toSubmit'), val: 3}
         ],
         voucherInfo: {
           idcardfront_url: '',
@@ -1083,6 +1093,7 @@
               let bankinfo = data.data.bankinfo
 
               this.formData.status = uinfo.status
+              this.formData.audit_status = uinfo.audit_status
               this.formData.sls_uid = qdinfo.sls_uid
               this.formData.vouchers = vouchers
               this.formData.businessaddr = uinfo.businessaddr
@@ -1110,8 +1121,6 @@
               this.formData.remit_amt = uinfo.remit_amt
               this.formData.user_type = uinfo.user_type + ''
               // this.radioList = fee
-
-              this.isStatus = this.formData.status == 3 || this.formData.status == 4
 
               if(uinfo.passport) {
                 this.formData.documentType = "passport"

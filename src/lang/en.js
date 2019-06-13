@@ -292,10 +292,6 @@ const en = {
       merchChildID1: 'Sub-Merchant No.',
     },
     detail: {
-      up: 'Activate',
-      down: 'Deactivate',
-      refuse: 'Reject',
-      audit: 'Under Approval',
       redit: 'Continue To Edit',
       createShop: 'Create Store',
       cate: {
@@ -473,7 +469,6 @@ const en = {
         CIvality: 'CI Validity',
         applicationType: 'Application Types',
         accessType: 'Online/Offline in store',
-        ratio: 'MDR',
         acquirer: 'acquirer',
         direct: 'direct',
         offline: 'offline',

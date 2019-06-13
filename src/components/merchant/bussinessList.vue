@@ -3,7 +3,7 @@
     <header class="page-header">
       <h2 class="page-title">{{$t('shop.title')}}</h2>
       <div>
-        <!-- <el-button size="large" type="primary" @click="createStore">{{$t('shop.create')}}</el-button> -->
+         <!--<el-button size="large" type="primary" @click="createStore">{{$t('shop.create')}}</el-button>-->
         <el-button style="margin-left:6px;" size="large" type="primary" @click="patchImport">{{$t('merchant.patchImport')}}</el-button>
       </div>
     </header>
@@ -24,11 +24,16 @@
         <el-input v-model="formData.sunmchntname"></el-input>
       </el-form-item>
 
-      <!-- <el-form-item :label="$t('merchant.table.stostatus')" prop="status">
+       <el-form-item :label="$t('merchant.table.stostatus')" prop="status">
         <el-select v-model="formData.status">
           <el-option :label="item.name" :value="item.val" v-for="item in statusList" :key="item.val"></el-option>
         </el-select>
-      </el-form-item> -->
+      </el-form-item>
+      <el-form-item :label="$t('audit.form.audit_state')" prop="audit_status">
+        <el-select v-model="formData.audit_status">
+          <el-option :label="item.name" :value="item.val" v-for="item in statesList" :key="item.val"></el-option>
+        </el-select>
+      </el-form-item>
 
       <div class="buttons">
         <el-button type="primary" @click="fetchData('query')">{{$t('merchant.query')}}</el-button>
@@ -42,18 +47,23 @@
       <el-table-column width="170" prop="submchnt_name" :label="$t('shop.table.sunmchntname')" min-width="100"></el-table-column>
       <el-table-column prop="address" :label="$t('shop.table.address')" min-width="100"></el-table-column>
       <el-table-column prop="telephone" :label="$t('shop.table.telephone')" min-width="100"></el-table-column>
-      <el-table-column prop="operating" :label="$t('shop.table.operating')" min-width="80"></el-table-column>
+      <el-table-column prop="operating" :label="$t('shop.table.operating')" min-width="100"></el-table-column>
       <el-table-column prop="username" :label="$t('shop.table.account')" min-width="100"></el-table-column>
 
-      <el-table-column :label="$t('merchant.table.payment')" min-width="100">
+      <el-table-column :label="$t('merchant.table.payment')" min-width="120">
         <template slot-scope="scope">
           <el-button type="text" @click.stop="paymentConfigure(scope.row.submchnt_id)">{{ scope.row.deploy == 1 ? $t('merchant.payment.configured') : $t('merchant.payment.nonconfigured') }}</el-button>
         </template>
       </el-table-column>
-      
+
       <el-table-column :label="$t('merchant.table.stostatus')" min-width="100">
         <template slot-scope="scope">
           {{ isSigned[scope.row.status] }}
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('audit.form.audit_state')" min-width="100">
+        <template slot-scope="scope">
+          {{ list[scope.row.audit_status] }}
         </template>
       </el-table-column>
     </el-table>
@@ -130,7 +140,8 @@
           mchntname: '',
           submchntid: '',
           sunmchntname: '',
-          // status: ''
+          status: '',
+          audit_status: ''
         },
         shops: [],
         total: 0,
@@ -141,20 +152,26 @@
         formPayment: {
           list: []
         },
-        // statusList: [
-        //   {name: this.$t('common.enable'), val: 3},
-        //   {name: this.$t('common.disable'), val: 4},
-        //   {name: this.$t('common.refuse'), val: 0},
-        //   {name: this.$t('common.audit'), val: -1},
-        //   {name: this.$t('common.toSubmit'), val: 5},
-        // ],
-        isSigned: {
-          "3": this.$t('common.enable'),
-          "4": this.$t('common.disable'),
+        statusList: [
+          {name: this.$t('common.enable'), val: 0},
+          {name: this.$t('common.disable'), val: 1}
+        ],
+        statesList: [
+          {name: this.$t('common.agree'), val: 1},
+          {name: this.$t('common.refuse'), val: 0},
+          {name: this.$t('common.audit'), val: -1},
+          {name: this.$t('common.toSubmit'), val: 3}
+        ],
+        list: {
           "-1": this.$t('common.audit'),
           "0": this.$t('common.refuse'),
-          "5": this.$t('common.toSubmit'),
-        }
+          "3": this.$t('common.toSubmit'),
+          "1": this.$t('common.agree'),
+        },
+        isSigned: {
+          "0": this.$t('common.enable'),
+          "1": this.$t('common.disable')
+        },
       }
     },
     created() {
@@ -175,12 +192,13 @@
           mchnt_uid: this.formData.mchntid,
           shopname: this.formData.mchntname,
           store_uid: this.formData.submchntid,
-          // status: this.formData.status,
+          status: this.formData.status,
+          audit_status: this.formData.audit_status,
           storename: this.formData.sunmchntname,
           page: this.currentPage > 0 ? (this.currentPage - 1) : this.currentPage,
           page_size: this.pageSize,
           format: 'cors'
-        }
+        };
         this.isLoading = true;
         axios.get(`${config.host}/org/mchnt/sub/list`, {
           params: p})
