@@ -42,6 +42,12 @@
         </el-select>
       </el-form-item>
 
+      <el-form-item :label="$t('merchant.table.stostatus')" prop="states" v-if="!isUpdate">
+        <el-select v-model="formData.states" disabled>
+          <el-option :label="item.name" :value="item.val" v-for="item in statusList" :key="item.val"></el-option>
+        </el-select>
+      </el-form-item>
+
       <el-form-item :label="$t('merchant.newMerchant.form.contact')" prop="slsm_name" v-if="isUpdate">
           <el-input id="op_type" v-model="formData.slsm_name"
                 :placeholder="$t('merchant.newMerchant.rule43')"
@@ -622,6 +628,7 @@
           mcc: '', // 商家类型
           user_type: '', // 商户类型 1:微小 2：个体商户 3:企业
           status: 0, // 商户状态
+          states: 0, // 店铺状态
           audit_status: '', // 审核状态
           address: '', // 公司地址
           contact: '', // 公司联系人

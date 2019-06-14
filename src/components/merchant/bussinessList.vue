@@ -26,11 +26,13 @@
 
        <el-form-item :label="$t('merchant.table.stostatus')" prop="status">
         <el-select v-model="formData.status">
+          <el-option :label="$t('common.all')" value=""></el-option>
           <el-option :label="item.name" :value="item.val" v-for="item in statusList" :key="item.val"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item :label="$t('audit.form.audit_state')" prop="audit_status">
         <el-select v-model="formData.audit_status">
+          <el-option :label="$t('common.all')" value=""></el-option>
           <el-option :label="item.name" :value="item.val" v-for="item in statesList" :key="item.val"></el-option>
         </el-select>
       </el-form-item>
